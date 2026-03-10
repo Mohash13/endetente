@@ -4,36 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>En Détente — Sérénité Naturelle</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#0C0C0E;--ink2:#1C1C1E;--ink3:#2C2C2E;
   --silver:#8A8A8E;--smoke:#E8E8ED;--cloud:#F2F2F7;
   --pearl:#F8F8FA;--white:#FFFFFF;
-  --border:rgba(0,0,0,.08);--bw:rgba(255,255,255,.1);
+  --border:rgba(0,0,0,.08);
 }
 html{scroll-behavior:smooth}
-body{background:var(--pearl);color:var(--ink);font-family:'Inter',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--pearl);color:var(--ink);font-family:'Outfit',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--cloud)}
+::-webkit-scrollbar-thumb{background:var(--smoke);border-radius:3px}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:300;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(12,12,14,.94);backdrop-filter:saturate(180%) blur(24px);border-bottom:1px solid rgba(255,255,255,.07)}
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(12,12,14,.95);backdrop-filter:saturate(180%) blur(24px);border-bottom:1px solid rgba(255,255,255,.07)}
 .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 .nav-logo-img{height:28px;width:auto;filter:invert(1);object-fit:contain}
-.nav-wordmark{font-family:'Playfair Display',serif;font-size:.88rem;font-style:italic;color:var(--white);letter-spacing:.06em}
+.nav-wordmark{font-family:'Playfair Display',serif;font-size:.9rem;font-style:italic;color:var(--white);letter-spacing:.06em}
 .nav-links{display:flex;gap:0;list-style:none}
-.nav-links a{font-size:.72rem;color:rgba(255,255,255,.6);text-decoration:none;letter-spacing:.04em;padding:0 16px;line-height:58px;transition:color .2s;white-space:nowrap}
+.nav-links a{font-size:.75rem;color:rgba(255,255,255,.6);text-decoration:none;letter-spacing:.04em;padding:0 16px;line-height:58px;transition:color .2s;white-space:nowrap;font-weight:400}
 .nav-links a:hover{color:var(--white)}
 .nav-right{display:flex;align-items:center;gap:14px}
-.nav-flag-img{height:18px;width:auto;border-radius:3px;opacity:.65;object-fit:contain}
-.nav-cta{background:var(--white);color:var(--ink);border:none;padding:9px 22px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.74rem;font-weight:500;letter-spacing:.04em;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap}
+.nav-flag-img{height:17px;width:auto;border-radius:3px;opacity:.6;object-fit:contain}
+.nav-cta{background:var(--white);color:var(--ink);border:none;padding:9px 22px;border-radius:980px;font-family:'Outfit',sans-serif;font-size:.76rem;font-weight:500;letter-spacing:.04em;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap}
 .nav-cta:hover{background:#ddd;transform:scale(1.02)}
 
 /* HERO */
 .hero{min-height:100vh;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 48px 100px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 50% 110%,rgba(255,255,255,.035) 0%,transparent 70%),radial-gradient(ellipse 50% 35% at 15% 8%,rgba(255,255,255,.018) 0%,transparent 60%);pointer-events:none}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 50% 110%,rgba(255,255,255,.03) 0%,transparent 70%),radial-gradient(ellipse 50% 35% at 15% 8%,rgba(255,255,255,.015) 0%,transparent 60%);pointer-events:none}
 .hero-lines{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.hero-lines::before,.hero-lines::after{content:'';position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.035) 30%,rgba(255,255,255,.05) 50%,rgba(255,255,255,.035) 70%,transparent)}
+.hero-lines::before,.hero-lines::after{content:'';position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.03) 30%,rgba(255,255,255,.05) 50%,rgba(255,255,255,.03) 70%,transparent)}
 .hero-lines::before{left:28%}.hero-lines::after{right:28%}
 .hero-logo-wrap{margin-bottom:44px;animation:zin .9s cubic-bezier(.16,1,.3,1) both}
 .hero-logo-img{height:80px;width:auto;filter:invert(1);opacity:.9;object-fit:contain}
@@ -43,9 +46,9 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(4.5rem,11vw,9rem);font-w
 h1 em{font-style:italic;color:rgba(255,255,255,.55);display:block}
 .hero-sub{max-width:520px;margin:28px auto 0;font-size:1rem;color:rgba(255,255,255,.35);line-height:1.85;font-weight:300;animation:up .9s .38s cubic-bezier(.16,1,.3,1) both}
 .hero-btns{display:flex;gap:12px;justify-content:center;margin-top:52px;flex-wrap:wrap;animation:up .9s .5s cubic-bezier(.16,1,.3,1) both}
-.btn-primary{background:var(--white);color:var(--ink);border:none;padding:15px 38px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;letter-spacing:.03em;transition:background .2s,transform .15s}
+.btn-primary{background:var(--white);color:var(--ink);border:none;padding:15px 38px;border-radius:980px;font-family:'Outfit',sans-serif;font-size:.86rem;font-weight:500;cursor:pointer;letter-spacing:.03em;transition:background .2s,transform .15s}
 .btn-primary:hover{background:#e4e4e4;transform:scale(1.01)}
-.btn-ghost{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.18);padding:15px 38px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:300;cursor:pointer;letter-spacing:.03em;transition:border-color .2s,color .2s}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.18);padding:15px 38px;border-radius:980px;font-family:'Outfit',sans-serif;font-size:.86rem;font-weight:300;cursor:pointer;letter-spacing:.03em;transition:border-color .2s,color .2s}
 .btn-ghost:hover{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.9)}
 .hero-badges{display:flex;gap:12px;justify-content:center;margin-top:38px;flex-wrap:wrap;animation:up .9s .62s cubic-bezier(.16,1,.3,1) both}
 .hero-badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:980px;padding:8px 18px;font-size:.68rem;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase}
@@ -112,6 +115,15 @@ h1 em{font-style:italic;color:rgba(255,255,255,.55);display:block}
 .mif-card h4{font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;font-weight:400}
 .mif-card p{font-size:.8rem;color:rgba(255,255,255,.28);line-height:1.78}
 
+/* PRESS */
+.press-sec{background:var(--pearl);padding:72px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.press-lbl{font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--silver);text-align:center;margin-bottom:44px}
+.press-logos{display:flex;justify-content:center;flex-wrap:wrap}
+.press-logo{flex:1;min-width:160px;max-width:220px;text-align:center;padding:28px 32px;border-right:1px solid var(--border);font-family:'Playfair Display',serif;font-size:.92rem;color:var(--smoke);font-style:italic;transition:color .2s;cursor:default}
+.press-logo:last-child{border-right:none}
+.press-logo:hover{color:var(--silver)}
+.press-logo span{display:block;font-family:'Outfit',sans-serif;font-style:normal;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;margin-top:5px;color:var(--smoke)}
+
 /* TRUST BAR */
 .trust-bar{background:var(--smoke);padding:40px 48px;display:flex;align-items:center;justify-content:center;gap:44px;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .ti{display:flex;align-items:center;gap:9px;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--silver)}
@@ -150,7 +162,7 @@ h1 em{font-style:italic;color:rgba(255,255,255,.55);display:block}
 .pro-ul{list-style:none;margin:26px 0 38px;display:flex;flex-direction:column;gap:14px}
 .pro-ul li{display:flex;gap:12px;align-items:flex-start;font-size:.83rem;color:rgba(255,255,255,.52);line-height:1.65}
 .pck{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.07);display:grid;place-items:center;color:var(--white);flex-shrink:0;margin-top:1px}
-.pro-btn{background:var(--white);color:var(--ink);border:none;padding:14px 32px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;letter-spacing:.03em;transition:background .2s}
+.pro-btn{background:var(--white);color:var(--ink);border:none;padding:14px 32px;border-radius:980px;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;letter-spacing:.03em;transition:background .2s}
 .pro-btn:hover{background:#e0e0e0}
 .pro-cards{display:flex;flex-direction:column;gap:12px}
 .pc{background:rgba(255,255,255,.038);border:1px solid rgba(255,255,255,.065);border-radius:14px;padding:22px;display:flex;align-items:center;gap:16px;transition:background .2s,border-color .2s;cursor:pointer}
@@ -167,14 +179,14 @@ h1 em{font-style:italic;color:rgba(255,255,255,.55);display:block}
 .pre-sec>p{font-size:.88rem;color:var(--silver);max-width:440px;margin:14px auto 52px;line-height:1.82}
 .order-card{background:var(--white);border-radius:24px;padding:52px 48px;max-width:490px;margin:0 auto;box-shadow:0 4px 60px rgba(0,0,0,.065),0 1px 3px rgba(0,0,0,.04)}
 .order-price{font-family:'Playfair Display',serif;font-size:4rem;letter-spacing:-.04em;line-height:1}
-.order-price span{font-size:1.5rem;color:var(--silver);font-family:'Inter',sans-serif;font-weight:300}
+.order-price span{font-size:1.5rem;color:var(--silver);font-family:'Outfit',sans-serif;font-weight:300}
 .order-note{font-size:.67rem;color:var(--silver);letter-spacing:.09em;text-transform:uppercase;margin-top:6px;margin-bottom:30px}
 .oform{display:flex;flex-direction:column;gap:10px}
 .orow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ofield{width:100%;background:var(--cloud);border:1.5px solid transparent;border-radius:10px;padding:13px 15px;font-family:'Inter',sans-serif;font-size:.82rem;color:var(--ink);font-weight:300;outline:none;transition:border-color .2s,background .2s}
+.ofield{width:100%;background:var(--cloud);border:1.5px solid transparent;border-radius:10px;padding:13px 15px;font-family:'Outfit',sans-serif;font-size:.82rem;color:var(--ink);font-weight:300;outline:none;transition:border-color .2s,background .2s}
 .ofield:focus{border-color:var(--ink);background:var(--white)}
 .ofield::placeholder{color:#AEAEB2}
-.osubmit{width:100%;background:var(--ink);color:var(--white);border:none;padding:15px;border-radius:10px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:background .2s;margin-top:4px}
+.osubmit{width:100%;background:var(--ink);color:var(--white);border:none;padding:15px;border-radius:10px;font-family:'Outfit',sans-serif;font-size:.84rem;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:background .2s;margin-top:4px}
 .osubmit:hover{background:var(--ink2)}
 .otrust{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:18px}
 .tp{display:flex;align-items:center;gap:6px;font-size:.67rem;color:var(--silver);letter-spacing:.07em}
@@ -208,35 +220,14 @@ footer{background:var(--ink);padding:64px 48px 44px}
 .modal>p{font-size:.8rem;color:var(--silver);margin-bottom:30px;line-height:1.75}
 .mform{display:flex;flex-direction:column;gap:10px}
 .mrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mfield{width:100%;background:var(--cloud);border:1.5px solid transparent;border-radius:10px;padding:13px 15px;font-family:'Inter',sans-serif;font-size:.82rem;color:var(--ink);font-weight:300;outline:none;transition:border-color .2s,background .2s}
+.mfield{width:100%;background:var(--cloud);border:1.5px solid transparent;border-radius:10px;padding:13px 15px;font-family:'Outfit',sans-serif;font-size:.82rem;color:var(--ink);font-weight:300;outline:none;transition:border-color .2s,background .2s}
 .mfield:focus{border-color:var(--ink);background:var(--white)}
 .mfield::placeholder{color:#AEAEB2}
 textarea.mfield{resize:vertical;min-height:96px}
-.msubmit{width:100%;background:var(--ink);color:var(--white);border:none;padding:14px;border-radius:10px;font-family:'Inter',sans-serif;font-size:.83rem;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:background .2s}
+.msubmit{width:100%;background:var(--ink);color:var(--white);border:none;padding:14px;border-radius:10px;font-family:'Outfit',sans-serif;font-size:.83rem;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:background .2s}
 .msubmit:hover{background:var(--ink2)}
 
-/* SUP CONTACT CTA */
-.sup-contact-cta{max-width:660px;margin:0 auto 56px;text-align:center;padding:36px;background:var(--ink);border-radius:20px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.sup-contact-cta p{font-size:.9rem;color:rgba(255,255,255,.6);font-weight:300;flex:1;text-align:left}
-.sup-contact-cta .pro-btn{background:var(--white);color:var(--ink);border:none;padding:13px 28px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .2s}
-.sup-contact-cta .pro-btn:hover{background:#e8e8e8}
-@media(max-width:600px){.sup-contact-cta{flex-direction:column;text-align:center}.sup-contact-cta p{text-align:center}}
-
-/* TEAM */
-.team-sec{background:var(--cloud);padding:120px 48px}
-.team-inner{text-align:center;margin-bottom:64px}
-.team-sub{font-size:.9rem;color:var(--silver);max-width:480px;margin:14px auto 0;line-height:1.8}
-.team-grid{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;max-width:1000px;margin:0 auto}
-.team-card{background:var(--white);border-radius:18px;padding:32px 28px;display:flex;align-items:center;gap:18px;min-width:280px;flex:1;max-width:320px;transition:transform .2s,box-shadow .2s}
-.team-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
-.team-avatar{width:52px;height:52px;border-radius:14px;background:var(--ink);color:var(--white);display:grid;place-items:center;font-size:.82rem;font-weight:500;letter-spacing:.05em;flex-shrink:0;font-family:'Inter',sans-serif}
-.team-info h4{font-size:.9rem;font-weight:500;color:var(--ink);margin-bottom:5px;letter-spacing:.01em}
-.team-info p{font-size:.76rem;color:var(--silver);line-height:1.5}
-
-/* RESPONSIVE TEAM */
-@media(max-width:960px){.team-sec{padding:80px 24px}.team-grid{flex-direction:column;align-items:center}.team-card{max-width:100%;width:100%}}
-
-
+/* TOAST */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(72px);background:var(--ink);color:var(--white);padding:13px 26px;border-radius:980px;font-size:.77rem;letter-spacing:.05em;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.28);transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s;opacity:0;z-index:400}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
@@ -257,6 +248,8 @@ textarea.mfield{resize:vertical;min-height:96px}
   .trust-bar{gap:24px;padding:32px 20px}
   .ft-top{flex-direction:column}
   .modal{padding:38px 22px}
+  .press-logos{flex-direction:column;align-items:center}
+  .press-logo{border-right:none;border-bottom:1px solid var(--border);width:100%;max-width:100%}
 }
 @media(max-width:600px){
   h1{font-size:3.8rem}
@@ -271,14 +264,13 @@ textarea.mfield{resize:vertical;min-height:96px}
 <nav>
   <a class="nav-brand" href="#">
     <img class="nav-logo-img" src="__logo_endetente.png" alt="En Détente"
-      onerror="this.style.display='none';document.getElementById('nav-fallback').style.display='block'">
-    <span class="nav-wordmark" id="nav-fallback" style="display:none">En Détente</span>
+      onerror="this.style.display='none';document.getElementById('nav-wm').style.display='block'">
+    <span class="nav-wordmark" id="nav-wm" style="display:none">En Détente</span>
   </a>
   <ul class="nav-links">
     <li><a href="#produit">Produit</a></li>
     <li><a href="#made-france">Made in France</a></li>
     <li><a href="#service">Service</a></li>
-    <li><a href="#equipe">Équipe</a></li>
     <li><a href="#compagnies">Compagnies</a></li>
     <li><a href="#precommande">Prix</a></li>
   </ul>
@@ -299,18 +291,14 @@ textarea.mfield{resize:vertical;min-height:96px}
       <path d="M36 39v28" stroke="rgba(255,255,255,.8)" stroke-width="2" stroke-linecap="round"/>
       <path d="M28 59c0 0 4-7 8-4s9-1 9-8" stroke="rgba(255,255,255,.55)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
       <circle cx="35" cy="67" r="2.8" fill="rgba(255,255,255,.8)"/>
-      <text x="36" y="82" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.5" fill="rgba(255,255,255,.28)" letter-spacing="3">SÉRÉNITÉ NATURELLE</text>
     </svg>
   </div>
-
   <h1>En<br><em>Détente.</em></h1>
   <p class="hero-sub">Le premier casque à dépressurisation active. Conçu pour éliminer les douleurs auriculaires en avion — décollage, atterrissage, en toute sérénité.</p>
-
   <div class="hero-btns">
     <button class="btn-primary" onclick="ss('precommande')">Pré-commander — 149,99 €</button>
     <button class="btn-ghost" onclick="ss('produit')">Découvrir le produit</button>
   </div>
-
   <div class="hero-badges">
     <div class="hero-badge">
       <img class="hero-badge-flag" src="__drapeaufranceeurope.png" alt="" onerror="this.style.display='none'">
@@ -325,7 +313,6 @@ textarea.mfield{resize:vertical;min-height:96px}
       Certifié CE
     </div>
   </div>
-
   <div class="hero-scroll">
     <div class="hs-line"></div>
     <div class="hs-lbl">Défiler</div>
@@ -367,6 +354,7 @@ textarea.mfield{resize:vertical;min-height:96px}
         <div class="pchip">Micro-pompe</div>
         <div class="pchip">USB-C</div>
         <div class="pchip">Régulation active</div>
+        <div class="pchip">Made in France 🇫🇷</div>
       </div>
       <p class="product-detail">Système embarqué de régulation de pression.<br>Silence. Légèreté. Efficacité.</p>
     </div>
@@ -427,7 +415,7 @@ textarea.mfield{resize:vertical;min-height:96px}
 <section class="mif" id="made-france">
   <div class="mif-inner">
     <div class="mif-flag-wrap rev">
-      <img class="mif-flag-img" src="__drapeaufranceeurope.png" alt="France &amp; Europe" onerror="this.style.display='none'">
+      <img class="mif-flag-img" src="__drapeaufranceeurope.png" alt="France &amp; Europe" onerror="this.style.display:'none'">
     </div>
     <h2 class="mif-title rev"><em>Made in France.</em></h2>
     <p class="mif-desc rev">De la conception à l'assemblage final, En Détente est intégralement produit en France. Nos composants sont sélectionnés auprès de partenaires européens pour garantir qualité, traçabilité et souveraineté industrielle.</p>
@@ -451,6 +439,18 @@ textarea.mfield{resize:vertical;min-height:96px}
   </div>
 </section>
 
+<!-- PRESS -->
+<div class="press-sec">
+  <div class="press-lbl">Ils en parlent</div>
+  <div class="press-logos">
+    <div class="press-logo">Le Monde<span>Innovation &amp; Tech</span></div>
+    <div class="press-logo">Les Échos<span>Startup &amp; Mobilité</span></div>
+    <div class="press-logo">L'Usine Nouvelle<span>Made in France</span></div>
+    <div class="press-logo">Capital<span>Voyage &amp; Confort</span></div>
+    <div class="press-logo">Forbes France<span>Santé &amp; Tech</span></div>
+  </div>
+</div>
+
 <!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="ti"><img class="ti-flag" src="__drapeaufranceeurope.png" alt="" onerror="this.style.display='none'"><span>Made in France</span></div>
@@ -473,7 +473,7 @@ textarea.mfield{resize:vertical;min-height:96px}
       <div>
         <h3>Chat &amp; Email</h3>
         <p>Disponible lundi–vendredi, 9h–19h. Réponse garantie sous 24h ouvrées.</p>
-        <a class="sup-link" href="/cdn-cgi/l/email-protection#8ae9e5e4feebe9fecaefe4eeeffeefe4feefa4ecf8"><span class="__cf_email__" data-cfemail="bdded2d3c9dcdec9fdd8d3d9d8c9d8d3c9d893dbcf">[email&#160;protected]</span> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+        <a class="sup-link" href="mailto:contact@endetente.fr">contact@endetente.fr <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
     <div class="sup-card rev d1">
@@ -501,11 +501,6 @@ textarea.mfield{resize:vertical;min-height:96px}
       </div>
     </div>
   </div>
-  <div class="sup-contact-cta rev">
-    <p>Vous êtes une compagnie aérienne ou un distributeur ?</p>
-    <button class="pro-btn" onclick="openModal()">Contacter l'équipe pro →</button>
-  </div>
-
   <div class="faq-wrap rev">
     <h3>Questions fréquentes</h3>
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Le casque est-il autorisé en cabine ? <svg class="fq-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Oui. En Détente respecte les normes IATA relatives aux batteries lithium intégrées (UN 3481). Il peut être utilisé en cabine sans restriction.</div></div>
@@ -513,52 +508,6 @@ textarea.mfield{resize:vertical;min-height:96px}
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Quand sera livré mon casque ? <svg class="fq-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">La pré-commande vous réserve un casque de la phase pilote. La livraison est estimée courant 2026, après validation technique et sécuritaire complète.</div></div>
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Convient-il aux enfants ? <svg class="fq-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Les enfants sont les plus touchés par les douleurs auriculaires liées aux changements de pression (environ 22 % selon les études). La version actuelle est conçue pour les adultes et les enfants.</div></div>
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Pourquoi Made in France ? <svg class="fq-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Fabriquer en France, c'est garantir la qualité à chaque étape, soutenir l'emploi local, et s'appuyer sur des partenaires européens de confiance — de la puce électronique à l'emballage.</div></div>
-  </div>
-</section>
-
-<!-- EQUIPE -->
-<section class="team-sec" id="equipe">
-  <div class="team-inner rev">
-    <span class="sec-lbl lt" style="margin-bottom:14px">L'équipe</span>
-    <h2 class="sh2">Les ingénieurs<br>derrière <em>En Détente.</em></h2>
-    <p class="team-sub">Une équipe de cinq ingénieurs aux compétences complémentaires, unis par une même ambition.</p>
-  </div>
-  <div class="team-grid">
-    <div class="team-card rev">
-      <div class="team-avatar">SM</div>
-      <div class="team-info">
-        <h4>SHIMI Mohammed</h4>
-        <p>Ingénieur en systèmes embarqués</p>
-      </div>
-    </div>
-    <div class="team-card rev d1">
-      <div class="team-avatar">BB</div>
-      <div class="team-info">
-        <h4>BOUCHAMA Bilel</h4>
-        <p>Ingénieur mécanique</p>
-      </div>
-    </div>
-    <div class="team-card rev d2">
-      <div class="team-avatar">ST</div>
-      <div class="team-info">
-        <h4>SAPAN Teoman</h4>
-        <p>Ingénieur en génie électrique</p>
-      </div>
-    </div>
-    <div class="team-card rev">
-      <div class="team-avatar">BS</div>
-      <div class="team-info">
-        <h4>BAJJOU Saber</h4>
-        <p>Ingénieur en génie électrique</p>
-      </div>
-    </div>
-    <div class="team-card rev d1">
-      <div class="team-avatar">SS</div>
-      <div class="team-info">
-        <h4>SARR Sherif</h4>
-        <p>Ingénieur en génie électrique</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -571,8 +520,11 @@ textarea.mfield{resize:vertical;min-height:96px}
       <p>En Détente n'est pas seulement un produit grand public. C'est une solution que les compagnies aériennes peuvent intégrer directement dans leur offre passager premium.</p>
       <p>Nous cherchons des partenaires stratégiques pour déployer En Détente à bord, en classe affaires ou comme accessoire de confort sur les vols long-courriers.</p>
       <ul class="pro-ul">
-        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Vente à bord — mise à disposition par les compagnies aériennes</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Intégration dans les kits de confort premium (business &amp; first class)</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Vente à bord — nouvelle ligne de revenus ancillaires</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Co-branding et personnalisation aux couleurs de la compagnie</li>
         <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Distribution en boutiques duty-free et zones d'embarquement</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Programme pilote avec retours terrain et itérations produit</li>
       </ul>
       <button class="pro-btn" onclick="openModal()">Contacter l'équipe pro</button>
     </div>
@@ -614,7 +566,7 @@ textarea.mfield{resize:vertical;min-height:96px}
     <div>
       <img class="ft-logo-img" src="__logo_endetente.png" alt="En Détente" onerror="this.style.display='none'">
       <div class="ft-wm">En Détente</div>
-      <div class="ft-tag">Sérénité Naturelle</div>
+      <div class="ft-tag">Sérénité Naturelle · Made in France</div>
       <div class="ft-flags">
         <img class="ft-flag-img" src="__drapeaufranceeurope.png" alt="France &amp; Europe" onerror="this.style.display='none'">
       </div>
@@ -633,7 +585,7 @@ textarea.mfield{resize:vertical;min-height:96px}
         <a href="#">Centre d'aide</a>
         <a href="#">Garantie</a>
         <a href="#">Livraison</a>
-        <a href="/cdn-cgi/l/email-protection#04676b6a7065677044616a606170616a70612a6276">Contact</a>
+        <a href="mailto:contact@endetente.fr">Contact</a>
       </div>
       <div class="ft-col">
         <h4>Professionnel</h4>
@@ -672,7 +624,7 @@ textarea.mfield{resize:vertical;min-height:96px}
 
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 document.querySelectorAll('.rev').forEach(el=>{
   new IntersectionObserver(([e])=>{if(e.isIntersecting)el.classList.add('v')},{threshold:.1}).observe(el);
 });
@@ -695,4 +647,10 @@ function doOrder(){
   const p=document.getElementById('op').value.trim();
   const n=document.getElementById('on').value.trim();
   const e=document.getElementById('oe').value.trim();
-  if(!p||!n||!e||!e.includes('@')){document.getElemen
+  if(!p||!n||!e||!e.includes('@')){document.getElementById('oe').style.borderColor='#ff3b30';setTimeout(()=>document.getElementById('oe').style.borderColor='',1800);return}
+  showToast('✓ Réservation confirmée — vérifiez votre email.');
+  ['op','on','oe'].forEach(id=>document.getElementById(id).value='');
+}
+</script>
+</body>
+</html>
