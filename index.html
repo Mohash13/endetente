@@ -14,7 +14,7 @@
   --ink-mid:    #52525B;
   --ink-soft:   #A1A1AA;
   --border:     #E4E4E7;
-  --warm:       #FAFAF8;       /* premium warm white */
+  --warm:       #FAFAF8;
   --warm-deep:  #F2F2EF;
   --white:      #FFFFFF;
   --blue-fr:    #002395;
@@ -189,7 +189,7 @@ h1 em { font-style: italic; color: rgba(255,255,255,.65); }
 .mif-badge .dot-fr { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-fr) 33%, white 33% 66%, var(--red-fr) 66%); flex-shrink: 0; }
 .mif-badge .dot-eu { width: 10px; height: 10px; border-radius: 50%; background: var(--eu-blue); flex-shrink: 0; }
 
-/* Europe supply chain strip */
+/* Supply strip */
 .supply-strip {
   background: var(--ink); padding: 20px 48px;
   display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap;
@@ -297,6 +297,31 @@ h1 em { font-style: italic; color: rgba(255,255,255,.65); }
 .sc-card h4 { font-size: .88rem; font-weight: 500; margin-bottom: 4px; color: var(--black); }
 .sc-card p { font-size: .78rem; color: var(--ink-mid); line-height: 1.6; }
 
+/* ─── TEAM ─── */
+.team-sec {
+  background: var(--warm); padding: 100px 48px;
+  border-top: 1px solid var(--border);
+}
+.team-sec .section-head { margin-bottom: 56px; }
+.team-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 16px; max-width: 1080px; margin: 0 auto;
+}
+.team-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 20px; padding: 32px 24px; text-align: center;
+  transition: border-color .2s, transform .2s;
+}
+.team-card:hover { border-color: #b4b4b4; transform: translateY(-3px); }
+.team-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--black); display: grid; place-items: center;
+  color: var(--white); margin: 0 auto 16px;
+  font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
+}
+.team-card h4 { font-size: .88rem; font-weight: 500; color: var(--black); margin-bottom: 6px; line-height: 1.3; }
+.team-card p { font-size: .72rem; color: var(--ink-mid); line-height: 1.55; }
+
 /* ─── SUPPORT ─── */
 .support { background:var(--warm); padding:140px 48px; }
 .section-head { text-align:center; margin-bottom:72px; }
@@ -382,21 +407,6 @@ select.mfield { appearance:none; cursor:pointer; }
 .pca { margin-left:auto; color:rgba(255,255,255,.2); flex-shrink:0; transition:color .2s,transform .2s; }
 .pc:hover .pca { color:rgba(255,255,255,.6); transform:translateX(4px); }
 
-/* ─── TESTIMONIAL / PRESS ─── */
-.press { background:var(--warm-deep); padding:80px 48px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-.press-inner { max-width:960px; margin:0 auto; }
-.press-label { font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:40px; text-align:center; }
-.press-logos { display:flex; gap:0; justify-content:center; flex-wrap:wrap; }
-.press-logo {
-  flex:1; min-width:160px; max-width:220px; text-align:center;
-  padding:28px 32px; border-right:1px solid var(--border);
-  font-family:'Playfair Display',serif; font-size:.9rem; color:var(--ink-soft);
-  font-style:italic; transition:color .2s;
-}
-.press-logo:last-child { border-right:none; }
-.press-logo:hover { color:var(--ink); }
-.press-logo span { display:block; font-size:.62rem; font-family:'Outfit',sans-serif; font-style:normal; letter-spacing:.12em; text-transform:uppercase; margin-top:4px; color:var(--ink-soft); }
-
 /* ─── PREORDER ─── */
 .preorder { background:var(--warm); padding:140px 48px; text-align:center; }
 .preorder .sh2 { margin-bottom:14px; }
@@ -446,7 +456,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
 @media(max-width:980px){
   nav { padding:0 20px; }
   .nav-links { display:none; }
-  .hero,.product-sec,.fg-sec,.how,.mif-full,.support,.pro,.preorder,.press { padding:80px 24px; }
+  .hero,.product-sec,.fg-sec,.how,.mif-full,.support,.pro,.preorder,.team-sec { padding:80px 24px; }
   .stats { flex-direction:column; align-items:center; gap:36px; padding:60px 24px; }
   .stat+.stat::before { display:none; }
   .fg { grid-template-columns:1fr 1fr; }
@@ -459,13 +469,13 @@ footer { background:var(--black); padding:64px 48px 44px; }
   .mif-flag-zone { padding:32px 24px; }
   .mif-content { padding:32px 24px; }
   .supply-strip { padding:18px 24px; gap:24px; }
-  .press-logos { flex-direction:column; align-items:center; }
-  .press-logo { border-right:none; border-bottom:1px solid var(--border); width:100%; max-width:100%; }
+  .team-grid { grid-template-columns:repeat(2,1fr); }
 }
 @media(max-width:600px){
   .fg { grid-template-columns:1fr; }
   h1 { font-size:3.4rem; }
   .mif-badges { flex-direction:column; }
+  .team-grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -474,13 +484,14 @@ footer { background:var(--black); padding:64px 48px 44px; }
 <!-- NAV -->
 <nav>
   <a class="nav-brand" href="#">
-    <img class="nav-logo-img" src="__logo_endetente.png" alt="En Détente" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-    <span class="nav-wordmark" style="display:none">En Détente</span>
+    <!-- MODIFICATION 10 : suppression du doublon "En Détente" — une seule occurrence -->
+    <img class="nav-logo-img" src="logo_endetente.png" alt="En Détente">
     <span class="nav-wordmark">En Détente</span>
   </a>
   <ul class="nav-links">
     <li><a href="#produit">Produit</a></li>
     <li><a href="#origine">Made in France</a></li>
+    <li><a href="#equipe">Équipe</a></li>
     <li><a href="#service">Service</a></li>
     <li><a href="#compagnies">Compagnies</a></li>
     <li><a href="#precommande">Prix</a></li>
@@ -493,8 +504,9 @@ footer { background:var(--black); padding:64px 48px 44px; }
   <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
 
+  <!-- MODIFICATION 9 : logo affiché en haut à gauche (nav) + icône hero -->
   <div class="hero-logo-wrap">
-    <img src="__logo_endetente.png" alt="En Détente logo" onerror="this.style.display='none'">
+    <img src="logo_endetente.png" alt="En Détente logo" onerror="this.style.display='none'">
   </div>
 
   <div class="hero-eyebrow">Sérénité Naturelle</div>
@@ -534,26 +546,16 @@ footer { background:var(--black); padding:64px 48px 44px; }
   </div>
 </div>
 
-<!-- SUPPLY STRIP -->
+<!-- SUPPLY STRIP — MODIFICATION 1 : suppression STMicroelectronics & KNF Micro Allemagne -->
 <div class="supply-strip">
   <div class="supply-item">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Microcontrôleur · STMicroelectronics France
+    Coque · France
   </div>
   <div class="supply-sep"></div>
   <div class="supply-item">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Micro-pompe · KNF Micro Allemagne
-  </div>
-  <div class="supply-sep"></div>
-  <div class="supply-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Coque · Plastivaloire France
-  </div>
-  <div class="supply-sep"></div>
-  <div class="supply-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Assemblage final · Eolane France
+    Assemblage final · France
   </div>
 </div>
 
@@ -623,7 +625,8 @@ footer { background:var(--black); padding:64px 48px 44px; }
   <div class="mif-full-grid">
     <div class="rev">
       <span class="lbl lbl-mid" style="margin-bottom:14px">Origine & Fabrication</span>
-      <h2 class="sh2">100% <em>Made in France</em> — composants <em>européens.</em></h2>
+      <!-- MODIFICATION 2 : titre remplacé par "Made in France" uniquement -->
+      <h2 class="sh2"><em>Made in France</em></h2>
       <p>En Détente est assemblé, produit et conçu en France. Chaque composant est sourcé exclusivement auprès de fournisseurs européens, pour garantir qualité, traçabilité et soutien à l'industrie locale.</p>
       <p>Nos locaux sont basés en France. Notre chaîne de production est entièrement maîtrisée, de la conception technique à l'assemblage final.</p>
       <div class="mif-flags-row">
@@ -633,40 +636,62 @@ footer { background:var(--black); padding:64px 48px 44px; }
         </div>
       </div>
     </div>
+    <!-- MODIFICATION 3 : suppression des noms de fournisseurs, conservation de la provenance uniquement -->
     <div class="supply-chain-cards rev d1">
       <div class="sc-card">
         <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div><h4>Microcontrôleur & Capteurs</h4><p>STMicroelectronics — Crolles, France & Bosch Sensortec, Europe</p></div>
+        <div><h4>Microcontrôleur & Capteurs</h4><p>France & Europe</p></div>
       </div>
       <div class="sc-card">
         <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/></svg></div>
-        <div><h4>Micro-pompe compacte</h4><p>KNF Micro Pumps — Freiburg, Allemagne</p></div>
+        <div><h4>Micro-pompe compacte</h4><p>Europe</p></div>
       </div>
       <div class="sc-card">
         <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-        <div><h4>Coque & Matériaux</h4><p>Plastivaloire — France · Recticel — Europe</p></div>
+        <div><h4>Coque & Matériaux</h4><p>France · Europe</p></div>
       </div>
       <div class="sc-card">
         <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <div><h4>Assemblage final</h4><p>Eolane & Lacroix Electronics — France</p></div>
+        <div><h4>Assemblage final</h4><p>France</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRESS / MEDIA -->
-<div class="press">
-  <div class="press-inner">
-    <div class="press-label">Ils en parlent</div>
-    <div class="press-logos">
-      <div class="press-logo">Le Monde<span>Innovation & Tech</span></div>
-      <div class="press-logo">Les Échos<span>Startup & Mobilité</span></div>
-      <div class="press-logo">L'Usine Nouvelle<span>Made in France</span></div>
-      <div class="press-logo">Capital<span>Voyage & Confort</span></div>
-      <div class="press-logo">Forbes France<span>Santé & Tech</span></div>
+<!-- MODIFICATION 4 : SECTION ÉQUIPE -->
+<section class="team-sec" id="equipe">
+  <div class="section-head rev">
+    <span class="lbl lbl-mid" style="margin-bottom:14px">Notre équipe</span>
+    <h2 class="sh2">Les ingénieurs <em>derrière En Détente.</em></h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card rev">
+      <div class="team-avatar">SM</div>
+      <h4>SHIMI Mohammed</h4>
+      <p>Ingénieur en systèmes embarqués</p>
+    </div>
+    <div class="team-card rev d1">
+      <div class="team-avatar">BB</div>
+      <h4>BOUCHAMA Bilel</h4>
+      <p>Ingénieur mécanique</p>
+    </div>
+    <div class="team-card rev d2">
+      <div class="team-avatar">ST</div>
+      <h4>SAPAN Teoman</h4>
+      <p>Ingénieur en génie électrique</p>
+    </div>
+    <div class="team-card rev d1">
+      <div class="team-avatar">BS</div>
+      <h4>BAJJOU Saber</h4>
+      <p>Ingénieur en génie électrique</p>
+    </div>
+    <div class="team-card rev d2">
+      <div class="team-avatar">SS</div>
+      <h4>SARR Sherif</h4>
+      <p>Ingénieur en génie électrique</p>
     </div>
   </div>
-</div>
+</section>
 
 <!-- SERVICE CLIENT -->
 <section class="support" id="service">
@@ -694,12 +719,13 @@ footer { background:var(--black); padding:64px 48px 44px; }
     </div>
   </div>
 
+  <!-- MODIFICATION 11 : mise à jour de la réponse FAQ "Convient-il aux enfants ?" -->
   <div class="faq-wrap rev">
     <h3 class="faq-title">Questions fréquentes</h3>
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Le casque est-il autorisé en cabine ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Oui. En Détente respecte les normes IATA relatives aux batteries lithium intégrées (UN 3481). Il peut être utilisé en cabine sans restriction.</div></div>
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Est-ce que ça remplace les bouchons d'oreilles ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Non — En Détente résout un problème différent. Les bouchons atténuent le son ; En Détente régule activement la pression de l'air. C'est une solution active là où les bouchons sont passifs.</div></div>
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Quand sera livré mon casque ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">La pré-commande vous réserve un casque de la phase pilote. La livraison est estimée courant 2026, après validation technique et sécuritaire complète.</div></div>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Convient-il aux enfants ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Les enfants sont les plus touchés (22% selon les études). La version actuelle est conçue pour les adultes. Une version enfant est à l'étude pour la phase 2.</div></div>
+    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Convient-il aux enfants ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Les enfants sont les plus touchés par les douleurs auriculaires liées aux changements de pression (environ 22 % selon les études). La version actuelle est conçue pour les adultes et les enfants.</div></div>
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Où est fabriqué En Détente ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Entièrement assemblé en France, avec des composants sourcés exclusivement en Europe (France, Allemagne, Belgique). Nos locaux sont basés en France. Un engagement fort pour le Made in France.</div></div>
   </div>
 </section>
@@ -712,22 +738,23 @@ footer { background:var(--black); padding:64px 48px 44px; }
       <h2 class="sh2 light" style="margin:18px 0 24px">Partenaires<br><em>compagnies<br>aériennes.</em></h2>
       <p>En Détente est une solution que les compagnies aériennes peuvent intégrer directement dans leur offre passager. Nous cherchons des partenaires stratégiques pour déployer En Détente à bord, en classe affaires ou comme accessoire premium.</p>
       <p>Notre production 100% française et notre chaîne d'approvisionnement européenne sont des garanties de fiabilité et de traçabilité pour vos clients.</p>
+      <!-- MODIFICATIONS 6 & 7 : liste mise à jour, "Certification Made in France" supprimée -->
       <ul class="pro-ul">
-        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Intégration dans les kits de confort premium (business & first)</li>
-        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Vente à bord — nouvelle ligne de revenus ancillaires</li>
-        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Co-branding et personnalisation aux couleurs de la compagnie</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Intégration dans les kits de confort premium (Business & First)</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Vente à bord</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Mise à disposition par les compagnies aériennes</li>
         <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Distribution en boutiques duty-free et zones d'embarquement</li>
-        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Certification Made in France — traçabilité garantie</li>
       </ul>
+      <!-- MODIFICATION 8 : bouton "Contacter l'équipe pro" -->
       <div class="pro-btns">
         <button class="bp" onclick="openModal()">Contacter l'équipe pro</button>
       </div>
     </div>
+    <!-- MODIFICATION 5 : suppression "Réseaux médicaux ORL" -->
     <div class="p-cards rev d1">
       <div class="pc"><div class="pci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div><div><h4>Compagnies long-courriers</h4><p>Intégration dans l'offre premium & business class</p></div><svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
       <div class="pc"><div class="pci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><h4>Opérateurs duty-free</h4><p>Distribution en zone d'embarquement et boutiques aéroport</p></div><svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
       <div class="pc"><div class="pci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><h4>Agences de voyage premium</h4><p>Offre accessoire dans les forfaits haut de gamme</p></div><svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
-      <div class="pc"><div class="pci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><h4>Réseaux médicaux ORL</h4><p>Prescription & recommandation par les spécialistes</p></div><svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
     </div>
   </div>
 </section>
@@ -762,7 +789,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
 <footer>
   <div class="ft">
     <div>
-      <div class="fb-logo"><img src="__logo_endetente.png" alt="En Détente" onerror="this.style.display='none'"></div>
+      <div class="fb-logo"><img src="logo_endetente.png" alt="En Détente" onerror="this.style.display='none'"></div>
       <div class="fb-name">En Détente</div>
       <div class="fb-tag">SÉRÉNITÉ NATURELLE · MADE IN FRANCE 🇫🇷</div>
     </div>
@@ -777,7 +804,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
       <div class="fc-col">
         <h4>Origine</h4>
         <a href="#">Made in France</a>
-        <a href="#">Fournisseurs EU</a>
+        <a href="#">Composants EU</a>
         <a href="#">Chaîne de valeur</a>
         <a href="#">Certifications</a>
       </div>
@@ -792,7 +819,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
         <h4>Professionnel</h4>
         <a href="#">Compagnies aériennes</a>
         <a href="#">Duty-free & retail</a>
-        <a href="#">Presse</a>
+        <a href="#">Équipe</a>
         <a href="#" onclick="openModal();return false">Nous contacter</a>
       </div>
     </div>
@@ -823,7 +850,6 @@ footer { background:var(--black); padding:64px 48px 44px; }
         <option>Compagnie aérienne — intégration à bord</option>
         <option>Opérateur duty-free / travel retail</option>
         <option>Agence de voyage premium</option>
-        <option>Réseau médical ORL</option>
         <option>Distribution & logistique</option>
         <option>Autre</option>
       </select>
