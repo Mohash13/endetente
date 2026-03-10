@@ -4,468 +4,264 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>En Détente — Sérénité Naturelle</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0C0C0E;--ink2:#1C1C1E;--ink3:#2C2C2E;
+  --silver:#8A8A8E;--smoke:#E8E8ED;--cloud:#F2F2F7;
+  --pearl:#F8F8FA;--white:#FFFFFF;
+  --border:rgba(0,0,0,.08);--bw:rgba(255,255,255,.1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--pearl);color:var(--ink);font-family:'Inter',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-:root {
-  --black:      #0C0C0D;
-  --ink:        #1A1A1C;
-  --ink-mid:    #52525B;
-  --ink-soft:   #A1A1AA;
-  --border:     #E4E4E7;
-  --warm:       #FAFAF8;       /* premium warm white */
-  --warm-deep:  #F2F2EF;
-  --white:      #FFFFFF;
-  --blue-fr:    #002395;
-  --red-fr:     #ED2939;
-  --eu-blue:    #003399;
-  --radius:     16px;
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(12,12,14,.94);backdrop-filter:saturate(180%) blur(24px);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-img{height:28px;width:auto;filter:invert(1);object-fit:contain}
+.nav-wordmark{font-family:'Playfair Display',serif;font-size:.88rem;font-style:italic;color:var(--white);letter-spacing:.06em}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-size:.72rem;color:rgba(255,255,255,.6);text-decoration:none;letter-spacing:.04em;padding:0 16px;line-height:58px;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--white)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-flag-img{height:18px;width:auto;border-radius:3px;opacity:.65;object-fit:contain}
+.nav-cta{background:var(--white);color:var(--ink);border:none;padding:9px 22px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.74rem;font-weight:500;letter-spacing:.04em;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap}
+.nav-cta:hover{background:#ddd;transform:scale(1.02)}
 
-html { scroll-behavior: smooth; }
-body {
-  background: var(--warm);
-  color: var(--ink);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
+/* HERO */
+.hero{min-height:100vh;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 48px 100px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 50% 110%,rgba(255,255,255,.035) 0%,transparent 70%),radial-gradient(ellipse 50% 35% at 15% 8%,rgba(255,255,255,.018) 0%,transparent 60%);pointer-events:none}
+.hero-lines{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-lines::before,.hero-lines::after{content:'';position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.035) 30%,rgba(255,255,255,.05) 50%,rgba(255,255,255,.035) 70%,transparent)}
+.hero-lines::before{left:28%}.hero-lines::after{right:28%}
+.hero-logo-wrap{margin-bottom:44px;animation:zin .9s cubic-bezier(.16,1,.3,1) both}
+.hero-logo-img{height:80px;width:auto;filter:invert(1);opacity:.9;object-fit:contain}
+@keyframes zin{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+h1{font-family:'Playfair Display',serif;font-size:clamp(4.5rem,11vw,9rem);font-weight:400;line-height:.9;color:var(--white);letter-spacing:-.025em;animation:up .9s .25s cubic-bezier(.16,1,.3,1) both}
+h1 em{font-style:italic;color:rgba(255,255,255,.55);display:block}
+.hero-sub{max-width:520px;margin:28px auto 0;font-size:1rem;color:rgba(255,255,255,.35);line-height:1.85;font-weight:300;animation:up .9s .38s cubic-bezier(.16,1,.3,1) both}
+.hero-btns{display:flex;gap:12px;justify-content:center;margin-top:52px;flex-wrap:wrap;animation:up .9s .5s cubic-bezier(.16,1,.3,1) both}
+.btn-primary{background:var(--white);color:var(--ink);border:none;padding:15px 38px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;letter-spacing:.03em;transition:background .2s,transform .15s}
+.btn-primary:hover{background:#e4e4e4;transform:scale(1.01)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.18);padding:15px 38px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:300;cursor:pointer;letter-spacing:.03em;transition:border-color .2s,color .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.9)}
+.hero-badges{display:flex;gap:12px;justify-content:center;margin-top:38px;flex-wrap:wrap;animation:up .9s .62s cubic-bezier(.16,1,.3,1) both}
+.hero-badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:980px;padding:8px 18px;font-size:.68rem;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase}
+.hero-badge-flag{height:14px;width:auto;border-radius:2px;object-fit:contain}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:up .9s .8s both}
+.hs-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.28),transparent);animation:hsl 2s ease-in-out infinite}
+@keyframes hsl{0%,100%{opacity:.3}50%{opacity:.7}}
+.hs-lbl{font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.2)}
 
-/* ─── SCROLLBAR ─── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--warm-deep); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+/* STATS */
+.stats{background:var(--ink2);display:flex;justify-content:center;padding:64px 48px;border-bottom:1px solid rgba(255,255,255,.055)}
+.si{flex:1;max-width:240px;text-align:center;padding:0 32px;position:relative}
+.si+.si::before{content:'';position:absolute;left:0;top:15%;height:70%;width:1px;background:rgba(255,255,255,.09)}
+.sn{font-family:'Playfair Display',serif;font-size:3.2rem;color:var(--white);letter-spacing:-.03em;line-height:1}
+.sd{font-size:.72rem;color:rgba(255,255,255,.32);margin-top:10px;line-height:1.55;letter-spacing:.02em}
 
-/* ─── NAV ─── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-  height: 58px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px;
-  background: rgba(250,250,248,.94);
-  backdrop-filter: saturate(200%) blur(24px);
-  -webkit-backdrop-filter: saturate(200%) blur(24px);
-  border-bottom: 1px solid rgba(0,0,0,.09);
-}
-.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo-img { height: 30px; width: auto; object-fit: contain; }
-.nav-wordmark {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem; letter-spacing: .06em; font-style: italic;
-  color: var(--black); line-height: 1;
-}
-.nav-links { display: flex; gap: 0; list-style: none; }
-.nav-links a {
-  font-size: .8rem; font-weight: 400;
-  color: var(--ink); text-decoration: none;
-  letter-spacing: .03em; padding: 6px 18px;
-  border-radius: 980px;
-  transition: background .2s, color .2s;
-}
-.nav-links a:hover { background: var(--warm-deep); color: var(--black); }
-.nav-cta {
-  background: var(--black); color: var(--white);
-  border: none; padding: 10px 24px; border-radius: 980px;
-  font-family: 'Outfit', sans-serif; font-size: .8rem; font-weight: 400;
-  letter-spacing: .04em; cursor: pointer;
-  transition: background .2s, transform .15s;
-}
-.nav-cta:hover { background: var(--ink); transform: scale(1.01); }
+/* PRODUCT */
+.product-sec{background:var(--ink);padding:140px 48px;text-align:center}
+.sec-lbl{display:block;font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;margin-bottom:18px}
+.sec-lbl.dk{color:rgba(255,255,255,.32)}.sec-lbl.lt{color:var(--silver)}
+.sh2{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5.5vw,4.4rem);font-weight:400;letter-spacing:-.025em;line-height:1.05}
+.sh2.white{color:var(--white)}.sh2 em{font-style:italic}
+.product-body{max-width:430px;margin:64px auto 0}
+.product-box{background:var(--ink2);border:1px solid rgba(255,255,255,.07);border-radius:28px;padding:52px 36px;position:relative;overflow:hidden}
+.product-box::before{content:'';position:absolute;inset:0;border-radius:28px;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(255,255,255,.045) 0%,transparent 100%);pointer-events:none}
+.hs-svg{width:240px;display:block;margin:0 auto;animation:flt 5s ease-in-out infinite;filter:drop-shadow(0 24px 48px rgba(0,0,0,.9))}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.pchips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.pchip{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);border-radius:980px;padding:6px 15px;font-size:.67rem;color:rgba(255,255,255,.42);letter-spacing:.08em}
+.product-detail{font-size:.85rem;color:rgba(255,255,255,.28);margin-top:24px;line-height:1.85}
 
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh; background: var(--black);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 130px 48px 110px;
-  position: relative; overflow: hidden;
-}
-.hero-grid-bg {
-  position: absolute; inset: 0; pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
-}
-.hero-glow {
-  position: absolute; width: 700px; height: 700px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.04) 0%, transparent 70%);
-  pointer-events: none;
-}
+/* FEATURES */
+.fg-sec{background:var(--cloud);padding:120px 48px}
+.fg-head{text-align:center;margin-bottom:72px}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;max-width:1100px;margin:0 auto}
+.fcard{background:var(--white);padding:44px 36px;transition:background .2s,transform .2s}
+.fcard:hover{background:#f6f6f6;transform:translateY(-2px)}
+.ficon{width:46px;height:46px;background:var(--ink);border-radius:12px;display:grid;place-items:center;color:var(--white);margin-bottom:22px}
+.fcard h3{font-family:'Playfair Display',serif;font-size:1.12rem;margin-bottom:10px;letter-spacing:-.01em;font-weight:400}
+.fcard p{font-size:.81rem;color:var(--silver);line-height:1.82}
 
-.hero-logo-wrap {
-  width: 80px; margin-bottom: 44px;
-  animation: fadein .9s cubic-bezier(.16,1,.3,1) both;
-}
-.hero-logo-wrap img { width: 100%; filter: invert(1) brightness(2); }
+/* HOW */
+.how-sec{background:var(--ink);padding:140px 48px;text-align:center}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:960px;margin:72px auto 0}
+.hstep{padding:44px 32px;border-top:1px solid rgba(255,255,255,.07);text-align:left}
+.hstep-n{font-family:'Playfair Display',serif;font-size:3.5rem;color:rgba(255,255,255,.065);line-height:1;margin-bottom:20px}
+.hstep h3{font-size:.7rem;letter-spacing:.17em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:12px;font-weight:400}
+.hstep p{font-size:.84rem;color:rgba(255,255,255,.28);line-height:1.85}
 
-.hero-eyebrow {
-  font-size: .68rem; letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(255,255,255,.3); margin-bottom: 22px;
-  animation: slideup .9s .2s cubic-bezier(.16,1,.3,1) both;
-}
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(4rem, 10vw, 8.5rem); font-weight: 400;
-  line-height: .92; color: var(--white); letter-spacing: -.025em;
-  animation: slideup .9s .3s cubic-bezier(.16,1,.3,1) both;
-}
-h1 em { font-style: italic; color: rgba(255,255,255,.65); }
-.hero-sub {
-  max-width: 540px; margin: 28px auto 0;
-  font-size: 1.05rem; color: rgba(255,255,255,.42); line-height: 1.75; font-weight: 300;
-  animation: slideup .9s .42s cubic-bezier(.16,1,.3,1) both;
-}
-.hero-btns {
-  display: flex; gap: 12px; justify-content: center; margin-top: 48px; flex-wrap: wrap;
-  animation: slideup .9s .52s cubic-bezier(.16,1,.3,1) both;
-}
-.btn-white {
-  background: var(--white); color: var(--black);
-  border: none; padding: 14px 38px; border-radius: 980px;
-  font-family: 'Outfit', sans-serif; font-size: .88rem; font-weight: 400;
-  cursor: pointer; letter-spacing: .04em; transition: background .2s, transform .15s;
-}
-.btn-white:hover { background: #f0f0ee; transform: scale(1.01); }
-.btn-ghost {
-  background: rgba(255,255,255,.07); color: rgba(255,255,255,.75);
-  border: 1px solid rgba(255,255,255,.15); padding: 14px 38px; border-radius: 980px;
-  font-family: 'Outfit', sans-serif; font-size: .88rem; font-weight: 300;
-  cursor: pointer; letter-spacing: .04em; transition: all .2s;
-}
-.btn-ghost:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.35); }
+/* MADE IN FRANCE */
+.mif{background:var(--ink);padding:100px 48px;text-align:center;position:relative;overflow:hidden}
+.mif::before,.mif::after{content:'';position:absolute;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.1),transparent)}
+.mif::before{top:0}.mif::after{bottom:0}
+.mif-inner{max-width:980px;margin:0 auto}
+.mif-flag-wrap{display:flex;justify-content:center;margin-bottom:44px}
+.mif-flag-img{height:48px;width:auto;border-radius:6px;box-shadow:0 6px 24px rgba(0,0,0,.5);object-fit:contain}
+.mif-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);color:var(--white);font-weight:400;letter-spacing:-.02em;margin-bottom:12px}
+.mif-title em{font-style:italic;color:rgba(255,255,255,.5)}
+.mif-desc{font-size:.88rem;color:rgba(255,255,255,.35);max-width:540px;margin:0 auto 56px;line-height:1.85}
+.mif-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.mif-card{background:rgba(255,255,255,.038);border:1px solid rgba(255,255,255,.065);padding:38px 30px;text-align:left;transition:background .25s}
+.mif-card:hover{background:rgba(255,255,255,.065)}
+.mif-card-icon{margin-bottom:18px;color:rgba(255,255,255,.4)}
+.mif-card h4{font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;font-weight:400}
+.mif-card p{font-size:.8rem;color:rgba(255,255,255,.28);line-height:1.78}
 
-/* Scroll indicator */
-.hero-scroll {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  animation: slideup .9s .8s both;
-}
-.scroll-track { width: 1px; height: 48px; background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent); animation: st 2s ease-in-out infinite; }
-.scroll-dot { width: 4px; height: 4px; background: rgba(255,255,255,.3); border-radius: 50%; }
-@keyframes st { 0%,100%{opacity:.3} 50%{opacity:.8} }
+/* TRUST BAR */
+.trust-bar{background:var(--smoke);padding:40px 48px;display:flex;align-items:center;justify-content:center;gap:44px;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ti{display:flex;align-items:center;gap:9px;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--silver)}
+.ti svg{color:var(--silver);flex-shrink:0}
+.ti-flag{height:18px;width:auto;opacity:.5;border-radius:2px;object-fit:contain}
 
-@keyframes fadein { from{opacity:0;transform:scale(.9)} to{opacity:1;transform:scale(1)} }
-@keyframes slideup { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+/* SERVICE */
+.sup-sec{background:var(--white);padding:140px 48px}
+.sup-head{text-align:center;margin-bottom:80px}
+.sup-head .sh2{margin-top:12px}
+.sup-head p{font-size:.88rem;color:var(--silver);max-width:500px;margin:14px auto 0;line-height:1.82}
+.sup-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px;margin:0 auto 80px}
+.sup-card{background:var(--cloud);border-radius:20px;padding:38px 34px;display:flex;gap:20px;align-items:flex-start;transition:background .2s,transform .2s;cursor:pointer}
+.sup-card:hover{background:var(--smoke);transform:translateY(-2px)}
+.sup-icon{width:46px;height:46px;border-radius:12px;background:var(--ink);display:grid;place-items:center;color:var(--white);flex-shrink:0}
+.sup-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:8px;font-weight:400}
+.sup-card p{font-size:.8rem;color:var(--silver);line-height:1.78}
+.sup-link{display:inline-flex;align-items:center;gap:6px;margin-top:13px;font-size:.76rem;color:var(--ink);font-weight:500;text-decoration:none}
+.sup-link svg{transition:transform .2s}
+.sup-link:hover svg{transform:translateX(4px)}
+.faq-wrap{max-width:660px;margin:0 auto}
+.faq-wrap>h3{font-family:'Playfair Display',serif;font-size:1.9rem;margin-bottom:30px;font-weight:400}
+.fq{border-top:1px solid var(--border);padding:20px 0}
+.fq:last-child{border-bottom:1px solid var(--border)}
+.fq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:.88rem;font-weight:400;gap:14px}
+.fq-ico{flex-shrink:0;transition:transform .3s}
+.fq.open .fq-ico{transform:rotate(45deg)}
+.fq-a{font-size:.8rem;color:var(--silver);line-height:1.82;margin-top:13px;display:none}
+.fq.open .fq-a{display:block}
 
-/* ─── MADE IN FRANCE BAND ─── */
-.mif-band {
-  background: var(--white); border-bottom: 1px solid var(--border);
-  padding: 0;
-  overflow: hidden; position: relative;
-}
-.mif-inner {
-  display: flex; align-items: stretch;
-}
-.mif-flag-zone {
-  display: flex; align-items: center; justify-content: center;
-  padding: 48px 56px;
-  background: var(--warm-deep);
-  border-right: 1px solid var(--border);
-  flex-shrink: 0;
-}
-.mif-flag-img { height: 56px; width: auto; border-radius: 6px; box-shadow: 0 4px 24px rgba(0,0,0,.1); }
-.mif-content {
-  flex: 1; padding: 48px 56px;
-  display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
-}
-.mif-text h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400;
-  letter-spacing: -.02em; margin-bottom: 10px;
-}
-.mif-text h2 em { font-style: italic; color: var(--blue-fr); }
-.mif-text p { font-size: .9rem; color: var(--ink-mid); line-height: 1.75; max-width: 520px; }
-.mif-badges { display: flex; gap: 14px; flex-wrap: wrap; flex-shrink: 0; }
-.mif-badge {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--warm); border: 1.5px solid var(--border);
-  border-radius: 12px; padding: 14px 20px;
-  font-size: .78rem; font-weight: 500; letter-spacing: .04em; color: var(--ink);
-  white-space: nowrap;
-}
-.mif-badge .dot-fr { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-fr) 33%, white 33% 66%, var(--red-fr) 66%); flex-shrink: 0; }
-.mif-badge .dot-eu { width: 10px; height: 10px; border-radius: 50%; background: var(--eu-blue); flex-shrink: 0; }
+/* PRO */
+.pro-sec{background:var(--ink);padding:140px 48px}
+.pro-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1060px;margin:0 auto}
+.pro-c .sh2{margin-top:14px;margin-bottom:22px}
+.pro-c p{font-size:.86rem;color:rgba(255,255,255,.35);line-height:1.88;margin-bottom:10px}
+.pro-ul{list-style:none;margin:26px 0 38px;display:flex;flex-direction:column;gap:14px}
+.pro-ul li{display:flex;gap:12px;align-items:flex-start;font-size:.83rem;color:rgba(255,255,255,.52);line-height:1.65}
+.pck{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.07);display:grid;place-items:center;color:var(--white);flex-shrink:0;margin-top:1px}
+.pro-btn{background:var(--white);color:var(--ink);border:none;padding:14px 32px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;letter-spacing:.03em;transition:background .2s}
+.pro-btn:hover{background:#e0e0e0}
+.pro-cards{display:flex;flex-direction:column;gap:12px}
+.pc{background:rgba(255,255,255,.038);border:1px solid rgba(255,255,255,.065);border-radius:14px;padding:22px;display:flex;align-items:center;gap:16px;transition:background .2s,border-color .2s;cursor:pointer}
+.pc:hover{background:rgba(255,255,255,.065);border-color:rgba(255,255,255,.13)}
+.pci{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.07);display:grid;place-items:center;color:var(--white);flex-shrink:0}
+.pc h4{font-size:.84rem;font-weight:400;margin-bottom:3px}
+.pc p{font-size:.7rem;color:rgba(255,255,255,.28);line-height:1.4}
+.pca{margin-left:auto;color:rgba(255,255,255,.16);flex-shrink:0;transition:color .2s,transform .2s}
+.pc:hover .pca{color:rgba(255,255,255,.5);transform:translateX(4px)}
 
-/* Europe supply chain strip */
-.supply-strip {
-  background: var(--ink); padding: 20px 48px;
-  display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap;
-  overflow: hidden; position: relative;
-}
-.supply-item {
-  display: flex; align-items: center; gap: 12px;
-  font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.5); white-space: nowrap;
-}
-.supply-item svg { color: rgba(255,255,255,.3); flex-shrink: 0; }
-.supply-sep { width: 1px; height: 18px; background: rgba(255,255,255,.1); }
+/* PREORDER */
+.pre-sec{background:var(--cloud);padding:140px 48px;text-align:center}
+.pre-sec .sh2{margin-bottom:12px}
+.pre-sec>p{font-size:.88rem;color:var(--silver);max-width:440px;margin:14px auto 52px;line-height:1.82}
+.order-card{background:var(--white);border-radius:24px;padding:52px 48px;max-width:490px;margin:0 auto;box-shadow:0 4px 60px rgba(0,0,0,.065),0 1px 3px rgba(0,0,0,.04)}
+.order-price{font-family:'Playfair Display',serif;font-size:4rem;letter-spacing:-.04em;line-height:1}
+.order-price span{font-size:1.5rem;color:var(--silver);font-family:'Inter',sans-serif;font-weight:300}
+.order-note{font-size:.67rem;color:var(--silver);letter-spacing:.09em;text-transform:uppercase;margin-top:6px;margin-bottom:30px}
+.oform{display:flex;flex-direction:column;gap:10px}
+.orow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ofield{width:100%;background:var(--cloud);border:1.5px solid transparent;border-radius:10px;padding:13px 15px;font-family:'Inter',sans-serif;font-size:.82rem;color:var(--ink);font-weight:300;outline:none;transition:border-color .2s,background .2s}
+.ofield:focus{border-color:var(--ink);background:var(--white)}
+.ofield::placeholder{color:#AEAEB2}
+.osubmit{width:100%;background:var(--ink);color:var(--white);border:none;padding:15px;border-radius:10px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:background .2s;margin-top:4px}
+.osubmit:hover{background:var(--ink2)}
+.otrust{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:18px}
+.tp{display:flex;align-items:center;gap:6px;font-size:.67rem;color:var(--silver);letter-spacing:.07em}
 
-/* ─── STATS ─── */
-.stats {
-  background: var(--warm-deep); display: flex; justify-content: center;
-  padding: 72px 48px; border-bottom: 1px solid var(--border);
-}
-.stat { flex: 1; max-width: 260px; text-align: center; padding: 0 36px; position: relative; }
-.stat+.stat::before { content:''; position:absolute; left:0; top:15%; height:70%; width:1px; background:var(--border); }
-.stat-n { font-family:'Playfair Display',serif; font-size:3.4rem; letter-spacing:-.03em; line-height:1; color:var(--black); }
-.stat-d { font-size:.78rem; color:var(--ink-mid); margin-top:10px; line-height:1.55; }
+/* FOOTER */
+footer{background:var(--ink);padding:64px 48px 44px}
+.ft-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:40px}
+.ft-logo-img{height:32px;width:auto;filter:invert(1);opacity:.6;object-fit:contain;margin-bottom:8px}
+.ft-wm{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:rgba(255,255,255,.45);letter-spacing:.06em}
+.ft-tag{font-size:.6rem;color:rgba(255,255,255,.2);margin-top:4px;letter-spacing:.15em;text-transform:uppercase}
+.ft-flags{display:flex;gap:10px;margin-top:14px}
+.ft-flag-img{height:17px;width:auto;border-radius:3px;opacity:.38;object-fit:contain}
+.ft-cols{display:flex;gap:50px;flex-wrap:wrap}
+.ft-col h4{font-size:.6rem;letter-spacing:.19em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:14px;font-weight:400}
+.ft-col a{display:block;font-size:.78rem;color:rgba(255,255,255,.38);text-decoration:none;margin-bottom:9px;letter-spacing:.02em;transition:color .2s}
+.ft-col a:hover{color:rgba(255,255,255,.72)}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:22px;flex-wrap:wrap;gap:12px}
+.ft-copy{font-size:.65rem;color:rgba(255,255,255,.16);letter-spacing:.05em}
+.ft-legal{display:flex;gap:20px}
+.ft-legal a{font-size:.65rem;color:rgba(255,255,255,.2);text-decoration:none;transition:color .2s}
+.ft-legal a:hover{color:rgba(255,255,255,.48)}
 
-/* ─── SECTION HELPERS ─── */
-.lbl { font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; display:block; }
-.lbl-dim  { color:rgba(255,255,255,.3); }
-.lbl-mid  { color:var(--ink-soft); }
-.sh2 { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,5.5vw,4.8rem); font-weight:400; letter-spacing:-.02em; line-height:1.05; }
-.sh2 em { font-style:italic; }
-.sh2.light { color:var(--white); }
-.section-p { font-size:.95rem; line-height:1.8; }
-.section-p.mid { color:var(--ink-mid); }
-.section-p.dim { color:rgba(255,255,255,.4); }
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:24px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:24px;padding:52px 46px;max-width:510px;width:100%;position:relative;animation:min .4s cubic-bezier(.16,1,.3,1) both}
+@keyframes min{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:none}}
+.modal-close{position:absolute;top:18px;right:18px;background:var(--cloud);border:none;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;cursor:pointer;transition:background .2s;color:var(--ink)}
+.modal-close:hover{background:var(--smoke)}
+.modal h3{font-family:'Playfair Display',serif;font-size:1.75rem;margin-bottom:8px;font-weight:400}
+.modal>p{font-size:.8rem;color:var(--silver);margin-bottom:30px;line-height:1.75}
+.mform{display:flex;flex-direction:column;gap:10px}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mfield{width:100%;background:var(--cloud);border:1.5px solid transparent;border-radius:10px;padding:13px 15px;font-family:'Inter',sans-serif;font-size:.82rem;color:var(--ink);font-weight:300;outline:none;transition:border-color .2s,background .2s}
+.mfield:focus{border-color:var(--ink);background:var(--white)}
+.mfield::placeholder{color:#AEAEB2}
+textarea.mfield{resize:vertical;min-height:96px}
+.msubmit{width:100%;background:var(--ink);color:var(--white);border:none;padding:14px;border-radius:10px;font-family:'Inter',sans-serif;font-size:.83rem;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:background .2s}
+.msubmit:hover{background:var(--ink2)}
 
-/* ─── PRODUCT ─── */
-.product-sec { background:var(--black); padding:140px 48px; text-align:center; }
-.product-box {
-  max-width:440px; margin:72px auto 0;
-  background:#111; border:1px solid rgba(255,255,255,.06);
-  border-radius:28px; padding:56px 36px; position:relative; overflow:hidden;
-}
-.product-box::before { content:''; position:absolute; inset:0; border-radius:28px; background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(255,255,255,.05) 0%,transparent 100%); pointer-events:none; }
-.hs { width:230px; display:block; margin:0 auto; animation:float 5s ease-in-out infinite; filter:drop-shadow(0 20px 48px rgba(0,0,0,.9)); }
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.chips { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
-.chip { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:980px; padding:7px 16px; font-size:.7rem; color:rgba(255,255,255,.45); letter-spacing:.08em; }
+/* SUP CONTACT CTA */
+.sup-contact-cta{max-width:660px;margin:0 auto 56px;text-align:center;padding:36px;background:var(--ink);border-radius:20px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.sup-contact-cta p{font-size:.9rem;color:rgba(255,255,255,.6);font-weight:300;flex:1;text-align:left}
+.sup-contact-cta .pro-btn{background:var(--white);color:var(--ink);border:none;padding:13px 28px;border-radius:980px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .2s}
+.sup-contact-cta .pro-btn:hover{background:#e8e8e8}
+@media(max-width:600px){.sup-contact-cta{flex-direction:column;text-align:center}.sup-contact-cta p{text-align:center}}
 
-/* ─── FEATURE GRID ─── */
-.fg-sec { background:var(--warm); padding:120px 48px; }
-.fg-sec .sh2 { text-align:center; margin-bottom:64px; }
-.fg { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1100px; margin:0 auto; }
-.fc { background:var(--white); padding:44px 36px; transition:background .2s; border-radius:0; }
-.fg>:first-child { border-radius:var(--radius) 0 0 0; }
-.fg>:nth-child(3) { border-radius:0 var(--radius) 0 0; }
-.fg>:nth-child(4) { border-radius:0 0 0 var(--radius); }
-.fg>:last-child { border-radius:0 0 var(--radius) 0; }
-.fc:hover { background:#FAFAF8; }
-.fi { width:44px; height:44px; background:var(--black); border-radius:12px; display:grid; place-items:center; color:var(--white); margin-bottom:22px; }
-.fc h3 { font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:10px; letter-spacing:-.01em; }
-.fc p { font-size:.82rem; color:var(--ink-mid); line-height:1.78; }
+/* TEAM */
+.team-sec{background:var(--cloud);padding:120px 48px}
+.team-inner{text-align:center;margin-bottom:64px}
+.team-sub{font-size:.9rem;color:var(--silver);max-width:480px;margin:14px auto 0;line-height:1.8}
+.team-grid{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;max-width:1000px;margin:0 auto}
+.team-card{background:var(--white);border-radius:18px;padding:32px 28px;display:flex;align-items:center;gap:18px;min-width:280px;flex:1;max-width:320px;transition:transform .2s,box-shadow .2s}
+.team-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.team-avatar{width:52px;height:52px;border-radius:14px;background:var(--ink);color:var(--white);display:grid;place-items:center;font-size:.82rem;font-weight:500;letter-spacing:.05em;flex-shrink:0;font-family:'Inter',sans-serif}
+.team-info h4{font-size:.9rem;font-weight:500;color:var(--ink);margin-bottom:5px;letter-spacing:.01em}
+.team-info p{font-size:.76rem;color:var(--silver);line-height:1.5}
 
-/* ─── HOW ─── */
-.how { background:var(--black); color:var(--white); padding:140px 48px; text-align:center; }
-.steps { display:grid; grid-template-columns:repeat(3,1fr); max-width:980px; margin:72px auto 0; }
-.si { padding:44px 32px; border-top:1px solid rgba(255,255,255,.08); text-align:left; }
-.si-num { font-family:'Playfair Display',serif; font-size:3.5rem; color:rgba(255,255,255,.07); line-height:1; margin-bottom:20px; }
-.si h3 { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:12px; font-weight:400; }
-.si p { font-size:.86rem; color:rgba(255,255,255,.38); line-height:1.78; }
+/* RESPONSIVE TEAM */
+@media(max-width:960px){.team-sec{padding:80px 24px}.team-grid{flex-direction:column;align-items:center}.team-card{max-width:100%;width:100%}}
 
-/* ─── MADE IN FRANCE SECTION (full) ─── */
-.mif-full {
-  background: var(--warm-deep); padding: 100px 48px;
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-}
-.mif-full-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items: center; max-width: 1080px; margin: 0 auto;
-}
-.mif-full .sh2 { margin: 18px 0 24px; }
-.mif-full p { font-size: .9rem; color: var(--ink-mid); line-height: 1.8; margin-bottom: 12px; }
-.mif-flags-row {
-  display: flex; gap: 16px; align-items: center; margin-top: 32px; flex-wrap: wrap;
-}
-.mif-flag-card {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--white); border: 1.5px solid var(--border);
-  border-radius: 14px; padding: 14px 22px;
-  font-size: .82rem; font-weight: 500; color: var(--ink);
-}
-.mif-flag-card img { height: 24px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
 
-.supply-chain-cards { display: flex; flex-direction: column; gap: 14px; }
-.sc-card {
-  background: var(--white); border: 1.5px solid var(--border);
-  border-radius: 16px; padding: 24px 28px;
-  display: flex; align-items: flex-start; gap: 18px;
-  transition: border-color .2s, transform .2s;
-}
-.sc-card:hover { border-color: #c8c8c8; transform: translateX(4px); }
-.sc-card-icon {
-  width: 40px; height: 40px; border-radius: 10px;
-  background: var(--black); display: grid; place-items: center;
-  color: var(--white); flex-shrink: 0;
-}
-.sc-card h4 { font-size: .88rem; font-weight: 500; margin-bottom: 4px; color: var(--black); }
-.sc-card p { font-size: .78rem; color: var(--ink-mid); line-height: 1.6; }
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(72px);background:var(--ink);color:var(--white);padding:13px 26px;border-radius:980px;font-size:.77rem;letter-spacing:.05em;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.28);transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s;opacity:0;z-index:400}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
-/* ─── SUPPORT ─── */
-.support { background:var(--warm); padding:140px 48px; }
-.section-head { text-align:center; margin-bottom:72px; }
-.sg { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; max-width:960px; margin:0 auto 72px; }
-.sc2 { background:var(--white); border:1.5px solid var(--border); border-radius:20px; padding:38px 34px; display:flex; gap:20px; align-items:flex-start; transition:border-color .2s,transform .2s; cursor:pointer; }
-.sc2:hover { border-color:#b4b4b4; transform:translateY(-2px); }
-.si3 { width:46px; height:46px; border-radius:12px; background:var(--black); display:grid; place-items:center; color:var(--white); flex-shrink:0; }
-.sc2 h3 { font-family:'Playfair Display',serif; font-size:1.1rem; margin-bottom:8px; }
-.sc2 p { font-size:.8rem; color:var(--ink-mid); line-height:1.72; }
-.sc2-link { display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-size:.78rem; color:var(--black); font-weight:500; text-decoration:none; }
-.sc2-link svg { transition:transform .2s; }
-.sc2-link:hover svg { transform:translateX(4px); }
-.faq-wrap { max-width:700px; margin:0 auto; }
-.faq-title { font-family:'Playfair Display',serif; font-size:1.7rem; margin-bottom:24px; }
-.fq { border-top:1px solid var(--border); padding:20px 0; }
-.fq:last-child { border-bottom:1px solid var(--border); }
-.fq-q { display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-size:.9rem; font-weight:400; gap:16px; }
-.fq-icon { flex-shrink:0; transition:transform .3s; }
-.fq.open .fq-icon { transform:rotate(45deg); }
-.fq-a { font-size:.82rem; color:var(--ink-mid); line-height:1.75; margin-top:12px; display:none; }
-.fq.open .fq-a { display:block; }
+/* REVEAL */
+.rev{opacity:0;transform:translateY(22px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.rev.v{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
 
-/* ─── CONTACT MODAL ─── */
-.modal-overlay {
-  position:fixed; inset:0; background:rgba(0,0,0,.6);
-  backdrop-filter:blur(8px); z-index:500;
-  display:flex; align-items:center; justify-content:center; padding:24px;
-  opacity:0; pointer-events:none; transition:opacity .3s;
-}
-.modal-overlay.open { opacity:1; pointer-events:all; }
-.modal {
-  background:var(--white); border-radius:24px; padding:52px;
-  max-width:520px; width:100%; position:relative;
-  transform:translateY(20px) scale(.98); transition:transform .35s cubic-bezier(.16,1,.3,1);
-  max-height:90vh; overflow-y:auto;
-}
-.modal-overlay.open .modal { transform:none; }
-.modal-close {
-  position:absolute; top:20px; right:20px;
-  background:var(--warm-deep); border:none; width:32px; height:32px;
-  border-radius:50%; cursor:pointer; display:grid; place-items:center;
-  color:var(--ink-mid); transition:background .2s;
-}
-.modal-close:hover { background:var(--border); }
-.modal h3 { font-family:'Playfair Display',serif; font-size:1.7rem; margin-bottom:6px; }
-.modal > p { font-size:.85rem; color:var(--ink-mid); margin-bottom:28px; line-height:1.6; }
-.mform { display:flex; flex-direction:column; gap:12px; }
-.mrow { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.mfield {
-  width:100%; background:var(--warm); border:1.5px solid var(--border);
-  border-radius:10px; padding:13px 15px;
-  font-family:'Outfit',sans-serif; font-size:.86rem; color:var(--black);
-  font-weight:300; outline:none; transition:border-color .2s,background .2s;
-}
-.mfield:focus { border-color:var(--black); background:var(--white); }
-.mfield::placeholder { color:var(--ink-soft); }
-textarea.mfield { resize:vertical; min-height:110px; }
-select.mfield { appearance:none; cursor:pointer; }
-.msubmit {
-  width:100%; background:var(--black); color:var(--white);
-  border:none; padding:15px; border-radius:10px;
-  font-family:'Outfit',sans-serif; font-size:.88rem; font-weight:400;
-  cursor:pointer; letter-spacing:.04em; transition:background .2s;
-}
-.msubmit:hover { background:var(--ink); }
-
-/* ─── PRO ─── */
-.pro { background:var(--black); color:var(--white); padding:140px 48px; }
-.pro-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; max-width:1080px; margin:0 auto; }
-.pro-c p { font-size:.9rem; color:rgba(255,255,255,.45); line-height:1.8; margin-bottom:12px; }
-.pro-ul { list-style:none; margin:28px 0 36px; display:flex; flex-direction:column; gap:13px; }
-.pro-ul li { display:flex; gap:12px; align-items:flex-start; font-size:.86rem; color:rgba(255,255,255,.6); line-height:1.6; }
-.pck { width:20px; height:20px; border-radius:50%; background:rgba(255,255,255,.08); display:grid; place-items:center; flex-shrink:0; margin-top:1px; color:var(--white); }
-.pro-btns { display:flex; gap:12px; flex-wrap:wrap; }
-.bp { background:var(--white); color:var(--black); border:none; padding:14px 32px; border-radius:980px; font-family:'Outfit',sans-serif; font-size:.85rem; font-weight:400; cursor:pointer; letter-spacing:.03em; transition:background .2s; }
-.bp:hover { background:#f0f0ee; }
-.p-cards { display:flex; flex-direction:column; gap:12px; }
-.pc { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:22px 24px; display:flex; align-items:center; gap:16px; transition:background .2s,border-color .2s; cursor:pointer; }
-.pc:hover { background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.13); }
-.pci { width:42px; height:42px; border-radius:10px; background:rgba(255,255,255,.08); display:grid; place-items:center; color:var(--white); flex-shrink:0; }
-.pc h4 { font-size:.86rem; font-weight:400; margin-bottom:3px; }
-.pc p { font-size:.74rem; color:rgba(255,255,255,.35); line-height:1.4; }
-.pca { margin-left:auto; color:rgba(255,255,255,.2); flex-shrink:0; transition:color .2s,transform .2s; }
-.pc:hover .pca { color:rgba(255,255,255,.6); transform:translateX(4px); }
-
-/* ─── TESTIMONIAL / PRESS ─── */
-.press { background:var(--warm-deep); padding:80px 48px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-.press-inner { max-width:960px; margin:0 auto; }
-.press-label { font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:40px; text-align:center; }
-.press-logos { display:flex; gap:0; justify-content:center; flex-wrap:wrap; }
-.press-logo {
-  flex:1; min-width:160px; max-width:220px; text-align:center;
-  padding:28px 32px; border-right:1px solid var(--border);
-  font-family:'Playfair Display',serif; font-size:.9rem; color:var(--ink-soft);
-  font-style:italic; transition:color .2s;
-}
-.press-logo:last-child { border-right:none; }
-.press-logo:hover { color:var(--ink); }
-.press-logo span { display:block; font-size:.62rem; font-family:'Outfit',sans-serif; font-style:normal; letter-spacing:.12em; text-transform:uppercase; margin-top:4px; color:var(--ink-soft); }
-
-/* ─── PREORDER ─── */
-.preorder { background:var(--warm); padding:140px 48px; text-align:center; }
-.preorder .sh2 { margin-bottom:14px; }
-.preorder>.subp { font-size:.92rem; color:var(--ink-mid); max-width:460px; margin:0 auto 52px; line-height:1.75; }
-.ob { background:var(--white); border-radius:24px; padding:56px; max-width:500px; margin:0 auto; border:1.5px solid var(--border); box-shadow:0 2px 60px rgba(0,0,0,.05); }
-.op { font-family:'Playfair Display',serif; font-size:4rem; letter-spacing:-.03em; margin-bottom:4px; }
-.op span { font-size:2rem; color:var(--ink-mid); }
-.opn { font-size:.72rem; color:var(--ink-mid); margin-bottom:32px; letter-spacing:.06em; }
-.ostk { display:inline-flex; align-items:center; gap:7px; background:var(--warm-deep); border:1px solid var(--border); border-radius:980px; padding:7px 16px; font-size:.7rem; color:var(--ink-mid); margin-bottom:32px; letter-spacing:.07em; }
-.odot { width:6px; height:6px; border-radius:50%; background:#34C759; flex-shrink:0; }
-.oform { display:flex; flex-direction:column; gap:10px; }
-.orow { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-input[type=text],input[type=email] { width:100%; background:var(--warm); border:1.5px solid var(--border); border-radius:10px; padding:13px 15px; font-family:'Outfit',sans-serif; font-size:.86rem; color:var(--black); font-weight:300; outline:none; transition:border-color .2s,background .2s; }
-input:focus { border-color:var(--black); background:var(--white); }
-input::placeholder { color:var(--ink-soft); }
-.osubmit { width:100%; background:var(--black); color:var(--white); border:none; padding:15px; border-radius:10px; font-family:'Outfit',sans-serif; font-size:.88rem; font-weight:400; cursor:pointer; letter-spacing:.04em; transition:background .2s; margin-top:2px; }
-.osubmit:hover { background:var(--ink); }
-.otrust { display:flex; justify-content:center; gap:22px; flex-wrap:wrap; margin-top:18px; }
-.tp { display:flex; align-items:center; gap:6px; font-size:.68rem; color:var(--ink-soft); letter-spacing:.07em; }
-
-/* ─── FOOTER ─── */
-footer { background:var(--black); padding:64px 48px 44px; }
-.ft { display:flex; justify-content:space-between; align-items:flex-start; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,.07); flex-wrap:wrap; gap:40px; }
-.fb-logo img { height:32px; filter:invert(1) brightness(2); margin-bottom:10px; }
-.fb-name { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--white); font-style:italic; letter-spacing:.06em; }
-.fb-tag { font-size:.62rem; color:rgba(255,255,255,.25); margin-top:4px; letter-spacing:.14em; }
-.fc-cols { display:flex; gap:52px; flex-wrap:wrap; }
-.fc-col h4 { font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.25); margin-bottom:14px; font-weight:400; }
-.fc-col a { display:block; font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none; margin-bottom:9px; transition:color .2s; }
-.fc-col a:hover { color:var(--white); }
-.fb2 { display:flex; justify-content:space-between; align-items:center; padding-top:24px; flex-wrap:wrap; gap:12px; }
-.fb2-copy { font-size:.68rem; color:rgba(255,255,255,.2); letter-spacing:.06em; }
-.fb2-links { display:flex; gap:20px; }
-.fb2-links a { font-size:.68rem; color:rgba(255,255,255,.2); text-decoration:none; transition:color .2s; }
-.fb2-links a:hover { color:rgba(255,255,255,.5); }
-
-/* ─── TOAST ─── */
-.toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(70px); background:var(--black); color:var(--white); padding:14px 28px; border-radius:980px; font-size:.8rem; letter-spacing:.06em; white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.2); transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s; opacity:0; z-index:400; }
-.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
-
-/* ─── REVEAL ─── */
-.rev { opacity:0; transform:translateY(22px); transition:all .8s cubic-bezier(.16,1,.3,1); }
-.rev.v { opacity:1; transform:none; }
-.d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s}
-
-/* ─── RESPONSIVE ─── */
-@media(max-width:980px){
-  nav { padding:0 20px; }
-  .nav-links { display:none; }
-  .hero,.product-sec,.fg-sec,.how,.mif-full,.support,.pro,.preorder,.press { padding:80px 24px; }
-  .stats { flex-direction:column; align-items:center; gap:36px; padding:60px 24px; }
-  .stat+.stat::before { display:none; }
-  .fg { grid-template-columns:1fr 1fr; }
-  .steps,.pro-grid,.mif-full-grid { grid-template-columns:1fr; gap:48px; }
-  .sg { grid-template-columns:1fr; }
-  .ob { padding:36px 20px; }
-  .orow { grid-template-columns:1fr; }
-  .ft { flex-direction:column; }
-  .mif-inner { flex-direction:column; }
-  .mif-flag-zone { padding:32px 24px; }
-  .mif-content { padding:32px 24px; }
-  .supply-strip { padding:18px 24px; gap:24px; }
-  .press-logos { flex-direction:column; align-items:center; }
-  .press-logo { border-right:none; border-bottom:1px solid var(--border); width:100%; max-width:100%; }
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .hero,.product-sec,.fg-sec,.how-sec,.mif,.sup-sec,.pro-sec,.pre-sec{padding:80px 24px}
+  .stats{flex-direction:column;align-items:center;gap:36px;padding:52px 24px}
+  .si+.si::before{display:none}
+  .fgrid,.how-steps,.pro-wrap,.sup-grid,.mif-grid{grid-template-columns:1fr}
+  .order-card{padding:38px 20px}
+  .orow,.mrow{grid-template-columns:1fr}
+  .trust-bar{gap:24px;padding:32px 20px}
+  .ft-top{flex-direction:column}
+  .modal{padding:38px 22px}
 }
 @media(max-width:600px){
-  .fg { grid-template-columns:1fr; }
-  h1 { font-size:3.4rem; }
-  .mif-badges { flex-direction:column; }
+  h1{font-size:3.8rem}
+  .hero-btns{flex-direction:column;align-items:center}
+  .fgrid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -474,360 +270,401 @@ footer { background:var(--black); padding:64px 48px 44px; }
 <!-- NAV -->
 <nav>
   <a class="nav-brand" href="#">
-    <img class="nav-logo-img" src="__logo_endetente.png" alt="En Détente" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-    <span class="nav-wordmark" style="display:none">En Détente</span>
-    <span class="nav-wordmark">En Détente</span>
+    <img class="nav-logo-img" src="__logo_endetente.png" alt="En Détente"
+      onerror="this.style.display='none';document.getElementById('nav-fallback').style.display='block'">
+    <span class="nav-wordmark" id="nav-fallback" style="display:none">En Détente</span>
   </a>
   <ul class="nav-links">
     <li><a href="#produit">Produit</a></li>
-    <li><a href="#origine">Made in France</a></li>
+    <li><a href="#made-france">Made in France</a></li>
     <li><a href="#service">Service</a></li>
+    <li><a href="#equipe">Équipe</a></li>
     <li><a href="#compagnies">Compagnies</a></li>
     <li><a href="#precommande">Prix</a></li>
   </ul>
-  <button class="nav-cta" onclick="scrollSec('precommande')">Pré-commander</button>
+  <div class="nav-right">
+    <img class="nav-flag-img" src="__drapeaufranceeurope.png" alt="France &amp; Europe" onerror="this.style.display='none'">
+    <button class="nav-cta" onclick="ss('precommande')">Pré-commander</button>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
-
+  <div class="hero-lines"></div>
   <div class="hero-logo-wrap">
-    <img src="__logo_endetente.png" alt="En Détente logo" onerror="this.style.display='none'">
+    <img class="hero-logo-img" src="__logo_endetente.png" alt="En Détente"
+      onerror="this.style.display='none';document.getElementById('hsvg').style.display='block'">
+    <svg id="hsvg" style="display:none;width:72px;height:88px" viewBox="0 0 72 88" fill="none">
+      <path d="M36 6C36 6 24 14 24 26c0 8 5 13 12 13s12-5 12-13c0-9-7-15-15-10-5 3-6 12-1 16 3 3 10 1 10-8" stroke="rgba(255,255,255,.8)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M36 39v28" stroke="rgba(255,255,255,.8)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M28 59c0 0 4-7 8-4s9-1 9-8" stroke="rgba(255,255,255,.55)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <circle cx="35" cy="67" r="2.8" fill="rgba(255,255,255,.8)"/>
+      <text x="36" y="82" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.5" fill="rgba(255,255,255,.28)" letter-spacing="3">SÉRÉNITÉ NATURELLE</text>
+    </svg>
   </div>
 
-  <div class="hero-eyebrow">Sérénité Naturelle</div>
-  <h1>En <em>Détente.</em></h1>
-  <p class="hero-sub">Le premier casque actif à dépressurisation contrôlée. Conçu pour éliminer les douleurs auriculaires en avion — décollage, atterrissage, en toute sérénité.</p>
+  <h1>En<br><em>Détente.</em></h1>
+  <p class="hero-sub">Le premier casque à dépressurisation active. Conçu pour éliminer les douleurs auriculaires en avion — décollage, atterrissage, en toute sérénité.</p>
+
   <div class="hero-btns">
-    <button class="btn-white" onclick="scrollSec('precommande')">Pré-commander — 149,99 €</button>
-    <button class="btn-ghost" onclick="scrollSec('produit')">Découvrir</button>
+    <button class="btn-primary" onclick="ss('precommande')">Pré-commander — 149,99 €</button>
+    <button class="btn-ghost" onclick="ss('produit')">Découvrir le produit</button>
+  </div>
+
+  <div class="hero-badges">
+    <div class="hero-badge">
+      <img class="hero-badge-flag" src="__drapeaufranceeurope.png" alt="" onerror="this.style.display='none'">
+      Made in France
+    </div>
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Composants 100% Europe
+    </div>
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Certifié CE
+    </div>
   </div>
 
   <div class="hero-scroll">
-    <div class="scroll-track"></div>
-    <div class="scroll-dot"></div>
+    <div class="hs-line"></div>
+    <div class="hs-lbl">Défiler</div>
   </div>
 </section>
 
-<!-- MADE IN FRANCE BAND -->
-<div class="mif-band">
-  <div class="mif-inner">
-    <div class="mif-flag-zone rev">
-      <img class="mif-flag-img" src="__drapeaufranceeurope.png" alt="Drapeau France & Europe" onerror="this.outerHTML='<div style=\'display:flex;gap:10px;align-items:center\'><div style=\'width:56px;height:36px;border-radius:6px;background:linear-gradient(90deg,#002395 33%,white 33% 66%,#ED2939 66%);box-shadow:0 4px 24px rgba(0,0,0,.1)\'></div><div style=\'font-size:1.4rem\'>🇪🇺</div></div>'">
-    </div>
-    <div class="mif-content rev d1">
-      <div class="mif-text">
-        <h2>Fièrement <em>Made in France</em></h2>
-        <p>Assemblage, production et locaux en France. Approvisionnement exclusivement européen pour tous nos composants. Un engagement fort pour l'industrie locale.</p>
-      </div>
-      <div class="mif-badges">
-        <div class="mif-badge"><div class="dot-fr"></div>Made in France</div>
-        <div class="mif-badge"><div class="dot-eu"></div>Composants UE</div>
-        <div class="mif-badge">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Assemblage local
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SUPPLY STRIP -->
-<div class="supply-strip">
-  <div class="supply-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Microcontrôleur · STMicroelectronics France
-  </div>
-  <div class="supply-sep"></div>
-  <div class="supply-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Micro-pompe · KNF Micro Allemagne
-  </div>
-  <div class="supply-sep"></div>
-  <div class="supply-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Coque · Plastivaloire France
-  </div>
-  <div class="supply-sep"></div>
-  <div class="supply-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Assemblage final · Eolane France
-  </div>
-</div>
-
 <!-- STATS -->
 <div class="stats">
-  <div class="stat rev"><div class="stat-n">22%</div><div class="stat-d">des enfants présentent des signes<br>cliniques de barotite après un vol</div></div>
-  <div class="stat rev d1"><div class="stat-n">10%</div><div class="stat-d">des adultes affectés par des<br>douleurs auriculaires en vol</div></div>
-  <div class="stat rev d2"><div class="stat-n">5Md</div><div class="stat-d">de passagers aériens<br>dans le monde en 2025</div></div>
+  <div class="si rev"><div class="sn">22%</div><div class="sd">des enfants présentent des signes<br>cliniques de barotite après un vol</div></div>
+  <div class="si rev d1"><div class="sn">10%</div><div class="sd">des adultes affectés par des<br>douleurs auriculaires en vol</div></div>
+  <div class="si rev d2"><div class="sn">5 Md</div><div class="sd">de passagers aériens<br>dans le monde en 2025</div></div>
 </div>
 
 <!-- PRODUCT -->
 <section class="product-sec" id="produit">
-  <span class="lbl lbl-dim rev" style="margin-bottom:18px">Technologie active</span>
-  <h2 class="sh2 light rev">Une nouvelle façon<br>de <em>voyager.</em></h2>
-  <p class="section-p dim rev" style="max-width:520px;margin:24px auto 0">Fini les bâillements forcés et les oreilles douloureuses. En Détente régule activement la pression autour de chaque oreille, en temps réel.</p>
-  <div class="product-box rev">
-    <svg class="hs" viewBox="0 0 240 200" fill="none">
-      <path d="M50 108C50 62 86 28 120 28s70 34 70 80" stroke="rgba(255,255,255,.18)" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <path d="M64 108C64 72 90 44 120 44s56 28 56 64" stroke="rgba(255,255,255,.07)" stroke-width="1" fill="none" stroke-linecap="round" stroke-dasharray="4 5"/>
-      <rect x="22" y="88" width="46" height="70" rx="18" fill="#1a1a1a" stroke="rgba(255,255,255,.1)" stroke-width="1.2"/>
-      <rect x="32" y="98" width="26" height="50" rx="11" fill="#111" stroke="rgba(255,255,255,.06)"/>
-      <circle cx="45" cy="123" r="7" fill="#0a0a0a" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-      <circle cx="45" cy="123" r="2.5" fill="white" opacity=".5"><animate attributeName="opacity" values=".2;.9;.2" dur="2.5s" repeatCount="indefinite"/></circle>
-      <rect x="37" y="137" width="16" height="3" rx="1.5" fill="rgba(255,255,255,.08)"/>
-      <rect x="172" y="88" width="46" height="70" rx="18" fill="#1a1a1a" stroke="rgba(255,255,255,.1)" stroke-width="1.2"/>
-      <rect x="182" y="98" width="26" height="50" rx="11" fill="#111" stroke="rgba(255,255,255,.06)"/>
-      <circle cx="195" cy="123" r="7" fill="#0a0a0a" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-      <circle cx="195" cy="123" r="2.5" fill="white" opacity=".5"><animate attributeName="opacity" values=".2;.9;.2" dur="2.5s" begin=".3s" repeatCount="indefinite"/></circle>
-      <rect x="187" y="137" width="16" height="3" rx="1.5" fill="rgba(255,255,255,.08)"/>
-      <path d="M34 96Q45 91 56 96" stroke="rgba(255,255,255,.06)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <path d="M184 96Q195 91 206 96" stroke="rgba(255,255,255,.06)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <text x="120" y="24" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8" fill="rgba(255,255,255,.2)" font-style="italic" letter-spacing="1">En Détente</text>
-    </svg>
-    <div class="chips">
-      <div class="chip">Capteur MEMS</div><div class="chip">Micro-pompe</div>
-      <div class="chip">USB-C</div><div class="chip">Régulation active</div>
-      <div class="chip">Made in France 🇫🇷</div>
+  <span class="sec-lbl dk rev">Technologie active</span>
+  <h2 class="sh2 white rev">Une nouvelle façon<br>de <em>voyager.</em></h2>
+  <div class="product-body rev">
+    <div class="product-box">
+      <svg class="hs-svg" viewBox="0 0 240 200" fill="none">
+        <path d="M50 108C50 62 86 28 120 28s70 34 70 80" stroke="rgba(255,255,255,.18)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M64 108C64 72 90 44 120 44s56 28 56 64" stroke="rgba(255,255,255,.07)" stroke-width="1" fill="none" stroke-linecap="round" stroke-dasharray="4 5"/>
+        <rect x="22" y="88" width="46" height="70" rx="18" fill="#1a1a1a" stroke="rgba(255,255,255,.12)" stroke-width="1.2"/>
+        <rect x="32" y="98" width="26" height="50" rx="11" fill="#111" stroke="rgba(255,255,255,.07)"/>
+        <circle cx="45" cy="123" r="7" fill="#0a0a0a" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
+        <circle cx="45" cy="123" r="2.5" fill="white" opacity=".5"><animate attributeName="opacity" values=".2;.9;.2" dur="2.5s" repeatCount="indefinite"/></circle>
+        <rect x="37" y="137" width="16" height="3" rx="1.5" fill="rgba(255,255,255,.1)"/>
+        <rect x="172" y="88" width="46" height="70" rx="18" fill="#1a1a1a" stroke="rgba(255,255,255,.12)" stroke-width="1.2"/>
+        <rect x="182" y="98" width="26" height="50" rx="11" fill="#111" stroke="rgba(255,255,255,.07)"/>
+        <circle cx="195" cy="123" r="7" fill="#0a0a0a" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
+        <circle cx="195" cy="123" r="2.5" fill="white" opacity=".5"><animate attributeName="opacity" values=".2;.9;.2" dur="2.5s" begin=".3s" repeatCount="indefinite"/></circle>
+        <rect x="187" y="137" width="16" height="3" rx="1.5" fill="rgba(255,255,255,.1)"/>
+        <path d="M34 96Q45 91 56 96" stroke="rgba(255,255,255,.06)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M184 96Q195 91 206 96" stroke="rgba(255,255,255,.06)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <text x="120" y="24" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8" fill="rgba(255,255,255,.22)" font-style="italic" letter-spacing="1">En Détente</text>
+      </svg>
+      <div class="pchips">
+        <div class="pchip">Capteur MEMS</div>
+        <div class="pchip">Micro-pompe</div>
+        <div class="pchip">USB-C</div>
+        <div class="pchip">Régulation active</div>
+      </div>
+      <p class="product-detail">Système embarqué de régulation de pression.<br>Silence. Légèreté. Efficacité.</p>
     </div>
   </div>
 </section>
 
 <!-- FEATURES -->
 <section class="fg-sec">
-  <h2 class="sh2 rev">Pensé pour chaque <em>détail.</em></h2>
-  <div class="fg">
-    <div class="fc rev"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Régulation temps réel</h3><p>Boucle de contrôle fermée avec capteur MEMS. Ajustement continu et progressif de la pression autour de chaque oreille.</p></div>
-    <div class="fc rev d1"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Sécurité embarquée</h3><p>Pression bridée logiciellement. Arrêt automatique en cas d'anomalie. Conformité CE et IATA (UN 3481).</p></div>
-    <div class="fc rev d2"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div><h3>Un bouton</h3><p>Activation en une pression. Pas d'application, pas de configuration. Simple, immédiat, efficace — même pour les enfants.</p></div>
-    <div class="fc rev"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Éco-conception</h3><p>ABS recyclé, aluminium recyclable. Conformité REACH, RoHS et règlement batteries UE 2023/1542. Assemblage démonté.</p></div>
-    <div class="fc rev d1"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><h3>Autonomie longue durée</h3><p>Batterie Li-ion rechargeable USB-C. Couvre l'intégralité d'un cycle décollage–croisière–atterrissage.</p></div>
-    <div class="fc rev d2"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Confort total</h3><p>Oreillettes avec joints élastomère. Mousse technique à mémoire de forme. Poids optimisé pour un port prolongé.</p></div>
+  <div class="fg-head rev">
+    <span class="sec-lbl lt">Innovation</span>
+    <h2 class="sh2">Pensé pour chaque <em>détail.</em></h2>
+  </div>
+  <div class="fgrid">
+    <div class="fcard rev">
+      <div class="ficon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <h3>Régulation temps réel</h3>
+      <p>Boucle de contrôle fermée avec capteur MEMS. Ajustement continu et progressif de la pression autour de chaque oreille.</p>
+    </div>
+    <div class="fcard rev d1">
+      <div class="ficon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3>Sécurité embarquée</h3>
+      <p>Pression bridée logiciellement. Arrêt automatique en cas d'anomalie. Conformité CE et IATA (UN 3481).</p>
+    </div>
+    <div class="fcard rev d2">
+      <div class="ficon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+      <h3>Un seul bouton</h3>
+      <p>Activation immédiate. Pas d'application, pas de configuration. Simple, même pour les enfants.</p>
+    </div>
+    <div class="fcard rev">
+      <div class="ficon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <h3>Éco-conception</h3>
+      <p>ABS recyclé, aluminium recyclable, assemblage démonté. Conformité REACH, RoHS et règlement batterie UE 2023/1542.</p>
+    </div>
+    <div class="fcard rev d1">
+      <div class="ficon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+      <h3>Autonomie longue durée</h3>
+      <p>Batterie Li-ion rechargeable USB-C. Couvre l'intégralité d'un cycle décollage–atterrissage.</p>
+    </div>
+    <div class="fcard rev d2">
+      <div class="ficon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <h3>Confort total</h3>
+      <p>Joints élastomère sur mesure, mousse à mémoire de forme. Port prolongé sans fatigue.</p>
+    </div>
   </div>
 </section>
 
 <!-- HOW -->
-<section class="how">
-  <h2 class="sh2 light rev">Comment ça <em>fonctionne.</em></h2>
-  <div class="steps">
-    <div class="si rev"><div class="si-num">01</div><h3>Portez</h3><p>Ajustez les oreillettes. Les joints souples créent une chambre étanche autour de chaque oreille, sans compression excessive.</p></div>
-    <div class="si rev d1"><div class="si-num">02</div><h3>Activez</h3><p>Un bouton. Les capteurs mesurent la pression en continu. La micro-pompe s'ajuste en temps réel, silencieusement.</p></div>
-    <div class="si rev d2"><div class="si-num">03</div><h3>Volez serein</h3><p>La dépression contrôlée compense les variations de pression cabine. Douleurs et gêne éliminées à la source.</p></div>
+<section class="how-sec">
+  <h2 class="sh2 white rev">Comment ça <em>fonctionne.</em></h2>
+  <div class="how-steps">
+    <div class="hstep rev"><div class="hstep-n">01</div><h3>Portez</h3><p>Ajustez les oreillettes. Les joints souples créent une chambre étanche autour de chaque oreille, sans compression excessive.</p></div>
+    <div class="hstep rev d1"><div class="hstep-n">02</div><h3>Activez</h3><p>Un bouton. Les capteurs mesurent la pression en continu. La micro-pompe s'ajuste en temps réel, silencieusement.</p></div>
+    <div class="hstep rev d2"><div class="hstep-n">03</div><h3>Volez serein</h3><p>La dépression contrôlée compense les variations de pression cabine. Douleurs et gêne éliminées à la source.</p></div>
   </div>
 </section>
 
-<!-- MADE IN FRANCE FULL SECTION -->
-<section class="mif-full" id="origine">
-  <div class="mif-full-grid">
-    <div class="rev">
-      <span class="lbl lbl-mid" style="margin-bottom:14px">Origine & Fabrication</span>
-      <h2 class="sh2">100% <em>Made in France</em> — composants <em>européens.</em></h2>
-      <p>En Détente est assemblé, produit et conçu en France. Chaque composant est sourcé exclusivement auprès de fournisseurs européens, pour garantir qualité, traçabilité et soutien à l'industrie locale.</p>
-      <p>Nos locaux sont basés en France. Notre chaîne de production est entièrement maîtrisée, de la conception technique à l'assemblage final.</p>
-      <div class="mif-flags-row">
-        <div class="mif-flag-card">
-          <img src="__drapeaufranceeurope.png" alt="Drapeaux France & Europe" onerror="this.style.display='none'">
-          <span>Made in France · Composants UE</span>
-        </div>
-      </div>
+<!-- MADE IN FRANCE -->
+<section class="mif" id="made-france">
+  <div class="mif-inner">
+    <div class="mif-flag-wrap rev">
+      <img class="mif-flag-img" src="__drapeaufranceeurope.png" alt="France &amp; Europe" onerror="this.style.display='none'">
     </div>
-    <div class="supply-chain-cards rev d1">
-      <div class="sc-card">
-        <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div><h4>Microcontrôleur & Capteurs</h4><p>STMicroelectronics — Crolles, France & Bosch Sensortec, Europe</p></div>
+    <h2 class="mif-title rev"><em>Made in France.</em></h2>
+    <p class="mif-desc rev">De la conception à l'assemblage final, En Détente est intégralement produit en France. Nos composants sont sélectionnés auprès de partenaires européens pour garantir qualité, traçabilité et souveraineté industrielle.</p>
+    <div class="mif-grid">
+      <div class="mif-card rev">
+        <div class="mif-card-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h4>Assemblage en France</h4>
+        <p>Nos locaux et notre ligne de production sont basés en France. Chaque casque est assemblé, contrôlé qualité et expédié depuis la France.</p>
       </div>
-      <div class="sc-card">
-        <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/></svg></div>
-        <div><h4>Micro-pompe compacte</h4><p>KNF Micro Pumps — Freiburg, Allemagne</p></div>
+      <div class="mif-card rev d1">
+        <div class="mif-card-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <h4>Composants Europe</h4>
+        <p>Microcontrôleurs &amp; capteurs — France &amp; Europe<br>Micro-pompe — Allemagne<br>Coque &amp; matériaux — France &amp; Europe<br>Assemblage final — France</p>
       </div>
-      <div class="sc-card">
-        <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-        <div><h4>Coque & Matériaux</h4><p>Plastivaloire — France · Recticel — Europe</p></div>
-      </div>
-      <div class="sc-card">
-        <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <div><h4>Assemblage final</h4><p>Eolane & Lacroix Electronics — France</p></div>
+      <div class="mif-card rev d2">
+        <div class="mif-card-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h4>Traçabilité totale</h4>
+        <p>Chaque composant est tracé de sa source à l'assemblage final. Conformité REACH, RoHS, CE — aucun compromis sur la qualité.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRESS / MEDIA -->
-<div class="press">
-  <div class="press-inner">
-    <div class="press-label">Ils en parlent</div>
-    <div class="press-logos">
-      <div class="press-logo">Le Monde<span>Innovation & Tech</span></div>
-      <div class="press-logo">Les Échos<span>Startup & Mobilité</span></div>
-      <div class="press-logo">L'Usine Nouvelle<span>Made in France</span></div>
-      <div class="press-logo">Capital<span>Voyage & Confort</span></div>
-      <div class="press-logo">Forbes France<span>Santé & Tech</span></div>
-    </div>
-  </div>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="ti"><img class="ti-flag" src="__drapeaufranceeurope.png" alt="" onerror="this.style.display='none'"><span>Made in France</span></div>
+  <div class="ti"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Certification CE</span></div>
+  <div class="ti"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Norme IATA UN 3481</span></div>
+  <div class="ti"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>Conformité RoHS &amp; REACH</span></div>
+  <div class="ti"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><span>Garantie 2 ans</span></div>
 </div>
 
 <!-- SERVICE CLIENT -->
-<section class="support" id="service">
-  <div class="section-head rev">
-    <span class="lbl lbl-mid" style="margin-bottom:14px">Service client</span>
+<section class="sup-sec" id="service">
+  <div class="sup-head rev">
+    <span class="sec-lbl lt">Service client</span>
     <h2 class="sh2">Nous sommes <em>là pour vous.</em></h2>
-    <p class="section-p mid" style="max-width:500px;margin:14px auto 0">Une question sur votre casque, votre commande ou votre garantie ? Notre équipe répond en moins de 24h.</p>
+    <p>Une question sur votre casque, votre commande ou votre garantie ? Notre équipe répond en moins de 24h.</p>
   </div>
-  <div class="sg">
-    <div class="sc2 rev">
-      <div class="si3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-      <div><h3>Chat & Email</h3><p>Disponible lundi–vendredi, 9h–19h. Réponse garantie sous 24h ouvrées.</p><a class="sc2-link" href="mailto:contact@endetente.fr">contact@endetente.fr <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a></div>
+  <div class="sup-grid">
+    <div class="sup-card rev">
+      <div class="sup-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div>
+        <h3>Chat &amp; Email</h3>
+        <p>Disponible lundi–vendredi, 9h–19h. Réponse garantie sous 24h ouvrées.</p>
+        <a class="sup-link" href="/cdn-cgi/l/email-protection#8ae9e5e4feebe9fecaefe4eeeffeefe4feefa4ecf8"><span class="__cf_email__" data-cfemail="bdded2d3c9dcdec9fdd8d3d9d8c9d8d3c9d893dbcf">[email&#160;protected]</span> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
     </div>
-    <div class="sc2 rev d1">
-      <div class="si3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-      <div><h3>Garantie & Retours</h3><p>Satisfait ou remboursé 30 jours. Garantie 2 ans. Remplacement express si défaut avéré.</p><a class="sc2-link" href="#">Conditions de garantie <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a></div>
+    <div class="sup-card rev d1">
+      <div class="sup-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.35 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 19.79 19.79 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 19.79 19.79 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+      <div>
+        <h3>Support téléphonique</h3>
+        <p>Pour les questions urgentes, prenez rendez-vous avec notre équipe technique.</p>
+        <a class="sup-link" href="#">Prendre rendez-vous <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
     </div>
-    <div class="sc2 rev">
-      <div class="si3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-      <div><h3>Centre d'aide</h3><p>Guides d'utilisation, tutoriels et FAQ pour répondre à toutes vos questions en quelques secondes.</p><a class="sc2-link" href="#">Consulter <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a></div>
+    <div class="sup-card rev">
+      <div class="sup-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div>
+        <h3>Garantie &amp; Retours</h3>
+        <p>Satisfait ou remboursé 30 jours. Garantie 2 ans. Remplacement express si défaut avéré.</p>
+        <a class="sup-link" href="#">Conditions de garantie <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
     </div>
-    <div class="sc2 rev d1">
-      <div class="si3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.35 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-      <div><h3>Support téléphonique</h3><p>Pour les questions urgentes, prenez rendez-vous avec notre équipe technique spécialisée.</p><a class="sc2-link" href="#">Prendre rendez-vous <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a></div>
+    <div class="sup-card rev d1">
+      <div class="sup-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3>Centre d'aide</h3>
+        <p>Guides d'utilisation, tutoriels vidéo et FAQ complète pour répondre à toutes vos questions.</p>
+        <a class="sup-link" href="#">Consulter le centre d'aide <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
     </div>
+  </div>
+  <div class="sup-contact-cta rev">
+    <p>Vous êtes une compagnie aérienne ou un distributeur ?</p>
+    <button class="pro-btn" onclick="openModal()">Contacter l'équipe pro →</button>
   </div>
 
   <div class="faq-wrap rev">
-    <h3 class="faq-title">Questions fréquentes</h3>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Le casque est-il autorisé en cabine ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Oui. En Détente respecte les normes IATA relatives aux batteries lithium intégrées (UN 3481). Il peut être utilisé en cabine sans restriction.</div></div>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Est-ce que ça remplace les bouchons d'oreilles ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Non — En Détente résout un problème différent. Les bouchons atténuent le son ; En Détente régule activement la pression de l'air. C'est une solution active là où les bouchons sont passifs.</div></div>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Quand sera livré mon casque ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">La pré-commande vous réserve un casque de la phase pilote. La livraison est estimée courant 2026, après validation technique et sécuritaire complète.</div></div>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Convient-il aux enfants ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Les enfants sont les plus touchés (22% selon les études). La version actuelle est conçue pour les adultes. Une version enfant est à l'étude pour la phase 2.</div></div>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Où est fabriqué En Détente ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Entièrement assemblé en France, avec des composants sourcés exclusivement en Europe (France, Allemagne, Belgique). Nos locaux sont basés en France. Un engagement fort pour le Made in France.</div></div>
+    <h3>Questions fréquentes</h3>
+    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Le casque est-il autorisé en cabine ? <svg class="fq-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Oui. En Détente respecte les normes IATA relatives aux batteries lithium intégrées (UN 3481). Il peut être utilisé en cabine sans restriction.</div></div>
+    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Ça remplace les bouchons d'oreilles ? <svg class="fq-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Non — En Détente résout un problème différent. Les bouchons atténuent le son ; En Détente régule la pression de l'air. C'est une solution active là où les bouchons sont passifs.</div></div>
+    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Quand sera livré mon casque ? <svg class="fq-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">La pré-commande vous réserve un casque de la phase pilote. La livraison est estimée courant 2026, après validation technique et sécuritaire complète.</div></div>
+    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Convient-il aux enfants ? <svg class="fq-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Les enfants sont les plus touchés par les douleurs auriculaires liées aux changements de pression (environ 22 % selon les études). La version actuelle est conçue pour les adultes et les enfants.</div></div>
+    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Pourquoi Made in France ? <svg class="fq-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Fabriquer en France, c'est garantir la qualité à chaque étape, soutenir l'emploi local, et s'appuyer sur des partenaires européens de confiance — de la puce électronique à l'emballage.</div></div>
+  </div>
+</section>
+
+<!-- EQUIPE -->
+<section class="team-sec" id="equipe">
+  <div class="team-inner rev">
+    <span class="sec-lbl lt" style="margin-bottom:14px">L'équipe</span>
+    <h2 class="sh2">Les ingénieurs<br>derrière <em>En Détente.</em></h2>
+    <p class="team-sub">Une équipe de cinq ingénieurs aux compétences complémentaires, unis par une même ambition.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card rev">
+      <div class="team-avatar">SM</div>
+      <div class="team-info">
+        <h4>SHIMI Mohammed</h4>
+        <p>Ingénieur en systèmes embarqués</p>
+      </div>
+    </div>
+    <div class="team-card rev d1">
+      <div class="team-avatar">BB</div>
+      <div class="team-info">
+        <h4>BOUCHAMA Bilel</h4>
+        <p>Ingénieur mécanique</p>
+      </div>
+    </div>
+    <div class="team-card rev d2">
+      <div class="team-avatar">ST</div>
+      <div class="team-info">
+        <h4>SAPAN Teoman</h4>
+        <p>Ingénieur en génie électrique</p>
+      </div>
+    </div>
+    <div class="team-card rev">
+      <div class="team-avatar">BS</div>
+      <div class="team-info">
+        <h4>BAJJOU Saber</h4>
+        <p>Ingénieur en génie électrique</p>
+      </div>
+    </div>
+    <div class="team-card rev d1">
+      <div class="team-avatar">SS</div>
+      <div class="team-info">
+        <h4>SARR Sherif</h4>
+        <p>Ingénieur en génie électrique</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PRO / COMPAGNIES -->
-<section class="pro" id="compagnies">
-  <div class="pro-grid">
+<section class="pro-sec" id="compagnies">
+  <div class="pro-wrap">
     <div class="pro-c rev">
-      <span class="lbl lbl-dim">Démarche professionnelle</span>
-      <h2 class="sh2 light" style="margin:18px 0 24px">Partenaires<br><em>compagnies<br>aériennes.</em></h2>
-      <p>En Détente est une solution que les compagnies aériennes peuvent intégrer directement dans leur offre passager. Nous cherchons des partenaires stratégiques pour déployer En Détente à bord, en classe affaires ou comme accessoire premium.</p>
-      <p>Notre production 100% française et notre chaîne d'approvisionnement européenne sont des garanties de fiabilité et de traçabilité pour vos clients.</p>
+      <span class="sec-lbl dk">Démarche professionnelle</span>
+      <h2 class="sh2 white">Partenaires<br><em>compagnies<br>aériennes.</em></h2>
+      <p>En Détente n'est pas seulement un produit grand public. C'est une solution que les compagnies aériennes peuvent intégrer directement dans leur offre passager premium.</p>
+      <p>Nous cherchons des partenaires stratégiques pour déployer En Détente à bord, en classe affaires ou comme accessoire de confort sur les vols long-courriers.</p>
       <ul class="pro-ul">
-        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Intégration dans les kits de confort premium (business & first)</li>
-        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Vente à bord — nouvelle ligne de revenus ancillaires</li>
-        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Co-branding et personnalisation aux couleurs de la compagnie</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Vente à bord — mise à disposition par les compagnies aériennes</li>
         <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Distribution en boutiques duty-free et zones d'embarquement</li>
-        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Certification Made in France — traçabilité garantie</li>
       </ul>
-      <div class="pro-btns">
-        <button class="bp" onclick="openModal()">Contacter l'équipe pro</button>
-      </div>
+      <button class="pro-btn" onclick="openModal()">Contacter l'équipe pro</button>
     </div>
-    <div class="p-cards rev d1">
-      <div class="pc"><div class="pci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div><div><h4>Compagnies long-courriers</h4><p>Intégration dans l'offre premium & business class</p></div><svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+    <div class="pro-cards rev d1">
+      <div class="pc"><div class="pci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div><div><h4>Compagnies long-courriers</h4><p>Intégration dans l'offre premium &amp; business class</p></div><svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
       <div class="pc"><div class="pci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><h4>Opérateurs duty-free</h4><p>Distribution en zone d'embarquement et boutiques aéroport</p></div><svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
       <div class="pc"><div class="pci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><h4>Agences de voyage premium</h4><p>Offre accessoire dans les forfaits haut de gamme</p></div><svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
-      <div class="pc"><div class="pci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><h4>Réseaux médicaux ORL</h4><p>Prescription & recommandation par les spécialistes</p></div><svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
     </div>
   </div>
 </section>
 
 <!-- PREORDER -->
-<section class="preorder" id="precommande">
-  <span class="lbl lbl-mid rev" style="display:block;margin-bottom:16px">Pré-commande</span>
+<section class="pre-sec" id="precommande">
+  <span class="sec-lbl lt rev" style="display:block;margin-bottom:16px">Édition Pilote · Lancement 2026</span>
   <h2 class="sh2 rev">Réservez votre<br><em>En Détente.</em></h2>
-  <p class="subp rev">Faites partie des premiers à découvrir la fin des douleurs auriculaires en vol.</p>
-  <div class="ob rev">
-    <div class="op">149<span>,99 €</span></div>
-    <div class="opn">PRIX DE LANCEMENT · LIVRAISON ESTIMÉE 2026</div>
-    <div class="ostk"><div class="odot"></div>Phase pilote — Places disponibles</div>
+  <p class="rev">Faites partie des premiers à découvrir la fin des douleurs auriculaires en vol.</p>
+  <div class="order-card rev">
+    <div class="order-price">149<span>,99 €</span></div>
+    <div class="order-note">Prix de lancement · Livraison 2026 · Made in France</div>
     <div class="oform">
       <div class="orow">
-        <input type="text" id="pr" placeholder="Prénom">
-        <input type="text" id="no" placeholder="Nom">
+        <input class="ofield" type="text" id="op" placeholder="Prénom">
+        <input class="ofield" type="text" id="on" placeholder="Nom">
       </div>
-      <input type="email" id="em" placeholder="Adresse e-mail">
+      <input class="ofield" type="email" id="oe" placeholder="Adresse e-mail">
       <button class="osubmit" onclick="doOrder()">Réserver ma place →</button>
     </div>
     <div class="otrust">
       <div class="tp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Sans engagement</div>
-      <div class="tp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Remboursé si non livré</div>
+      <div class="tp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Remboursement garanti</div>
       <div class="tp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Données sécurisées</div>
-      <div class="tp">🇫🇷 Made in France</div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="ft">
+  <div class="ft-top">
     <div>
-      <div class="fb-logo"><img src="__logo_endetente.png" alt="En Détente" onerror="this.style.display='none'"></div>
-      <div class="fb-name">En Détente</div>
-      <div class="fb-tag">SÉRÉNITÉ NATURELLE · MADE IN FRANCE 🇫🇷</div>
+      <img class="ft-logo-img" src="__logo_endetente.png" alt="En Détente" onerror="this.style.display='none'">
+      <div class="ft-wm">En Détente</div>
+      <div class="ft-tag">Sérénité Naturelle</div>
+      <div class="ft-flags">
+        <img class="ft-flag-img" src="__drapeaufranceeurope.png" alt="France &amp; Europe" onerror="this.style.display='none'">
+      </div>
     </div>
-    <div class="fc-cols">
-      <div class="fc-col">
+    <div class="ft-cols">
+      <div class="ft-col">
         <h4>Produit</h4>
         <a href="#">Fonctionnement</a>
         <a href="#">Technologie</a>
+        <a href="#">Made in France</a>
         <a href="#">Éco-conception</a>
         <a href="#">Pré-commander</a>
       </div>
-      <div class="fc-col">
-        <h4>Origine</h4>
-        <a href="#">Made in France</a>
-        <a href="#">Fournisseurs EU</a>
-        <a href="#">Chaîne de valeur</a>
-        <a href="#">Certifications</a>
-      </div>
-      <div class="fc-col">
+      <div class="ft-col">
         <h4>Service</h4>
         <a href="#">Centre d'aide</a>
         <a href="#">Garantie</a>
         <a href="#">Livraison</a>
-        <a href="#">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#04676b6a7065677044616a606170616a70612a6276">Contact</a>
       </div>
-      <div class="fc-col">
+      <div class="ft-col">
         <h4>Professionnel</h4>
-        <a href="#">Compagnies aériennes</a>
-        <a href="#">Duty-free & retail</a>
+        <a href="#" onclick="openModal();return false">Compagnies aériennes</a>
+        <a href="#" onclick="openModal();return false">Duty-free &amp; retail</a>
+        <a href="#" onclick="openModal();return false">Partenariat</a>
         <a href="#">Presse</a>
-        <a href="#" onclick="openModal();return false">Nous contacter</a>
       </div>
     </div>
   </div>
-  <div class="fb2">
-    <div class="fb2-copy">© 2025–2026 En Détente · Tous droits réservés · Made in France 🇫🇷</div>
-    <div class="fb2-links"><a href="#">Mentions légales</a><a href="#">Confidentialité</a><a href="#">CGV</a></div>
+  <div class="ft-bot">
+    <div class="ft-copy">© 2025–2026 En Détente. Tous droits réservés.</div>
+    <div class="ft-legal"><a href="#">Mentions légales</a><a href="#">Confidentialité</a><a href="#">CGV</a></div>
   </div>
 </footer>
 
 <!-- CONTACT MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+<div class="modal-overlay" id="modal-overlay" onclick="closeOut(event)">
   <div class="modal" id="modal">
-    <button class="modal-close" onclick="closeModal()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-    <h3>Contactez notre équipe pro</h3>
-    <p>Vous êtes une compagnie aérienne, un opérateur duty-free ou un distributeur ? Remplissez ce formulaire et nous vous recontactons sous 48h.</p>
+    <button class="modal-close" onclick="closeModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <h3>Contacter l'équipe pro</h3>
+    <p>Vous représentez une compagnie aérienne, un opérateur duty-free ou une agence de voyage ? Parlez-nous de votre projet.</p>
     <div class="mform">
       <div class="mrow">
-        <input class="mfield" type="text" id="m-prenom" placeholder="Prénom">
-        <input class="mfield" type="text" id="m-nom" placeholder="Nom">
+        <input class="mfield" type="text" id="mp" placeholder="Prénom">
+        <input class="mfield" type="text" id="mn" placeholder="Nom">
       </div>
-      <input class="mfield" type="email" id="m-email" placeholder="Email professionnel">
-      <input class="mfield" type="text" id="m-societe" placeholder="Société / Compagnie">
-      <select class="mfield" id="m-type">
-        <option value="" disabled selected>Type de partenariat recherché</option>
-        <option>Compagnie aérienne — intégration à bord</option>
-        <option>Opérateur duty-free / travel retail</option>
-        <option>Agence de voyage premium</option>
-        <option>Réseau médical ORL</option>
-        <option>Distribution & logistique</option>
-        <option>Autre</option>
-      </select>
-      <textarea class="mfield" id="m-msg" placeholder="Décrivez votre projet ou vos questions..."></textarea>
+      <input class="mfield" type="text" id="ms" placeholder="Société / Compagnie">
+      <input class="mfield" type="email" id="me" placeholder="Email professionnel">
+      <input class="mfield" type="tel" id="mt" placeholder="Téléphone (optionnel)">
+      <textarea class="mfield" id="mm" placeholder="Décrivez votre projet ou votre besoin..."></textarea>
       <button class="msubmit" onclick="sendModal()">Envoyer la demande →</button>
     </div>
   </div>
@@ -835,54 +672,27 @@ footer { background:var(--black); padding:64px 48px 44px; }
 
 <div class="toast" id="toast"></div>
 
-<script>
-// Reveal on scroll
-document.querySelectorAll('.rev').forEach(el => {
-  new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('v'); }, {threshold:.08}).observe(el);
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+document.querySelectorAll('.rev').forEach(el=>{
+  new IntersectionObserver(([e])=>{if(e.isIntersecting)el.classList.add('v')},{threshold:.1}).observe(el);
 });
-
-function scrollSec(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
-function tFaq(el){ el.closest('.fq').classList.toggle('open'); }
-
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3800);
-}
-
-// Modal
-function openModal(){ document.getElementById('modal-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
-function closeModalOutside(e){ if(e.target===document.getElementById('modal-overlay')) closeModal(); }
-
+function ss(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function tFaq(el){el.closest('.fq').classList.toggle('open')}
+function showToast(msg,d=3500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),d)}
+function openModal(){document.getElementById('modal-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');document.body.style.overflow=''}
+function closeOut(e){if(e.target===document.getElementById('modal-overlay'))closeModal()}
 function sendModal(){
-  const pr = document.getElementById('m-prenom').value.trim();
-  const no = document.getElementById('m-nom').value.trim();
-  const em = document.getElementById('m-email').value.trim();
-  const so = document.getElementById('m-societe').value.trim();
-  if(!pr||!no||!em||!em.includes('@')||!so){
-    showToast('Veuillez remplir tous les champs obligatoires.');
-    return;
-  }
-  closeModal();
-  showToast('✓ Demande envoyée — nous vous recontactons sous 48h.');
-  ['m-prenom','m-nom','m-email','m-societe','m-msg'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
-  document.getElementById('m-type').selectedIndex=0;
+  const p=document.getElementById('mp').value.trim();
+  const n=document.getElementById('mn').value.trim();
+  const e=document.getElementById('me').value.trim();
+  const m=document.getElementById('mm').value.trim();
+  if(!p||!n||!e||!e.includes('@')||!m){showToast('Veuillez remplir tous les champs obligatoires.',2500);return}
+  closeModal();showToast('✓ Demande envoyée — notre équipe vous contacte sous 48h.');
+  ['mp','mn','ms','me','mt','mm'].forEach(id=>document.getElementById(id).value='');
 }
-
-// Order form
 function doOrder(){
-  const p=document.getElementById('pr').value.trim();
-  const n=document.getElementById('no').value.trim();
-  const e=document.getElementById('em').value.trim();
-  if(!p||!n||!e||!e.includes('@')){
-    document.getElementById('em').style.borderColor='#ff3b30';
-    setTimeout(()=>document.getElementById('em').style.borderColor='var(--border)',1800);
-    return;
-  }
-  showToast('✓ Réservation confirmée — vérifiez votre email.');
-  ['pr','no','em'].forEach(id=>document.getElementById(id).value='');
-}
-</script>
-</body>
-</html>
+  const p=document.getElementById('op').value.trim();
+  const n=document.getElementById('on').value.trim();
+  const e=document.getElementById('oe').value.trim();
+  if(!p||!n||!e||!e.includes('@')){document.getElemen
