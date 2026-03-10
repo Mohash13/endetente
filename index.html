@@ -732,83 +732,62 @@ footer { background:var(--black); padding:64px 48px 44px; }
 
 <!-- PRO / COMPAGNIES -->
 <section class="pro" id="compagnies">
-<div class="pro-grid">
-<div class="pro-c rev">
-<span class="lbl lbl-dim">Démarche professionnelle</span>
-<h2 class="sh2 light" style="margin:18px 0 24px">Partenaires<br><em>compagnies<br>aériennes.</em></h2>
-<p>En Détente est une solution que les compagnies aériennes peuvent intégrer directement dans leur offre passager. Nous cherchons des partenaires stratégiques pour déployer En Détente à bord, en classe affaires ou comme accessoire premium.</p>
-<p>Notre production 100% française et notre chaîne d'approvisionnement européenne sont des garanties de fiabilité et de traçabilité pour vos clients.</p>
+  <div class="pro-grid">
+    <div class="pro-c rev">
+      <!-- span supprimé -->
+      <h2 class="sh2 light" style="margin:0 0 24px">
+        <em>Démarche<br>professionnelle.</em>
+      </h2>
+      <p>En Détente est une solution que les compagnies aériennes peuvent intégrer directement dans leur offre passager. Nous cherchons des partenaires stratégiques pour déployer En Détente à bord, en classe affaires ou comme accessoire premium.</p>
+      <p>Notre production 100% française et notre chaîne d'approvisionnement européenne sont des garanties de fiabilité et de traçabilité pour vos clients.</p>
+      <ul class="pro-ul">
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Vente à bord</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Mise à disposition par les compagnies aériennes</li>
+        <li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Distribution en boutiques duty-free et zones d'embarquement</li>
+      </ul>
+      <div class="pro-btns">
+        <button class="bp" onclick="openModal()">Contacter l'équipe pro</button>
+      </div>
+    </div>
 
-<!-- MODIFICATIONS 6 & 7 : liste mise à jour, "Certification Made in France" supprimée -->
-<ul class="pro-ul">
-<li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Vente à bord</li>
-<li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Mise à disposition par les compagnies aériennes</li>
-<li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Distribution en boutiques duty-free et zones d'embarquement</li>
-</ul>
-
-<!-- MODIFICATION 8 : bouton "Contacter l'équipe pro" -->
-<div class="pro-btns">
-<button class="bp" onclick="openModal()">Contacter l'équipe pro</button>
-</div>
-
-</div>
-
-<!-- MODIFICATION 5 : suppression "Réseaux médicaux ORL" -->
-<div class="p-cards rev d1">
-
-<div class="pc">
-<div class="pci">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-<path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-</svg>
-</div>
-<div>
-<h4>Compagnies aériennes</h4>
-</div>
-<svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14"/>
-<path d="M12 5l7 7-7 7"/>
-</svg>
-</div>
-
-<div class="pc">
-<div class="pci">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-<rect x="1" y="3" width="15" height="13"/>
-<polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
-<circle cx="5.5" cy="18.5" r="2.5"/>
-<circle cx="18.5" cy="18.5" r="2.5"/>
-</svg>
-</div>
-<div>
-<h4>Opérateurs duty-free</h4>
-</div>
-<svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14"/>
-<path d="M12 5l7 7-7 7"/>
-</svg>
-</div>
-
-<div class="pc">
-<div class="pci">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-<circle cx="9" cy="7" r="4"/>
-<path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-</svg>
-</div>
-<div>
-<h4>Agences de voyage</h4>
-</div>
-<svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14"/>
-<path d="M12 5l7 7-7 7"/>
-</svg>
-</div>
-
-</div>
-</div>
+    <!-- Cartes alignées avec le texte via align-self + padding-top -->
+    <div class="p-cards rev d1" style="align-self: flex-start; padding-top: calc(1lh + 48px);">
+      <div class="pc">
+        <div class="pci">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+        </div>
+        <div><h4>Compagnies aériennes</h4></div>
+        <svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="pc">
+        <div class="pci">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="1" y="3" width="15" height="13"/>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <div><h4>Opérateurs duty-free</h4></div>
+        <svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="pc">
+        <div class="pci">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div><h4>Agences de voyage</h4></div>
+        <svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+  </div>
 </section>
+  
   
 <!-- PREORDER -->
 <section class="preorder" id="precommande">
