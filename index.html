@@ -1,25 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>En Détente</title>
+<title>EN DÉTENTE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 
 body{
-font-family: Arial;
-text-align:center;
-background:#f4f4f4;
+font-family: Arial, sans-serif;
 margin:0;
+background:#0b0b0b;
+color:white;
+text-align:center;
 }
 
 header{
-background:#111;
-color:white;
-padding:40px;
+padding:120px 20px;
+background:linear-gradient(180deg,#000,#111);
 }
 
-section{
+h1{
+font-size:48px;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:20px;
+color:#ccc;
+}
+
+button{
+padding:15px 35px;
+font-size:18px;
+border:none;
+background:#ff3c3c;
+color:white;
+border-radius:8px;
+cursor:pointer;
+margin-top:25px;
+}
+
+button:hover{
+background:#ff5a5a;
+}
+
+.section{
+padding:80px 20px;
+max-width:900px;
+margin:auto;
+}
+
+.product{
+font-size:18px;
+line-height:1.6;
+color:#ddd;
+}
+
+.counter{
+font-size:40px;
+margin:20px 0;
+color:#ff3c3c;
+}
+
+input{
+padding:15px;
+width:260px;
+border:none;
+border-radius:6px;
+margin-top:15px;
+}
+
+.email-box{
+margin-top:25px;
+}
+
+footer{
+margin-top:80px;
 padding:40px;
+color:#888;
+font-size:14px;
 }
 
 </style>
@@ -28,20 +88,92 @@ padding:40px;
 <body>
 
 <header>
+
 <h1>EN DÉTENTE</h1>
-<p>Casque de relaxation pour le confort des voyageurs</p>
+
+<p class="subtitle">
+Casque de relaxation pour réduire la pression dans les oreilles pendant les voyages
+</p>
+
+<button onclick="preorder()">Précommander</button>
+
 </header>
 
-<section>
-<h2>Notre projet</h2>
 
-<p>
-En Détente est un casque innovant conçu pour améliorer
-le confort pendant les voyages en réduisant la pression
-dans les oreilles.
+<section class="section">
+
+<h2>Notre produit</h2>
+
+<p class="product">
+En Détente est un casque innovant conçu pour améliorer le confort
+pendant les voyages en avion, train ou voiture.
+
+Grâce à un système de régulation de pression et de diffusion d'air,
+il réduit la sensation de pression dans les oreilles et permet
+de voyager dans un confort total.
 </p>
 
 </section>
+
+
+<section class="section">
+
+<h2>Précommandes</h2>
+
+<div class="counter" id="count">128</div>
+
+<p>personnes ont déjà réservé</p>
+
+<button onclick="preorder()">Réserver maintenant</button>
+
+</section>
+
+
+<section class="section">
+
+<h2>Recevoir les infos du lancement</h2>
+
+<p>Inscrivez votre email pour être informé du lancement.</p>
+
+<div class="email-box">
+
+<input type="email" placeholder="Votre email">
+
+<br>
+
+<button onclick="alert('Merci ! Vous serez informé du lancement.')">
+S'inscrire
+</button>
+
+</div>
+
+</section>
+
+
+<footer>
+
+Projet étudiant — EN DÉTENTE
+
+</footer>
+
+
+<script>
+
+function preorder(){
+
+let counter=document.getElementById("count")
+
+let value=parseInt(counter.innerText)
+
+value++
+
+counter.innerText=value
+
+alert("Précommande enregistrée !")
+
+}
+
+</script>
 
 </body>
 </html>
