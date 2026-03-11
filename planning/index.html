@@ -1,1 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planning Prévisionnel — Projet En Détente</title>
 
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <!-- React + ReactDOM + Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    /* ── Lucide icon wrapper ── */
+    const Icon = ({ name, size = 16, className = "" }) => {
+      const ref = React.useRef(null);
+      React.useEffect(() => {
+        if (ref.current) {
+          ref.current.innerHTML = "";
+          const svg = lucide.icons[name]
+            ? lucide.createElement(lucide.icons[name], { width: size, height: size })
+            : null;
+          if (svg) ref.current.appendChild(svg);
+        }
+      }, [name, size]);
+      return <span ref={ref} className={`inline-flex items-center ${className}`} />;
+    };
+
+    /* ══════════════════════════════════════════════
+       APP
+    ══════════════════════════════════════════════ */
+    const App = () => {
+      const [expandedPhases, setExpandedPhases] = useState({
+        1: true, 2: true, 3: true, 4: true, 5: true, 6: true
+      });
+
+      const togglePhase = (id) =>
+        setExpandedPhases(prev => ({ ...prev, [id]: !prev[id] }));
+
+      const months = [
+        { name: "Septembre" }, { name: "Octobre" }, { name: "Novembre" },
+        { name: "Décembre" }, { name: "Janvier" },  { name: "Février" },
+        { name: "Mars" },     { name: "Avril" },     { name: "Mai" },
+        { name: "Juin" },
+      ];
+
+      const phases = [
+        {
+          id: 1,
+          title: "Phase 1 — Étude et cadrage",
+          color: "bg-slate-800",
+          startMonth: 0, durationMonths: 2,
+          tasks: [
+            { name: "Coordination & Cahier des charges",      owner: "M. Shimi",    start: 0,   dur: 1.5 },
+            { name: "Étude de marché & Questionnaires",       owner: "S. Bajjou",   start: 0.2, dur: 1.2 },
+            { name: "Analyse environnementale & Matériaux",   owner: "T. Sapan",    start: 0.5, dur: 1   },
+            { name: "Architecture système & Composants",      owner: "B. Bouchama", start: 1,   dur: 1   },
+            { name: "Veille technique & Fournisseurs",        owner: "C. Sarr",     start: 1.2, dur: 0.8 },
+          ]
+        },
+        {
+          id: 2,
+          title: "Phase 2 — Conception technique",
+          color: "bg-blue-900",
+          startMonth: 2, durationMonths: 2,
+          tasks: [
+            { name: "Conception électronique & Capteurs",     owner: "B. Bouchama", start: 2,   dur: 1.5 },
+            { name: "Conception mécanique & Ergonomie",       owner: "T. Sapan",    start: 2.2, dur: 1.5 },
+            { name: "Assistance prototypage & Simulation",    owner: "C. Sarr",     start: 2.5, dur: 1.2 },
+            { name: "Validation technique & Planning",        owner: "M. Shimi",    start: 3.5, dur: 0.5 },
+          ]
+        },
+        {
+          id: 3,
+          title: "Phase 3 — Prototypage",
+          color: "bg-blue-800",
+          startMonth: 4, durationMonths: 2,
+          tasks: [
+            { name: "Carte électronique & Firmware",          owner: "B. Bouchama", start: 4,   dur: 1.8 },
+            { name: "Fabrication coque & Assemblage",         owner: "T. Sapan",    start: 4.5, dur: 1.2 },
+            { name: "Tests de pression & Validation",         owner: "C. Sarr",     start: 5.5, dur: 0.5 },
+          ]
+        },
+        {
+          id: 4,
+          title: "Phase 4 — Tests et amélioration",
+          color: "bg-blue-700",
+          startMonth: 6, durationMonths: 2,
+          tasks: [
+            { name: "Essais techniques",                      owner: "C. Sarr",     start: 6,   dur: 1   },
+            { name: "Optimisation éco-conception",            owner: "T. Sapan",    start: 6.5, dur: 1   },
+            { name: "Analyse résultats & Améliorations",      owner: "M. Shimi",    start: 7,   dur: 1   },
+          ]
+        },
+        {
+          id: 5,
+          title: "Phase 5 — Marketing et stratégie",
+          color: "bg-blue-600",
+          startMonth: 8, durationMonths: 1,
+          tasks: [
+            { name: "Site internet & Supports marketing",     owner: "S. Bajjou",   start: 8,   dur: 1   },
+            { name: "Stratégie & Partenaires",                owner: "M. Shimi",    start: 8.2, dur: 0.8 },
+          ]
+        },
+        {
+          id: 6,
+          title: "Phase 6 — Préparation lancement",
+          color: "bg-indigo-900",
+          startMonth: 9, durationMonths: 1,
+          tasks: [
+            { name: "Validation finale & Business Plan",      owner: "Équipe",      start: 9,   dur: 0.5 },
+            { name: "Rapport final & Présentation",           owner: "Équipe",      start: 9.5, dur: 0.5 },
+          ]
+        },
+      ];
+
+      const unitWidth = 120;
+      const totalWidth = months.length * unitWidth;
+
+      /* colour map for task bars (inline style fallback) */
+      const phaseBarStyle = {
+        "bg-slate-800": "#1e293b",
+        "bg-blue-900":  "#1e3a5f",
+        "bg-blue-800":  "#1e40af",
+        "bg-blue-700":  "#1d4ed8",
+        "bg-blue-600":  "#2563eb",
+        "bg-indigo-900":"#1e1b4b",
+      };
+
+      return (
+        <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
+          <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden border border-slate-200">
+
+            {/* ── Header ── */}
+            <div className="p-6 text-white flex flex-col md:flex-row justify-between items-center gap-4"
+                 style={{ backgroundColor: "#001f3f" }}>
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight">
+                  Planning Prévisionnel : Projet En Détente
+                </h1>
+                <p className="text-blue-200 text-sm mt-1 flex items-center gap-2">
+                  <Icon name="Calendar" size={14} />
+                  Calendrier Opérationnel 2025-2026
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <div className="px-4 py-2 rounded-lg text-xs border border-white/20"
+                     style={{ background: "rgba(255,255,255,0.1)" }}>
+                  <span className="block opacity-60 uppercase font-bold">Statut</span>
+                  <span className="font-semibold text-green-400">En Planification</span>
+                </div>
+                <div className="px-4 py-2 rounded-lg text-xs border border-white/20"
+                     style={{ background: "rgba(255,255,255,0.1)" }}>
+                  <span className="block opacity-60 uppercase font-bold">Durée</span>
+                  <span className="font-semibold">10 Mois</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Gantt ── */}
+            <div className="overflow-x-auto">
+              <div style={{ minWidth: totalWidth + 300 }} className="relative">
+
+                {/* Timeline header */}
+                <div className="flex border-b border-slate-200 bg-slate-50">
+                  <div className="min-w-[300px] p-4 font-bold text-slate-500 text-sm border-r border-slate-200 sticky left-0 bg-slate-50 z-20">
+                    PHASES & MISSIONS
+                  </div>
+                  <div className="flex">
+                    {months.map((m, i) => (
+                      <div key={i} style={{ width: unitWidth }}
+                           className="p-4 text-center border-r border-slate-200 last:border-r-0">
+                        <span className="text-xs font-bold text-slate-400 block uppercase tracking-widest">2025/26</span>
+                        <span className="text-sm font-bold text-slate-700">{m.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Grid lines */}
+                <div className="absolute top-0 bottom-0 flex pointer-events-none"
+                     style={{ left: 300, right: 0, zIndex: 0 }}>
+                  {months.map((_, i) => (
+                    <div key={i} style={{ width: unitWidth }}
+                         className="h-full border-r border-slate-100 last:border-0" />
+                  ))}
+                </div>
+
+                {/* Phases + Tasks */}
+                <div className="relative" style={{ zIndex: 10 }}>
+                  {phases.map((phase) => (
+                    <div key={phase.id} className="border-b border-slate-100 last:border-0">
+
+                      {/* Phase row */}
+                      <div className="flex items-center hover:bg-slate-50 cursor-pointer transition-colors group"
+                           onClick={() => togglePhase(phase.id)}>
+                        <div className="min-w-[300px] p-4 border-r border-slate-200 sticky left-0 bg-white z-20
+                                        flex items-center gap-2 group-hover:bg-slate-50">
+                          {expandedPhases[phase.id]
+                            ? <Icon name="ChevronDown" size={18} className="text-blue-900" />
+                            : <Icon name="ChevronRight" size={18} className="text-slate-400" />}
+                          <span className="font-bold text-sm text-slate-800">{phase.title}</span>
+                        </div>
+                        <div className="flex-1 py-3 px-2 relative h-12 flex items-center">
+                          <div className={`h-6 rounded-full ${phase.color} shadow-lg flex items-center
+                                          px-3 text-[10px] text-white font-bold whitespace-nowrap overflow-hidden`}
+                               style={{
+                                 marginLeft: phase.startMonth * unitWidth,
+                                 width: phase.durationMonths * unitWidth,
+                                 opacity: 0.9,
+                               }}>
+                            {phase.title.toUpperCase()}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Task rows */}
+                      {expandedPhases[phase.id] && phase.tasks.map((task, tIndex) => (
+                        <div key={tIndex}
+                             className="flex items-center hover:bg-white transition-colors"
+                             style={{ background: "rgba(248,250,252,0.3)" }}>
+                          <div className="min-w-[300px] p-3 pl-12 border-r border-slate-200 sticky left-0 bg-white z-20 text-xs flex flex-col">
+                            <span className="text-slate-700 font-medium">{task.name}</span>
+                            <span className="text-[10px] text-blue-600 flex items-center gap-1 mt-1">
+                              <Icon name="User" size={10} /> {task.owner}
+                            </span>
+                          </div>
+                          <div className="flex-1 py-2 px-2 relative h-10 flex items-center">
+                            <div className="relative group"
+                                 style={{
+                                   marginLeft: task.start * unitWidth,
+                                   width: task.dur * unitWidth,
+                                   height: 12,
+                                   borderRadius: 4,
+                                   background: "#fff",
+                                   border: "2px solid #cbd5e1",
+                                 }}>
+                              {/* Tinted fill */}
+                              <div style={{
+                                     position: "absolute", inset: 0, borderRadius: 2,
+                                     background: phaseBarStyle[phase.color],
+                                     opacity: 0.28,
+                                   }} />
+                              {/* Tooltip */}
+                              <div className="absolute pointer-events-none opacity-0 group-hover:opacity-100
+                                              transition-opacity bg-slate-800 text-white text-[10px] px-2 py-1 rounded
+                                              whitespace-nowrap"
+                                   style={{ bottom: "calc(100% + 6px)", left: "50%", transform: "translateX(-50%)", zIndex: 30 }}>
+                                {task.owner} | {task.dur} mois
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ── Footer ── */}
+            <div className="bg-slate-50 border-t border-slate-200 p-6 flex flex-wrap gap-8">
+              <div className="flex items-center gap-6">
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Équipe Projet</h4>
+                <div className="flex flex-wrap gap-4">
+                  {[
+                    { name: "M. Shimi",    role: "Chef de projet" },
+                    { name: "B. Bouchama", role: "Technique"      },
+                    { name: "T. Sapan",    role: "Éco-conception" },
+                    { name: "S. Bajjou",   role: "Marketing"      },
+                    { name: "C. Sarr",     role: "Support"        },
+                  ].map((m, i) => (
+                    <div key={i} className="flex flex-col">
+                      <span className="text-[11px] font-bold text-slate-800">{m.name}</span>
+                      <span className="text-[9px] text-slate-500 uppercase">{m.role}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 ml-auto">
+                <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
+                  <div className="w-3 h-3 rounded-full bg-blue-900"></div> Jalons Majeurs
+                </div>
+                <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
+                  <Icon name="Clock" size={14} className="text-blue-600" />
+                  Temps estimé : 10 mois
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center text-slate-400 text-xs italic">
+            Document confidentiel — Propriété exclusive du projet "En détente" © 2025
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
