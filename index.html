@@ -1,969 +1,531 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>En Détente </title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planning Prévisionnel — Projet En Détente</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; }
 
-:root {
-  --black:      #0C0C0D;
-  --ink:        #1A1A1C;
-  --ink-mid:    #52525B;
-  --ink-soft:   #A1A1AA;
-  --border:     #E4E4E7;
-  --warm:       #FAFAF8;
-  --warm-deep:  #F2F2EF;
-  --white:      #FFFFFF;
-  --blue-fr:    #002395;
-  --red-fr:     #ED2939;
-  --eu-blue:    #003399;
-  --radius:     16px;
-}
+    .gantt-scroll::-webkit-scrollbar { height: 6px; }
+    .gantt-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 99px; }
+    .gantt-scroll::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 99px; }
+    .gantt-scroll::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
-html { scroll-behavior: smooth; }
-body {
-  background: var(--warm);
-  color: var(--ink);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
+    .bar-wrap:hover .bar-tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .bar-tooltip {
+      opacity: 0;
+      transform: translateX(-50%) translateY(4px);
+      transition: opacity .15s ease, transform .15s ease;
+      pointer-events: none;
+    }
 
-/* ─── SCROLLBAR ─── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--warm-deep); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .phase-row:hover .phase-label-col { background: #f8fafc !important; }
+    .task-row:hover .task-label-col   { background: #f8fafc !important; }
 
-/* ─── NAV ─── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-  height: 58px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px;
-  background: rgba(250,250,248,.94);
-  backdrop-filter: saturate(200%) blur(24px);
-  -webkit-backdrop-filter: saturate(200%) blur(24px);
-  border-bottom: 1px solid rgba(0,0,0,.09);
-}
-.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo-img { height: 30px; width: auto; object-fit: contain; }
-.nav-wordmark {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem; letter-spacing: .06em; font-style: italic;
-  color: var(--black); line-height: 1;
-}
-.nav-links { display: flex; gap: 0; list-style: none; }
-.nav-links a {
-  font-size: .8rem; font-weight: 400;
-  color: var(--ink); text-decoration: none;
-  letter-spacing: .03em; padding: 6px 18px;
-  border-radius: 980px;
-  transition: background .2s, color .2s;
-}
-.nav-links a:hover { background: var(--warm-deep); color: var(--black); }
-.nav-cta {
-  background: var(--black); color: var(--white);
-  border: none; padding: 10px 24px; border-radius: 980px;
-  font-family: 'Outfit', sans-serif; font-size: .8rem; font-weight: 400;
-  letter-spacing: .04em; cursor: pointer;
-  transition: background .2s, transform .15s;
-}
-.nav-cta:hover { background: var(--ink); transform: scale(1.01); }
+    .phase-card { transition: box-shadow .2s ease; }
+    .phase-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
 
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh; background: var(--black);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 130px 48px 110px;
-  position: relative; overflow: hidden;
-}
-.hero-grid-bg {
-  position: absolute; inset: 0; pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
-}
-.hero-glow {
-  position: absolute; width: 700px; height: 700px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.04) 0%, transparent 70%);
-  pointer-events: none;
-}
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
 
-.hero-logo-wrap {
-  width: 240px; margin-bottom: 44px;
-  animation: fadein .9s cubic-bezier(.16,1,.3,1) both;
-}
-.hero-logo-wrap img { width: 100%; filter: invert(1) brightness(2); }
-
-.hero-eyebrow {
-  font-size: .68rem; letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(255,255,255,.3); margin-bottom: 22px;
-  animation: slideup .9s .2s cubic-bezier(.16,1,.3,1) both;
-}
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(4rem, 10vw, 8.5rem); font-weight: 400;
-  line-height: .92; color: var(--white); letter-spacing: -.025em;
-  animation: slideup .9s .3s cubic-bezier(.16,1,.3,1) both;
-}
-h1 em { font-style: italic; color: rgba(255,255,255,.65); }
-.hero-sub {
-  max-width: 540px; margin: 28px auto 0;
-  font-size: 1.05rem; color: rgba(255,255,255,.42); line-height: 1.75; font-weight: 300;
-  animation: slideup .9s .42s cubic-bezier(.16,1,.3,1) both;
-}
-.hero-btns {
-  display: flex; gap: 12px; justify-content: center; margin-top: 48px; flex-wrap: wrap;
-  animation: slideup .9s .52s cubic-bezier(.16,1,.3,1) both;
-}
-.btn-white {
-  background: var(--white); color: var(--black);
-  border: none; padding: 14px 38px; border-radius: 980px;
-  font-family: 'Outfit', sans-serif; font-size: .88rem; font-weight: 400;
-  cursor: pointer; letter-spacing: .04em; transition: background .2s, transform .15s;
-}
-.btn-white:hover { background: #f0f0ee; transform: scale(1.01); }
-.btn-ghost {
-  background: rgba(255,255,255,.07); color: rgba(255,255,255,.75);
-  border: 1px solid rgba(255,255,255,.15); padding: 14px 38px; border-radius: 980px;
-  font-family: 'Outfit', sans-serif; font-size: .88rem; font-weight: 300;
-  cursor: pointer; letter-spacing: .04em; transition: all .2s;
-}
-.btn-ghost:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.35); }
-
-/* Scroll indicator */
-.hero-scroll {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  animation: slideup .9s .8s both;
-}
-.scroll-track { width: 1px; height: 48px; background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent); animation: st 2s ease-in-out infinite; }
-.scroll-dot { width: 4px; height: 4px; background: rgba(255,255,255,.3); border-radius: 50%; }
-@keyframes st { 0%,100%{opacity:.3} 50%{opacity:.8} }
-
-@keyframes fadein { from{opacity:0;transform:scale(.9)} to{opacity:1;transform:scale(1)} }
-@keyframes slideup { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
-
-/* ─── MADE IN FRANCE BAND ─── */
-.mif-band {
-  background: var(--white); border-bottom: 1px solid var(--border);
-  padding: 0;
-  overflow: hidden; position: relative;
-}
-.mif-inner {
-  display: flex; align-items: stretch;
-}
-.mif-flag-zone {
-  display: flex; align-items: center; justify-content: center;
-  padding: 48px 56px;
-  background: var(--warm-deep);
-  border-right: 1px solid var(--border);
-  flex-shrink: 0;
-}
-.mif-flag-img { height: 56px; width: auto; border-radius: 6px; box-shadow: 0 4px 24px rgba(0,0,0,.1); }
-.mif-content {
-  flex: 1; padding: 48px 56px;
-  display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
-}
-.mif-text h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400;
-  letter-spacing: -.02em; margin-bottom: 10px;
-}
-.mif-text h2 em { font-style: italic; color: var(--blue-fr); }
-.mif-text p { font-size: .9rem; color: var(--ink-mid); line-height: 1.75; max-width: 520px; }
-.mif-badges { display: flex; gap: 14px; flex-wrap: wrap; flex-shrink: 0; }
-.mif-badge {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--warm); border: 1.5px solid var(--border);
-  border-radius: 12px; padding: 14px 20px;
-  font-size: .78rem; font-weight: 500; letter-spacing: .04em; color: var(--ink);
-  white-space: nowrap;
-}
-.mif-badge .dot-fr { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-fr) 33%, white 33% 66%, var(--red-fr) 66%); flex-shrink: 0; }
-.mif-badge .dot-eu { width: 10px; height: 10px; border-radius: 50%; background: var(--eu-blue); flex-shrink: 0; }
-
-/* Supply strip */
-.supply-strip {
-  background: var(--ink); padding: 20px 48px;
-  display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap;
-  overflow: hidden; position: relative;
-}
-.supply-item {
-  display: flex; align-items: center; gap: 12px;
-  font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.5); white-space: nowrap;
-}
-.supply-item svg { color: rgba(255,255,255,.3); flex-shrink: 0; }
-.supply-sep { width: 1px; height: 18px; background: rgba(255,255,255,.1); }
-
-/* ─── STATS ─── */
-.stats {
-  background: var(--warm-deep); display: flex; justify-content: center;
-  padding: 72px 48px; border-bottom: 1px solid var(--border);
-}
-.stat { flex: 1; max-width: 260px; text-align: center; padding: 0 36px; position: relative; }
-.stat+.stat::before { content:''; position:absolute; left:0; top:15%; height:70%; width:1px; background:var(--border); }
-.stat-n { font-family:'Playfair Display',serif; font-size:3.4rem; letter-spacing:-.03em; line-height:1; color:var(--black); }
-.stat-d { font-size:.78rem; color:var(--ink-mid); margin-top:10px; line-height:1.55; }
-
-/* ─── SECTION HELPERS ─── */
-.lbl { font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; display:block; }
-.lbl-dim  { color:rgba(255,255,255,.3); }
-.lbl-mid  { color:var(--ink-soft); }
-.sh2 { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,5.5vw,4.8rem); font-weight:400; letter-spacing:-.02em; line-height:1.05; }
-.sh2 em { font-style:italic; }
-.sh2.light { color:var(--white); }
-.section-p { font-size:.95rem; line-height:1.8; }
-.section-p.mid { color:var(--ink-mid); }
-.section-p.dim { color:rgba(255,255,255,.4); }
-
-/* ─── PRODUCT ─── */
-.product-sec { background:var(--black); padding:140px 48px; text-align:center; }
-.product-box {
-  max-width:440px; margin:72px auto 0;
-  background:#111; border:1px solid rgba(255,255,255,.06);
-  border-radius:28px; padding:56px 36px; position:relative; overflow:hidden;
-}
-.product-box::before { content:''; position:absolute; inset:0; border-radius:28px; background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(255,255,255,.05) 0%,transparent 100%); pointer-events:none; }
-.hs { width:230px; display:block; margin:0 auto; animation:float 5s ease-in-out infinite; filter:drop-shadow(0 20px 48px rgba(0,0,0,.9)); }
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.chips { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
-.chip { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:980px; padding:7px 16px; font-size:.7rem; color:rgba(255,255,255,.45); letter-spacing:.08em; }
-
-/* ─── FEATURE GRID ─── */
-.fg-sec { background:var(--warm); padding:120px 48px; }
-.fg-sec .sh2 { text-align:center; margin-bottom:64px; }
-.fg { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1100px; margin:0 auto; }
-.fc { background:var(--white); padding:44px 36px; transition:background .2s; border-radius:0; }
-.fg>:first-child { border-radius:var(--radius) 0 0 0; }
-.fg>:nth-child(3) { border-radius:0 var(--radius) 0 0; }
-.fg>:nth-child(4) { border-radius:0 0 0 var(--radius); }
-.fg>:last-child { border-radius:0 0 var(--radius) 0; }
-.fc:hover { background:#FAFAF8; }
-.fi { width:44px; height:44px; background:var(--black); border-radius:12px; display:grid; place-items:center; color:var(--white); margin-bottom:22px; }
-.fc h3 { font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:10px; letter-spacing:-.01em; }
-.fc p { font-size:.82rem; color:var(--ink-mid); line-height:1.78; }
-
-/* ─── HOW ─── */
-.how { background:var(--black); color:var(--white); padding:140px 48px; text-align:center; }
-.steps { display:grid; grid-template-columns:repeat(3,1fr); max-width:980px; margin:72px auto 0; }
-.si { padding:44px 32px; border-top:1px solid rgba(255,255,255,.08); text-align:left; }
-.si-num { font-family:'Playfair Display',serif; font-size:3.5rem; color:rgba(255,255,255,.07); line-height:1; margin-bottom:20px; }
-.si h3 { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:12px; font-weight:400; }
-.si p { font-size:.86rem; color:rgba(255,255,255,.38); line-height:1.78; }
-
-/* ─── MADE IN FRANCE SECTION (full) ─── */
-.mif-full {
-  background: var(--warm-deep); padding: 100px 48px;
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-}
-.mif-full-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items: center; max-width: 1080px; margin: 0 auto;
-}
-.mif-full .sh2 { margin: 18px 0 24px; }
-.mif-full p { font-size: .9rem; color: var(--ink-mid); line-height: 1.8; margin-bottom: 12px; }
-.mif-flags-row {
-  display: flex; gap: 16px; align-items: center; margin-top: 32px; flex-wrap: wrap;
-}
-.mif-flag-card {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--white); border: 1.5px solid var(--border);
-  border-radius: 14px; padding: 14px 22px;
-  font-size: .82rem; font-weight: 500; color: var(--ink);
-}
-.mif-flag-card img { height: 24px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
-
-.supply-chain-cards { display: flex; flex-direction: column; gap: 14px; }
-.sc-card {
-  background: var(--white); border: 1.5px solid var(--border);
-  border-radius: 16px; padding: 24px 28px;
-  display: flex; align-items: flex-start; gap: 18px;
-  transition: border-color .2s, transform .2s;
-}
-.sc-card:hover { border-color: #c8c8c8; transform: translateX(4px); }
-.sc-card-icon {
-  width: 40px; height: 40px; border-radius: 10px;
-  background: var(--black); display: grid; place-items: center;
-  color: var(--white); flex-shrink: 0;
-}
-.sc-card h4 { font-size: .88rem; font-weight: 500; margin-bottom: 4px; color: var(--black); }
-.sc-card p { font-size: .78rem; color: var(--ink-mid); line-height: 1.6; }
-
-/* ─── TEAM ─── */
-.team-sec {
-  background: var(--warm); padding: 100px 48px;
-  border-top: 1px solid var(--border);
-}
-.team-sec .section-head { margin-bottom: 56px; }
-.team-grid {
-  display: grid; grid-template-columns: repeat(5, 1fr);
-  gap: 16px; max-width: 1080px; margin: 0 auto;
-}
-.team-card {
-  background: var(--white); border: 1.5px solid var(--border);
-  border-radius: 20px; padding: 32px 24px; text-align: center;
-  transition: border-color .2s, transform .2s;
-}
-.team-card:hover { border-color: #b4b4b4; transform: translateY(-3px); }
-.team-avatar {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: var(--black); display: grid; place-items: center;
-  color: var(--white); margin: 0 auto 16px;
-  font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
-}
-.team-card h4 { font-size: .88rem; font-weight: 500; color: var(--black); margin-bottom: 6px; line-height: 1.3; }
-.team-card p { font-size: .72rem; color: var(--ink-mid); line-height: 1.55; }
-
-/* ─── SUPPORT ─── */
-.support { background:var(--warm); padding:140px 48px; }
-.section-head { text-align:center; margin-bottom:72px; }
-.sg { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; max-width:960px; margin:0 auto 72px; }
-.sc2 { background:var(--white); border:1.5px solid var(--border); border-radius:20px; padding:38px 34px; display:flex; gap:20px; align-items:flex-start; transition:border-color .2s,transform .2s; cursor:pointer; }
-.sc2:hover { border-color:#b4b4b4; transform:translateY(-2px); }
-.si3 { width:46px; height:46px; border-radius:12px; background:var(--black); display:grid; place-items:center; color:var(--white); flex-shrink:0; }
-.sc2 h3 { font-family:'Playfair Display',serif; font-size:1.1rem; margin-bottom:8px; }
-.sc2 p { font-size:.8rem; color:var(--ink-mid); line-height:1.72; }
-.sc2-link { display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-size:.78rem; color:var(--black); font-weight:500; text-decoration:none; }
-.sc2-link svg { transition:transform .2s; }
-.sc2-link:hover svg { transform:translateX(4px); }
-.faq-wrap { max-width:700px; margin:0 auto; }
-.faq-title { font-family:'Playfair Display',serif; font-size:1.7rem; margin-bottom:24px; }
-.fq { border-top:1px solid var(--border); padding:20px 0; }
-.fq:last-child { border-bottom:1px solid var(--border); }
-.fq-q { display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-size:.9rem; font-weight:400; gap:16px; }
-.fq-icon { flex-shrink:0; transition:transform .3s; }
-.fq.open .fq-icon { transform:rotate(45deg); }
-.fq-a { font-size:.82rem; color:var(--ink-mid); line-height:1.75; margin-top:12px; display:none; }
-.fq.open .fq-a { display:block; }
-
-/* ─── CONTACT MODAL ─── */
-.modal-overlay {
-  position:fixed; inset:0; background:rgba(0,0,0,.6);
-  backdrop-filter:blur(8px); z-index:500;
-  display:flex; align-items:center; justify-content:center; padding:24px;
-  opacity:0; pointer-events:none; transition:opacity .3s;
-}
-.modal-overlay.open { opacity:1; pointer-events:all; }
-.modal {
-  background:var(--white); border-radius:24px; padding:52px;
-  max-width:520px; width:100%; position:relative;
-  transform:translateY(20px) scale(.98); transition:transform .35s cubic-bezier(.16,1,.3,1);
-  max-height:90vh; overflow-y:auto;
-}
-.modal-overlay.open .modal { transform:none; }
-.modal-close {
-  position:absolute; top:20px; right:20px;
-  background:var(--warm-deep); border:none; width:32px; height:32px;
-  border-radius:50%; cursor:pointer; display:grid; place-items:center;
-  color:var(--ink-mid); transition:background .2s;
-}
-.modal-close:hover { background:var(--border); }
-.modal h3 { font-family:'Playfair Display',serif; font-size:1.7rem; margin-bottom:6px; }
-.modal > p { font-size:.85rem; color:var(--ink-mid); margin-bottom:28px; line-height:1.6; }
-.mform { display:flex; flex-direction:column; gap:12px; }
-.mrow { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.mfield {
-  width:100%; background:var(--warm); border:1.5px solid var(--border);
-  border-radius:10px; padding:13px 15px;
-  font-family:'Outfit',sans-serif; font-size:.86rem; color:var(--black);
-  font-weight:300; outline:none; transition:border-color .2s,background .2s;
-}
-.mfield:focus { border-color:var(--black); background:var(--white); }
-.mfield::placeholder { color:var(--ink-soft); }
-textarea.mfield { resize:vertical; min-height:110px; }
-select.mfield { appearance:none; cursor:pointer; }
-.msubmit {
-  width:100%; background:var(--black); color:var(--white);
-  border:none; padding:15px; border-radius:10px;
-  font-family:'Outfit',sans-serif; font-size:.88rem; font-weight:400;
-  cursor:pointer; letter-spacing:.04em; transition:background .2s;
-}
-.msubmit:hover { background:var(--ink); }
-
-/* ─── PRO ─── */
-.pro { background:var(--black); color:var(--white); padding:140px 48px; }
-.pro-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; max-width:1080px; margin:0 auto; }
-.pro-c p { font-size:.9rem; color:rgba(255,255,255,.45); line-height:1.8; margin-bottom:12px; }
-.pro-ul { list-style:none; margin:28px 0 36px; display:flex; flex-direction:column; gap:13px; }
-.pro-ul li { display:flex; gap:12px; align-items:flex-start; font-size:.86rem; color:rgba(255,255,255,.6); line-height:1.6; }
-.pck { width:20px; height:20px; border-radius:50%; background:rgba(255,255,255,.08); display:grid; place-items:center; flex-shrink:0; margin-top:1px; color:var(--white); }
-.pro-btns { display:flex; gap:12px; flex-wrap:wrap; }
-.bp { background:var(--white); color:var(--black); border:none; padding:14px 32px; border-radius:980px; font-family:'Outfit',sans-serif; font-size:.85rem; font-weight:400; cursor:pointer; letter-spacing:.03em; transition:background .2s; }
-.bp:hover { background:#f0f0ee; }
-.p-cards { display:flex; flex-direction:column; gap:12px; }
-.pc { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:22px 24px; display:flex; align-items:center; gap:16px; transition:background .2s,border-color .2s; cursor:pointer; }
-.pc:hover { background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.13); }
-.pci { width:42px; height:42px; border-radius:10px; background:rgba(255,255,255,.08); display:grid; place-items:center; color:var(--white); flex-shrink:0; }
-.pc h4 { font-size:.86rem; font-weight:400; margin-bottom:3px; }
-.pc p { font-size:.74rem; color:rgba(255,255,255,.35); line-height:1.4; }
-.pca { margin-left:auto; color:rgba(255,255,255,.2); flex-shrink:0; transition:color .2s,transform .2s; }
-.pc:hover .pca { color:rgba(255,255,255,.6); transform:translateX(4px); }
-
-/* ─── PREORDER ─── */
-.preorder { background:var(--warm); padding:140px 48px; text-align:center; }
-.preorder .sh2 { margin-bottom:14px; }
-.preorder>.subp { font-size:.92rem; color:var(--ink-mid); max-width:460px; margin:0 auto 52px; line-height:1.75; }
-.ob { background:var(--white); border-radius:24px; padding:56px; max-width:500px; margin:0 auto; border:1.5px solid var(--border); box-shadow:0 2px 60px rgba(0,0,0,.05); }
-.op { font-family:'Playfair Display',serif; font-size:4rem; letter-spacing:-.03em; margin-bottom:4px; }
-.op span { font-size:2rem; color:var(--ink-mid); }
-.opn { font-size:.72rem; color:var(--ink-mid); margin-bottom:32px; letter-spacing:.06em; }
-.ostk { display:inline-flex; align-items:center; gap:7px; background:var(--warm-deep); border:1px solid var(--border); border-radius:980px; padding:7px 16px; font-size:.7rem; color:var(--ink-mid); margin-bottom:32px; letter-spacing:.07em; }
-.odot { width:6px; height:6px; border-radius:50%; background:#34C759; flex-shrink:0; }
-.oform { display:flex; flex-direction:column; gap:10px; }
-.orow { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-input[type=text],input[type=email] { width:100%; background:var(--warm); border:1.5px solid var(--border); border-radius:10px; padding:13px 15px; font-family:'Outfit',sans-serif; font-size:.86rem; color:var(--black); font-weight:300; outline:none; transition:border-color .2s,background .2s; }
-input:focus { border-color:var(--black); background:var(--white); }
-input::placeholder { color:var(--ink-soft); }
-.osubmit { width:100%; background:var(--black); color:var(--white); border:none; padding:15px; border-radius:10px; font-family:'Outfit',sans-serif; font-size:.88rem; font-weight:400; cursor:pointer; letter-spacing:.04em; transition:background .2s; margin-top:2px; }
-.osubmit:hover { background:var(--ink); }
-.otrust { display:flex; justify-content:center; gap:22px; flex-wrap:wrap; margin-top:18px; }
-.tp { display:flex; align-items:center; gap:6px; font-size:.68rem; color:var(--ink-soft); letter-spacing:.07em; }
-
-/* ─── FOOTER ─── */
-footer { background:var(--black); padding:64px 48px 44px; }
-.ft { display:flex; justify-content:space-between; align-items:flex-start; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,.07); flex-wrap:wrap; gap:40px; }
-.fb-logo img { height:32px; filter:invert(1) brightness(2); margin-bottom:10px; }
-.fb-name { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--white); font-style:italic; letter-spacing:.06em; }
-.fb-tag { font-size:.62rem; color:rgba(255,255,255,.25); margin-top:4px; letter-spacing:.14em; }
-.fc-cols { display:flex; gap:52px; flex-wrap:wrap; }
-.fc-col h4 { font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.25); margin-bottom:14px; font-weight:400; }
-.fc-col a { display:block; font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none; margin-bottom:9px; transition:color .2s; }
-.fc-col a:hover { color:var(--white); }
-.fb2 { display:flex; justify-content:space-between; align-items:center; padding-top:24px; flex-wrap:wrap; gap:12px; }
-.fb2-copy { font-size:.68rem; color:rgba(255,255,255,.2); letter-spacing:.06em; }
-.fb2-links { display:flex; gap:20px; }
-.fb2-links a { font-size:.68rem; color:rgba(255,255,255,.2); text-decoration:none; transition:color .2s; }
-.fb2-links a:hover { color:rgba(255,255,255,.5); }
-
-/* ─── TOAST ─── */
-.toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(70px); background:var(--black); color:var(--white); padding:14px 28px; border-radius:980px; font-size:.8rem; letter-spacing:.06em; white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.2); transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s; opacity:0; z-index:400; }
-.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
-
-/* ─── REVEAL ─── */
-.rev { opacity:0; transform:translateY(22px); transition:all .8s cubic-bezier(.16,1,.3,1); }
-.rev.v { opacity:1; transform:none; }
-.d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s}
-
-/* ─── RESPONSIVE ─── */
-@media(max-width:980px){
-  nav { padding:0 20px; }
-  .nav-links { display:none; }
-  .hero,.product-sec,.fg-sec,.how,.mif-full,.support,.pro,.preorder,.team-sec { padding:80px 24px; }
-  .stats { flex-direction:column; align-items:center; gap:36px; padding:60px 24px; }
-  .stat+.stat::before { display:none; }
-  .fg { grid-template-columns:1fr 1fr; }
-  .steps,.pro-grid,.mif-full-grid { grid-template-columns:1fr; gap:48px; }
-  .sg { grid-template-columns:1fr; }
-  .ob { padding:36px 20px; }
-  .orow { grid-template-columns:1fr; }
-  .ft { flex-direction:column; }
-  .mif-inner { flex-direction:column; }
-  .mif-flag-zone { padding:32px 24px; }
-  .mif-content { padding:32px 24px; }
-  .supply-strip { padding:18px 24px; gap:24px; }
-  .team-grid { grid-template-columns:repeat(2,1fr); }
-}
-@media(max-width:600px){
-  .fg { grid-template-columns:1fr; }
-  h1 { font-size:3.4rem; }
-  .mif-badges { flex-direction:column; }
-  .team-grid { grid-template-columns:1fr; }
-}
-</style>
+    .view-btn { transition: background .15s, color .15s; }
+    .view-btn.active { background: #001f3f; color: #fff; }
+    .view-btn:not(.active) { background: transparent; color: #64748b; }
+    .view-btn:not(.active):hover { background: #e2e8f0; color: #1e293b; }
+  </style>
 </head>
-<body>
+<body class="bg-slate-100">
+  <div id="root"></div>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-brand" href="#">
-    <!-- MODIFICATION 10 : suppression du doublon "En Détente" — une seule occurrence -->
-    <img class="nav-logo-img" src="logo_endetente.png" alt="En Détente">
-    <span class="nav-wordmark">En Détente</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#produit">Produit</a></li>
-    <li><a href="#origine">Made in France</a></li>
-    <li><a href="#equipe">Équipe</a></li>
-    <li><a href="#service">Service</a></li>
-    <li><a href="#compagnies">Compagnies</a></li>
-    <li><a href="#precommande">Prix</a></li>
-  </ul>
-  <button class="nav-cta" onclick="scrollSec('precommande')">Pré-commander</button>
-</nav>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
+    /* ── Lucide Icon wrapper ── */
+    const Icon = ({ name, size = 16, className = "", color }) => {
+      const ref = useRef(null);
+      useEffect(() => {
+        if (!ref.current || !lucide.icons[name]) return;
+        ref.current.innerHTML = "";
+        const svg = lucide.createElement(lucide.icons[name], {
+          width: size, height: size, ...(color ? { color } : {})
+        });
+        ref.current.appendChild(svg);
+      }, [name, size, color]);
+      return <span ref={ref} className={`inline-flex items-center shrink-0 ${className}`} />;
+    };
 
-  <!-- MODIFICATION 9 : logo affiché en haut à gauche (nav) + icône hero -->
-  <div class="hero-logo-wrap">
-    <img src="logo_endetente.png" alt="En Détente logo" onerror="this.style.display='none'">
-  </div>
+    /* ── DATA ── */
+    const months = [
+      "Septembre","Octobre","Novembre","Décembre",
+      "Janvier","Février","Mars","Avril","Mai","Juin"
+    ];
 
- <div class="hero-eyebrow"></div>
-<h1>En <em>Détente.</em></h1>
-<p class="hero-sub">Le premier casque actif à dépressurisation contrôlée. Conçu pour éliminer les douleurs auriculaires en avion — décollage, atterrissage, en toute sérénité.</p>
-<div class="hero-btns">
-  <button class="btn-white" onclick="scrollSec('precommande')">Pré-commander — 149,99 €</button>
-  <button class="btn-ghost" onclick="scrollSec('produit')">Découvrir</button>
-</div>
+    const phases = [
+      {
+        id:1, num:"01",
+        title:"Étude et cadrage",
+        fullTitle:"Phase 1 — Étude et cadrage",
+        shortLabel:"Ph.1 — Étude",
+        hex:"#1e293b",
+        startMonth:0, durationMonths:2,
+        tasks:[
+          {name:"Coordination & Cahier des charges",    owner:"M. Shimi",    start:0,   dur:1.5},
+          {name:"Étude de marché & Questionnaires",     owner:"S. Bajjou",   start:0.2, dur:1.2},
+          {name:"Analyse environnementale & Matériaux", owner:"T. Sapan",    start:0.5, dur:1  },
+          {name:"Architecture système & Composants",    owner:"B. Bouchama", start:1,   dur:1  },
+          {name:"Veille technique & Fournisseurs",      owner:"C. Sarr",     start:1.2, dur:0.8},
+        ]
+      },
+      {
+        id:2, num:"02",
+        title:"Conception technique",
+        fullTitle:"Phase 2 — Conception technique",
+        shortLabel:"Ph.2 — Conception",
+        hex:"#1e3a5f",
+        startMonth:2, durationMonths:2,
+        tasks:[
+          {name:"Conception électronique & Capteurs",   owner:"B. Bouchama", start:2,   dur:1.5},
+          {name:"Conception mécanique & Ergonomie",     owner:"T. Sapan",    start:2.2, dur:1.5},
+          {name:"Assistance prototypage & Simulation",  owner:"C. Sarr",     start:2.5, dur:1.2},
+          {name:"Validation technique & Planning",      owner:"M. Shimi",    start:3.5, dur:0.5},
+        ]
+      },
+      {
+        id:3, num:"03",
+        title:"Prototypage",
+        fullTitle:"Phase 3 — Prototypage",
+        shortLabel:"Ph.3 — Proto",
+        hex:"#1e40af",
+        startMonth:4, durationMonths:2,
+        tasks:[
+          {name:"Carte électronique & Firmware",        owner:"B. Bouchama", start:4,   dur:1.8},
+          {name:"Fabrication coque & Assemblage",       owner:"T. Sapan",    start:4.5, dur:1.2},
+          {name:"Tests de pression & Validation",       owner:"C. Sarr",     start:5.5, dur:0.5},
+        ]
+      },
+      {
+        id:4, num:"04",
+        title:"Tests et amélioration",
+        fullTitle:"Phase 4 — Tests et amélioration",
+        shortLabel:"Ph.4 — Tests",
+        hex:"#1d4ed8",
+        startMonth:6, durationMonths:2,
+        tasks:[
+          {name:"Essais techniques",                    owner:"C. Sarr",     start:6,   dur:1  },
+          {name:"Optimisation éco-conception",          owner:"T. Sapan",    start:6.5, dur:1  },
+          {name:"Analyse résultats & Améliorations",    owner:"M. Shimi",    start:7,   dur:1  },
+        ]
+      },
+      {
+        id:5, num:"05",
+        title:"Marketing et stratégie",
+        fullTitle:"Phase 5 — Marketing et stratégie",
+        shortLabel:"Ph.5",
+        hex:"#2563eb",
+        startMonth:8, durationMonths:1,
+        tasks:[
+          {name:"Site internet & Supports marketing",   owner:"S. Bajjou",   start:8,   dur:1  },
+          {name:"Stratégie & Partenaires",              owner:"M. Shimi",    start:8.2, dur:0.8},
+        ]
+      },
+      {
+        id:6, num:"06",
+        title:"Préparation lancement",
+        fullTitle:"Phase 6 — Préparation lancement",
+        shortLabel:"Ph.6",
+        hex:"#312e81",
+        startMonth:9, durationMonths:1,
+        tasks:[
+          {name:"Validation finale & Business Plan",    owner:"Équipe",      start:9,   dur:0.5},
+          {name:"Rapport final & Présentation",         owner:"Équipe",      start:9.5, dur:0.5},
+        ]
+      },
+    ];
 
-  <div class="hero-scroll">
-    <div class="scroll-track"></div>
-    <div class="scroll-dot"></div>
-  </div>
-</section>
+    const teamMembers = [
+      {name:"M. Shimi",    role:"Chef de projet", icon:"👑"},
+      {name:"B. Bouchama", role:"Technique",       icon:"⚙️"},
+      {name:"T. Sapan",    role:"Éco-conception",  icon:"🌿"},
+      {name:"S. Bajjou",   role:"Marketing",       icon:"📣"},
+      {name:"C. Sarr",     role:"Support",         icon:"🔧"},
+    ];
 
-<!-- MADE IN FRANCE BAND -->
-<div class="mif-band">
-  <div class="mif-inner">
-    <div class="mif-flag-zone rev">
-      <img class="mif-flag-img" src="__drapeaufranceeurope.png" alt="Drapeau France & Europe" onerror="this.outerHTML='<div style=\'display:flex;gap:10px;align-items:center\'><div style=\'width:56px;height:36px;border-radius:6px;background:linear-gradient(90deg,#002395 33%,white 33% 66%,#ED2939 66%);box-shadow:0 4px 24px rgba(0,0,0,.1)\'></div><div style=\'font-size:1.4rem\'>🇪🇺</div></div>'">
-    </div>
-    <div class="mif-content rev d1">
-      <div class="mif-text">
-        <h2>Fièrement <em>Made in France</em></h2>
-        <p>Assemblage, production et locaux en France. Approvisionnement exclusivement européen pour tous nos composants. Un engagement fort pour l'industrie locale.</p>
-      </div>
-      <div class="mif-badges">
-        <div class="mif-badge"><div class="dot-fr"></div>Made in France</div>
-        <div class="mif-badge"><div class="dot-eu"></div>Composants UE</div>
-        <div class="mif-badge">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Assemblage local
+    /* ── CONSTANTS ── */
+    const UNIT  = 110;   // px per month
+    const LABEL = 280;   // px label column
+    const EXTRA = 60;    // right-side buffer so Phase 6 never clips
+
+    /* ─────────────────────────
+       GANTT VIEW
+    ───────────────────────── */
+    const GanttView = ({ expandedPhases, togglePhase }) => (
+      <div className="gantt-scroll overflow-x-auto">
+        <div style={{ minWidth: UNIT * months.length + LABEL + EXTRA }} className="relative">
+
+          {/* Timeline header */}
+          <div className="flex border-b border-slate-200 bg-slate-50 sticky top-0 z-30">
+            <div style={{ width: LABEL, minWidth: LABEL }}
+                 className="p-4 font-semibold text-slate-400 text-xs tracking-widest uppercase
+                             border-r border-slate-200 sticky left-0 bg-slate-50 z-40">
+              PHASES &amp; MISSIONS
+            </div>
+            {months.map((m, i) => (
+              <div key={i} style={{ width: UNIT, minWidth: UNIT }}
+                   className="py-3 text-center border-r border-slate-200 last:border-r-0">
+                <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-wider leading-none mb-0.5">
+                  {i < 4 ? "2025" : "2026"}
+                </span>
+                <span className="text-xs font-bold text-slate-700">{m}</span>
+              </div>
+            ))}
+            <div style={{ width: EXTRA }} />
+          </div>
+
+          {/* Grid */}
+          <div className="absolute top-0 bottom-0 pointer-events-none flex"
+               style={{ left: LABEL, right: 0, zIndex: 0 }}>
+            {months.map((_, i) => (
+              <div key={i} style={{ width: UNIT, minWidth: UNIT }}
+                   className={`h-full border-r border-slate-100 ${i % 2 === 0 ? "bg-white" : "bg-slate-50/60"}`} />
+            ))}
+          </div>
+
+          {/* Phases + Tasks */}
+          <div className="relative" style={{ zIndex: 10 }}>
+            {phases.map((phase) => (
+              <div key={phase.id} className="border-b border-slate-100 last:border-0">
+
+                {/* Phase row */}
+                <div className="phase-row flex items-center cursor-pointer select-none"
+                     style={{ minHeight: 52 }}
+                     onClick={() => togglePhase(phase.id)}>
+                  <div style={{ width: LABEL, minWidth: LABEL }}
+                       className="phase-label-col h-full px-4 py-3 border-r border-slate-200
+                                  sticky left-0 bg-white z-20 flex items-center gap-2.5 transition-colors">
+                    <div className="w-5 h-5 rounded flex items-center justify-center shrink-0"
+                         style={{ background: phase.hex + "22" }}>
+                      {expandedPhases[phase.id]
+                        ? <Icon name="ChevronDown"  size={12} color={phase.hex} />
+                        : <Icon name="ChevronRight" size={12} color={phase.hex} />}
+                    </div>
+                    <div className="min-w-0">
+                      <span className="font-bold text-xs text-slate-800 block leading-tight truncate">
+                        {phase.fullTitle}
+                      </span>
+                      <span className="text-[10px] text-slate-400">
+                        {phase.tasks.length} mission{phase.tasks.length > 1 ? "s" : ""}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Phase bar */}
+                  <div className="flex-1 py-3 px-2 flex items-center">
+                    <div style={{
+                           marginLeft: phase.startMonth * UNIT,
+                           width: phase.durationMonths * UNIT,
+                           height: 28,
+                           borderRadius: 8,
+                           background: `linear-gradient(135deg, ${phase.hex} 0%, ${phase.hex}cc 100%)`,
+                           boxShadow: `0 2px 10px ${phase.hex}44`,
+                           position: "relative",
+                           overflow: "hidden",
+                           display: "flex",
+                           alignItems: "center",
+                         }}>
+                      {/* Shine */}
+                      <div style={{
+                             position:"absolute", inset:0,
+                             background:"linear-gradient(180deg,rgba(255,255,255,0.16) 0%,transparent 55%)",
+                             borderRadius:8,
+                           }} />
+                      {/* Label — use short version so it always fits in narrow bars */}
+                      <span style={{
+                              position:"relative", zIndex:1,
+                              padding:"0 10px",
+                              fontSize:10, fontWeight:700,
+                              color:"#fff", textTransform:"uppercase",
+                              letterSpacing:"0.06em",
+                              whiteSpace:"nowrap",
+                              overflow:"hidden", textOverflow:"ellipsis",
+                              width:"100%",
+                            }}>
+                        {phase.durationMonths >= 2 ? phase.fullTitle : phase.shortLabel}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Task rows */}
+                {expandedPhases[phase.id] && phase.tasks.map((task, ti) => (
+                  <div key={ti} className="task-row flex items-center" style={{ minHeight: 40 }}>
+                    <div style={{ width: LABEL, minWidth: LABEL }}
+                         className="task-label-col h-full px-4 py-2 pl-10 border-r border-slate-100
+                                    sticky left-0 bg-white z-20 flex flex-col justify-center transition-colors">
+                      <span className="text-[11px] font-medium text-slate-700 leading-snug">{task.name}</span>
+                      <span className="text-[10px] font-medium mt-0.5 flex items-center gap-1"
+                            style={{ color: phase.hex }}>
+                        <Icon name="User" size={9} color={phase.hex} /> {task.owner}
+                      </span>
+                    </div>
+                    <div className="flex-1 h-full py-2 px-2 flex items-center">
+                      <div className="bar-wrap relative"
+                           style={{ marginLeft: task.start * UNIT, width: task.dur * UNIT }}>
+                        {/* Track */}
+                        <div style={{
+                               height: 10, borderRadius: 99,
+                               background: "#e2e8f0",
+                               position: "relative", overflow: "hidden",
+                             }}>
+                          <div style={{
+                                 position:"absolute", inset:0, borderRadius:99,
+                                 background:`linear-gradient(90deg,${phase.hex}99,${phase.hex}44)`,
+                               }} />
+                        </div>
+                        {/* Tooltip */}
+                        <div className="bar-tooltip absolute bg-slate-800 text-white text-[10px] font-medium
+                                        px-2.5 py-1.5 rounded-md shadow-lg whitespace-nowrap z-50"
+                             style={{ bottom:"calc(100% + 8px)", left:"50%", transform:"translateX(-50%) translateY(4px)" }}>
+                          <span style={{ color:"#93c5fd" }}>●</span>&nbsp;
+                          {task.owner} · {task.dur} mois
+                          <div style={{
+                            position:"absolute", bottom:-4, left:"50%",
+                            transform:"translateX(-50%)",
+                            width:8, height:8,
+                            background:"#1e293b",
+                            clipPath:"polygon(0 0,100% 0,50% 100%)",
+                          }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    );
 
-<!-- SUPPLY STRIP — MODIFICATION 1 : suppression STMicroelectronics & KNF Micro Allemagne -->
-<div class="supply-strip">
-  <div class="supply-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Coque · France
-  </div>
-  <div class="supply-sep"></div>
-  <div class="supply-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
-    Assemblage final · France
-  </div>
-</div>
+    /* ─────────────────────────
+       CARD VIEW (mobile)
+    ───────────────────────── */
+    const CardView = ({ expandedPhases, togglePhase }) => (
+      <div className="p-4 space-y-3">
+        {phases.map((phase) => (
+          <div key={phase.id} className="phase-card bg-white rounded-xl border border-slate-100 overflow-hidden shadow-sm">
+            <div className="flex items-center gap-3 p-4 cursor-pointer select-none"
+                 onClick={() => togglePhase(phase.id)}>
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 text-white text-sm font-bold"
+                   style={{ background: phase.hex }}>
+                {phase.num}
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="font-bold text-sm text-slate-800 block truncate">{phase.fullTitle}</span>
+                <span className="text-[10px] text-slate-400">
+                  {phase.tasks.length} missions · Mois {phase.startMonth + 1}–{phase.startMonth + phase.durationMonths}
+                </span>
+              </div>
+              <Icon name={expandedPhases[phase.id] ? "ChevronUp" : "ChevronDown"} size={14} color="#94a3b8" />
+            </div>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat rev"><div class="stat-n">22%</div><div class="stat-d">des enfants présentent des signes<br>cliniques de barotite après un vol</div></div>
-  <div class="stat rev d1"><div class="stat-n">10%</div><div class="stat-d">des adultes affectés par des<br>douleurs auriculaires en vol</div></div>
-  <div class="stat rev d2"><div class="stat-n">5Md</div><div class="stat-d">de passagers aériens<br>dans le monde en 2025</div></div>
-</div>
+            {expandedPhases[phase.id] && (
+              <div className="border-t border-slate-50 divide-y divide-slate-50">
+                {phase.tasks.map((task, ti) => (
+                  <div key={ti} className="flex items-start gap-3 px-4 py-3">
+                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
+                         style={{ background: phase.hex }} />
+                    <div>
+                      <span className="text-xs font-medium text-slate-700 block">{task.name}</span>
+                      <div className="flex items-center gap-3 mt-1">
+                        <span className="text-[10px] font-medium flex items-center gap-1" style={{ color: phase.hex }}>
+                          <Icon name="User" size={9} color={phase.hex} /> {task.owner}
+                        </span>
+                        <span className="text-[10px] text-slate-400 flex items-center gap-1">
+                          <Icon name="Clock" size={9} color="#94a3b8" /> {task.dur} mois
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
 
-<!-- PRODUCT -->
-<section class="product-sec" id="produit">
-  <span class="lbl lbl-dim rev" style="margin-bottom:18px">Technologie active</span>
-  <h2 class="sh2 light rev">Une nouvelle façon<br>de <em>voyager.</em></h2>
-  <p class="section-p dim rev" style="max-width:520px;margin:24px auto 0">Fini les bâillements forcés et les oreilles douloureuses. En Détente régule activement la pression autour de chaque oreille, en temps réel.</p>
-  <div class="product-box rev">
-    <svg class="hs" viewBox="0 0 240 200" fill="none">
-      <path d="M50 108C50 62 86 28 120 28s70 34 70 80" stroke="rgba(255,255,255,.18)" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <path d="M64 108C64 72 90 44 120 44s56 28 56 64" stroke="rgba(255,255,255,.07)" stroke-width="1" fill="none" stroke-linecap="round" stroke-dasharray="4 5"/>
-      <rect x="22" y="88" width="46" height="70" rx="18" fill="#1a1a1a" stroke="rgba(255,255,255,.1)" stroke-width="1.2"/>
-      <rect x="32" y="98" width="26" height="50" rx="11" fill="#111" stroke="rgba(255,255,255,.06)"/>
-      <circle cx="45" cy="123" r="7" fill="#0a0a0a" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-      <circle cx="45" cy="123" r="2.5" fill="white" opacity=".5"><animate attributeName="opacity" values=".2;.9;.2" dur="2.5s" repeatCount="indefinite"/></circle>
-      <rect x="37" y="137" width="16" height="3" rx="1.5" fill="rgba(255,255,255,.08)"/>
-      <rect x="172" y="88" width="46" height="70" rx="18" fill="#1a1a1a" stroke="rgba(255,255,255,.1)" stroke-width="1.2"/>
-      <rect x="182" y="98" width="26" height="50" rx="11" fill="#111" stroke="rgba(255,255,255,.06)"/>
-      <circle cx="195" cy="123" r="7" fill="#0a0a0a" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-      <circle cx="195" cy="123" r="2.5" fill="white" opacity=".5"><animate attributeName="opacity" values=".2;.9;.2" dur="2.5s" begin=".3s" repeatCount="indefinite"/></circle>
-      <rect x="187" y="137" width="16" height="3" rx="1.5" fill="rgba(255,255,255,.08)"/>
-      <path d="M34 96Q45 91 56 96" stroke="rgba(255,255,255,.06)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <path d="M184 96Q195 91 206 96" stroke="rgba(255,255,255,.06)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <text x="120" y="24" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8" fill="rgba(255,255,255,.2)" font-style="italic" letter-spacing="1">En Détente</text>
-    </svg>
-    <div class="chips">
-      <div class="chip">Capteur MEMS</div><div class="chip">Micro-pompe</div>
-      <div class="chip">USB-C</div><div class="chip">Régulation active</div>
-      <div class="chip">Made in France 🇫🇷</div>
-    </div>
-  </div>
-</section>
+    /* ─────────────────────────
+       APP
+    ───────────────────────── */
+    const App = () => {
+      const [expandedPhases, setExpandedPhases] = useState(
+        Object.fromEntries(phases.map(p => [p.id, true]))
+      );
+      const [view, setView] = useState(window.innerWidth < 768 ? "cards" : "gantt");
 
-<!-- FEATURES -->
-<section class="fg-sec">
-  <h2 class="sh2 rev">Pensé pour chaque <em>détail.</em></h2>
-  <div class="fg">
-    <div class="fc rev"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Régulation temps réel</h3><p>Boucle de contrôle fermée avec capteur MEMS. Ajustement continu et progressif de la pression autour de chaque oreille.</p></div>
-    <div class="fc rev d1"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Sécurité embarquée</h3><p>Pression bridée logiciellement. Arrêt automatique en cas d'anomalie. Conformité CE et IATA (UN 3481).</p></div>
-    <div class="fc rev d2"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div><h3>Un bouton</h3><p>Activation en une pression. Pas d'application, pas de configuration. Simple, immédiat, efficace — même pour les enfants.</p></div>
-    <div class="fc rev"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Éco-conception</h3><p>ABS recyclé, aluminium recyclable. Conformité REACH, RoHS et règlement batteries UE 2023/1542. Assemblage démonté.</p></div>
-    <div class="fc rev d1"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><h3>Autonomie longue durée</h3><p>Batterie Li-ion rechargeable USB-C. Couvre l'intégralité d'un cycle décollage–croisière–atterrissage.</p></div>
-    <div class="fc rev d2"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Confort total</h3><p>Oreillettes avec joints élastomère. Mousse technique à mémoire de forme. Poids optimisé pour un port prolongé.</p></div>
-  </div>
-</section>
+      useEffect(() => {
+        const onResize = () => {
+          setView(w => {
+            const mobile = window.innerWidth < 768;
+            if (mobile && w === "gantt") return "cards";
+            if (!mobile && w === "cards") return "gantt";
+            return w;
+          });
+        };
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+      }, []);
 
-<!-- HOW -->
-<section class="how">
-  <h2 class="sh2 light rev">Comment ça <em>fonctionne.</em></h2>
-  <div class="steps">
-    <div class="si rev"><div class="si-num">01</div><h3>Portez</h3><p>Ajustez les oreillettes. Les joints souples créent une chambre étanche autour de chaque oreille, sans compression excessive.</p></div>
-    <div class="si rev d1"><div class="si-num">02</div><h3>Activez</h3><p>Un bouton. Les capteurs mesurent la pression en continu. La micro-pompe s'ajuste en temps réel, silencieusement.</p></div>
-    <div class="si rev d2"><div class="si-num">03</div><h3>Volez serein</h3><p>La dépression contrôlée compense les variations de pression cabine. Douleurs et gêne éliminées à la source.</p></div>
-  </div>
-</section>
+      const togglePhase  = id => setExpandedPhases(p => ({ ...p, [id]: !p[id] }));
+      const expandAll    = () => setExpandedPhases(Object.fromEntries(phases.map(p => [p.id, true])));
+      const collapseAll  = () => setExpandedPhases(Object.fromEntries(phases.map(p => [p.id, false])));
 
-<!-- MADE IN FRANCE FULL SECTION -->
-<section class="mif-full" id="origine">
-  <div class="mif-full-grid">
-    <div class="rev">
-      <span class="lbl lbl-mid" style="margin-bottom:14px">Origine & Fabrication</span>
-      <!-- MODIFICATION 2 : titre remplacé par "Made in France" uniquement -->
-      <h2 class="sh2"><em>Made in France</em></h2>
-      <p>En Détente est assemblé, produit et conçu en France. Chaque composant est sourcé exclusivement auprès de fournisseurs européens, pour garantir qualité, traçabilité et soutien à l'industrie locale.</p>
-      <p>Nos locaux sont basés en France. Notre chaîne de production est entièrement maîtrisée, de la conception technique à l'assemblage final.</p>
-      <div class="mif-flags-row">
-        <div class="mif-flag-card">
-          <img src="__drapeaufranceeurope.png" alt="Drapeaux France & Europe" onerror="this.style.display='none'">
-          <span>Made in France · Composants UE</span>
+      const totalTasks = phases.reduce((a, p) => a + p.tasks.length, 0);
+
+      return (
+        <div className="min-h-screen bg-slate-100 p-3 md:p-8">
+          <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+
+            {/* ── HEADER ── */}
+            <div className="relative overflow-hidden px-5 md:px-8 py-6 md:py-8 text-white"
+                 style={{ background: "linear-gradient(135deg, #001f3f 0%, #003366 60%, #0a4a8f 100%)" }}>
+              <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full opacity-10 pointer-events-none"
+                   style={{ background: "radial-gradient(circle, #60a5fa, transparent)" }} />
+              <div className="absolute -bottom-8 left-10 w-32 h-32 rounded-full opacity-5 pointer-events-none"
+                   style={{ background: "radial-gradient(circle, #93c5fd, transparent)" }} />
+
+              <div className="relative flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-blue-300
+                                     bg-blue-500/20 px-2.5 py-1 rounded-full border border-blue-400/30">
+                      Projet Interne
+                    </span>
+                  </div>
+                  <h1 className="text-xl md:text-2xl font-extrabold tracking-tight leading-tight">
+                    Planning Prévisionnel
+                    <span className="text-blue-300"> — En Détente</span>
+                  </h1>
+                  <p className="text-blue-200/70 text-xs mt-1.5 flex items-center gap-1.5">
+                    <Icon name="Calendar" size={12} className="opacity-70" />
+                    Calendrier Opérationnel 2025–2026
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2 shrink-0">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm
+                                  px-3 py-2 rounded-lg border border-white/15 text-xs">
+                    <span className="pulse-dot w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                    <div>
+                      <span className="block text-white/50 text-[9px] uppercase font-bold leading-none mb-0.5">Statut</span>
+                      <span className="font-semibold text-emerald-300 leading-none">En Planification</span>
+                    </div>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/15 text-xs">
+                    <span className="block text-white/50 text-[9px] uppercase font-bold leading-none mb-0.5">Durée</span>
+                    <span className="font-semibold leading-none">10 Mois</span>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/15 text-xs">
+                    <span className="block text-white/50 text-[9px] uppercase font-bold leading-none mb-0.5">Phases</span>
+                    <span className="font-semibold leading-none">6 Phases</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── TOOLBAR ── */}
+            <div className="flex flex-wrap items-center justify-between gap-3 px-4 md:px-6 py-3
+                            bg-slate-50 border-b border-slate-200">
+              {/* View toggle */}
+              <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-lg p-1 shadow-sm">
+                <button onClick={() => setView("gantt")}
+                        className={`view-btn text-xs font-semibold px-3 py-1.5 rounded-md flex items-center gap-1.5 ${view === "gantt" ? "active" : ""}`}>
+                  <Icon name="LayoutList" size={13} /> Gantt
+                </button>
+                <button onClick={() => setView("cards")}
+                        className={`view-btn text-xs font-semibold px-3 py-1.5 rounded-md flex items-center gap-1.5 ${view === "cards" ? "active" : ""}`}>
+                  <Icon name="LayoutGrid" size={13} /> Fiches
+                </button>
+              </div>
+
+              {/* Expand / Collapse */}
+              <div className="flex items-center gap-2">
+                <button onClick={expandAll}
+                        className="text-xs font-medium text-slate-500 hover:text-slate-800 flex items-center gap-1.5
+                                   px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors">
+                  <Icon name="ChevronDown" size={13} /> Tout déplier
+                </button>
+                <button onClick={collapseAll}
+                        className="text-xs font-medium text-slate-500 hover:text-slate-800 flex items-center gap-1.5
+                                   px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors">
+                  <Icon name="ChevronUp" size={13} /> Tout replier
+                </button>
+              </div>
+            </div>
+
+            {/* ── CONTENT ── */}
+            {view === "gantt"
+              ? <GanttView expandedPhases={expandedPhases} togglePhase={togglePhase} />
+              : <CardView  expandedPhases={expandedPhases} togglePhase={togglePhase} />}
+
+            {/* ── FOOTER ── */}
+            <div className="bg-slate-50 border-t border-slate-200 px-4 md:px-6 py-5">
+              <div className="flex flex-wrap items-start gap-6 justify-between">
+
+                {/* Team members */}
+                <div>
+                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">
+                    Équipe Projet
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {teamMembers.map((m, i) => (
+                      <div key={i} className="flex items-center gap-2 bg-white border border-slate-200
+                                             rounded-lg px-3 py-2 shadow-sm hover:shadow-md transition-shadow">
+                        <span className="text-base leading-none">{m.icon}</span>
+                        <div>
+                          <span className="text-[11px] font-bold text-slate-800 block leading-none">{m.name}</span>
+                          <span className="text-[9px] text-slate-400 uppercase font-medium">{m.role}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Stats */}
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { label:"Phases",     value:"6",           icon:"Layers"      },
+                    { label:"Missions",   value:`${totalTasks}`, icon:"CheckSquare" },
+                    { label:"Durée totale", value:"10 mois",   icon:"Clock"       },
+                  ].map((s, i) => (
+                    <div key={i} className="bg-white border border-slate-200 rounded-xl px-4 py-3
+                                           shadow-sm text-center min-w-[80px]">
+                      <Icon name={s.icon} size={14} className="mx-auto mb-1" color="#60a5fa" />
+                      <div className="text-lg font-extrabold text-slate-800 leading-none">{s.value}</div>
+                      <div className="text-[9px] text-slate-400 uppercase font-semibold mt-0.5">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-6 text-center text-slate-400 text-[11px] italic">
+            Document confidentiel — Propriété exclusive du projet "En Détente" © 2025–2026
+          </p>
         </div>
-      </div>
-    </div>
-    <!-- MODIFICATION 3 : suppression des noms de fournisseurs, conservation de la provenance uniquement -->
-    <div class="supply-chain-cards rev d1">
-      <div class="sc-card">
-        <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div><h4>Microcontrôleur & Capteurs</h4><p>France & Europe</p></div>
-      </div>
-      <div class="sc-card">
-        <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/></svg></div>
-        <div><h4>Micro-pompe compacte</h4><p>Europe</p></div>
-      </div>
-      <div class="sc-card">
-        <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-        <div><h4>Coque & Matériaux</h4><p>France · Europe</p></div>
-      </div>
-      <div class="sc-card">
-        <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <div><h4>Assemblage final</h4><p>France</p></div>
-      </div>
-    </div>
-  </div>
-</section>
+      );
+    };
 
-<!-- MODIFICATION 4 : SECTION ÉQUIPE -->
-<section class="team-sec" id="equipe">
-  <div class="section-head rev">
-    <span class="lbl lbl-mid" style="margin-bottom:14px">Notre équipe</span>
-    <h2 class="sh2">Les ingénieurs <em>derrière En Détente.</em></h2>
-  </div>
-  <div class="team-grid">
-    <div class="team-card rev">
-      <div class="team-avatar">SM</div>
-      <h4>SHIMI Mohammed</h4>
-      <p>Ingénieur en systèmes embarqués</p>
-    </div>
-    <div class="team-card rev d1">
-      <div class="team-avatar">BB</div>
-      <h4>BOUCHAMA Bilel</h4>
-      <p>Ingénieur mécanique</p>
-    </div>
-    <div class="team-card rev d2">
-      <div class="team-avatar">ST</div>
-      <h4>SAPAN Teoman</h4>
-      <p>Ingénieur en génie électrique</p>
-    </div>
-    <div class="team-card rev d1">
-      <div class="team-avatar">BS</div>
-      <h4>BAJJOU Saber</h4>
-      <p>Ingénieur en génie électrique</p>
-    </div>
-    <div class="team-card rev d2">
-      <div class="team-avatar">SC</div>
-      <h4>SARR Cherif</h4>
-      <p>Ingénieur en génie électrique</p>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICE CLIENT -->
-<section class="support" id="service">
-  <div class="section-head rev">
-    <span class="lbl lbl-mid" style="margin-bottom:14px">Service client</span>
-    <h2 class="sh2">Nous sommes <em>là pour vous.</em></h2>
-    <p class="section-p mid" style="max-width:500px;margin:14px auto 0">Une question sur votre casque, votre commande ou votre garantie ? Notre équipe répond en moins de 24h.</p>
-  </div>
-  <div class="sg">
-    <div class="sc2 rev">
-      <div class="si3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-      <div><h3>Chat & Email</h3><p>Disponible lundi–vendredi, 9h–19h. Réponse garantie sous 24h ouvrées.</p><a class="sc2-link" href="mailto:contact@endetente.fr">contact@endetente.fr <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a></div>
-    </div>
-    <div class="sc2 rev d1">
-      <div class="si3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-      <div><h3>Garantie & Retours</h3><p>Satisfait ou remboursé 30 jours. Garantie 2 ans. Remplacement express si défaut avéré.</p><a class="sc2-link" href="#">Conditions de garantie <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a></div>
-    </div>
-    <div class="sc2 rev">
-      <div class="si3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-      <div><h3>Centre d'aide</h3><p>Guides d'utilisation, tutoriels et FAQ pour répondre à toutes vos questions en quelques secondes.</p><a class="sc2-link" href="#">Consulter <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a></div>
-    </div>
-    <div class="sc2 rev d1">
-      <div class="si3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.35 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-      <div><h3>Support téléphonique</h3><p>Pour les questions urgentes, prenez rendez-vous avec notre équipe technique spécialisée.</p><a class="sc2-link" href="#">Prendre rendez-vous <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a></div>
-    </div>
-  </div>
-
-  <!-- MODIFICATION 11 : mise à jour de la réponse FAQ "Convient-il aux enfants ?" -->
-  <div class="faq-wrap rev">
-    <h3 class="faq-title">Questions fréquentes</h3>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Le casque est-il autorisé en cabine ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Oui. En Détente respecte les normes IATA relatives aux batteries lithium intégrées (UN 3481). Il peut être utilisé en cabine sans restriction.</div></div>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Est-ce que ça remplace les bouchons d'oreilles ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Non — En Détente résout un problème différent. Les bouchons atténuent le son ; En Détente régule activement la pression de l'air. C'est une solution active là où les bouchons sont passifs.</div></div>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Quand sera livré mon casque ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">La pré-commande vous réserve un casque de la phase pilote. La livraison est estimée courant 2026, après validation technique et sécuritaire complète.</div></div>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Convient-il aux enfants ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Les enfants sont les plus touchés par les douleurs auriculaires liées aux changements de pression (environ 22 % selon les études). La version actuelle est conçue pour les adultes et les enfants.</div></div>
-    <div class="fq"><div class="fq-q" onclick="tFaq(this)">Où est fabriqué En Détente ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Entièrement assemblé en France, avec des composants sourcés exclusivement en Europe (France, Allemagne, Belgique). Nos locaux sont basés en France. Un engagement fort pour le Made in France.</div></div>
-  </div>
-</section>
-
-<!-- PRO / COMPAGNIES -->
-<section class="pro" id="compagnies">
-<div class="pro-grid">
-<div class="pro-c rev">
-<span class="lbl lbl-dim">Démarche professionnelle</span>
-<h2 class="sh2 light" style="margin:18px 0 24px">Partenariat<br></h2>
-<p>En Détente est une solution que les compagnies aériennes peuvent intégrer directement dans leur offre passager. Nous cherchons des partenaires stratégiques pour déployer En Détente à bord, en classe affaires ou comme accessoire premium.</p>
-<p>Notre production 100% française et notre chaîne d'approvisionnement européenne sont des garanties de fiabilité et de traçabilité pour vos clients.</p>
-<ul class="pro-ul">
-<li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Vente à bord</li>
-<li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Mise à disposition par les compagnies aériennes</li>
-<li><div class="pck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Distribution en boutiques duty-free et zones d'embarquement</li>
-</ul>
-<div class="pro-btns">
-<button class="bp" onclick="openModal()">Contacter l'équipe pro</button>
-</div>
-</div>
-<div class="p-cards rev d1">
-<div class="pc">
-<div class="pci">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-<path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-</svg>
-</div>
-<div>
-<h4>Compagnies aériennes</h4>
-</div>
-<svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14"/>
-<path d="M12 5l7 7-7 7"/>
-</svg>
-</div>
-<div class="pc">
-<div class="pci">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-<rect x="1" y="3" width="15" height="13"/>
-<polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
-<circle cx="5.5" cy="18.5" r="2.5"/>
-<circle cx="18.5" cy="18.5" r="2.5"/>
-</svg>
-</div>
-<div>
-<h4>Opérateurs duty-free</h4>
-</div>
-<svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14"/>
-<path d="M12 5l7 7-7 7"/>
-</svg>
-</div>
-<div class="pc">
-<div class="pci">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-<circle cx="9" cy="7" r="4"/>
-<path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-</svg>
-</div>
-<div>
-<h4>Agences de voyage</h4>
-</div>
-<svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14"/>
-<path d="M12 5l7 7-7 7"/>
-</svg>
-</div>
-<div class="pc">
-<div class="pci">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-<circle cx="12" cy="7" r="4"/>
-</svg>
-</div>
-<div>
-<h4>Particuliers</h4>
-</div>
-<svg class="pca" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14"/>
-<path d="M12 5l7 7-7 7"/>
-</svg>
-</div>
-</div>
-</div>
-</section>
-  
-<!-- PREORDER -->
-<section class="preorder" id="precommande">
-  <span class="lbl lbl-mid rev" style="display:block;margin-bottom:16px">Pré-commande</span>
-  <h2 class="sh2 rev">Réservez votre<br><em>En Détente.</em></h2>
-  <p class="subp rev">Faites partie des premiers à découvrir la fin des douleurs auriculaires en vol.</p>
-  <div class="ob rev">
-    <div class="op">149<span>,99 €</span></div>
-    <div class="opn">PRIX DE LANCEMENT · LIVRAISON ESTIMÉE 2026</div>
-    <div class="ostk"><div class="odot"></div>Phase pilote — Places disponibles</div>
-    <div class="oform">
-      <div class="orow">
-        <input type="text" id="pr" placeholder="Prénom">
-        <input type="text" id="no" placeholder="Nom">
-      </div>
-      <input type="email" id="em" placeholder="Adresse e-mail">
-      <button class="osubmit" onclick="doOrder()">Réserver ma place →</button>
-    </div>
-    <div class="otrust">
-      <div class="tp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Sans engagement</div>
-      <div class="tp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Remboursé si non livré</div>
-      <div class="tp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Données sécurisées</div>
-      <div class="tp">🇫🇷 Made in France</div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="ft">
-    <div>
-      <div class="fb-logo"><img src="logo_endetente.png" alt="En Détente" onerror="this.style.display='none'"></div>
-      <div class="fb-name">En Détente</div>
-      <div class="fb-tag">MADE IN FRANCE 🇫🇷</div>
-    </div>
-    <div class="fc-cols">
-      <div class="fc-col">
-        <h4>Produit</h4>
-        <a href="#">Fonctionnement</a>
-        <a href="#">Technologie</a>
-        <a href="#">Éco-conception</a>
-        <a href="#">Pré-commander</a>
-      </div>
-      <div class="fc-col">
-        <h4>Origine</h4>
-        <a href="#">Made in France</a>
-        <a href="#">Composants EU</a>
-        <a href="#">Chaîne de valeur</a>
-        <a href="#">Certifications</a>
-      </div>
-      <div class="fc-col">
-        <h4>Service</h4>
-        <a href="#">Centre d'aide</a>
-        <a href="#">Garantie</a>
-        <a href="#">Livraison</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="fc-col">
-        <h4>Professionnel</h4>
-        <a href="#">Compagnies aériennes</a>
-        <a href="#">Duty-free & retail</a>
-        <a href="#">Équipe</a>
-        <a href="#" onclick="openModal();return false">Nous contacter</a>
-      </div>
-    </div>
-  </div>
-  <div class="fb2">
-    <div class="fb2-copy">© 2025–2026 En Détente · Tous droits réservés · Made in France 🇫🇷</div>
-    <div class="fb2-links"><a href="#">Mentions légales</a><a href="#">Confidentialité</a><a href="#">CGV</a></div>
-  </div>
-</footer>
-
-<!-- CONTACT MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
-  <div class="modal" id="modal">
-    <button class="modal-close" onclick="closeModal()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-    <h3>Contactez notre équipe pro</h3>
-    <p>Vous êtes une compagnie aérienne, un opérateur duty-free ou un distributeur ? Remplissez ce formulaire et nous vous recontactons sous 48h.</p>
-    <div class="mform">
-      <div class="mrow">
-        <input class="mfield" type="text" id="m-prenom" placeholder="Prénom">
-        <input class="mfield" type="text" id="m-nom" placeholder="Nom">
-      </div>
-      <input class="mfield" type="email" id="m-email" placeholder="Email professionnel">
-      <input class="mfield" type="text" id="m-societe" placeholder="Société / Compagnie">
-      <select class="mfield" id="m-type">
-        <option value="" disabled selected>Type de partenariat recherché</option>
-        <option>Compagnie aérienne — intégration à bord</option>
-        <option>Opérateur duty-free / travel retail</option>
-        <option>Agence de voyage premium</option>
-        <option>Distribution & logistique</option>
-        <option>Autre</option>
-      </select>
-      <textarea class="mfield" id="m-msg" placeholder="Décrivez votre projet ou vos questions..."></textarea>
-      <button class="msubmit" onclick="sendModal()">Envoyer la demande →</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// Reveal on scroll
-document.querySelectorAll('.rev').forEach(el => {
-  new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('v'); }, {threshold:.08}).observe(el);
-});
-
-function scrollSec(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
-function tFaq(el){ el.closest('.fq').classList.toggle('open'); }
-
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3800);
-}
-
-// Modal
-function openModal(){ document.getElementById('modal-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
-function closeModalOutside(e){ if(e.target===document.getElementById('modal-overlay')) closeModal(); }
-
-function sendModal(){
-  const pr = document.getElementById('m-prenom').value.trim();
-  const no = document.getElementById('m-nom').value.trim();
-  const em = document.getElementById('m-email').value.trim();
-  const so = document.getElementById('m-societe').value.trim();
-  if(!pr||!no||!em||!em.includes('@')||!so){
-    showToast('Veuillez remplir tous les champs obligatoires.');
-    return;
-  }
-  closeModal();
-  showToast('✓ Demande envoyée — nous vous recontactons sous 48h.');
-  ['m-prenom','m-nom','m-email','m-societe','m-msg'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
-  document.getElementById('m-type').selectedIndex=0;
-}
-
-// Order form
-function doOrder(){
-  const p=document.getElementById('pr').value.trim();
-  const n=document.getElementById('no').value.trim();
-  const e=document.getElementById('em').value.trim();
-  if(!p||!n||!e||!e.includes('@')){
-    document.getElementById('em').style.borderColor='#ff3b30';
-    setTimeout(()=>document.getElementById('em').style.borderColor='var(--border)',1800);
-    return;
-  }
-  showToast('✓ Réservation confirmée — vérifiez votre email.');
-  ['pr','no','em'].forEach(id=>document.getElementById(id).value='');
-}
-</script>
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
 </body>
 </html>
