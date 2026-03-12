@@ -128,7 +128,7 @@
         id:5, num:"05",
         title:"Marketing et stratégie",
         fullTitle:"Phase 5 — Marketing et stratégie",
-         shortLabel:"Ph.5 — Marketing",
+        shortLabel:"Ph.5",
         hex:"#2563eb",
         startMonth:8, durationMonths:1,
         tasks:[
@@ -140,7 +140,7 @@
         id:6, num:"06",
         title:"Préparation lancement",
         fullTitle:"Phase 6 — Préparation lancement",
-        shortLabel:"Ph.6 — Lancement",
+        shortLabel:"Ph.6",
         hex:"#312e81",
         startMonth:9, durationMonths:1,
         tasks:[
@@ -235,7 +235,7 @@
                            alignItems: "center",
                            gap: 8,
                          }}>
-                      {/* The coloured bar — label always inside, clipped */}
+                      {/* The coloured bar — label overflows right for narrow bars */}
                       <div style={{
                              width: phase.durationMonths * UNIT,
                              height: 28,
@@ -243,32 +243,30 @@
                              background: `linear-gradient(135deg, ${phase.hex} 0%, ${phase.hex}cc 100%)`,
                              boxShadow: `0 2px 10px ${phase.hex}44`,
                              position: "relative",
-                             overflow: "hidden",
+                             overflow: "visible",
                              flexShrink: 0,
                              display: "flex",
                              alignItems: "center",
                            }}>
-                        {/* Shine */}
+                        {/* Shine — clipped to bar shape */}
                         <div style={{
                                position:"absolute", inset:0,
                                background:"linear-gradient(180deg,rgba(255,255,255,0.16) 0%,transparent 55%)",
                                borderRadius:8,
                                pointerEvents:"none",
+                               overflow:"hidden",
                              }} />
-                        {/* Label — short for narrow bars, full for wide bars */}
+                        {/* Label — inside bar if wide enough, floats right if narrow */}
                         <span style={{
                                 position:"relative", zIndex:1,
                                 padding:"0 10px",
                                 fontSize:10, fontWeight:700,
-                                color:"#fff", textTransform:"uppercase",
+                                color: phase.durationMonths >= 2 ? "#fff" : phase.hex,
                                 letterSpacing:"0.06em",
                                 whiteSpace:"nowrap",
-                                overflow:"hidden",
-                                textOverflow:"ellipsis",
-                                display:"block",
-                                maxWidth:"100%",
+                                textTransform:"uppercase",
                               }}>
-                          {phase.durationMonths >= 2 ? phase.fullTitle : phase.shortLabel}
+                          {phase.fullTitle}
                         </span>
                       </div>
                     </div>
