@@ -1,1 +1,1948 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Plan Dashboard — En Détente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Design Tokens ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --navy:       #001f3f;
+      --navy-mid:   #003366;
+      --navy-light: #0a4a8f;
+      --blue:       #2563eb;
+      --blue-soft:  #dbeafe;
+      --accent:     #3b82f6;
+      --emerald:    #10b981;
+      --emerald-soft:#d1fae5;
+      --amber:      #f59e0b;
+      --amber-soft: #fef3c7;
+      --red:        #ef4444;
+      --red-soft:   #fee2e2;
+      --white:      #ffffff;
+      --off-white:  #f8fafc;
+      --slate-50:   #f8fafc;
+      --slate-100:  #f1f5f9;
+      --slate-200:  #e2e8f0;
+      --slate-300:  #cbd5e1;
+      --slate-400:  #94a3b8;
+      --slate-500:  #64748b;
+      --slate-600:  #475569;
+      --slate-700:  #334155;
+      --slate-800:  #1e293b;
+      --slate-900:  #0f172a;
+      --shadow-xs:  0 1px 2px rgba(0,0,0,0.05);
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg:  0 10px 40px rgba(0,31,63,0.15);
+      --radius-sm:  8px;
+      --radius-md:  12px;
+      --radius-lg:  16px;
+      --radius-xl:  20px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--slate-800);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+
+    /* ── TOP NAV BAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 2.5rem;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-logo {
+      width: 32px; height: 32px;
+      background: var(--navy);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .topbar-logo svg { display: block; }
+    .topbar-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 16px;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+    .topbar-name span { color: var(--blue); }
+    .topbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .topbar-nav a {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .topbar-nav a:hover { color: var(--navy); }
+    .topbar-nav a.active { color: var(--navy); }
+    .topbar-date {
+      font-size: 11px;
+      color: var(--slate-400);
+      font-weight: 500;
+    }
+
+    /* ── SECTION SYSTEM ── */
+    .section { margin-bottom: 3rem; }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .section-number {
+      width: 22px; height: 22px;
+      background: var(--navy);
+      color: white;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+    .section-desc {
+      font-size: 12px;
+      color: var(--slate-400);
+      margin-left: auto;
+      font-style: italic;
+    }
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--slate-200);
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, var(--navy-light) 100%);
+      border-radius: var(--radius-xl);
+      padding: 3rem 3.5rem;
+      color: white;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(96,165,250,0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 8%;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(147,197,253,0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .page-header-inner {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .page-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #93c5fd;
+      background: rgba(59,130,246,0.18);
+      border: 1px solid rgba(147,197,253,0.25);
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 1rem;
+    }
+    .page-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .page-header h1 span { color: #93c5fd; }
+    .page-header-sub {
+      font-size: 13px;
+      color: rgba(147,197,253,0.7);
+      margin-top: 0.6rem;
+    }
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: flex-end;
+    }
+    .meta-pill {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 8px 14px;
+      backdrop-filter: blur(4px);
+    }
+    .meta-pill-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.5;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .meta-pill-value {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .meta-pill-value.green { color: #6ee7b7; }
+
+    /* ── KPI CARDS ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+    .kpi-card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.5rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.45s ease both;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      background: var(--kpi-color, var(--slate-300));
+    }
+    .kpi-card:nth-child(1) { animation-delay: 0.05s; --kpi-color: var(--navy); }
+    .kpi-card:nth-child(2) { animation-delay: 0.10s; --kpi-color: var(--amber); }
+    .kpi-card:nth-child(3) { animation-delay: 0.15s; --kpi-color: var(--emerald); }
+    .kpi-card:nth-child(4) { animation-delay: 0.20s; --kpi-color: var(--blue); }
+    .kpi-card:nth-child(5) { animation-delay: 0.25s; --kpi-color: var(--navy-light); }
+
+    .kpi-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      margin-bottom: 0.6rem;
+    }
+    .kpi-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--navy);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .kpi-value small {
+      font-size: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      color: var(--slate-500);
+    }
+    .kpi-sub {
+      margin-top: 0.5rem;
+      font-size: 11px;
+      color: var(--slate-500);
+    }
+    .kpi-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-top: 0.35rem;
+    }
+    .kpi-badge.green { background: var(--emerald-soft); color: #065f46; }
+    .kpi-badge.amber { background: var(--amber-soft); color: #92400e; }
+    .kpi-badge.blue  { background: var(--blue-soft);  color: #1d4ed8; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    /* ── CARD ── */
+    .card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 1.25rem 1.5rem 1rem;
+      border-bottom: 1px solid var(--slate-100);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 15px;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--slate-400);
+      margin-top: 3px;
+    }
+    .card-body {
+      padding: 1.25rem 1.5rem;
+    }
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      white-space: nowrap;
+    }
+
+    /* ── COST BREAKDOWN ── */
+    .cost-total-bar {
+      display: flex;
+      height: 10px;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      gap: 2px;
+    }
+    .cost-segment {
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+    .cost-segment:hover { opacity: 0.8; }
+
+    .cost-items { display: flex; flex-direction: column; gap: 10px; }
+    .cost-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 12px;
+    }
+    .cost-item-label {
+      font-size: 12px;
+      color: var(--slate-700);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cost-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .cost-bar-wrap {
+      width: 90px;
+    }
+    .cost-bar-bg {
+      height: 5px;
+      background: var(--slate-100);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .cost-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.6s ease;
+    }
+    .cost-item-value {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--slate-800);
+      text-align: right;
+      min-width: 44px;
+    }
+    .cost-item-pct {
+      font-size: 10px;
+      color: var(--slate-400);
+      text-align: right;
+      min-width: 32px;
+    }
+
+    .cost-group-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      margin: 1rem 0 0.5rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--slate-100);
+    }
+    .cost-group-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .cost-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      border-top: 2px solid var(--slate-200);
+    }
+    .cost-total-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .cost-total-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--navy);
+    }
+
+    /* ── DONUT CHART ── */
+    .donut-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .donut-svg-wrap {
+      position: relative;
+      width: 160px;
+      height: 160px;
+    }
+    .donut-label-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .donut-center-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .donut-center-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      margin-top: 2px;
+    }
+    .donut-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .donut-legend-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+    }
+    .donut-legend-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--slate-600);
+    }
+    .donut-legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .donut-legend-val {
+      font-weight: 700;
+      color: var(--slate-800);
+    }
+
+    /* ── HYPOTHESIS TABLE ── */
+    .hyp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+    }
+    .hyp-table th {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      text-align: left;
+      padding: 0 10px 10px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .hyp-table th:not(:first-child) { text-align: center; }
+    .hyp-table td {
+      padding: 7px 10px;
+      color: var(--slate-700);
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .hyp-table td:not(:first-child) { text-align: center; }
+    .hyp-table tr:last-child td { border-bottom: none; }
+    .hyp-table .row-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--slate-800);
+    }
+    .hyp-table .total-row td {
+      font-weight: 700;
+      color: var(--navy);
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+    }
+    .pill-b2c {
+      display: inline-block;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 99px;
+    }
+    .pill-b2b {
+      display: inline-block;
+      background: var(--emerald-soft);
+      color: #065f46;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 99px;
+    }
+
+    /* ── CASHFLOW CHART (pure CSS bars) ── */
+    .scenario-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--slate-200);
+      margin-bottom: 1.5rem;
+    }
+    .scenario-tab {
+      padding: 8px 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--slate-400);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .scenario-tab.active {
+      color: var(--navy);
+      border-bottom-color: var(--navy);
+    }
+    .scenario-tab:hover:not(.active) { color: var(--slate-600); }
+
+    .scenario-panel { display: none; }
+    .scenario-panel.active { display: block; }
+
+    /* scenario header cards */
+    .scenario-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+    .sc-kpi {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+    }
+    .sc-kpi-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      margin-bottom: 4px;
+    }
+    .sc-kpi-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .sc-kpi-value.green { color: var(--emerald); }
+    .sc-kpi-value.amber { color: var(--amber); }
+    .sc-kpi-sub { font-size: 10px; color: var(--slate-400); margin-top: 3px; }
+
+    /* Bar chart */
+    .chart-area {
+      position: relative;
+    }
+    .chart-grid-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: absolute;
+      inset: 0;
+      bottom: 22px;
+      pointer-events: none;
+    }
+    .chart-gl {
+      flex: 1;
+      border-top: 1px dashed var(--slate-200);
+    }
+    .bars-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 180px;
+      padding-bottom: 0;
+      position: relative;
+    }
+    .bar-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      flex: 1;
+    }
+    .bar-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      width: 100%;
+      height: 160px;
+    }
+    .bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      min-height: 2px;
+      transition: opacity 0.2s;
+      position: relative;
+    }
+    .bar:hover { opacity: 0.75; }
+    .bar-enc { background: var(--blue); }
+    .bar-dec { background: var(--slate-300); }
+    .bar-month {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--slate-400);
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    /* Trésorerie line overlay */
+    .treso-line-wrap {
+      position: relative;
+      margin-top: 1rem;
+    }
+    .treso-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 80px;
+    }
+    .treso-bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .treso-bar {
+      border-radius: 3px 3px 0 0;
+      min-height: 2px;
+    }
+    .treso-bar.pos { background: var(--emerald); }
+    .treso-bar.neg { background: var(--red); border-radius: 0 0 3px 3px; }
+
+    /* Legend */
+    .chart-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--slate-500);
+    }
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* Monthly data table */
+    .monthly-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+    }
+    .monthly-table th {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--slate-400);
+      padding: 0 8px 8px;
+      border-bottom: 1px solid var(--slate-200);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .monthly-table th:first-child { text-align: left; }
+    .monthly-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--slate-100);
+      color: var(--slate-600);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .monthly-table td:first-child { text-align: left; font-weight: 600; color: var(--slate-800); }
+    .monthly-table .highlight-row td {
+      background: var(--navy);
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+    }
+    .monthly-table .highlight-row td:first-child { color: white; }
+    .monthly-table tr:last-child td { border-bottom: none; }
+    .val-pos { color: var(--emerald) !important; font-weight: 700 !important; }
+    .val-neg { color: var(--red) !important; }
+
+    /* ── ANALYSIS SECTION ── */
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .insight-card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+    .insight-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: var(--ic-color, var(--blue));
+      border-radius: 99px 0 0 99px;
+    }
+    .insight-card.ic-navy { --ic-color: var(--navy); }
+    .insight-card.ic-emerald { --ic-color: var(--emerald); }
+    .insight-card.ic-amber { --ic-color: var(--amber); }
+    .insight-card.ic-blue { --ic-color: var(--blue); }
+
+    .insight-number {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      margin-bottom: 0.35rem;
+    }
+    .insight-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 15px;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+    .insight-body {
+      font-size: 12px;
+      color: var(--slate-600);
+      line-height: 1.65;
+    }
+    .insight-body strong { color: var(--slate-800); font-weight: 600; }
+    .insight-metric {
+      display: inline-block;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      margin-top: 0.75rem;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* ── SCENARIO COMPARISON TABLE ── */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .comparison-table th {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 12px 16px;
+      text-align: left;
+      background: var(--slate-50);
+      border-bottom: 2px solid var(--slate-200);
+      color: var(--slate-500);
+    }
+    .comparison-table td {
+      padding: 11px 16px;
+      font-size: 12px;
+      color: var(--slate-700);
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table .row-head {
+      font-weight: 600;
+      color: var(--slate-800);
+    }
+    .scenario-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .sc-n1 { background: #eff6ff; color: #1d4ed8; }
+    .sc-n2 { background: #f0fdf4; color: #166534; }
+    .sc-n3 { background: #fefce8; color: #854d0e; }
+
+    /* ── FOOTER ── */
+    .dash-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-team { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .footer-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400); }
+    .team-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .team-chip { background: white; border: 1px solid var(--slate-200); border-radius: 8px; padding: 5px 10px; box-shadow: var(--shadow-xs); }
+    .team-name { font-size: 11px; font-weight: 700; color: var(--slate-800); }
+    .team-role { font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--slate-400); margin-top: 1px; }
+    .footer-note { font-size: 11px; color: var(--slate-400); font-style: italic; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .animate { animation: fadeUp 0.4s ease both; }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.10s; }
+    .d3 { animation-delay: 0.15s; }
+    .d4 { animation-delay: 0.20s; }
+    .d5 { animation-delay: 0.25s; }
+
+    /* divider line */
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--slate-100);
+      margin: 0.75rem 0;
+    }
+
+    @media (max-width: 1200px) {
+      .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+      .scenario-kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .two-col, .three-col, .analysis-grid { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .page { padding: 0 1rem 3rem; }
+      .page-header { padding: 2rem 1.5rem; }
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP NAV -->
+  <nav class="topbar">
+    <div class="topbar-brand">
+      <div class="topbar-logo">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <span class="topbar-name">En <span>Détente</span></span>
+    </div>
+    <div class="topbar-nav">
+      <a href="index.html">Accueil</a>
+      <a href="#" class="active">Business Plan</a>
+      <a href="business-model-canvas.html">BMC</a>
+    </div>
+    <span class="topbar-date">Version 1.0 &nbsp;·&nbsp; 2025–2026</span>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header animate d1">
+    <div class="page-header-inner">
+      <div>
+        <div class="page-header-badge">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          Executive Financial Dashboard
+        </div>
+        <h1>Business Plan<br><span>En Détente</span></h1>
+        <p class="page-header-sub">Casque à régulation active de pression — Analyse financière sur 3 scénarios</p>
+      </div>
+      <div class="header-meta">
+        <div class="meta-pill">
+          <span class="meta-pill-label">Marché</span>
+          <span class="meta-pill-value">Travel &amp; Santé</span>
+        </div>
+        <div class="meta-pill">
+          <span class="meta-pill-label">Canaux</span>
+          <span class="meta-pill-value">B2C &amp; B2B</span>
+        </div>
+        <div class="meta-pill">
+          <span class="meta-pill-label">Trésorerie finale N3</span>
+          <span class="meta-pill-value green">+142 682 €</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════
+       1. EXECUTIVE SUMMARY — KPI CARDS
+       ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-number">1</div>
+      <h2 class="section-title">Executive Summary</h2>
+      <div class="section-rule"></div>
+      <span class="section-desc">Indicateurs clés du modèle économique</span>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Prix de vente public</div>
+        <div class="kpi-value">179<small>,99 €</small></div>
+        <div class="kpi-sub">TTC — canal B2C retail &amp; e-commerce</div>
+        <span class="kpi-badge blue">Positionnement premium</span>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Coût de revient unitaire</div>
+        <div class="kpi-value">50<small>,35 €</small></div>
+        <div class="kpi-sub">Composants + logistique + assemblage</div>
+        <span class="kpi-badge amber">Sous-traitance 25 min</span>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Marge brute unitaire</div>
+        <div class="kpi-value">129<small>,64 €</small></div>
+        <div class="kpi-sub">Avant frais fixes et marketing</div>
+        <span class="kpi-badge green">Taux de marge 72,1 %</span>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Volume cible mois 1–2</div>
+        <div class="kpi-value">50<small> u/mois</small></div>
+        <div class="kpi-sub">Montée progressive à 100 → 150 unités</div>
+        <span class="kpi-badge blue">N1 → N2 → N3</span>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Répartition ventes cible</div>
+        <div class="kpi-value">60<small>% B2C</small></div>
+        <div class="kpi-sub">40 % B2B — compagnies &amp; travel retail</div>
+        <span class="kpi-badge green">Double canal de revenu</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       2. STRUCTURE DU COÛT DE REVIENT
+       ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-number">2</div>
+      <h2 class="section-title">Structure du Coût de Revient</h2>
+      <div class="section-rule"></div>
+      <span class="section-desc">Décomposition par catégorie — coût total 50,35 €/unité</span>
+    </div>
+
+    <div class="two-col">
+      <!-- Breakdown detail -->
+      <div class="card animate d2">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Décomposition unitaire</div>
+            <div class="card-subtitle">Coût HT par composant et catégorie</div>
+          </div>
+          <span class="card-tag">50,35 € / unité</span>
+        </div>
+        <div class="card-body">
+          <!-- Stacked bar -->
+          <div class="cost-total-bar">
+            <div class="cost-segment" style="width:81.4%; background:#1e3a5f;"></div>
+            <div class="cost-segment" style="width:5.3%;  background:#2563eb;"></div>
+            <div class="cost-segment" style="width:13.3%; background:#10b981;"></div>
+          </div>
+          <div style="display:flex; gap:1.25rem; margin-bottom:1.25rem;">
+            <div class="legend-item"><div class="legend-dot" style="background:#1e3a5f;"></div> Composants</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#2563eb;"></div> Logistique</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#10b981;"></div> Assemblage</div>
+          </div>
+
+          <!-- Composants -->
+          <div class="cost-group-label">Composants électroniques &amp; structure</div>
+          <div class="cost-items">
+            <div class="cost-item">
+              <div class="cost-item-label"><div class="cost-dot" style="background:#1e3a5f;"></div>Micro compresseur / pompe</div>
+              <div class="cost-bar-wrap"><div class="cost-bar-bg"><div class="cost-bar-fill" style="width:72.7%; background:#1e3a5f;"></div></div></div>
+              <div class="cost-item-value">15,00 €</div>
+              <div class="cost-item-pct">29,8 %</div>
+            </div>
+            <div class="cost-item">
+              <div class="cost-item-label"><div class="cost-dot" style="background:#334e70;"></div>Structure casque</div>
+              <div class="cost-bar-wrap"><div class="cost-bar-bg"><div class="cost-bar-fill" style="width:48.5%; background:#334e70;"></div></div></div>
+              <div class="cost-item-value">10,00 €</div>
+              <div class="cost-item-pct">19,9 %</div>
+            </div>
+            <div class="cost-item">
+              <div class="cost-item-label"><div class="cost-dot" style="background:#4a6a8c;"></div>Carte électronique</div>
+              <div class="cost-bar-wrap"><div class="cost-bar-bg"><div class="cost-bar-fill" style="width:38.7%; background:#4a6a8c;"></div></div></div>
+              <div class="cost-item-value">8,00 €</div>
+              <div class="cost-item-pct">15,9 %</div>
+            </div>
+            <div class="cost-item">
+              <div class="cost-item-label"><div class="cost-dot" style="background:#2563eb;"></div>Capteurs de pression</div>
+              <div class="cost-bar-wrap"><div class="cost-bar-bg"><div class="cost-bar-fill" style="width:24.2%; background:#2563eb;"></div></div></div>
+              <div class="cost-item-value">5,00 €</div>
+              <div class="cost-item-pct">9,9 %</div>
+            </div>
+            <div class="cost-item">
+              <div class="cost-item-label"><div class="cost-dot" style="background:#60a5fa;"></div>Microcontrôleurs</div>
+              <div class="cost-bar-wrap"><div class="cost-bar-bg"><div class="cost-bar-fill" style="width:7.3%; background:#60a5fa;"></div></div></div>
+              <div class="cost-item-value">1,50 €</div>
+              <div class="cost-item-pct">3,0 %</div>
+            </div>
+            <div class="cost-item">
+              <div class="cost-item-label"><div class="cost-dot" style="background:#93c5fd;"></div>Mousse</div>
+              <div class="cost-bar-wrap"><div class="cost-bar-bg"><div class="cost-bar-fill" style="width:7.3%; background:#93c5fd;"></div></div></div>
+              <div class="cost-item-value">1,50 €</div>
+              <div class="cost-item-pct">3,0 %</div>
+            </div>
+          </div>
+
+          <!-- Logistique -->
+          <div class="cost-group-label">Logistique &amp; conditionnement</div>
+          <div class="cost-items">
+            <div class="cost-item">
+              <div class="cost-item-label"><div class="cost-dot" style="background:#2563eb;"></div>Emballage 40×40×20</div>
+              <div class="cost-bar-wrap"><div class="cost-bar-bg"><div class="cost-bar-fill" style="width:100%; background:#2563eb;"></div></div></div>
+              <div class="cost-item-value">2,28 €</div>
+              <div class="cost-item-pct">4,5 %</div>
+            </div>
+            <div class="cost-item">
+              <div class="cost-item-label"><div class="cost-dot" style="background:#93c5fd;"></div>Notice utilisateur</div>
+              <div class="cost-bar-wrap"><div class="cost-bar-bg"><div class="cost-bar-fill" style="width:17.5%; background:#93c5fd;"></div></div></div>
+              <div class="cost-item-value">0,40 €</div>
+              <div class="cost-item-pct">0,8 %</div>
+            </div>
+          </div>
+
+          <!-- Assemblage -->
+          <div class="cost-group-label">Main d'œuvre (si sous-traitée)</div>
+          <div class="cost-items">
+            <div class="cost-item">
+              <div class="cost-item-label"><div class="cost-dot" style="background:#10b981;"></div>Assemblage (25 min × 20 €/h)</div>
+              <div class="cost-bar-wrap"><div class="cost-bar-bg"><div class="cost-bar-fill" style="width:100%; background:#10b981;"></div></div></div>
+              <div class="cost-item-value">6,67 €</div>
+              <div class="cost-item-pct">13,2 %</div>
+            </div>
+          </div>
+
+          <div class="cost-total-row">
+            <span class="cost-total-label">Coût de revient total</span>
+            <span class="cost-total-value">50,35 €</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donut + margin analysis -->
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="card animate d3" style="flex:1;">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Répartition des coûts</div>
+              <div class="card-subtitle">Part relative par catégorie</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="donut-wrap">
+              <div class="donut-svg-wrap">
+                <!-- SVG donut chart: composants 81.4%, logistique 5.3%, assemblage 13.2% -->
+                <svg viewBox="0 0 120 120" width="160" height="160">
+                  <!-- Background circle -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#f1f5f9" stroke-width="14"/>
+                  <!-- Composants 81.4% = 289.1°, dasharray: 81.4% of 289 ≈ 235 out of 289 circumference 2πr=289 -->
+                  <!-- circumference = 2 * π * 46 = 289.03 -->
+                  <!-- Composants: 81.4% = 235.3, starts at -90deg -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#1e3a5f" stroke-width="14"
+                    stroke-dasharray="235.3 289.0"
+                    stroke-dashoffset="72.3"
+                    stroke-linecap="butt"
+                    transform="rotate(-90 60 60)"/>
+                  <!-- Logistique: 5.3% = 15.3 -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#2563eb" stroke-width="14"
+                    stroke-dasharray="15.3 289.0"
+                    stroke-dashoffset="-163.0"
+                    stroke-linecap="butt"
+                    transform="rotate(-90 60 60)"/>
+                  <!-- Assemblage: 13.2% = 38.2 -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#10b981" stroke-width="14"
+                    stroke-dasharray="38.2 289.0"
+                    stroke-dashoffset="-178.3"
+                    stroke-linecap="butt"
+                    transform="rotate(-90 60 60)"/>
+                </svg>
+                <div class="donut-label-center">
+                  <span class="donut-center-value">50,35</span>
+                  <span class="donut-center-label">€ / unité</span>
+                </div>
+              </div>
+              <div class="donut-legend">
+                <div class="donut-legend-item">
+                  <div class="donut-legend-left">
+                    <div class="donut-legend-dot" style="background:#1e3a5f;"></div>
+                    Composants électroniques &amp; structure
+                  </div>
+                  <span class="donut-legend-val">41,00 € — 81,4 %</span>
+                </div>
+                <div class="donut-legend-item">
+                  <div class="donut-legend-left">
+                    <div class="donut-legend-dot" style="background:#10b981;"></div>
+                    Assemblage sous-traité
+                  </div>
+                  <span class="donut-legend-val">6,67 € — 13,2 %</span>
+                </div>
+                <div class="donut-legend-item">
+                  <div class="donut-legend-left">
+                    <div class="donut-legend-dot" style="background:#2563eb;"></div>
+                    Logistique &amp; conditionnement
+                  </div>
+                  <span class="donut-legend-val">2,68 € — 5,3 %</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card animate d4">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Analyse de la marge brute</div>
+              <div class="card-subtitle">Prix de vente vs coût de revient</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- Price waterfall -->
+            <div style="position:relative; height:48px; background:var(--slate-100); border-radius:8px; overflow:hidden; margin-bottom:0.75rem;">
+              <div style="position:absolute; left:0; top:0; bottom:0; width:28.1%; background:var(--navy); border-radius:8px 0 0 8px; display:flex; align-items:center; justify-content:center;">
+                <span style="font-size:10px; font-weight:700; color:white;">50,35 €</span>
+              </div>
+              <div style="position:absolute; left:28.1%; top:0; bottom:0; right:0; background:var(--emerald); border-radius:0 8px 8px 0; display:flex; align-items:center; justify-content:center;">
+                <span style="font-size:10px; font-weight:700; color:white;">Marge : 129,64 € — 72,1 %</span>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <div style="background:var(--slate-50); border:1px solid var(--slate-200); border-radius:8px; padding:10px 12px;">
+                <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--slate-400); margin-bottom:3px;">Coût</div>
+                <div style="font-family:'DM Serif Display',serif; font-size:18px; color:var(--navy);">50,35 €</div>
+                <div style="font-size:10px; color:var(--slate-400);">27,9 % du prix</div>
+              </div>
+              <div style="background:var(--emerald-soft); border:1px solid #a7f3d0; border-radius:8px; padding:10px 12px;">
+                <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#065f46; margin-bottom:3px;">Marge brute</div>
+                <div style="font-family:'DM Serif Display',serif; font-size:18px; color:var(--emerald);">129,64 €</div>
+                <div style="font-size:10px; color:#065f46;">72,1 % du prix</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       3. HYPOTHÈSES DE VENTE
+       ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-number">3</div>
+      <h2 class="section-title">Hypothèses de Vente</h2>
+      <div class="section-rule"></div>
+      <span class="section-desc">Production, distribution et stocks par scénario</span>
+    </div>
+
+    <div class="three-col">
+      <!-- Scenario N1 -->
+      <div class="card animate d2">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Scénario N1</div>
+            <div class="card-subtitle">Phase d'amorçage — année 1</div>
+          </div>
+          <span class="scenario-badge sc-n1">N1</span>
+        </div>
+        <div class="card-body">
+          <table class="hyp-table">
+            <thead>
+              <tr>
+                <th>Canal</th>
+                <th>M1–M2</th>
+                <th>M3–M6</th>
+                <th>M7–M12</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="row-label">Production</td>
+                <td>50</td>
+                <td>100</td>
+                <td>100</td>
+              </tr>
+              <tr>
+                <td><span class="pill-b2c">B2C</span></td>
+                <td>5</td>
+                <td>5–40</td>
+                <td>40–50</td>
+              </tr>
+              <tr>
+                <td><span class="pill-b2b">B2B</span></td>
+                <td>0</td>
+                <td>0–200</td>
+                <td>0–200</td>
+              </tr>
+              <tr class="total-row">
+                <td>Stock fin de période</td>
+                <td>45–50</td>
+                <td>Varié</td>
+                <td>Varié</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="margin-top:1rem; padding:10px 12px; background:var(--blue-soft); border-radius:8px;">
+            <div style="font-size:10px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:3px;">Trésorerie finale N1</div>
+            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy);">26 838 €</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario N2 -->
+      <div class="card animate d3">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Scénario N2</div>
+            <div class="card-subtitle">Phase de croissance — année 2</div>
+          </div>
+          <span class="scenario-badge sc-n2">N2</span>
+        </div>
+        <div class="card-body">
+          <table class="hyp-table">
+            <thead>
+              <tr>
+                <th>Canal</th>
+                <th>M1–M2</th>
+                <th>M3–M6</th>
+                <th>M7–M12</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="row-label">Production</td>
+                <td>100</td>
+                <td>100–150</td>
+                <td>150</td>
+              </tr>
+              <tr>
+                <td><span class="pill-b2c">B2C</span></td>
+                <td>50</td>
+                <td>50–75</td>
+                <td>45–50</td>
+              </tr>
+              <tr>
+                <td><span class="pill-b2b">B2B</span></td>
+                <td>0</td>
+                <td>200</td>
+                <td>0–200</td>
+              </tr>
+              <tr class="total-row">
+                <td>Stock fin de période</td>
+                <td>50</td>
+                <td>Varié</td>
+                <td>100+</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="margin-top:1rem; padding:10px 12px; background:var(--emerald-soft); border-radius:8px;">
+            <div style="font-size:10px; font-weight:700; color:#065f46; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:3px;">Trésorerie finale N2</div>
+            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy);">97 135 €</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario N3 -->
+      <div class="card animate d4">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Scénario N3</div>
+            <div class="card-subtitle">Phase de maturité — année 3</div>
+          </div>
+          <span class="scenario-badge sc-n3">N3</span>
+        </div>
+        <div class="card-body">
+          <table class="hyp-table">
+            <thead>
+              <tr>
+                <th>Canal</th>
+                <th>M1–M2</th>
+                <th>M3–M6</th>
+                <th>M7–M12</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="row-label">Production</td>
+                <td>150</td>
+                <td>150</td>
+                <td>150</td>
+              </tr>
+              <tr>
+                <td><span class="pill-b2c">B2C</span></td>
+                <td>40</td>
+                <td>40–150</td>
+                <td>40–150</td>
+              </tr>
+              <tr>
+                <td><span class="pill-b2b">B2B</span></td>
+                <td>200</td>
+                <td>200</td>
+                <td>200</td>
+              </tr>
+              <tr class="total-row">
+                <td>Stock fin de période</td>
+                <td>110+</td>
+                <td>Varié</td>
+                <td>Stable</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="margin-top:1rem; padding:10px 12px; background:var(--amber-soft); border-radius:8px; border:1px solid #fde68a;">
+            <div style="font-size:10px; font-weight:700; color:#92400e; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:3px;">Trésorerie finale N3</div>
+            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy);">142 682 €</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       4. PRÉVISIONS FINANCIÈRES
+       ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-number">4</div>
+      <h2 class="section-title">Prévisions Financières — Cash Flow sur 12 mois</h2>
+      <div class="section-rule"></div>
+      <span class="section-desc">Évolution mensuelle encaissements, décaissements &amp; trésorerie</span>
+    </div>
+
+    <div class="card animate d2">
+      <div class="card-body" style="padding: 1.5rem;">
+        <!-- Tabs -->
+        <div class="scenario-tabs">
+          <div class="scenario-tab active" onclick="switchTab(this,'tab-n1')">Scénario N1 — Amorçage</div>
+          <div class="scenario-tab" onclick="switchTab(this,'tab-n2')">Scénario N2 — Croissance</div>
+          <div class="scenario-tab" onclick="switchTab(this,'tab-n3')">Scénario N3 — Maturité</div>
+        </div>
+
+        <!-- ── N1 ── -->
+        <div class="scenario-panel active" id="tab-n1">
+          <div class="scenario-kpis">
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie initiale</div>
+              <div class="sc-kpi-value">0 €</div>
+              <div class="sc-kpi-sub">Démarrage à zéro</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie finale</div>
+              <div class="sc-kpi-value green">26 838 €</div>
+              <div class="sc-kpi-sub">Fin mois 12</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Pic de trésorerie</div>
+              <div class="sc-kpi-value">28 739 €</div>
+              <div class="sc-kpi-sub">Mois 6</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie min.</div>
+              <div class="sc-kpi-value amber">6 044 €</div>
+              <div class="sc-kpi-sub">Mois 11 — creux de trésorerie</div>
+            </div>
+          </div>
+
+          <!-- Bar chart N1 -->
+          <div style="position:relative;">
+            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Encaissements vs Décaissements (€)</div>
+            <div class="bars-row">
+              <!-- M1 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:10%;"></div>
+                  <div class="bar bar-dec" style="height:90%;"></div>
+                </div>
+                <div class="bar-month">M1</div>
+              </div>
+              <!-- M2 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:3%;"></div>
+                  <div class="bar bar-dec" style="height:65%;"></div>
+                </div>
+                <div class="bar-month">M2</div>
+              </div>
+              <!-- M3 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:15%;"></div>
+                  <div class="bar bar-dec" style="height:65%;"></div>
+                </div>
+                <div class="bar-month">M3</div>
+              </div>
+              <!-- M4 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:48%;"></div>
+                  <div class="bar bar-dec" style="height:65%;"></div>
+                </div>
+                <div class="bar-month">M4</div>
+              </div>
+              <!-- M5 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:10%;"></div>
+                  <div class="bar bar-dec" style="height:82%;"></div>
+                </div>
+                <div class="bar-month">M5</div>
+              </div>
+              <!-- M6 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:100%;"></div>
+                  <div class="bar bar-dec" style="height:72%;"></div>
+                </div>
+                <div class="bar-month">M6</div>
+              </div>
+              <!-- M7 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:25%;"></div>
+                  <div class="bar bar-dec" style="height:58%;"></div>
+                </div>
+                <div class="bar-month">M7</div>
+              </div>
+              <!-- M8 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:25%;"></div>
+                  <div class="bar bar-dec" style="height:58%;"></div>
+                </div>
+                <div class="bar-month">M8</div>
+              </div>
+              <!-- M9 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:25%;"></div>
+                  <div class="bar bar-dec" style="height:70%;"></div>
+                </div>
+                <div class="bar-month">M9</div>
+              </div>
+              <!-- M10 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:60%;"></div>
+                  <div class="bar bar-dec" style="height:72%;"></div>
+                </div>
+                <div class="bar-month">M10</div>
+              </div>
+              <!-- M11 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:25%;"></div>
+                  <div class="bar bar-dec" style="height:58%;"></div>
+                </div>
+                <div class="bar-month">M11</div>
+              </div>
+              <!-- M12 -->
+              <div class="bar-group">
+                <div class="bar-wrap">
+                  <div class="bar bar-enc" style="height:60%;"></div>
+                  <div class="bar bar-dec" style="height:58%;"></div>
+                </div>
+                <div class="bar-month">M12</div>
+              </div>
+            </div>
+
+            <div style="margin-top:1.25rem; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.5rem;">Solde de trésorerie mensuel (€)</div>
+            <div class="treso-bars">
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:87%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:59%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:26%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:95%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:59%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:88%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:70%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:35%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:25%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:22%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
+            </div>
+          </div>
+
+          <div class="chart-legend" style="margin-top:0.75rem;">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>Encaissements</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--slate-300);"></div>Décaissements</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--emerald);"></div>Trésorerie positive</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div>Trésorerie négative</div>
+          </div>
+
+          <hr class="divider" style="margin-top:1.5rem;">
+          <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Tableau mensuel détaillé — Scénario N1 (€)</div>
+          <div style="overflow-x:auto;">
+            <table class="monthly-table">
+              <thead>
+                <tr>
+                  <th>Ligne</th>
+                  <th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>M6</th>
+                  <th>M7</th><th>M8</th><th>M9</th><th>M10</th><th>M11</th><th>M12</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Solde début de mois</td>
+                  <td>0</td><td>23 429</td><td>15 919</td><td>7 104</td><td>25 407</td><td>15 984</td>
+                  <td>28 740</td><td>23 732</td><td>18 683</td><td>9 316</td><td>6 805</td><td>6 044</td>
+                </tr>
+                <tr>
+                  <td>Total encaissements</td>
+                  <td>43 000</td><td>2 000</td><td>900</td><td>27 898</td><td>2 100</td><td>38 697</td>
+                  <td>7 200</td><td>7 200</td><td>7 200</td><td>9 000</td><td>44 957</td><td>—</td>
+                </tr>
+                <tr>
+                  <td>Total décaissements</td>
+                  <td>19 571</td><td>9 510</td><td>9 715</td><td>9 595</td><td>12 123</td><td>25 942</td>
+                  <td>12 208</td><td>12 248</td><td>16 567</td><td>9 761</td><td>24 206</td><td>—</td>
+                </tr>
+                <tr class="highlight-row">
+                  <td>Trésorerie fin de mois</td>
+                  <td>23 429</td><td>15 919</td><td>7 104</td><td>25 407</td><td>15 984</td><td>28 740</td>
+                  <td>23 732</td><td>18 683</td><td>9 316</td><td>6 805</td><td>6 044</td><td class="val-pos">26 838</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── N2 ── -->
+        <div class="scenario-panel" id="tab-n2">
+          <div class="scenario-kpis">
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie initiale</div>
+              <div class="sc-kpi-value">26 838 €</div>
+              <div class="sc-kpi-sub">Report N1</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie finale</div>
+              <div class="sc-kpi-value green">97 135 €</div>
+              <div class="sc-kpi-sub">Fin mois 12</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Pic de trésorerie</div>
+              <div class="sc-kpi-value">55 327 €</div>
+              <div class="sc-kpi-sub">Mois 11</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie min.</div>
+              <div class="sc-kpi-value amber">842 €</div>
+              <div class="sc-kpi-sub">Mois 3 — point critique</div>
+            </div>
+          </div>
+
+          <!-- Bar chart N2 -->
+          <div style="position:relative;">
+            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Encaissements vs Décaissements (€)</div>
+            <div class="bars-row">
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:20%;"></div><div class="bar bar-dec" style="height:65%;"></div></div><div class="bar-month">M1</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:20%;"></div><div class="bar bar-dec" style="height:53%;"></div></div><div class="bar-month">M2</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:67%;"></div></div><div class="bar-month">M3</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:67%;"></div></div><div class="bar-month">M4</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:53%;"></div></div><div class="bar-month">M5</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:70%;"></div></div><div class="bar-month">M6</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M7</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M8</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:70%;"></div></div><div class="bar-month">M9</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M10</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M11</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M12</div></div>
+            </div>
+            <div style="margin-top:1.25rem; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.5rem;">Solde de trésorerie mensuel (€)</div>
+            <div class="treso-bars">
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:55%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:5%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:37%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:36%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:20%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:17%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:15%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:34%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:26%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:57%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
+            </div>
+          </div>
+
+          <div class="chart-legend" style="margin-top:0.75rem;">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>Encaissements</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--slate-300);"></div>Décaissements</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--emerald);"></div>Trésorerie positive</div>
+          </div>
+
+          <hr class="divider" style="margin-top:1.5rem;">
+          <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Tableau mensuel détaillé — Scénario N2 (€)</div>
+          <div style="overflow-x:auto;">
+            <table class="monthly-table">
+              <thead>
+                <tr>
+                  <th>Ligne</th>
+                  <th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>M6</th>
+                  <th>M7</th><th>M8</th><th>M9</th><th>M10</th><th>M11</th><th>M12</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Solde début de mois</td>
+                  <td>26 838</td><td>10 366</td><td>5 913</td><td>842</td><td>35 877</td><td>34 905</td>
+                  <td>19 193</td><td>16 731</td><td>14 268</td><td>33 014</td><td>25 302</td><td>55 327</td>
+                </tr>
+                <tr>
+                  <td>Total encaissements</td>
+                  <td>9 000</td><td>9 000</td><td>14 599</td><td>48 597</td><td>12 599</td><td>12 599</td>
+                  <td>12 599</td><td>12 599</td><td>48 597</td><td>7 200</td><td>44 998</td><td>9 000</td>
+                </tr>
+                <tr>
+                  <td>Total décaissements</td>
+                  <td>25 472</td><td>13 452</td><td>19 671</td><td>13 562</td><td>13 572</td><td>28 311</td>
+                  <td>15 062</td><td>15 062</td><td>29 851</td><td>14 912</td><td>14 972</td><td>27 204</td>
+                </tr>
+                <tr class="highlight-row">
+                  <td>Trésorerie fin de mois</td>
+                  <td>10 366</td><td>5 913</td><td class="val-neg">842</td><td>35 877</td><td>34 905</td><td>19 193</td>
+                  <td>16 731</td><td>14 268</td><td>33 014</td><td>25 302</td><td>55 327</td><td class="val-pos">97 135</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── N3 ── -->
+        <div class="scenario-panel" id="tab-n3">
+          <div class="scenario-kpis">
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie initiale</div>
+              <div class="sc-kpi-value">97 135 €</div>
+              <div class="sc-kpi-sub">Report N2</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie finale</div>
+              <div class="sc-kpi-value green">142 682 €</div>
+              <div class="sc-kpi-sub">Fin mois 12</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie min.</div>
+              <div class="sc-kpi-value">48 632 €</div>
+              <div class="sc-kpi-sub">Mois 4 — plancher solide</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Production / mois</div>
+              <div class="sc-kpi-value">150 unités</div>
+              <div class="sc-kpi-sub">Régime permanent de croisière</div>
+            </div>
+          </div>
+
+          <!-- Bar chart N3 -->
+          <div style="position:relative;">
+            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Encaissements vs Décaissements (€)</div>
+            <div class="bars-row">
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M1</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M2</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M3</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M4</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:50%;"></div></div><div class="bar-month">M5</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M6</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:50%;"></div></div><div class="bar-month">M7</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M8</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:50%;"></div></div><div class="bar-month">M9</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M10</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:50%;"></div></div><div class="bar-month">M11</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M12</div></div>
+            </div>
+            <div style="margin-top:1.25rem; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.5rem;">Solde de trésorerie mensuel (€)</div>
+            <div class="treso-bars">
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:86%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:72%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:41%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:34%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:53%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:46%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:64%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:58%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:76%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:70%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:88%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
+            </div>
+          </div>
+
+          <div class="chart-legend" style="margin-top:0.75rem;">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>Encaissements</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--slate-300);"></div>Décaissements</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--emerald);"></div>Trésorerie positive</div>
+          </div>
+
+          <hr class="divider" style="margin-top:1.5rem;">
+          <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Tableau mensuel détaillé — Scénario N3 (€)</div>
+          <div style="overflow-x:auto;">
+            <table class="monthly-table">
+              <thead>
+                <tr>
+                  <th>Ligne</th>
+                  <th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>M6</th>
+                  <th>M7</th><th>M8</th><th>M9</th><th>M10</th><th>M11</th><th>M12</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Solde début de mois</td>
+                  <td>97 135</td><td>91 891</td><td>58 156</td><td>48 632</td><td>75 037</td><td>65 514</td>
+                  <td>91 978</td><td>82 395</td><td>52 395</td><td>108 859</td><td>99 336</td><td>125 741</td>
+                </tr>
+                <tr>
+                  <td>Total encaissements</td>
+                  <td>7 200</td><td>43 197</td><td>7 200</td><td>43 197</td><td>7 200</td><td>43 197</td>
+                  <td>7 200</td><td>43 197</td><td>7 200</td><td>43 197</td><td>7 200</td><td>43 197</td>
+                </tr>
+                <tr>
+                  <td>Total décaissements</td>
+                  <td>12 444</td><td>76 933</td><td>16 723</td><td>16 792</td><td>16 723</td><td>16 733</td>
+                  <td>16 783</td><td>73 197</td><td>8 524</td><td>52 720</td><td>8 795</td><td>26 256</td>
+                </tr>
+                <tr class="highlight-row">
+                  <td>Trésorerie fin de mois</td>
+                  <td>91 891</td><td>58 156</td><td>48 632</td><td>75 037</td><td>65 514</td><td>91 978</td>
+                  <td>82 395</td><td>52 395</td><td>108 859</td><td>99 336</td><td>125 741</td><td class="val-pos">142 682</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       5. COMPARATIVE & ANALYSIS
+       ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-number">5</div>
+      <h2 class="section-title">Analyse Financière Stratégique</h2>
+      <div class="section-rule"></div>
+      <span class="section-desc">Enseignements clés — synthèse des 3 scénarios</span>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="card animate d2" style="margin-bottom:12px;">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Comparaison des 3 scénarios</div>
+          <div class="card-subtitle">Principaux indicateurs financiers sur 12 mois</div>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th style="min-width:220px;">Indicateur</th>
+              <th><span class="scenario-badge sc-n1">N1 — Amorçage</span></th>
+              <th><span class="scenario-badge sc-n2">N2 — Croissance</span></th>
+              <th><span class="scenario-badge sc-n3">N3 — Maturité</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-head">Volume de production / mois</td>
+              <td>50 → 100 unités</td>
+              <td>100 → 150 unités</td>
+              <td>150 unités (stable)</td>
+            </tr>
+            <tr>
+              <td class="row-head">Trésorerie initiale</td>
+              <td>0 €</td>
+              <td>26 838 €</td>
+              <td>97 135 €</td>
+            </tr>
+            <tr>
+              <td class="row-head">Trésorerie finale (M12)</td>
+              <td>26 838 €</td>
+              <td>97 135 €</td>
+              <td style="font-weight:700; color:var(--emerald);">142 682 €</td>
+            </tr>
+            <tr>
+              <td class="row-head">Trésorerie minimale</td>
+              <td style="color:var(--amber); font-weight:600;">6 044 € (M11)</td>
+              <td style="color:var(--red); font-weight:600;">842 € (M3)</td>
+              <td style="color:var(--emerald); font-weight:600;">48 632 € (M4)</td>
+            </tr>
+            <tr>
+              <td class="row-head">Apport initial nécessaire</td>
+              <td>43 000 € (capital)</td>
+              <td>Report N1</td>
+              <td>Report N2</td>
+            </tr>
+            <tr>
+              <td class="row-head">Profil de risque trésorerie</td>
+              <td>Modéré</td>
+              <td style="color:var(--red); font-weight:600;">Critique (M3 : 842 €)</td>
+              <td style="color:var(--emerald); font-weight:600;">Faible — plancher solide</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4-insight grid -->
+    <div class="analysis-grid">
+      <div class="insight-card ic-navy animate d2">
+        <div class="insight-number">Enseignement 01</div>
+        <div class="insight-title">Point mort et rentabilité structurelle</div>
+        <div class="insight-body">
+          Avec un coût de revient de <strong>50,35 €</strong> et un prix de vente à <strong>179,99 €</strong>, la marge brute unitaire atteint <strong>72 %</strong>. Cette configuration permet d'absorber les charges fixes dès les premiers mois dès que le volume de ventes dépasse le seuil de couverture. Le modèle est rentable à l'unité dès la première vente ; la question est uniquement celle de la vitesse de montée en volume.
+        </div>
+        <span class="insight-metric">Seuil de rentabilité brute : 1 unité vendue</span>
+      </div>
+
+      <div class="insight-card ic-emerald animate d3">
+        <div class="insight-number">Enseignement 02</div>
+        <div class="insight-title">Impact déterminant du canal B2B</div>
+        <div class="insight-body">
+          Les contrats B2B (compagnies aériennes, travel retail) génèrent des encaissements massifs et ponctuels — jusqu'à <strong>43 197 €</strong> en une seule occurrence en N3. Ces flux sont la principale source de hausse de trésorerie entre N1 et N3. L'activation du canal B2B est le levier le plus structurant de la trajectoire financière : sans lui, la trésorerie N2 passerait sous la barre des <strong>1 000 €</strong> au mois 3.
+        </div>
+        <span class="insight-metric">Flux B2B : jusqu'à +43 197 € / occurrence</span>
+      </div>
+
+      <div class="insight-card ic-amber animate d4">
+        <div class="insight-number">Enseignement 03</div>
+        <div class="insight-title">Point de vigilance : creux N2 mois 3</div>
+        <div class="insight-body">
+          En Scénario N2, la trésorerie atteint un minimum critique de <strong>842 €</strong> au mois 3 avant un rebond soutenu par les encaissements B2B. Ce creux impose soit un coussin de sécurité renforcé issu de N1, soit l'anticipation d'une ligne de crédit court terme. Au-delà de ce point, la trésorerie ne descend plus sous <strong>14 000 €</strong>, attestant d'une solidification progressive du modèle.
+        </div>
+        <span class="insight-metric">Trésorerie min. N2 : 842 € — mois 3</span>
+      </div>
+
+      <div class="insight-card ic-blue animate d5">
+        <div class="insight-number">Enseignement 04</div>
+        <div class="insight-title">Trajectoire de trésorerie sur 3 ans</div>
+        <div class="insight-body">
+          La progression est nette et conforme aux hypothèses de montée en charge : <strong>26 838 €</strong> en fin N1, <strong>97 135 €</strong> en fin N2, <strong>142 682 €</strong> en fin N3. La trésorerie cumulée sur 3 ans évolue de façon non-linéaire, portée par les économies d'échelle et la récurrence des contrats B2B. Le modèle atteint une autonomie financière pleine en scénario N3, sans besoin de financement externe supplémentaire.
+        </div>
+        <span class="insight-metric">Trésorerie cumulée 3 ans : +142 682 €</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="dash-footer">
+    <div class="footer-team">
+      <span class="footer-label">Équipe</span>
+      <div class="team-chips">
+        <div class="team-chip"><div class="team-name">M. Shimi</div><div class="team-role">Chef de projet</div></div>
+        <div class="team-chip"><div class="team-name">B. Bouchama</div><div class="team-role">Technique</div></div>
+        <div class="team-chip"><div class="team-name">T. Sapan</div><div class="team-role">Éco-conception</div></div>
+        <div class="team-chip"><div class="team-name">S. Bajjou</div><div class="team-role">Marketing</div></div>
+        <div class="team-chip"><div class="team-name">C. Sarr</div><div class="team-role">Support</div></div>
+      </div>
+    </div>
+    <span class="footer-note">Document confidentiel — Propriété exclusive du projet "En Détente" © 2025–2026</span>
+  </footer>
+
+</div>
+
+<script>
+  function switchTab(el, panelId) {
+    // Update tabs
+    document.querySelectorAll('.scenario-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    // Update panels
+    document.querySelectorAll('.scenario-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(panelId).classList.add('active');
+  }
+</script>
+</body>
+</html>
