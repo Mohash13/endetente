@@ -1,1 +1,546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analyse PESTEL — Projet En Détente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --navy:       #001f3f;
+      --navy-mid:   #003366;
+      --navy-light: #0a4a8f;
+      --blue:       #2563eb;
+      --blue-soft:  #dbeafe;
+      --off-white:  #f8fafc;
+      --slate-100:  #f1f5f9;
+      --slate-200:  #e2e8f0;
+      --slate-400:  #94a3b8;
+      --slate-600:  #475569;
+      --slate-800:  #1e293b;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg:  0 10px 40px rgba(0,31,63,0.16);
+
+      /* PESTEL row colours — muted tints */
+      --c-p:  #e8edf5;   /* Politique  — slate-navy  */
+      --c-e1: #e9f0fa;   /* Économique — blue tint   */
+      --c-s:  #eaf4fb;   /* Socioculturel            */
+      --c-t:  #e8f0fe;   /* Technologique            */
+      --c-e2: #e6f4f0;   /* Environnemental — green  */
+      --c-l:  #ece8f5;   /* Légal — indigo           */
+
+      --dot-p:  #001f3f;
+      --dot-e1: #1d4ed8;
+      --dot-s:  #0369a1;
+      --dot-t:  #2563eb;
+      --dot-e2: #059669;
+      --dot-l:  #4f46e5;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--slate-800);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, var(--navy-light) 100%);
+      border-radius: 18px;
+      padding: 2.25rem 2.75rem;
+      color: white;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(96,165,250,0.14), transparent 70%);
+      pointer-events: none;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: 8%;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(147,197,253,0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .header-inner {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .header-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #93c5fd;
+      background: rgba(59,130,246,0.2);
+      border: 1px solid rgba(147,197,253,0.3);
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 0.65rem;
+    }
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+      line-height: 1.15;
+    }
+    .header h1 span { color: #93c5fd; }
+    .header-sub {
+      font-size: 13px;
+      color: rgba(147,197,253,0.7);
+      margin-top: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+    .pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 11px;
+      backdrop-filter: blur(4px);
+    }
+    .pill-label {
+      display: block;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.5;
+      margin-bottom: 2px;
+    }
+    .pill-value { font-weight: 700; }
+    .pill-value.green { color: #6ee7b7; }
+
+    /* ── TABLE WRAPPER ── */
+    .table-wrap {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* ── THEAD ── */
+    thead tr {
+      background: var(--navy);
+    }
+    thead th {
+      padding: 14px 20px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.65);
+      text-align: left;
+      border: none;
+    }
+    thead th:first-child { width: 190px; }
+    thead th:nth-child(2) { width: 100px; }
+
+    /* ── TBODY ── */
+    tbody tr {
+      border-bottom: 1px solid var(--slate-100);
+      transition: background 0.15s ease;
+    }
+    tbody tr:last-child { border-bottom: none; }
+
+    /* Row-level left accent via box-shadow on first td */
+    .row-p  td:first-child { border-left: 4px solid var(--dot-p);  }
+    .row-e1 td:first-child { border-left: 4px solid var(--dot-e1); }
+    .row-s  td:first-child { border-left: 4px solid var(--dot-s);  }
+    .row-t  td:first-child { border-left: 4px solid var(--dot-t);  }
+    .row-e2 td:first-child { border-left: 4px solid var(--dot-e2); }
+    .row-l  td:first-child { border-left: 4px solid var(--dot-l);  }
+
+    td {
+      padding: 18px 20px;
+      vertical-align: top;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--slate-600);
+    }
+
+    /* Label cell */
+    .label-cell {
+      white-space: nowrap;
+    }
+    .label-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .label-letter {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      line-height: 1;
+      color: var(--slate-200);
+      letter-spacing: -0.02em;
+    }
+    .label-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--slate-800);
+      letter-spacing: 0.01em;
+    }
+    .label-en {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+    }
+
+    /* Impact badge cell */
+    .impact-cell { width: 100px; }
+    .badge {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+    .badge-neutral  { background: #f1f5f9; color: #64748b; }
+    .badge-moderate { background: #fef3c7; color: #92400e; }
+    .badge-positive { background: #d1fae5; color: #065f46; }
+    .badge-watch    { background: #ede9fe; color: #3730a3; }
+
+    /* Content cell */
+    .content-cell { padding-right: 28px; }
+
+    .point {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .point:last-child { margin-bottom: 0; }
+
+    .point-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+      background: var(--dot-color, var(--slate-400));
+    }
+
+    .point p { color: var(--slate-600); }
+    .point p strong { color: var(--slate-800); font-weight: 600; }
+
+    /* Row hover */
+    tbody tr:hover td { background: var(--slate-100); }
+    tbody tr:hover .label-letter { color: var(--slate-300); }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0 0.25rem;
+    }
+    .footer-team { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .footer-label {
+      font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--slate-400);
+    }
+    .team-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .team-chip {
+      display: flex; flex-direction: column;
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      padding: 6px 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .team-name { font-size: 11px; font-weight: 700; color: var(--slate-800); }
+    .team-role { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); margin-top: 1px; }
+    .footer-note { font-size: 11px; color: var(--slate-400); font-style: italic; }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      padding: 0 0.25rem;
+    }
+    .legend-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400); }
+    .legend-items { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--slate-600); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .page { padding: 1rem 0.75rem 3rem; }
+      .header { padding: 1.75rem 1.5rem; }
+      thead th:first-child { width: 120px; }
+      td { padding: 14px 14px; font-size: 12px; }
+      .content-cell { padding-right: 14px; }
+      .label-letter { font-size: 20px; }
+    }
+    @media (max-width: 540px) {
+      .impact-cell { display: none; }
+      thead th:nth-child(2) { display: none; }
+    }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .table-wrap { animation: fadeUp 0.35s ease both; }
+    .header     { animation: fadeUp 0.25s ease both; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div>
+        <span class="header-badge">Analyse Stratégique</span>
+        <h1>Analyse PESTEL<span> — En Détente</span></h1>
+        <p class="header-sub">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Environnement macro-économique et réglementaire · 2025–2026
+        </p>
+      </div>
+      <div class="header-pills">
+        <div class="pill">
+          <span class="pill-label">Statut</span>
+          <span class="pill-value green">En Développement</span>
+        </div>
+        <div class="pill">
+          <span class="pill-label">Secteur</span>
+          <span class="pill-value">Transport aérien</span>
+        </div>
+        <div class="pill">
+          <span class="pill-label">Facteurs analysés</span>
+          <span class="pill-value">6 dimensions</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <span class="legend-label">Niveau d'impact</span>
+    <div class="legend-items">
+      <div class="legend-item"><span class="badge badge-positive">Favorable</span></div>
+      <div class="legend-item"><span class="badge badge-moderate">Modéré</span></div>
+      <div class="legend-item"><span class="badge badge-neutral">Neutre</span></div>
+      <div class="legend-item"><span class="badge badge-watch">À surveiller</span></div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Impact</th>
+          <th>Analyse</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- POLITIQUE -->
+        <tr class="row-p">
+          <td class="label-cell">
+            <div class="label-wrap">
+              <span class="label-letter">P</span>
+              <span class="label-name">Politique</span>
+              <span class="label-en">Political</span>
+            </div>
+          </td>
+          <td class="impact-cell"><span class="badge badge-neutral">Neutre</span></td>
+          <td class="content-cell">
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-p)"></div>
+              <p><strong>Stabilité du trafic aérien mondial.</strong> Les crises géopolitiques et les restrictions d'espace aérien peuvent entraîner des baisses temporaires du nombre de vols et affecter ponctuellement la demande. Ces événements restent néanmoins conjoncturels et n'altèrent pas la trajectoire de croissance structurelle du secteur aérien sur le long terme.</p>
+            </div>
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-p)"></div>
+              <p><strong>Approvisionnement européen sécurisé.</strong> Le recours à des fournisseurs de composants établis en Europe permet de s'affranchir des tensions liées aux chaînes d'approvisionnement internationales et de limiter l'exposition aux aléas des politiques commerciales extracommunautaires.</p>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ÉCONOMIQUE -->
+        <tr class="row-e1">
+          <td class="label-cell">
+            <div class="label-wrap">
+              <span class="label-letter">E</span>
+              <span class="label-name">Économique</span>
+              <span class="label-en">Economic</span>
+            </div>
+          </td>
+          <td class="impact-cell"><span class="badge badge-moderate">Modéré</span></td>
+          <td class="content-cell">
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-e1)"></div>
+              <p><strong>Exposition limitée aux taux d'intérêt.</strong> Le projet EN DÉTENTE ne repose actuellement sur aucun emprunt bancaire, ce qui réduit mécaniquement la sensibilité aux fluctuations monétaires. En revanche, l'inflation des matières premières et des composants électroniques constitue un risque direct sur les coûts de production qu'il conviendra de suivre régulièrement.</p>
+            </div>
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-e1)"></div>
+              <p><strong>Stratégie d'approvisionnement local.</strong> Le choix de fournisseurs européens génère des coûts unitaires légèrement supérieurs à ceux d'un approvisionnement asiatique, mais permet d'éliminer les droits de douane à l'importation, de sécuriser les délais et de limiter l'exposition à d'éventuelles modifications de la politique fiscale internationale.</p>
+            </div>
+          </td>
+        </tr>
+
+        <!-- SOCIOCULTUREL -->
+        <tr class="row-s">
+          <td class="label-cell">
+            <div class="label-wrap">
+              <span class="label-letter">S</span>
+              <span class="label-name">Socioculturel</span>
+              <span class="label-en">Social</span>
+            </div>
+          </td>
+          <td class="impact-cell"><span class="badge badge-positive">Favorable</span></td>
+          <td class="content-cell">
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-s)"></div>
+              <p><strong>Croissance soutenue du trafic passagers.</strong> Le transport aérien mondial enregistre une progression constante du nombre de passagers transportés chaque année. Cette dynamique crée un marché adressable en expansion continue, favorable au déploiement de solutions innovantes destinées à améliorer le confort à bord.</p>
+            </div>
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-s)"></div>
+              <p><strong>Attentes croissantes en matière de confort.</strong> Les compagnies aériennes investissent activement dans l'expérience passager et recherchent de nouveaux services différenciants. Cette tendance de fond ouvre des opportunités directes pour un produit tel que le casque dépressurisé EN DÉTENTE, qui répond à un besoin réel et fréquemment exprimé par les voyageurs.</p>
+            </div>
+          </td>
+        </tr>
+
+        <!-- TECHNOLOGIQUE -->
+        <tr class="row-t">
+          <td class="label-cell">
+            <div class="label-wrap">
+              <span class="label-letter">T</span>
+              <span class="label-name">Technologique</span>
+              <span class="label-en">Technological</span>
+            </div>
+          </td>
+          <td class="impact-cell"><span class="badge badge-positive">Favorable</span></td>
+          <td class="content-cell">
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-t)"></div>
+              <p><strong>Maturité des composants embarqués.</strong> Les progrès réalisés dans les domaines des capteurs barométriques, des microcontrôleurs basse consommation et des systèmes de régulation permettent aujourd'hui de concevoir des dispositifs à la fois compacts, précis et économes en énergie. Ces avancées rendent techniquement viable le développement du casque EN DÉTENTE.</p>
+            </div>
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-t)"></div>
+              <p><strong>Protection de l'innovation par la propriété intellectuelle.</strong> Le dépôt d'un brevet couvrant le mécanisme de régulation active de la pression constituerait un avantage concurrentiel durable lors de la phase de commercialisation, en protégeant le savoir-faire développé au cours de la R&D contre toute tentative de reproduction.</p>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ENVIRONNEMENTAL -->
+        <tr class="row-e2">
+          <td class="label-cell">
+            <div class="label-wrap">
+              <span class="label-letter">E</span>
+              <span class="label-name">Environnemental</span>
+              <span class="label-en">Environmental</span>
+            </div>
+          </td>
+          <td class="impact-cell"><span class="badge badge-watch">À surveiller</span></td>
+          <td class="content-cell">
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-e2)"></div>
+              <p><strong>Pression environnementale sur le secteur aérien.</strong> La réduction des émissions de CO₂ constitue une priorité stratégique pour l'ensemble des acteurs du transport aérien. Les compagnies aériennes sont soumises à des exigences réglementaires croissantes et cherchent activement des partenaires dont la démarche environnementale est cohérente avec leurs engagements.</p>
+            </div>
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-e2)"></div>
+              <p><strong>Intégration d'une démarche d'écoconception.</strong> Le casque EN DÉTENTE pourra s'inscrire dans cette dynamique en privilégiant des composants durables et réparables, un conditionnement en matériaux recyclables et un approvisionnement local chaque fois que les contraintes techniques le permettent, renforçant ainsi son positionnement auprès des compagnies engagées dans la RSE.</p>
+            </div>
+          </td>
+        </tr>
+
+        <!-- LÉGAL -->
+        <tr class="row-l">
+          <td class="label-cell">
+            <div class="label-wrap">
+              <span class="label-letter">L</span>
+              <span class="label-name">Légal</span>
+              <span class="label-en">Legal</span>
+            </div>
+          </td>
+          <td class="impact-cell"><span class="badge badge-watch">À surveiller</span></td>
+          <td class="content-cell">
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-l)"></div>
+              <p><strong>Conformité aux normes applicables aux dispositifs électroniques.</strong> La mise sur le marché européen du casque sera conditionnée à l'obtention du marquage CE, attestant de la conformité du produit aux directives en matière de compatibilité électromagnétique, de sécurité électrique et, le cas échéant, de dispositifs médicaux ou para-médicaux selon le niveau de prescription retenu.</p>
+            </div>
+            <div class="point">
+              <div class="point-dot" style="--dot-color: var(--dot-l)"></div>
+              <p><strong>Veille réglementaire continue.</strong> L'évolution des exigences légales dans les différents marchés cibles — notamment hors Union européenne — nécessitera une adaptation régulière de la documentation technique et, si nécessaire, des spécifications du produit. Cette veille constitue un prérequis indispensable à toute démarche d'expansion internationale.</p>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-team">
+      <span class="footer-label">Équipe Projet</span>
+      <div class="team-chips">
+        <div class="team-chip"><span class="team-name">M. Shimi</span><span class="team-role">Chef de projet</span></div>
+        <div class="team-chip"><span class="team-name">B. Bouchama</span><span class="team-role">Technique</span></div>
+        <div class="team-chip"><span class="team-name">T. Sapan</span><span class="team-role">Éco-conception</span></div>
+        <div class="team-chip"><span class="team-name">S. Bajjou</span><span class="team-role">Marketing</span></div>
+        <div class="team-chip"><span class="team-name">C. Sarr</span><span class="team-role">Support</span></div>
+      </div>
+    </div>
+    <span class="footer-note">Document confidentiel — Propriété exclusive du projet "En Détente" © 2025–2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
