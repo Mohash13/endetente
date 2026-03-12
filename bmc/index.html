@@ -1,1 +1,765 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Model Canvas — En Détente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Tokens ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --navy:      #001f3f;
+      --navy-mid:  #003366;
+      --navy-light:#0a4a8f;
+      --blue:      #2563eb;
+      --blue-soft: #dbeafe;
+      --accent:    #3b82f6;
+      --emerald:   #10b981;
+      --white:     #ffffff;
+      --off-white: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --slate-800: #1e293b;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 40px rgba(0,31,63,0.18);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--slate-800);
+      min-height: 100vh;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, var(--navy-light) 100%);
+      border-radius: 20px;
+      padding: 2.5rem 3rem;
+      color: white;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(96,165,250,0.15), transparent 70%);
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: 5%;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(147,197,253,0.08), transparent 70%);
+    }
+    .header-inner {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .header-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #93c5fd;
+      background: rgba(59,130,246,0.2);
+      border: 1px solid rgba(147,197,253,0.3);
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 0.75rem;
+    }
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .header h1 span { color: #93c5fd; }
+    .header-sub {
+      font-size: 13px;
+      color: rgba(147,197,253,0.75);
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+    .pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 11px;
+      backdrop-filter: blur(4px);
+    }
+    .pill-label {
+      display: block;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.5;
+      margin-bottom: 2px;
+    }
+    .pill-value { font-weight: 700; }
+    .pill-value.green { color: #6ee7b7; }
+
+    /* ── CANVAS GRID ── */
+    /*
+      BMC standard layout (9 blocks):
+      | KP | KA | VP | CR | CS |
+      |    | KR |    | CH |    |
+      |    CS   |    |  RS      |
+
+      We implement this as a CSS grid.
+    */
+    .canvas {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 10px;
+    }
+
+    /* Grid placement */
+    .block-kp { grid-column: 1; grid-row: 1 / 3; }
+    .block-ka { grid-column: 2; grid-row: 1; }
+    .block-kr { grid-column: 2; grid-row: 2; }
+    .block-vp { grid-column: 3; grid-row: 1 / 3; }
+    .block-cr { grid-column: 4; grid-row: 1; }
+    .block-ch { grid-column: 4; grid-row: 2; }
+    .block-cs { grid-column: 5; grid-row: 1 / 3; }
+    .block-cost { grid-column: 1 / 3; grid-row: 3; }
+    .block-rev  { grid-column: 3 / 6; grid-row: 3; }
+
+    /* ── CARD ── */
+    .card {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--slate-200);
+      padding: 1.25rem 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      animation: fadeUp 0.4s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    /* Staggered animation */
+    .card:nth-child(1)  { animation-delay: 0.05s; }
+    .card:nth-child(2)  { animation-delay: 0.10s; }
+    .card:nth-child(3)  { animation-delay: 0.15s; }
+    .card:nth-child(4)  { animation-delay: 0.20s; }
+    .card:nth-child(5)  { animation-delay: 0.25s; }
+    .card:nth-child(6)  { animation-delay: 0.30s; }
+    .card:nth-child(7)  { animation-delay: 0.35s; }
+    .card:nth-child(8)  { animation-delay: 0.40s; }
+    .card:nth-child(9)  { animation-delay: 0.45s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Top accent bar per block */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 14px 14px 0 0;
+      background: var(--card-accent, var(--slate-200));
+    }
+
+    /* Color variants */
+    .accent-navy   { --card-accent: var(--navy); }
+    .accent-blue   { --card-accent: var(--blue); }
+    .accent-mid    { --card-accent: var(--navy-mid); }
+    .accent-light  { --card-accent: var(--navy-light); }
+    .accent-green  { --card-accent: var(--emerald); }
+    .accent-amber  { --card-accent: #f59e0b; }
+
+    /* Card header */
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-icon {
+      width: 28px; height: 28px;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-icon svg { display: block; }
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 13px;
+      color: var(--slate-800);
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+    .card-subtitle {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      margin-top: 1px;
+    }
+
+    /* Divider */
+    .card-divider {
+      height: 1px;
+      background: var(--slate-100);
+      margin: 0 -0.1rem;
+    }
+
+    /* Items list */
+    .items { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      font-size: 11.5px;
+      color: var(--slate-600);
+      line-height: 1.45;
+    }
+    .item-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--item-color, var(--slate-400));
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .item strong {
+      color: var(--slate-800);
+      font-weight: 600;
+    }
+
+    /* Tag chips */
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 99px;
+      background: var(--tag-bg, var(--blue-soft));
+      color: var(--tag-color, var(--blue));
+      letter-spacing: 0.02em;
+    }
+
+    /* VP card special highlight */
+    .card-vp {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-color: transparent;
+      color: white;
+    }
+    .card-vp .card-title   { color: white; }
+    .card-vp .card-subtitle { color: rgba(255,255,255,0.45); }
+    .card-vp .card-divider { background: rgba(255,255,255,0.1); }
+    .card-vp .item         { color: rgba(255,255,255,0.8); }
+    .card-vp .item strong  { color: white; }
+    .card-vp .item-dot     { background: #60a5fa; }
+    .card-vp::before       { background: rgba(255,255,255,0.2); }
+
+    /* Revenue card */
+    .card-rev {
+      background: linear-gradient(135deg, #001f3f 0%, #0a3a6e 100%);
+      border-color: transparent;
+      color: white;
+    }
+    .card-rev .card-title   { color: white; }
+    .card-rev .card-subtitle { color: rgba(255,255,255,0.45); }
+    .card-rev .card-divider { background: rgba(255,255,255,0.1); }
+    .card-rev .item         { color: rgba(255,255,255,0.8); }
+    .card-rev .item strong  { color: white; }
+    .card-rev .item-dot     { background: #6ee7b7; }
+    .card-rev::before       { background: var(--emerald); }
+
+    /* Cost card */
+    .card-cost .item-dot   { --item-color: #f59e0b; }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0 0.25rem;
+    }
+    .footer-team {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--slate-400);
+    }
+    .team-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .team-chip {
+      display: flex; flex-direction: column;
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      padding: 6px 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .team-name {
+      font-size: 11px; font-weight: 700; color: var(--slate-800);
+    }
+    .team-role {
+      font-size: 9px; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--slate-400);
+      margin-top: 1px;
+    }
+    .footer-note {
+      font-size: 11px; color: var(--slate-400);
+      font-style: italic;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .canvas {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: none;
+      }
+      .block-kp  { grid-column: 1; grid-row: auto; }
+      .block-ka  { grid-column: 2; grid-row: auto; }
+      .block-kr  { grid-column: 3; grid-row: auto; }
+      .block-vp  { grid-column: 1 / 4; grid-row: auto; }
+      .block-cr  { grid-column: 1; grid-row: auto; }
+      .block-ch  { grid-column: 2; grid-row: auto; }
+      .block-cs  { grid-column: 3; grid-row: auto; }
+      .block-cost{ grid-column: 1 / 3; grid-row: auto; }
+      .block-rev { grid-column: 3; grid-row: auto; }
+    }
+    @media (max-width: 640px) {
+      .page { padding: 1rem 0.75rem 3rem; }
+      .header { padding: 1.75rem 1.5rem; }
+      .canvas {
+        grid-template-columns: 1fr;
+      }
+      .block-kp, .block-vp, .block-cs,
+      .block-cost, .block-rev {
+        grid-column: 1;
+        grid-row: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ HEADER ══ -->
+  <header class="header">
+    <div class="header-inner">
+      <div>
+        <span class="header-badge">Business Model Canvas</span>
+        <h1>Projet <span>En Détente</span></h1>
+        <p class="header-sub">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Modèle économique — Version 1.0 · 2025–2026
+        </p>
+      </div>
+      <div class="header-pills">
+        <div class="pill">
+          <span class="pill-label">Statut</span>
+          <span class="pill-value green">En Développement</span>
+        </div>
+        <div class="pill">
+          <span class="pill-label">Marché cible</span>
+          <span class="pill-value">Travel &amp; Santé</span>
+        </div>
+        <div class="pill">
+          <span class="pill-label">Segment</span>
+          <span class="pill-value">B2C + B2B</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ CANVAS ══ -->
+  <div class="canvas">
+
+    <!-- 1. Partenaires Clés -->
+    <div class="card accent-navy block-kp">
+      <div class="card-head">
+        <div class="card-icon" style="background:#eef2f7;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#001f3f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Partenaires Clés</div>
+          <div class="card-subtitle">Key Partners</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="items">
+        <div class="item">
+          <div class="item-dot" style="--item-color:#001f3f"></div>
+          <span><strong>Fournisseurs de composants</strong> — approvisionnement en micro-pompes compactes, capteurs de pression calibrés et batteries lithium rechargeables</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#001f3f"></div>
+          <span><strong>Sous-traitant industriel</strong> — assemblage en série auprès d'un partenaire spécialisé en électronique embarquée compacte</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#001f3f"></div>
+          <span><strong>Opérateurs travel retail</strong> — gestionnaires de boutiques duty-free et d'espaces de vente en zone aéroportuaire</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#001f3f"></div>
+          <span><strong>Compagnies aériennes</strong> — partenaires de distribution à bord et d'intégration dans les offres de confort premium</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#001f3f"></div>
+          <span><strong>Organismes de certification</strong> — validation de la sécurité du dispositif et conformité aux normes en vigueur</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Activités Clés -->
+    <div class="card accent-mid block-ka">
+      <div class="card-head">
+        <div class="card-icon" style="background:#eff6ff;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Activités Clés</div>
+          <div class="card-subtitle">Key Activities</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="items">
+        <div class="item">
+          <div class="item-dot" style="--item-color:#003366"></div>
+          <span><strong>Recherche &amp; Développement</strong> — conception mécanique, intégration électronique, développement du firmware de régulation de pression</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#003366"></div>
+          <span><strong>Prototypage &amp; validation</strong> — essais fonctionnels, tests de pression, certification de sécurité du dispositif</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#003366"></div>
+          <span><strong>Production industrielle</strong> — montée en cadence progressive, contrôle qualité unitaire à chaque série</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#003366"></div>
+          <span><strong>Commercialisation</strong> — déploiement des canaux de vente, animation de la présence en aéroport et en ligne</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Proposition de Valeur (centre, dark) -->
+    <div class="card card-vp block-vp">
+      <div class="card-head">
+        <div class="card-icon" style="background:rgba(255,255,255,0.12);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Proposition de Valeur</div>
+          <div class="card-subtitle">Value Proposition</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="items">
+        <div class="item">
+          <div class="item-dot"></div>
+          <span><strong>Régulation active de la pression</strong> — contrairement aux solutions passives existantes (bouchons, bonbons), le dispositif ajuste en temps réel la pression au niveau tympanique pour un soulagement immédiat et contrôlé</span>
+        </div>
+        <div class="item">
+          <div class="item-dot"></div>
+          <span><strong>Élimination des douleurs auriculaires</strong> — le casque dépressurisé agit lors des phases de montée et de descente, périodes les plus critiques pour les passagers sensibles aux variations de pression</span>
+        </div>
+        <div class="item">
+          <div class="item-dot"></div>
+          <span><strong>Technologie embarquée fiable</strong> — intégration de capteurs de pression, d'une micro-pompe silencieuse et d'un firmware de régulation sécurisé dans un format compact et ergonomique</span>
+        </div>
+        <div class="item">
+          <div class="item-dot"></div>
+          <span><strong>Dispositif certifié &amp; sécurisé</strong> — système de plafonnement de pression intégré, validé par des essais techniques rigoureux, adapté à tous les profils de passagers</span>
+        </div>
+      </div>
+      <div style="margin-top:0.75rem;">
+        <div class="tags">
+          <span class="tag" style="--tag-bg:rgba(59,130,246,0.25); --tag-color:#93c5fd;">Confort en vol</span>
+          <span class="tag" style="--tag-bg:rgba(59,130,246,0.25); --tag-color:#93c5fd;">Électronique embarquée</span>
+          <span class="tag" style="--tag-bg:rgba(16,185,129,0.25); --tag-color:#6ee7b7;">Santé &amp; Sécurité</span>
+          <span class="tag" style="--tag-bg:rgba(59,130,246,0.25); --tag-color:#93c5fd;">Éco-conception</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Relation Client -->
+    <div class="card accent-blue block-cr">
+      <div class="card-head">
+        <div class="card-icon" style="background:#eff6ff;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Relation Client</div>
+          <div class="card-subtitle">Customer Relationships</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="items">
+        <div class="item">
+          <div class="item-dot" style="--item-color:#2563eb"></div>
+          <span><strong>Communication pédagogique</strong> — valorisation du principe actif de régulation, distinction claire vis-à-vis des solutions passives conventionnelles</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#2563eb"></div>
+          <span><strong>Confiance médicale</strong> — discours factuel appuyé sur les résultats de validation, sans promesse commerciale excessive</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#2563eb"></div>
+          <span><strong>Service après-vente</strong> — prise en charge des retours et support utilisateur, externalisable en phase de croissance</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Canaux -->
+    <div class="card accent-light block-ch">
+      <div class="card-head">
+        <div class="card-icon" style="background:#eff6ff;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0a4a8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Canaux</div>
+          <div class="card-subtitle">Channels</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="items">
+        <div class="item">
+          <div class="item-dot" style="--item-color:#0a4a8f"></div>
+          <span><strong>Distribution physique</strong> — implantation prioritaire en boutiques duty-free et points de vente aéroportuaires, au plus près du besoin</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#0a4a8f"></div>
+          <span><strong>Site e-commerce dédié</strong> — vente directe en ligne permettant aux voyageurs fréquents d'acquérir le produit avant leur départ</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#0a4a8f"></div>
+          <span><strong>Partenariats B2B aériens</strong> — intégration dans les offres premium des compagnies, vente à bord en classe affaires</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Segments Clients -->
+    <div class="card accent-navy block-cs">
+      <div class="card-head">
+        <div class="card-icon" style="background:#eef2f7;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#001f3f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Segments Clients</div>
+          <div class="card-subtitle">Customer Segments</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="items">
+        <div class="item">
+          <div class="item-dot" style="--item-color:#001f3f"></div>
+          <span><strong>Voyageurs fréquents</strong> — profils professionnels et loisirs à forte cadence de déplacements, sensibles au confort et aux innovations technologiques</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#001f3f"></div>
+          <span><strong>Familles avec enfants</strong> — les jeunes enfants présentant une forte sensibilité aux variations de pression en cabine, le dispositif répond à un besoin parental concret</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#001f3f"></div>
+          <span><strong>Passagers à fragilité ORL</strong> — personnes présentant des antécédents de barotraumatisme, d'otites séreuses ou de sinusite chronique</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#001f3f"></div>
+          <span><strong>Compagnies aériennes</strong> — clients B2B souhaitant enrichir leur offre de confort cabine ou leur programme de fidélisation premium</span>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag">B2C</span>
+        <span class="tag">B2B</span>
+        <span class="tag">Premium</span>
+      </div>
+    </div>
+
+    <!-- 7. Ressources Clés -->
+    <div class="card accent-mid block-kr">
+      <div class="card-head">
+        <div class="card-icon" style="background:#eff6ff;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Ressources Clés</div>
+          <div class="card-subtitle">Key Resources</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="items">
+        <div class="item">
+          <div class="item-dot" style="--item-color:#003366"></div>
+          <span><strong>Compétences techniques internes</strong> — maîtrise de la conception mécanique, de l'électronique embarquée et du développement logiciel bas niveau</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#003366"></div>
+          <span><strong>Outils de conception</strong> — environnements CAO (SolidWorks, Fusion 360), EDA (KiCad, Altium) et plateformes embarquées (Arduino, STM32)</span>
+        </div>
+        <div class="item">
+          <div class="item-dot" style="--item-color:#003366"></div>
+          <span><strong>Propriété intellectuelle</strong> — dépôt de brevet sur le dispositif de régulation de pression active, constituant une barrière à l'entrée concurrentielle</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Structure des Coûts -->
+    <div class="card card-cost accent-amber block-cost">
+      <div class="card-head">
+        <div class="card-icon" style="background:#fffbeb;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Structure des Coûts</div>
+          <div class="card-subtitle">Cost Structure</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem 1.5rem;">
+        <div class="items">
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Recherche &amp; Développement</strong> — conception, prototypage itératif et campagnes d'essais de validation</span>
+          </div>
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Composants techniques</strong> — micro-pompe, capteurs barométriques, batterie et matériaux d'étanchéité</span>
+          </div>
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Fabrication</strong> — coûts d'assemblage unitaire, contrôle qualité et gestion des non-conformités</span>
+          </div>
+        </div>
+        <div class="items">
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Logistique &amp; distribution</strong> — acheminement, stockage et référencement en points de vente aéroportuaires</span>
+          </div>
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Marketing &amp; communication</strong> — création de supports, présence digitale et implantation commerciale initiale</span>
+          </div>
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Certification réglementaire</strong> — frais de dossier, audits de conformité et maintien des certifications</span>
+          </div>
+        </div>
+      </div>
+      <div class="tags" style="margin-top:0.5rem;">
+        <span class="tag" style="--tag-bg:#fef3c7; --tag-color:#b45309;">Orienté maîtrise des coûts</span>
+        <span class="tag" style="--tag-bg:#fef3c7; --tag-color:#b45309;">Montée en charge progressive</span>
+        <span class="tag" style="--tag-bg:#fef3c7; --tag-color:#b45309;">Économies d'échelle à terme</span>
+      </div>
+    </div>
+
+    <!-- 9. Flux de Revenus -->
+    <div class="card card-rev block-rev">
+      <div class="card-head">
+        <div class="card-icon" style="background:rgba(255,255,255,0.12);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div>
+          <div class="card-title">Flux de Revenus</div>
+          <div class="card-subtitle">Revenue Streams</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem 1.5rem;">
+        <div class="items">
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Ventes au détail (B2C)</strong> — chiffre d'affaires généré par la vente unitaire en travel retail et via le canal e-commerce direct</span>
+          </div>
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Contrats volume (B2B)</strong> — accords cadres avec les compagnies aériennes pour l'intégration du dispositif dans leurs offres de service</span>
+          </div>
+        </div>
+        <div class="items">
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Optimisation des marges</strong> — réduction progressive du coût unitaire par économies d'échelle lors de la montée en volume de production</span>
+          </div>
+          <div class="item">
+            <div class="item-dot"></div>
+            <span><strong>Revenus récurrents potentiels</strong> — consommables et accessoires associés au casque, renouvellement de pièces d'usure</span>
+          </div>
+        </div>
+      </div>
+      <div class="tags" style="margin-top:0.5rem;">
+        <span class="tag" style="--tag-bg:rgba(16,185,129,0.25); --tag-color:#6ee7b7;">Vente unitaire</span>
+        <span class="tag" style="--tag-bg:rgba(16,185,129,0.25); --tag-color:#6ee7b7;">Contrat volume B2B</span>
+        <span class="tag" style="--tag-bg:rgba(59,130,246,0.25); --tag-color:#93c5fd;">Croissance maîtrisée</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer-team">
+      <span class="footer-label">Équipe</span>
+      <div class="team-chips">
+        <div class="team-chip"><span class="team-name">M. Shimi</span><span class="team-role">Chef de projet</span></div>
+        <div class="team-chip"><span class="team-name">B. Bouchama</span><span class="team-role">Technique</span></div>
+        <div class="team-chip"><span class="team-name">T. Sapan</span><span class="team-role">Éco-conception</span></div>
+        <div class="team-chip"><span class="team-name">S. Bajjou</span><span class="team-role">Marketing</span></div>
+        <div class="team-chip"><span class="team-name">C. Sarr</span><span class="team-role">Support</span></div>
+      </div>
+    </div>
+    <span class="footer-note">Document confidentiel — Propriété exclusive du projet "En Détente" © 2025–2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
