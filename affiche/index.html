@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>En Détente — Affiche</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black:   #0C0C0D;
+  --white:   #FFFFFF;
+  --rule:    rgba(255,255,255,.09);
+  --blue-fr: #002395;
+  --red-fr:  #ED2939;
+}
+html, body {
+  background: #0a0a0a;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── POSTER ── */
+.poster {
+  width: 794px;
+  background: var(--black);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: 0 48px 120px rgba(0,0,0,.7);
+}
+.grid-bg {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 66px 66px;
+  mask-image: radial-gradient(ellipse 90% 60% at 50% 30%, black 10%, transparent 80%);
+}
+.glow-top {
+  position: absolute; top: -180px; left: 50%; transform: translateX(-50%);
+  width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.04) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── TOP BAR ── */
+.top-bar {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 34px 52px 26px;
+  border-bottom: 1px solid var(--rule);
+}
+.brand { display: flex; align-items: center; gap: 11px; }
+.brand-logo { height: 25px; filter: invert(1) brightness(2); opacity: .88; }
+.brand-name {
+  font-family: 'Playfair Display', serif; font-size: .88rem;
+  font-style: italic; letter-spacing: .08em; color: rgba(255,255,255,.72);
+}
+.top-right { display: flex; align-items: center; gap: 16px; }
+.top-tag { font-size: .57rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.2); }
+.fr-flag { display: flex; height: 12px; border-radius: 2px; overflow: hidden; opacity: .4; }
+.fr-b { width: 6px; height: 12px; background: #002395; }
+.fr-w { width: 6px; height: 12px; background: #fff; }
+.fr-r { width: 6px; height: 12px; background: #ED2939; }
+
+/* ── EYEBROW ── */
+.eyebrow-row {
+  position: relative; z-index: 10;
+  padding: 32px 52px 0;
+  display: flex; align-items: center; gap: 14px;
+}
+.ey-line { flex: 0 0 24px; height: 1px; background: rgba(255,255,255,.16); }
+.eyebrow { font-size: .59rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,.24); }
+
+/* ── HEADLINE ── */
+.headline-block { position: relative; z-index: 10; padding: 16px 52px 0; }
+.h-main {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem; font-weight: 400; line-height: .9;
+  letter-spacing: -.025em; color: var(--white);
+}
+.h-main em { font-style: italic; color: rgba(255,255,255,.46); }
+.h-sub {
+  font-size: .78rem; font-weight: 300; color: rgba(255,255,255,.28);
+  margin-top: 16px; line-height: 1.75; max-width: 440px;
+}
+
+/* ── ILLUSTRATION ── */
+.illustration-wrap {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  padding: 30px 52px 20px;
+}
+.headphone-svg {
+  width: 280px; height: auto;
+  filter: drop-shadow(0 24px 48px rgba(0,0,0,.9));
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+
+/* ─────────────────────────────
+   CHEMINEMENT
+───────────────────────────── */
+.journey {
+  position: relative; z-index: 10;
+  margin: 0 52px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 18px;
+  background: rgba(255,255,255,.018);
+  padding: 26px 30px;
+  display: flex; align-items: flex-start;
+}
+.jstep { flex: 1; display: flex; flex-direction: column; gap: 9px; padding: 0 10px; }
+.jstep:first-child { padding-left: 0; }
+.jstep:last-child  { padding-right: 0; }
+
+.jstep-head { display: flex; align-items: center; gap: 9px; }
+.jstep-num {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.14);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .58rem; color: rgba(255,255,255,.36); flex-shrink: 0;
+}
+.jstep-label {
+  font-size: .6rem; letter-spacing: .17em; text-transform: uppercase;
+  color: rgba(255,255,255,.36);
+}
+.jstep-body {
+  font-size: .75rem; color: rgba(255,255,255,.5); line-height: 1.72; font-weight: 300;
+}
+.jstep-body strong { color: rgba(255,255,255,.76); font-weight: 500; }
+
+.jarrow {
+  flex: 0 0 30px; display: flex; align-items: center; justify-content: center;
+  padding-top: 4px; opacity: .28;
+}
+
+/* ── SPECS ── */
+.specs-row {
+  position: relative; z-index: 10;
+  display: flex; align-items: stretch;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-top: 22px;
+}
+.spec-item {
+  flex: 1; padding: 16px 20px;
+  border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.spec-item:first-child { padding-left: 52px; }
+.spec-item:last-child  { border-right: none; padding-right: 52px; }
+.spec-label { font-size: .49rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.18); }
+.spec-val {
+  font-family: 'Playfair Display', serif; font-size: .85rem;
+  font-style: italic; color: rgba(255,255,255,.6);
+}
+
+/* ── BOTTOM ── */
+.bottom-section {
+  position: relative; z-index: 10;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 28px 52px 40px;
+}
+
+/* PRIX */
+.price-label {
+  font-size: .5rem; letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(255,255,255,.2); margin-bottom: 5px;
+}
+.price-old {
+  display: block; font-size: .95rem; font-weight: 300;
+  color: rgba(255,255,255,.2);
+  text-decoration: line-through;
+  text-decoration-color: rgba(255,255,255,.28);
+  letter-spacing: .02em; margin-bottom: 1px;
+}
+.price-main {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.4rem; font-weight: 400;
+  line-height: 1; letter-spacing: -.03em; color: var(--white);
+  display: flex; align-items: flex-start; gap: 2px;
+}
+.price-cents {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem; color: rgba(255,255,255,.52);
+  margin-top: 7px; font-style: italic;
+}
+.price-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 980px; padding: 6px 13px;
+  font-size: .6rem; letter-spacing: .11em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin-top: 11px;
+}
+.badge-dot { width: 5px; height: 5px; border-radius: 50%; background: #FFD60A; flex-shrink: 0; }
+.price-note { font-size: .53rem; color: rgba(255,255,255,.16); letter-spacing: .09em; margin-top: 8px; text-transform: uppercase; }
+
+/* BOTTOM RIGHT */
+.bottom-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.mif-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 980px; padding: 7px 15px;
+  font-size: .6rem; letter-spacing: .11em; text-transform: uppercase;
+  color: rgba(255,255,255,.36);
+}
+.dot-fr {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: linear-gradient(135deg, #002395 33%, white 33% 66%, #ED2939 66%);
+}
+.preorder-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: .57rem; letter-spacing: .13em; text-transform: uppercase;
+  color: rgba(255,255,255,.18);
+}
+.preorder-dot {
+  width: 5px; height: 5px; border-radius: 50%; background: #34C759;
+  box-shadow: 0 0 5px rgba(52,199,89,.5);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+.site-url { font-size: .55rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.12); }
+
+/* TRICOLORE */
+.bottom-rule {
+  position: relative; z-index: 10; height: 3px;
+  background: linear-gradient(90deg, #002395 33.33%, #fff 33.33% 66.66%, #ED2939 66.66%);
+  opacity: .2;
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <div class="grid-bg"></div>
+  <div class="glow-top"></div>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="brand">
+      <img class="brand-logo" src="data:image/jpeg;base64,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" alt="En Détente">
+      <span class="brand-name">En Détente</span>
+    </div>
+    <div class="top-right">
+      <span class="top-tag">Phase Pilote · 2026</span>
+      <div class="fr-flag"><div class="fr-b"></div><div class="fr-w"></div><div class="fr-r"></div></div>
+    </div>
+  </div>
+
+  <!-- EYEBROW -->
+  <div class="eyebrow-row">
+    <div class="ey-line"></div>
+    <span class="eyebrow">Technologie active · Dépressurisation contrôlée</span>
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="headline-block">
+    <h1 class="h-main">Volez<br><em>serein.</em></h1>
+    <p class="h-sub">Le premier casque à régulation active de pression auriculaire.<br>Décollage, atterrissage — sans douleur, sans effort.</p>
+  </div>
+
+  <!-- ILLUSTRATION CASQUE -->
+  <div class="illustration-wrap">
+    <svg class="headphone-svg" viewBox="0 0 380 310" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M72 168C72 94 122 38 190 38C258 38 308 94 308 168" stroke="rgba(255,255,255,.15)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path d="M96 168C96 106 138 60 190 60C242 60 284 106 284 168" stroke="rgba(255,255,255,.06)" stroke-width="1.2" stroke-dasharray="5 7" stroke-linecap="round" fill="none"/>
+      <path d="M112 168C112 114 148 74 190 74C232 74 268 114 268 168" stroke="rgba(255,255,255,.04)" stroke-width="1" fill="none"/>
+      <!-- OREILLETTE GAUCHE -->
+      <rect x="30" y="140" width="64" height="100" rx="24" fill="#161618" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
+      <rect x="44" y="154" width="36" height="72" rx="14" fill="#0f0f11" stroke="rgba(255,255,255,.06)"/>
+      <circle cx="62" cy="190" r="10" fill="#0a0a0c" stroke="rgba(255,255,255,.13)" stroke-width="1.2"/>
+      <circle cx="62" cy="190" r="3.5" fill="white" opacity=".45"><animate attributeName="opacity" values=".15;.8;.15" dur="3s" repeatCount="indefinite"/></circle>
+      <rect x="50" y="210" width="22" height="4" rx="2" fill="rgba(255,255,255,.07)"/>
+      <circle cx="62" cy="222" r="2" fill="#34C759" opacity=".7"><animate attributeName="opacity" values=".3;.9;.3" dur="3s" repeatCount="indefinite"/></circle>
+      <path d="M44 160Q62 156 80 160" stroke="rgba(255,255,255,.05)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- OREILLETTE DROITE -->
+      <rect x="286" y="140" width="64" height="100" rx="24" fill="#161618" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
+      <rect x="300" y="154" width="36" height="72" rx="14" fill="#0f0f11" stroke="rgba(255,255,255,.06)"/>
+      <circle cx="318" cy="190" r="10" fill="#0a0a0c" stroke="rgba(255,255,255,.13)" stroke-width="1.2"/>
+      <circle cx="318" cy="190" r="3.5" fill="white" opacity=".45"><animate attributeName="opacity" values=".15;.8;.15" dur="3s" begin=".4s" repeatCount="indefinite"/></circle>
+      <rect x="308" y="210" width="22" height="4" rx="2" fill="rgba(255,255,255,.07)"/>
+      <circle cx="318" cy="222" r="2" fill="#34C759" opacity=".7"><animate attributeName="opacity" values=".3;.9;.3" dur="3s" begin=".4s" repeatCount="indefinite"/></circle>
+      <path d="M300 160Q318 156 336 160" stroke="rgba(255,255,255,.05)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <rect x="68" y="136" width="14" height="20" rx="4" fill="#1a1a1c" stroke="rgba(255,255,255,.08)"/>
+      <rect x="298" y="136" width="14" height="20" rx="4" fill="#1a1a1c" stroke="rgba(255,255,255,.08)"/>
+      <line x1="100" y1="268" x2="280" y2="268" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+      <text x="190" y="32" text-anchor="middle" font-family="'Playfair Display',serif" font-size="10" fill="rgba(255,255,255,.15)" font-style="italic" letter-spacing="1.5">En Détente</text>
+      <path d="M18 175 Q24 183 18 191" stroke="rgba(255,255,255,.07)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <path d="M10 170 Q19 183 10 196" stroke="rgba(255,255,255,.04)" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M362 175 Q356 183 362 191" stroke="rgba(255,255,255,.07)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <path d="M370 170 Q361 183 370 196" stroke="rgba(255,255,255,.04)" stroke-width="1" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- ── CHEMINEMENT ── -->
+  <div class="journey">
+
+    <!-- 01 Le phénomène -->
+    <div class="jstep">
+      <div class="jstep-head">
+        <div class="jstep-num">01</div>
+        <span class="jstep-label">Le phénomène</span>
+      </div>
+      <div class="jstep-body">
+        Lors du décollage et de l'atterrissage, la <strong>pression cabine varie brutalement</strong>, créant un déséquilibre avec l'air emprisonné dans l'oreille moyenne.
+      </div>
+    </div>
+
+    <!-- → -->
+    <div class="jarrow">
+      <svg width="28" height="18" viewBox="0 0 28 18" fill="none">
+        <path d="M2 9 C8 3, 20 3, 26 9" stroke="rgba(255,255,255,.6)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M21 5 L26 9 L21 13" stroke="rgba(255,255,255,.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- 02 L'impact -->
+    <div class="jstep">
+      <div class="jstep-head">
+        <div class="jstep-num">02</div>
+        <span class="jstep-label">L'impact</span>
+      </div>
+      <div class="jstep-body">
+        Ce déséquilibre déforme le tympan — <strong>barotraumatisme</strong>. Douleurs, acouphènes, gêne durable. 22&nbsp;% des enfants touchés, 10&nbsp;% des adultes.
+      </div>
+    </div>
+
+    <!-- → -->
+    <div class="jarrow">
+      <svg width="28" height="18" viewBox="0 0 28 18" fill="none">
+        <path d="M2 9 C8 15, 20 15, 26 9" stroke="rgba(255,255,255,.6)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M21 5 L26 9 L21 13" stroke="rgba(255,255,255,.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- 03 La solution -->
+    <div class="jstep">
+      <div class="jstep-head">
+        <div class="jstep-num">03</div>
+        <span class="jstep-label">La solution</span>
+      </div>
+      <div class="jstep-body">
+        <strong>En Détente</strong> régule activement la pression autour de chaque oreille en temps réel. Un bouton, confort immédiat — adultes &amp; enfants.
+      </div>
+    </div>
+
+  </div>
+  <!-- ── / CHEMINEMENT ── -->
+
+  <!-- SPECS -->
+  <div class="specs-row">
+    <div class="spec-item">
+      <span class="spec-label">Capteur</span>
+      <span class="spec-val">MEMS</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-label">Régulation</span>
+      <span class="spec-val">Temps réel</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-label">Charge</span>
+      <span class="spec-val">USB-C</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-label">Conformité</span>
+      <span class="spec-val">CE · IATA</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-label">Fabrication</span>
+      <span class="spec-val">France 🇫🇷</span>
+    </div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom-section">
+    <div class="price-block">
+      <div class="price-label">Prix de lancement</div>
+      <span class="price-old">179,99 €</span>
+      <div class="price-main">149<span class="price-cents">,99 €</span></div>
+      <div class="price-badge">
+        <div class="badge-dot"></div>
+        Offre réservée aux 150 premiers
+      </div>
+      <div class="price-note">Puis 179,99 € · Livraison 2026 · Sans engagement</div>
+    </div>
+    <div class="bottom-right">
+      <div class="mif-badge">
+        <div class="dot-fr"></div>
+        Made in France · Composants UE
+      </div>
+      <div class="preorder-badge">
+        <div class="preorder-dot"></div>
+        Phase pilote — Places disponibles
+      </div>
+      <div class="site-url">endetente.fr</div>
+    </div>
+  </div>
+
+  <div class="bottom-rule"></div>
+</div>
+</body>
+</html>
