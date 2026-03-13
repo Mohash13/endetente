@@ -44,23 +44,34 @@
     }
     body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--slate-800); min-height: 100vh; -webkit-font-smoothing: antialiased; }
     .page { max-width: 1440px; margin: 0 auto; padding: 0 2rem 5rem; }
-    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 0; border-bottom: 1px solid var(--slate-200); margin-bottom: 2.5rem; }
+
+    /* ── TOPBAR ── */
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 0; border-bottom: 1px solid var(--slate-200); margin-bottom: 2.5rem; flex-wrap: wrap; gap: 0.75rem; }
     .topbar-brand { display: flex; align-items: center; gap: 10px; }
-    .topbar-logo { width: 32px; height: 32px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .topbar-logo { width: 32px; height: 32px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .topbar-logo svg { display: block; }
     .topbar-name { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--navy); letter-spacing: -0.01em; }
     .topbar-name span { color: var(--blue); }
-    .topbar-nav { display: flex; align-items: center; gap: 2rem; }
-    .topbar-nav a { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); text-decoration: none; transition: color 0.15s; }
-    .topbar-nav a:hover { color: var(--navy); }
-    .topbar-nav a.active { color: var(--navy); }
-    .topbar-date { font-size: 11px; color: var(--slate-400); font-weight: 500; }
+    .topbar-nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+    .topbar-nav a {
+      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;
+      color: var(--slate-400); text-decoration: none; transition: color 0.15s;
+      padding: 5px 10px; border-radius: 6px;
+    }
+    .topbar-nav a:hover { color: var(--navy); background: var(--slate-100); }
+    .topbar-nav a.active { color: var(--navy); background: var(--blue-soft); }
+    .topbar-nav a.active:hover { background: #bfdbfe; }
+    .topbar-date { font-size: 11px; color: var(--slate-400); font-weight: 500; white-space: nowrap; }
+
+    /* ── LAYOUT ── */
     .section { margin-bottom: 3rem; }
     .section-label { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
     .section-number { width: 22px; height: 22px; background: var(--navy); color: white; border-radius: 6px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .section-title { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--navy); letter-spacing: -0.01em; }
     .section-desc { font-size: 12px; color: var(--slate-400); margin-left: auto; font-style: italic; }
     .section-rule { flex: 1; height: 1px; background: var(--slate-200); }
+
+    /* ── PAGE HEADER ── */
     .page-header { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, var(--navy-light) 100%); border-radius: var(--radius-xl); padding: 3rem 3.5rem; color: white; margin-bottom: 3rem; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); }
     .page-header::before { content: ''; position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(96,165,250,0.12), transparent 70%); pointer-events: none; }
     .page-header::after { content: ''; position: absolute; bottom: -60px; left: 8%; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(147,197,253,0.07), transparent 70%); pointer-events: none; }
@@ -74,6 +85,8 @@
     .meta-pill-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.5; display: block; margin-bottom: 2px; }
     .meta-pill-value { font-size: 13px; font-weight: 700; }
     .meta-pill-value.green { color: #6ee7b7; }
+
+    /* ── KPI GRID ── */
     .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
     .kpi-card { background: white; border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 1.5rem 1.5rem 1.25rem; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; animation: fadeUp 0.45s ease both; }
     .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; background: var(--kpi-color, var(--slate-300)); }
@@ -90,6 +103,8 @@
     .kpi-badge.green { background: var(--emerald-soft); color: #065f46; }
     .kpi-badge.amber { background: var(--amber-soft); color: #92400e; }
     .kpi-badge.blue  { background: var(--blue-soft);  color: #1d4ed8; }
+
+    /* ── CARDS / GRIDS ── */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
     .card { background: white; border: 1px solid var(--slate-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
@@ -98,6 +113,8 @@
     .card-subtitle { font-size: 11px; color: var(--slate-400); margin-top: 3px; }
     .card-body { padding: 1.25rem 1.5rem; }
     .card-tag { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: var(--blue-soft); color: var(--blue); white-space: nowrap; }
+
+    /* ── COST BREAKDOWN ── */
     .cost-total-bar { display: flex; height: 10px; border-radius: 99px; overflow: hidden; margin-bottom: 1.5rem; gap: 2px; }
     .cost-segment { border-radius: 2px; transition: opacity 0.2s; }
     .cost-segment:hover { opacity: 0.8; }
@@ -115,6 +132,8 @@
     .cost-total-row { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; margin-top: 0.5rem; border-top: 2px solid var(--slate-200); }
     .cost-total-label { font-size: 12px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em; }
     .cost-total-value { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--navy); }
+
+    /* ── DONUT ── */
     .donut-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
     .donut-svg-wrap { position: relative; width: 160px; height: 160px; }
     .donut-label-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
@@ -125,6 +144,8 @@
     .donut-legend-left { display: flex; align-items: center; gap: 6px; color: var(--slate-600); }
     .donut-legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
     .donut-legend-val { font-weight: 700; color: var(--slate-800); }
+
+    /* ── HYP TABLE ── */
     .hyp-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
     .hyp-table th { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); text-align: left; padding: 0 10px 10px; border-bottom: 1px solid var(--slate-200); }
     .hyp-table th:not(:first-child) { text-align: center; }
@@ -135,6 +156,8 @@
     .hyp-table .total-row td { font-weight: 700; color: var(--navy); background: var(--slate-50); border-top: 1px solid var(--slate-200); }
     .pill-b2c { display: inline-block; background: var(--blue-soft); color: var(--blue); font-size: 9px; font-weight: 700; padding: 1px 7px; border-radius: 99px; }
     .pill-b2b { display: inline-block; background: var(--emerald-soft); color: #065f46; font-size: 9px; font-weight: 700; padding: 1px 7px; border-radius: 99px; }
+
+    /* ── SCENARIO TABS ── */
     .scenario-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--slate-200); margin-bottom: 1.5rem; }
     .scenario-tab { padding: 8px 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--slate-400); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.15s; user-select: none; }
     .scenario-tab.active { color: var(--navy); border-bottom-color: var(--navy); }
@@ -147,19 +170,18 @@
     .sc-kpi-value { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--navy); line-height: 1; }
     .sc-kpi-value.green { color: var(--emerald); }
     .sc-kpi-value.amber { color: var(--amber); }
+    .sc-kpi-value.red   { color: var(--red); }
     .sc-kpi-sub { font-size: 10px; color: var(--slate-400); margin-top: 3px; }
-    .chart-area { position: relative; }
-    .chart-grid-lines { display: flex; flex-direction: column; gap: 0; position: absolute; inset: 0; bottom: 22px; pointer-events: none; }
-    .chart-gl { flex: 1; border-top: 1px dashed var(--slate-200); }
+
+    /* ── BAR CHARTS ── */
     .bars-row { display: flex; align-items: flex-end; gap: 6px; height: 180px; padding-bottom: 0; position: relative; }
     .bar-group { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; }
     .bar-wrap { display: flex; align-items: flex-end; gap: 2px; width: 100%; height: 160px; }
-    .bar { flex: 1; border-radius: 3px 3px 0 0; min-height: 2px; transition: opacity 0.2s; position: relative; }
+    .bar { flex: 1; border-radius: 3px 3px 0 0; min-height: 2px; transition: opacity 0.2s; }
     .bar:hover { opacity: 0.75; }
     .bar-enc { background: var(--blue); }
     .bar-dec { background: var(--slate-300); }
     .bar-month { font-size: 9px; font-weight: 600; color: var(--slate-400); text-align: center; margin-top: 5px; }
-    .treso-line-wrap { position: relative; margin-top: 1rem; }
     .treso-bars { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
     .treso-bar-group { flex: 1; display: flex; flex-direction: column; align-items: stretch; }
     .treso-bar { border-radius: 3px 3px 0 0; min-height: 2px; }
@@ -168,6 +190,8 @@
     .chart-legend { display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--slate-500); }
     .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+    /* ── MONTHLY TABLE ── */
     .monthly-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
     .monthly-table th { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--slate-400); padding: 0 8px 8px; border-bottom: 1px solid var(--slate-200); text-align: right; white-space: nowrap; }
     .monthly-table th:first-child { text-align: left; }
@@ -177,19 +201,25 @@
     .monthly-table .highlight-row td:first-child { color: white; }
     .monthly-table tr:last-child td { border-bottom: none; }
     .val-pos { color: var(--emerald) !important; font-weight: 700 !important; }
-    .val-neg { color: var(--red) !important; }
+    .val-neg { color: var(--red) !important; font-weight: 700 !important; }
+    .val-warn { color: var(--amber) !important; font-weight: 700 !important; }
+
+    /* ── ANALYSIS ── */
     .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .insight-card { background: white; border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
     .insight-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--ic-color, var(--blue)); border-radius: 99px 0 0 99px; }
     .insight-card.ic-navy { --ic-color: var(--navy); }
     .insight-card.ic-emerald { --ic-color: var(--emerald); }
     .insight-card.ic-amber { --ic-color: var(--amber); }
+    .insight-card.ic-red { --ic-color: var(--red); }
     .insight-card.ic-blue { --ic-color: var(--blue); }
     .insight-number { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400); margin-bottom: 0.35rem; }
     .insight-title { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--navy); margin-bottom: 0.6rem; }
     .insight-body { font-size: 12px; color: var(--slate-600); line-height: 1.65; }
     .insight-body strong { color: var(--slate-800); font-weight: 600; }
     .insight-metric { display: inline-block; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-sm); padding: 6px 12px; margin-top: 0.75rem; font-size: 11px; font-weight: 700; color: var(--navy); }
+
+    /* ── COMPARISON TABLE ── */
     .comparison-table { width: 100%; border-collapse: collapse; }
     .comparison-table th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 12px 16px; text-align: left; background: var(--slate-50); border-bottom: 2px solid var(--slate-200); color: var(--slate-500); }
     .comparison-table td { padding: 11px 16px; font-size: 12px; color: var(--slate-700); border-bottom: 1px solid var(--slate-100); }
@@ -199,6 +229,8 @@
     .sc-n1 { background: #eff6ff; color: #1d4ed8; }
     .sc-n2 { background: #f0fdf4; color: #166534; }
     .sc-n3 { background: #fefce8; color: #854d0e; }
+
+    /* ── FOOTER ── */
     .dash-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--slate-200); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
     .footer-team { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .footer-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400); }
@@ -207,10 +239,14 @@
     .team-name { font-size: 11px; font-weight: 700; color: var(--slate-800); }
     .team-role { font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--slate-400); margin-top: 1px; }
     .footer-note { font-size: 11px; color: var(--slate-400); font-style: italic; }
+
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .animate { animation: fadeUp 0.4s ease both; }
     .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.10s; } .d3 { animation-delay: 0.15s; } .d4 { animation-delay: 0.20s; } .d5 { animation-delay: 0.25s; }
     hr.divider { border: none; border-top: 1px solid var(--slate-100); margin: 0.75rem 0; }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 1200px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } .scenario-kpis { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 900px) { .two-col, .three-col, .analysis-grid { grid-template-columns: 1fr; } .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px) { .page { padding: 0 1rem 3rem; } .page-header { padding: 2rem 1.5rem; } .kpi-grid { grid-template-columns: 1fr 1fr; } }
@@ -219,7 +255,7 @@
 <body>
 <div class="page">
 
-  <!-- TOP NAV -->
+  <!-- ═══════════════ TOP NAV ═══════════════ -->
   <nav class="topbar">
     <div class="topbar-brand">
       <div class="topbar-logo">
@@ -228,14 +264,17 @@
       <span class="topbar-name">En <span>Détente</span></span>
     </div>
     <div class="topbar-nav">
-      <a href="index.html">Accueil</a>
+      <a href="https://endetente.fr/" target="_blank">Accueil</a>
       <a href="#" class="active">Business Plan</a>
-      <a href="business-model-canvas.html">BMC</a>
+      <a href="https://endetente.fr/bmc/" target="_blank">BMC</a>
+      <a href="https://endetente.fr/affiche/" target="_blank">Affiche</a>
+      <a href="https://endetente.fr/dashboard/" target="_blank">Planning</a>
+      <a href="https://endetente.fr/pestel/" target="_blank">PESTEL</a>
     </div>
     <span class="topbar-date">Version 1.0 &nbsp;·&nbsp; 2025–2026</span>
   </nav>
 
-  <!-- PAGE HEADER -->
+  <!-- ═══════════════ PAGE HEADER ═══════════════ -->
   <header class="page-header animate d1">
     <div class="page-header-inner">
       <div>
@@ -252,18 +291,18 @@
           <span class="meta-pill-value">Travel &amp; Santé</span>
         </div>
         <div class="meta-pill">
-          <span class="meta-pill-label">Stratégie</span>
-          <span class="meta-pill-value">B2B-First </span>
+          <span class="meta-pill-label">Prix B2C / B2B HT</span>
+          <span class="meta-pill-value">249,99 € / 199,99 €</span>
         </div>
         <div class="meta-pill">
           <span class="meta-pill-label">Trésorerie finale N3</span>
-          <span class="meta-pill-value green">+142 682 €</span>
+          <span class="meta-pill-value green">+327 843 €</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- 1. EXECUTIVE SUMMARY -->
+  <!-- ═══════════════ 1. EXECUTIVE SUMMARY ═══════════════ -->
   <div class="section">
     <div class="section-label">
       <div class="section-number">1</div>
@@ -275,26 +314,26 @@
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-label">Prix de vente public</div>
-        <div class="kpi-value">179<small>,99 €</small></div>
+        <div class="kpi-value">249<small>,99 €</small></div>
         <div class="kpi-sub">TTC canal B2C retail &amp; e-commerce</div>
-        <span class="kpi-badge blue">Positionnement premium</span>
+        <span class="kpi-badge blue">B2B compagnies : 199,99 € HT</span>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Coût de revient unitaire</div>
         <div class="kpi-value">50<small>,35 €</small></div>
         <div class="kpi-sub">Composants + logistique + assemblage</div>
-        <span class="kpi-badge amber">Sous-traitance </span>
+        <span class="kpi-badge amber">Sous-traitance</span>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">Marge brute unitaire</div>
-        <div class="kpi-value">129<small>,64 €</small></div>
+        <div class="kpi-label">Marge brute unitaire B2C</div>
+        <div class="kpi-value">199<small>,64 €</small></div>
         <div class="kpi-sub">Avant frais fixes et marketing</div>
-        <span class="kpi-badge green">Taux de marge 72,1 %</span>
+        <span class="kpi-badge green">Taux de marge 79,9 %</span>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Volume cible mois 1–2</div>
-        <div class="kpi-value">50<small> u/mois</small></div>
-        <div class="kpi-sub">Montée progressive à 100 → 150 unités</div>
+        <div class="kpi-value">25<small> u/mois</small></div>
+        <div class="kpi-sub">Montée progressive 25 → 100 → 120 unités</div>
         <span class="kpi-badge blue">N1 → N2 → N3</span>
       </div>
       <div class="kpi-card">
@@ -306,7 +345,7 @@
     </div>
   </div>
 
-  <!-- 2. STRUCTURE DU COÛT DE REVIENT -->
+  <!-- ═══════════════ 2. STRUCTURE DU COÛT DE REVIENT ═══════════════ -->
   <div class="section">
     <div class="section-label">
       <div class="section-number">2</div>
@@ -316,6 +355,7 @@
     </div>
 
     <div class="two-col">
+      <!-- Décomposition unitaire -->
       <div class="card animate d2">
         <div class="card-header">
           <div>
@@ -331,9 +371,9 @@
             <div class="cost-segment" style="width:13.3%; background:#10b981;"></div>
           </div>
           <div style="display:flex; gap:1.25rem; margin-bottom:1.25rem;">
-            <div class="legend-item"><div class="legend-dot" style="background:#1e3a5f;"></div> Composants</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#2563eb;"></div> Logistique</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#10b981;"></div> Assemblage</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#1e3a5f;"></div>Composants</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#2563eb;"></div>Logistique</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#10b981;"></div>Assemblage</div>
           </div>
           <div class="cost-group-label">Composants électroniques &amp; structure</div>
           <div class="cost-items">
@@ -397,6 +437,7 @@
       </div>
 
       <div style="display:flex; flex-direction:column; gap:12px;">
+        <!-- Donut chart -->
         <div class="card animate d3" style="flex:1;">
           <div class="card-header">
             <div>
@@ -436,32 +477,39 @@
           </div>
         </div>
 
+        <!-- Margin analysis -->
         <div class="card animate d4">
           <div class="card-header">
             <div>
               <div class="card-title">Analyse de la marge brute</div>
-              <div class="card-subtitle">Prix de vente vs coût de revient</div>
+              <div class="card-subtitle">Prix de vente public vs coût de revient</div>
             </div>
           </div>
           <div class="card-body">
+            <!-- Bar: cost 20.1% / margin 79.9% -->
             <div style="position:relative; height:48px; background:var(--slate-100); border-radius:8px; overflow:hidden; margin-bottom:0.75rem;">
-              <div style="position:absolute; left:0; top:0; bottom:0; width:28.1%; background:var(--navy); border-radius:8px 0 0 8px; display:flex; align-items:center; justify-content:center;">
+              <div style="position:absolute; left:0; top:0; bottom:0; width:20.1%; background:var(--navy); border-radius:8px 0 0 8px; display:flex; align-items:center; justify-content:center;">
                 <span style="font-size:10px; font-weight:700; color:white;">50,35 €</span>
               </div>
-              <div style="position:absolute; left:28.1%; top:0; bottom:0; right:0; background:var(--emerald); border-radius:0 8px 8px 0; display:flex; align-items:center; justify-content:center;">
-                <span style="font-size:10px; font-weight:700; color:white;">Marge : 129,64 € — 72,1 %</span>
+              <div style="position:absolute; left:20.1%; top:0; bottom:0; right:0; background:var(--emerald); border-radius:0 8px 8px 0; display:flex; align-items:center; justify-content:center;">
+                <span style="font-size:10px; font-weight:700; color:white;">Marge B2C : 199,64 € — 79,9 %</span>
               </div>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
               <div style="background:var(--slate-50); border:1px solid var(--slate-200); border-radius:8px; padding:10px 12px;">
                 <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--slate-400); margin-bottom:3px;">Coût</div>
                 <div style="font-family:'DM Serif Display',serif; font-size:18px; color:var(--navy);">50,35 €</div>
-                <div style="font-size:10px; color:var(--slate-400);">27,9 % du prix</div>
+                <div style="font-size:10px; color:var(--slate-400);">20,1 % du prix B2C</div>
               </div>
               <div style="background:var(--emerald-soft); border:1px solid #a7f3d0; border-radius:8px; padding:10px 12px;">
-                <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#065f46; margin-bottom:3px;">Marge brute</div>
-                <div style="font-family:'DM Serif Display',serif; font-size:18px; color:var(--emerald);">129,64 €</div>
-                <div style="font-size:10px; color:#065f46;">72,1 % du prix</div>
+                <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#065f46; margin-bottom:3px;">Marge B2C</div>
+                <div style="font-family:'DM Serif Display',serif; font-size:18px; color:var(--emerald);">199,64 €</div>
+                <div style="font-size:10px; color:#065f46;">79,9 % du prix</div>
+              </div>
+              <div style="background:var(--blue-soft); border:1px solid #bfdbfe; border-radius:8px; padding:10px 12px;">
+                <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#1d4ed8; margin-bottom:3px;">Marge B2B HT</div>
+                <div style="font-family:'DM Serif Display',serif; font-size:18px; color:var(--blue);">149,64 €</div>
+                <div style="font-size:10px; color:#1d4ed8;">74,8 % du prix HT</div>
               </div>
             </div>
           </div>
@@ -470,7 +518,7 @@
     </div>
   </div>
 
-  <!-- 3. HYPOTHÈSES DE VENTE -->
+  <!-- ═══════════════ 3. HYPOTHÈSES DE VENTE ═══════════════ -->
   <div class="section">
     <div class="section-label">
       <div class="section-number">3</div>
@@ -480,168 +528,129 @@
     </div>
 
     <div class="three-col">
-      <!-- Scenario N1 -->
+      <!-- N1 -->
       <div class="card animate d2">
         <div class="card-header">
           <div>
             <div class="card-title">Scénario N1</div>
-            <div class="card-subtitle">Phase d'amorçage — 65 % B2B</div>
+            <div class="card-subtitle">Phase d'amorçage — 65 % B2B · 530 unités/an</div>
           </div>
           <span class="scenario-badge sc-n1">N1</span>
         </div>
         <div class="card-body">
           <table class="hyp-table">
             <thead>
-              <tr>
-                <th>Canal</th>
-                <th>M1–M2</th>
-                <th>M3–M6</th>
-                <th>M7–M12</th>
-              </tr>
+              <tr><th>Canal</th><th>M1–M4</th><th>M5–M8</th><th>M9–M12</th></tr>
             </thead>
             <tbody>
               <tr>
                 <td class="row-label">Production</td>
-                <td>50</td>
-                <td>100</td>
-                <td>100</td>
+                <td>25</td><td>50</td><td>100</td>
               </tr>
               <tr>
                 <td><span class="pill-b2b">B2B</span></td>
-                <td>30–35</td>
-                <td>65–200</td>
-                <td>65–200</td>
+                <td>0</td><td>143 (M6)</td><td>200 (M11)</td>
               </tr>
               <tr>
                 <td><span class="pill-b2c">B2C</span></td>
-                <td>5–20</td>
-                <td>15–35</td>
-                <td>30–35</td>
+                <td>5–8</td><td>15–22</td><td>22–25</td>
               </tr>
               <tr class="total-row">
                 <td>Part B2B sur CA</td>
-                <td>~65 %</td>
-                <td>~65–70 %</td>
-                <td>~70 %</td>
+                <td>~0 %</td><td>~65 %</td><td>~80 %</td>
               </tr>
             </tbody>
           </table>
           <div style="margin-top:1rem; padding:10px 12px; background:var(--blue-soft); border-radius:8px;">
             <div style="font-size:10px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:3px;">Trésorerie finale N1</div>
-            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy);">26 838 €</div>
+            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy);">42 196 €</div>
           </div>
         </div>
       </div>
 
-      <!-- Scenario N2 -->
+      <!-- N2 -->
       <div class="card animate d3">
         <div class="card-header">
           <div>
             <div class="card-title">Scénario N2</div>
-            <div class="card-subtitle">Phase de croissance — 80 % B2B</div>
+            <div class="card-subtitle">Phase de croissance — 80 % B2B · 100 u/mois</div>
           </div>
           <span class="scenario-badge sc-n2">N2</span>
         </div>
         <div class="card-body">
           <table class="hyp-table">
             <thead>
-              <tr>
-                <th>Canal</th>
-                <th>M1–M2</th>
-                <th>M3–M6</th>
-                <th>M7–M12</th>
-              </tr>
+              <tr><th>Canal</th><th>M1–M2</th><th>M3–M8</th><th>M9–M12</th></tr>
             </thead>
             <tbody>
               <tr>
                 <td class="row-label">Production</td>
-                <td>100</td>
-                <td>100–150</td>
-                <td>150</td>
+                <td>100</td><td>100</td><td>100</td>
               </tr>
               <tr>
                 <td><span class="pill-b2b">B2B</span></td>
-                <td>75–80</td>
-                <td>100–200</td>
-                <td>100–200</td>
+                <td>200 (M2)</td><td>200 (M6)</td><td>200 (M11)</td>
               </tr>
               <tr>
                 <td><span class="pill-b2c">B2C</span></td>
-                <td>20–25</td>
-                <td>25–50</td>
-                <td>20–30</td>
+                <td>25–28</td><td>20–32</td><td>30–35</td>
               </tr>
               <tr class="total-row">
                 <td>Part B2B sur CA</td>
-                <td>~75 %</td>
-                <td>~80 %</td>
-                <td>~80 %</td>
+                <td>~75 %</td><td>~80 %</td><td>~80 %</td>
               </tr>
             </tbody>
           </table>
           <div style="margin-top:1rem; padding:10px 12px; background:var(--emerald-soft); border-radius:8px;">
             <div style="font-size:10px; font-weight:700; color:#065f46; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:3px;">Trésorerie finale N2</div>
-            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy);">97 135 €</div>
+            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy);">99 725 €</div>
           </div>
         </div>
       </div>
 
-      <!-- Scenario N3 -->
+      <!-- N3 -->
       <div class="card animate d4">
         <div class="card-header">
           <div>
             <div class="card-title">Scénario N3</div>
-            <div class="card-subtitle">Phase de maturité — 90 % B2B</div>
+            <div class="card-subtitle">Phase de maturité — 90 % B2B · 120 u/mois</div>
           </div>
           <span class="scenario-badge sc-n3">N3</span>
         </div>
         <div class="card-body">
           <table class="hyp-table">
             <thead>
-              <tr>
-                <th>Canal</th>
-                <th>M1–M2</th>
-                <th>M3–M6</th>
-                <th>M7–M12</th>
-              </tr>
+              <tr><th>Canal</th><th>M1–M4</th><th>M5–M8</th><th>M9–M12</th></tr>
             </thead>
             <tbody>
               <tr>
                 <td class="row-label">Production</td>
-                <td>150</td>
-                <td>150</td>
-                <td>150</td>
+                <td>120</td><td>120</td><td>120</td>
               </tr>
               <tr>
                 <td><span class="pill-b2b">B2B</span></td>
-                <td>130–200</td>
-                <td>130–200</td>
-                <td>200</td>
+                <td>200–300</td><td>200–300</td><td>200–300</td>
               </tr>
               <tr>
                 <td><span class="pill-b2c">B2C</span></td>
-                <td>10–20</td>
-                <td>10–20</td>
-                <td>10–15</td>
+                <td>4–42</td><td>28–35</td><td>22–41</td>
               </tr>
               <tr class="total-row">
                 <td>Part B2B sur CA</td>
-                <td>~85 %</td>
-                <td>~85–90 %</td>
-                <td>~90 %</td>
+                <td>~85 %</td><td>~88–90 %</td><td>~90 %</td>
               </tr>
             </tbody>
           </table>
           <div style="margin-top:1rem; padding:10px 12px; background:var(--amber-soft); border-radius:8px; border:1px solid #fde68a;">
             <div style="font-size:10px; font-weight:700; color:#92400e; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:3px;">Trésorerie finale N3</div>
-            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy);">142 682 €</div>
+            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy);">327 843 €</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 4. PRÉVISIONS FINANCIÈRES -->
+  <!-- ═══════════════ 4. PRÉVISIONS FINANCIÈRES ═══════════════ -->
   <div class="section">
     <div class="section-label">
       <div class="section-number">4</div>
@@ -651,14 +660,14 @@
     </div>
 
     <div class="card animate d2">
-      <div class="card-body" style="padding: 1.5rem;">
+      <div class="card-body" style="padding:1.5rem;">
         <div class="scenario-tabs">
           <div class="scenario-tab active" onclick="switchTab(this,'tab-n1')">Scénario N1 — Amorçage</div>
           <div class="scenario-tab" onclick="switchTab(this,'tab-n2')">Scénario N2 — Croissance</div>
           <div class="scenario-tab" onclick="switchTab(this,'tab-n3')">Scénario N3 — Maturité</div>
         </div>
 
-        <!-- N1 -->
+        <!-- ══ N1 ══ -->
         <div class="scenario-panel active" id="tab-n1">
           <div class="scenario-kpis">
             <div class="sc-kpi">
@@ -668,131 +677,157 @@
             </div>
             <div class="sc-kpi">
               <div class="sc-kpi-label">Trésorerie finale</div>
-              <div class="sc-kpi-value green">26 838 €</div>
+              <div class="sc-kpi-value green">42 196 €</div>
               <div class="sc-kpi-sub">Fin mois 12</div>
             </div>
             <div class="sc-kpi">
               <div class="sc-kpi-label">Pic de trésorerie</div>
-              <div class="sc-kpi-value">28 739 €</div>
-              <div class="sc-kpi-sub">Mois 6</div>
-            </div>
-            <div class="sc-kpi">
-              <div class="sc-kpi-label">Trésorerie min.</div>
-              <div class="sc-kpi-value amber">6 044 €</div>
-              <div class="sc-kpi-sub">Mois 11 — creux de trésorerie</div>
-            </div>
-          </div>
-
-          <div style="position:relative;">
-            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Encaissements vs Décaissements (€)</div>
-            <div class="bars-row">
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:10%;"></div><div class="bar bar-dec" style="height:90%;"></div></div><div class="bar-month">M1</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:3%;"></div><div class="bar bar-dec" style="height:65%;"></div></div><div class="bar-month">M2</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:15%;"></div><div class="bar bar-dec" style="height:65%;"></div></div><div class="bar-month">M3</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:48%;"></div><div class="bar bar-dec" style="height:65%;"></div></div><div class="bar-month">M4</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:10%;"></div><div class="bar bar-dec" style="height:82%;"></div></div><div class="bar-month">M5</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:72%;"></div></div><div class="bar-month">M6</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:25%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M7</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:25%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M8</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:25%;"></div><div class="bar bar-dec" style="height:70%;"></div></div><div class="bar-month">M9</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:60%;"></div><div class="bar bar-dec" style="height:72%;"></div></div><div class="bar-month">M10</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:25%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M11</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:60%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M12</div></div>
-            </div>
-            <div style="margin-top:1.25rem; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.5rem;">Solde de trésorerie mensuel (€)</div>
-            <div class="treso-bars">
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:87%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:59%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:26%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:95%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:59%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:88%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:70%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:35%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:25%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:22%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
-            </div>
-          </div>
-          <div class="chart-legend" style="margin-top:0.75rem;">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>Encaissements</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--slate-300);"></div>Décaissements</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--emerald);"></div>Trésorerie positive</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div>Trésorerie négative</div>
-          </div>
-          <hr class="divider" style="margin-top:1.5rem;">
-          <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Tableau mensuel détaillé — Scénario N1 (€)</div>
-          <div style="overflow-x:auto;">
-            <table class="monthly-table">
-              <thead>
-                <tr><th>Ligne</th><th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>M6</th><th>M7</th><th>M8</th><th>M9</th><th>M10</th><th>M11</th><th>M12</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Solde début de mois</td><td>0</td><td>23 429</td><td>15 919</td><td>7 104</td><td>25 407</td><td>15 984</td><td>28 740</td><td>23 732</td><td>18 683</td><td>9 316</td><td>6 805</td><td>6 044</td></tr>
-                <tr><td>Total encaissements</td><td>43 000</td><td>2 000</td><td>900</td><td>27 898</td><td>2 100</td><td>38 697</td><td>7 200</td><td>7 200</td><td>7 200</td><td>9 000</td><td>44 957</td><td>—</td></tr>
-                <tr><td>Total décaissements</td><td>19 571</td><td>9 510</td><td>9 715</td><td>9 595</td><td>12 123</td><td>25 942</td><td>12 208</td><td>12 248</td><td>16 567</td><td>9 761</td><td>24 206</td><td>—</td></tr>
-                <tr class="highlight-row"><td>Trésorerie fin de mois</td><td>23 429</td><td>15 919</td><td>7 104</td><td>25 407</td><td>15 984</td><td>28 740</td><td>23 732</td><td>18 683</td><td>9 316</td><td>6 805</td><td>6 044</td><td class="val-pos">26 838</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- N2 -->
-        <div class="scenario-panel" id="tab-n2">
-          <div class="scenario-kpis">
-            <div class="sc-kpi">
-              <div class="sc-kpi-label">Trésorerie initiale</div>
-              <div class="sc-kpi-value">26 838 €</div>
-              <div class="sc-kpi-sub">Report N1</div>
-            </div>
-            <div class="sc-kpi">
-              <div class="sc-kpi-label">Trésorerie finale</div>
-              <div class="sc-kpi-value green">97 135 €</div>
-              <div class="sc-kpi-sub">Fin mois 12</div>
-            </div>
-            <div class="sc-kpi">
-              <div class="sc-kpi-label">Pic de trésorerie</div>
-              <div class="sc-kpi-value">55 327 €</div>
+              <div class="sc-kpi-value">51 869 €</div>
               <div class="sc-kpi-sub">Mois 11</div>
             </div>
             <div class="sc-kpi">
               <div class="sc-kpi-label">Trésorerie min.</div>
-              <div class="sc-kpi-value amber">842 €</div>
-              <div class="sc-kpi-sub">Mois 3 — point critique</div>
+              <div class="sc-kpi-value red">1 177 €</div>
+              <div class="sc-kpi-sub">Mois 5 — point critique absolu</div>
             </div>
           </div>
 
           <div style="position:relative;">
-            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Encaissements vs Décaissements (€)</div>
+            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Encaissements vs Décaissements — base 56 248 € = 100 %</div>
             <div class="bars-row">
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:20%;"></div><div class="bar bar-dec" style="height:65%;"></div></div><div class="bar-month">M1</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:20%;"></div><div class="bar bar-dec" style="height:53%;"></div></div><div class="bar-month">M2</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:67%;"></div></div><div class="bar-month">M3</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:67%;"></div></div><div class="bar-month">M4</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:53%;"></div></div><div class="bar-month">M5</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:70%;"></div></div><div class="bar-month">M6</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M7</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M8</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:70%;"></div></div><div class="bar-month">M9</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M10</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M11</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:33%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M12</div></div>
+              <!-- M1: enc=43000/56248=76%, dec=18322/56248=33% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:76%;"></div><div class="bar bar-dec" style="height:33%;"></div></div><div class="bar-month">M1</div></div>
+              <!-- M2: enc=2000/56248=4%, dec=7262/56248=13% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:4%;"></div><div class="bar bar-dec" style="height:13%;"></div></div><div class="bar-month">M2</div></div>
+              <!-- M3: enc=3250/56248=6%, dec=9536/56248=17% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:6%;"></div><div class="bar bar-dec" style="height:17%;"></div></div><div class="bar-month">M3</div></div>
+              <!-- M4: enc=4000/56248=7%, dec=8362/56248=15% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:7%;"></div><div class="bar bar-dec" style="height:15%;"></div></div><div class="bar-month">M4</div></div>
+              <!-- M5: enc=2000/56248=4%, dec=9591/56248=17% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:4%;"></div><div class="bar bar-dec" style="height:17%;"></div></div><div class="bar-month">M5</div></div>
+              <!-- M6: enc=41248/56248=73%, dec=11134/56248=20% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:73%;"></div><div class="bar bar-dec" style="height:20%;"></div></div><div class="bar-month">M6</div></div>
+              <!-- M7: enc=5500/56248=10%, dec=9621/56248=17% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:10%;"></div><div class="bar bar-dec" style="height:17%;"></div></div><div class="bar-month">M7</div></div>
+              <!-- M8: enc=5500/56248=10%, dec=9661/56248=17% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:10%;"></div><div class="bar bar-dec" style="height:17%;"></div></div><div class="bar-month">M8</div></div>
+              <!-- M9: enc=6250/56248=11%, dec=15622/56248=28% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:11%;"></div><div class="bar bar-dec" style="height:28%;"></div></div><div class="bar-month">M9</div></div>
+              <!-- M10: enc=6250/56248=11%, dec=12133/56248=22% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:11%;"></div><div class="bar bar-dec" style="height:22%;"></div></div><div class="bar-month">M10</div></div>
+              <!-- M11: enc=56248/56248=100%, dec=12133/56248=22% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:22%;"></div></div><div class="bar-month">M11</div></div>
+              <!-- M12: enc=6250/56248=11%, dec=15923/56248=28% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:11%;"></div><div class="bar bar-dec" style="height:28%;"></div></div><div class="bar-month">M12</div></div>
             </div>
-            <div style="margin-top:1.25rem; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.5rem;">Solde de trésorerie mensuel (€)</div>
+            <div style="margin-top:1.25rem; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.5rem;">Solde de trésorerie mensuel — base 51 869 € = 100 %</div>
             <div class="treso-bars">
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:55%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:5%;"></div></div>
+              <!-- 24678/51869=48%, 19416=37%, 13130=25%, 8768=17%, 1177=2%, 31291=60%, 27170=52%, 23009=44%, 13637=26%, 7754=15%, 51869=100%, 42196=81% -->
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:48%;"></div></div>
               <div class="treso-bar-group"><div class="treso-bar pos" style="height:37%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:36%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:20%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:25%;"></div></div>
               <div class="treso-bar-group"><div class="treso-bar pos" style="height:17%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:15%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:34%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar neg" style="height:2%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:60%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:52%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:44%;"></div></div>
               <div class="treso-bar-group"><div class="treso-bar pos" style="height:26%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:57%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:15%;"></div></div>
               <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:81%;"></div></div>
+            </div>
+          </div>
+          <div class="chart-legend" style="margin-top:0.75rem;">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>Encaissements</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--slate-300);"></div>Décaissements</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--emerald);"></div>Trésorerie positive</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div>⚠ Trésorerie critique (M5)</div>
+          </div>
+          <hr class="divider" style="margin-top:1.5rem;">
+          <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Tableau mensuel détaillé — Scénario N1 (€ TTC)</div>
+          <div style="overflow-x:auto;">
+            <table class="monthly-table">
+              <thead>
+                <tr><th>Ligne</th><th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>M6</th><th>M7</th><th>M8</th><th>M9</th><th>M10</th><th>M11</th><th>M12</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Solde début de mois</td><td>0</td><td>24 678</td><td>19 416</td><td>13 130</td><td>8 768</td><td>1 177</td><td>31 291</td><td>27 170</td><td>23 009</td><td>13 637</td><td>7 754</td><td>51 869</td></tr>
+                <tr><td>Total encaissements</td><td>43 000</td><td>2 000</td><td>3 250</td><td>4 000</td><td>2 000</td><td>41 248</td><td>5 500</td><td>5 500</td><td>6 250</td><td>6 250</td><td>56 248</td><td>6 250</td></tr>
+                <tr><td>Total décaissements</td><td>18 322</td><td>7 262</td><td>9 536</td><td>8 362</td><td>9 591</td><td>11 134</td><td>9 621</td><td>9 661</td><td>15 622</td><td>12 133</td><td>12 133</td><td>15 923</td></tr>
+                <tr class="highlight-row"><td>Trésorerie fin de mois</td><td>24 678</td><td>19 416</td><td>13 130</td><td>8 768</td><td class="val-warn">1 177</td><td>31 291</td><td>27 170</td><td>23 009</td><td>13 637</td><td>7 754</td><td>51 869</td><td class="val-pos">42 196</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ══ N2 ══ -->
+        <div class="scenario-panel" id="tab-n2">
+          <div class="scenario-kpis">
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie initiale</div>
+              <div class="sc-kpi-value">42 196 €</div>
+              <div class="sc-kpi-sub">Report N1</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie finale</div>
+              <div class="sc-kpi-value green">99 725 €</div>
+              <div class="sc-kpi-sub">Fin mois 12</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Pic de trésorerie</div>
+              <div class="sc-kpi-value">109 413 €</div>
+              <div class="sc-kpi-sub">Mois 11</div>
+            </div>
+            <div class="sc-kpi">
+              <div class="sc-kpi-label">Trésorerie min.</div>
+              <div class="sc-kpi-value amber">24 013 €</div>
+              <div class="sc-kpi-sub">Mois 1 — frais certification</div>
+            </div>
+          </div>
+
+          <div style="position:relative;">
+            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Encaissements vs Décaissements — base 58 748 € = 100 %</div>
+            <div class="bars-row">
+              <!-- M1: enc=6250/58748=11%, dec=24433/58748=42% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:11%;"></div><div class="bar bar-dec" style="height:42%;"></div></div><div class="bar-month">M1</div></div>
+              <!-- M2: enc=56998/58748=97%, dec=12438/58748=21% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:97%;"></div><div class="bar bar-dec" style="height:21%;"></div></div><div class="bar-month">M2</div></div>
+              <!-- M3: enc=5000/58748=9%, dec=16038/58748=27% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:9%;"></div><div class="bar bar-dec" style="height:27%;"></div></div><div class="bar-month">M3</div></div>
+              <!-- M4: enc=5500/58748=9%, dec=12398/58748=21% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:9%;"></div><div class="bar bar-dec" style="height:21%;"></div></div><div class="bar-month">M4</div></div>
+              <!-- M5: enc=7500/58748=13%, dec=12458/58748=21% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:13%;"></div><div class="bar bar-dec" style="height:21%;"></div></div><div class="bar-month">M5</div></div>
+              <!-- M6: enc=57998/58748=99%, dec=16658/58748=28% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:99%;"></div><div class="bar bar-dec" style="height:28%;"></div></div><div class="bar-month">M6</div></div>
+              <!-- M7: enc=8000/58748=14%, dec=2448/58748=4% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:14%;"></div><div class="bar bar-dec" style="height:4%;"></div></div><div class="bar-month">M7</div></div>
+              <!-- M8: enc=7500/58748=13%, dec=22438/58748=38% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:13%;"></div><div class="bar bar-dec" style="height:38%;"></div></div><div class="bar-month">M8</div></div>
+              <!-- M9: enc=7500/58748=13%, dec=12438/58748=21% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:13%;"></div><div class="bar bar-dec" style="height:21%;"></div></div><div class="bar-month">M9</div></div>
+              <!-- M10: enc=7500/58748=13%, dec=17057/58748=29% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:13%;"></div><div class="bar bar-dec" style="height:29%;"></div></div><div class="bar-month">M10</div></div>
+              <!-- M11: enc=58748/58748=100%, dec=12438/58748=21% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:21%;"></div></div><div class="bar-month">M11</div></div>
+              <!-- M12: enc=7500/58748=13%, dec=17188/58748=29% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:13%;"></div><div class="bar bar-dec" style="height:29%;"></div></div><div class="bar-month">M12</div></div>
+            </div>
+            <div style="margin-top:1.25rem; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.5rem;">Solde de trésorerie mensuel — base 109 413 € = 100 %</div>
+            <div class="treso-bars">
+              <!-- 24013=22%, 68573=63%, 57535=53%, 50637=46%, 45679=42%, 87019=80%, 92571=85%, 77633=71%, 72695=66%, 63138=58%, 109413=100%, 99725=91% -->
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:22%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:63%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:53%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:46%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:42%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:80%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:85%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:71%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:66%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:58%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:91%;"></div></div>
             </div>
           </div>
           <div class="chart-legend" style="margin-top:0.75rem;">
@@ -801,96 +836,109 @@
             <div class="legend-item"><div class="legend-dot" style="background:var(--emerald);"></div>Trésorerie positive</div>
           </div>
           <hr class="divider" style="margin-top:1.5rem;">
-          <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Tableau mensuel détaillé — Scénario N2 (€)</div>
+          <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Tableau mensuel détaillé — Scénario N2 (€ TTC)</div>
           <div style="overflow-x:auto;">
             <table class="monthly-table">
               <thead>
                 <tr><th>Ligne</th><th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>M6</th><th>M7</th><th>M8</th><th>M9</th><th>M10</th><th>M11</th><th>M12</th></tr>
               </thead>
               <tbody>
-                <tr><td>Solde début de mois</td><td>26 838</td><td>10 366</td><td>5 913</td><td>842</td><td>35 877</td><td>34 905</td><td>19 193</td><td>16 731</td><td>14 268</td><td>33 014</td><td>25 302</td><td>55 327</td></tr>
-                <tr><td>Total encaissements</td><td>9 000</td><td>9 000</td><td>14 599</td><td>48 597</td><td>12 599</td><td>12 599</td><td>12 599</td><td>12 599</td><td>48 597</td><td>7 200</td><td>44 998</td><td>9 000</td></tr>
-                <tr><td>Total décaissements</td><td>25 472</td><td>13 452</td><td>19 671</td><td>13 562</td><td>13 572</td><td>28 311</td><td>15 062</td><td>15 062</td><td>29 851</td><td>14 912</td><td>14 972</td><td>27 204</td></tr>
-                <tr class="highlight-row"><td>Trésorerie fin de mois</td><td>10 366</td><td>5 913</td><td class="val-neg">842</td><td>35 877</td><td>34 905</td><td>19 193</td><td>16 731</td><td>14 268</td><td>33 014</td><td>25 302</td><td>55 327</td><td class="val-pos">97 135</td></tr>
+                <tr><td>Solde début de mois</td><td>42 196</td><td>24 013</td><td>68 573</td><td>57 535</td><td>50 637</td><td>45 679</td><td>87 019</td><td>92 571</td><td>77 633</td><td>72 695</td><td>63 138</td><td>109 413</td></tr>
+                <tr><td>Total encaissements</td><td>6 250</td><td>56 998</td><td>5 000</td><td>5 500</td><td>7 500</td><td>57 998</td><td>8 000</td><td>7 500</td><td>7 500</td><td>7 500</td><td>58 748</td><td>7 500</td></tr>
+                <tr><td>Total décaissements</td><td>24 433</td><td>12 438</td><td>16 038</td><td>12 398</td><td>12 458</td><td>16 658</td><td>2 448</td><td>22 438</td><td>12 438</td><td>17 057</td><td>12 473</td><td>17 188</td></tr>
+                <tr class="highlight-row"><td>Trésorerie fin de mois</td><td class="val-warn">24 013</td><td>68 573</td><td>57 535</td><td>50 637</td><td>45 679</td><td>87 019</td><td>92 571</td><td>77 633</td><td>72 695</td><td>63 138</td><td>109 413</td><td class="val-pos">99 725</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- N3 -->
+        <!-- ══ N3 ══ -->
         <div class="scenario-panel" id="tab-n3">
           <div class="scenario-kpis">
             <div class="sc-kpi">
               <div class="sc-kpi-label">Trésorerie initiale</div>
-              <div class="sc-kpi-value">97 135 €</div>
+              <div class="sc-kpi-value">99 725 €</div>
               <div class="sc-kpi-sub">Report N2</div>
             </div>
             <div class="sc-kpi">
               <div class="sc-kpi-label">Trésorerie finale</div>
-              <div class="sc-kpi-value green">142 682 €</div>
+              <div class="sc-kpi-value green">327 843 €</div>
               <div class="sc-kpi-sub">Fin mois 12</div>
             </div>
             <div class="sc-kpi">
               <div class="sc-kpi-label">Trésorerie min.</div>
-              <div class="sc-kpi-value">48 632 €</div>
-              <div class="sc-kpi-sub">Mois 4 — plancher solide</div>
+              <div class="sc-kpi-value">90 203 €</div>
+              <div class="sc-kpi-sub">Mois 1 — plancher très solide</div>
             </div>
             <div class="sc-kpi">
               <div class="sc-kpi-label">Production / mois</div>
-              <div class="sc-kpi-value">150 unités</div>
+              <div class="sc-kpi-value">120 unités</div>
               <div class="sc-kpi-sub">90 % B2B — régime de croisière</div>
             </div>
           </div>
 
           <div style="position:relative;">
-            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Encaissements vs Décaissements (€)</div>
+            <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Encaissements vs Décaissements — base 85 497 € = 100 %</div>
             <div class="bars-row">
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M1</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:58%;"></div></div><div class="bar-month">M2</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M3</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M4</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:50%;"></div></div><div class="bar-month">M5</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M6</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:50%;"></div></div><div class="bar-month">M7</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M8</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:50%;"></div></div><div class="bar-month">M9</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M10</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:17%;"></div><div class="bar bar-dec" style="height:50%;"></div></div><div class="bar-month">M11</div></div>
-              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:55%;"></div></div><div class="bar-month">M12</div></div>
+              <!-- M1: enc=9999/85497=12%, dec=19521/85497=23% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:12%;"></div><div class="bar bar-dec" style="height:23%;"></div></div><div class="bar-month">M1</div></div>
+              <!-- M2: enc=85497/85497=100%, dec=19487/85497=23% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:100%;"></div><div class="bar bar-dec" style="height:23%;"></div></div><div class="bar-month">M2</div></div>
+              <!-- M3: enc=8246/85497=10%, dec=21193/85497=25% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:10%;"></div><div class="bar bar-dec" style="height:25%;"></div></div><div class="bar-month">M3</div></div>
+              <!-- M4: enc=59958/85497=70%, dec=17472/85497=20% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:70%;"></div><div class="bar bar-dec" style="height:20%;"></div></div><div class="bar-month">M4</div></div>
+              <!-- M5: enc=8750/85497=10%, dec=17437/85497=20% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:10%;"></div><div class="bar bar-dec" style="height:20%;"></div></div><div class="bar-month">M5</div></div>
+              <!-- M6: enc=59498/85497=70%, dec=23112/85497=27% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:70%;"></div><div class="bar bar-dec" style="height:27%;"></div></div><div class="bar-month">M6</div></div>
+              <!-- M7: enc=7500/85497=9%, dec=17472/85497=20% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:9%;"></div><div class="bar bar-dec" style="height:20%;"></div></div><div class="bar-month">M7</div></div>
+              <!-- M8: enc=83747/85497=98%, dec=17451/85497=20% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:98%;"></div><div class="bar bar-dec" style="height:20%;"></div></div><div class="bar-month">M8</div></div>
+              <!-- M9: enc=7000/85497=8%, dec=22052/85497=26% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:8%;"></div><div class="bar bar-dec" style="height:26%;"></div></div><div class="bar-month">M9</div></div>
+              <!-- M10: enc=60408/85497=71%, dec=17452/85497=20% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:71%;"></div><div class="bar bar-dec" style="height:20%;"></div></div><div class="bar-month">M10</div></div>
+              <!-- M11: enc=5500/85497=6%, dec=17372/85497=20% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:6%;"></div><div class="bar bar-dec" style="height:20%;"></div></div><div class="bar-month">M11</div></div>
+              <!-- M12: enc=59407/85497=69%, dec=17371/85497=20% -->
+              <div class="bar-group"><div class="bar-wrap"><div class="bar bar-enc" style="height:69%;"></div><div class="bar bar-dec" style="height:20%;"></div></div><div class="bar-month">M12</div></div>
             </div>
-            <div style="margin-top:1.25rem; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.5rem;">Solde de trésorerie mensuel (€)</div>
+            <div style="margin-top:1.25rem; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.5rem;">Solde de trésorerie mensuel — base 327 843 € = 100 %</div>
             <div class="treso-bars">
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:86%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:72%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:41%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:34%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:53%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:46%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:64%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:58%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:76%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:70%;"></div></div>
-              <div class="treso-bar-group"><div class="treso-bar pos" style="height:88%;"></div></div>
+              <!-- 90203=28%, 156213=48%, 143266=44%, 185752=57%, 177065=54%, 213451=65%, 203479=62%, 269775=82%, 254723=78%, 297679=91%, 285807=87%, 327843=100% -->
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:28%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:48%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:44%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:57%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:54%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:65%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:62%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:82%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:78%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:91%;"></div></div>
+              <div class="treso-bar-group"><div class="treso-bar pos" style="height:87%;"></div></div>
               <div class="treso-bar-group"><div class="treso-bar pos" style="height:100%;"></div></div>
             </div>
           </div>
           <div class="chart-legend" style="margin-top:0.75rem;">
             <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>Encaissements</div>
             <div class="legend-item"><div class="legend-dot" style="background:var(--slate-300);"></div>Décaissements</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--emerald);"></div>Trésorerie positive</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--emerald);"></div>Trésorerie positive (plancher 90 203 €)</div>
           </div>
           <hr class="divider" style="margin-top:1.5rem;">
-          <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Tableau mensuel détaillé — Scénario N3 (€)</div>
+          <div style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate-400); margin-bottom:0.75rem;">Tableau mensuel détaillé — Scénario N3 (€ TTC)</div>
           <div style="overflow-x:auto;">
             <table class="monthly-table">
               <thead>
                 <tr><th>Ligne</th><th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>M6</th><th>M7</th><th>M8</th><th>M9</th><th>M10</th><th>M11</th><th>M12</th></tr>
               </thead>
               <tbody>
-                <tr><td>Solde début de mois</td><td>97 135</td><td>91 891</td><td>58 156</td><td>48 632</td><td>75 037</td><td>65 514</td><td>91 978</td><td>82 395</td><td>52 395</td><td>108 859</td><td>99 336</td><td>125 741</td></tr>
-                <tr><td>Total encaissements</td><td>7 200</td><td>43 197</td><td>7 200</td><td>43 197</td><td>7 200</td><td>43 197</td><td>7 200</td><td>43 197</td><td>7 200</td><td>43 197</td><td>7 200</td><td>43 197</td></tr>
-                <tr><td>Total décaissements</td><td>12 444</td><td>76 933</td><td>16 723</td><td>16 792</td><td>16 723</td><td>16 733</td><td>16 783</td><td>73 197</td><td>8 524</td><td>52 720</td><td>8 795</td><td>26 256</td></tr>
-                <tr class="highlight-row"><td>Trésorerie fin de mois</td><td>91 891</td><td>58 156</td><td>48 632</td><td>75 037</td><td>65 514</td><td>91 978</td><td>82 395</td><td>52 395</td><td>108 859</td><td>99 336</td><td>125 741</td><td class="val-pos">142 682</td></tr>
+                <tr><td>Solde début de mois</td><td>99 725</td><td>90 203</td><td>156 213</td><td>143 266</td><td>185 752</td><td>177 065</td><td>213 451</td><td>203 479</td><td>269 775</td><td>254 723</td><td>297 679</td><td>285 807</td></tr>
+                <tr><td>Total encaissements</td><td>9 999</td><td>85 497</td><td>8 246</td><td>59 958</td><td>8 750</td><td>59 498</td><td>7 500</td><td>83 747</td><td>7 000</td><td>60 408</td><td>5 500</td><td>59 407</td></tr>
+                <tr><td>Total décaissements</td><td>19 521</td><td>19 487</td><td>21 193</td><td>17 472</td><td>17 437</td><td>23 112</td><td>17 472</td><td>17 451</td><td>22 052</td><td>17 452</td><td>17 372</td><td>17 371</td></tr>
+                <tr class="highlight-row"><td>Trésorerie fin de mois</td><td>90 203</td><td>156 213</td><td>143 266</td><td>185 752</td><td>177 065</td><td>213 451</td><td>203 479</td><td>269 775</td><td>254 723</td><td>297 679</td><td>285 807</td><td class="val-pos">327 843</td></tr>
               </tbody>
             </table>
           </div>
@@ -900,7 +948,7 @@
     </div>
   </div>
 
-  <!-- 5. ANALYSE FINANCIÈRE STRATÉGIQUE -->
+  <!-- ═══════════════ 5. ANALYSE FINANCIÈRE STRATÉGIQUE ═══════════════ -->
   <div class="section">
     <div class="section-label">
       <div class="section-number">5</div>
@@ -909,11 +957,12 @@
       <span class="section-desc">Enseignements clés — synthèse des 3 scénarios</span>
     </div>
 
+    <!-- Comparison table -->
     <div class="card animate d2" style="margin-bottom:12px;">
       <div class="card-header">
         <div>
           <div class="card-title">Comparaison des 3 scénarios</div>
-          <div class="card-subtitle">Principaux indicateurs financiers sur 12 mois</div>
+          <div class="card-subtitle">Principaux indicateurs financiers sur 12 mois — prix public 249,99 € TTC · B2B 199,99 € HT</div>
         </div>
       </div>
       <div style="overflow-x:auto;">
@@ -929,9 +978,9 @@
           <tbody>
             <tr>
               <td class="row-head">Volume de production / mois</td>
-              <td>50 → 100 unités</td>
-              <td>100 → 150 unités</td>
-              <td>150 unités (stable)</td>
+              <td>25 → 100 unités</td>
+              <td>100 unités (stable)</td>
+              <td>120 unités (stable)</td>
             </tr>
             <tr>
               <td class="row-head">Part B2B sur chiffre d'affaires</td>
@@ -942,78 +991,79 @@
             <tr>
               <td class="row-head">Trésorerie initiale</td>
               <td>0 €</td>
-              <td>26 838 €</td>
-              <td>97 135 €</td>
+              <td>42 196 €</td>
+              <td>99 725 €</td>
             </tr>
             <tr>
               <td class="row-head">Trésorerie finale (M12)</td>
-              <td>26 838 €</td>
-              <td>97 135 €</td>
-              <td style="font-weight:700; color:var(--emerald);">142 682 €</td>
+              <td>42 196 €</td>
+              <td>99 725 €</td>
+              <td style="font-weight:700; color:var(--emerald);">327 843 €</td>
             </tr>
             <tr>
               <td class="row-head">Trésorerie minimale</td>
-              <td style="color:var(--amber); font-weight:600;">6 044 € (M11)</td>
-              <td style="color:var(--red); font-weight:600;">842 € (M3)</td>
-              <td style="color:var(--emerald); font-weight:600;">48 632 € (M4)</td>
+              <td style="color:var(--red); font-weight:600;">1 177 € (M5) ⚠</td>
+              <td style="color:var(--amber); font-weight:600;">24 013 € (M1)</td>
+              <td style="color:var(--emerald); font-weight:600;">90 203 € (M1)</td>
             </tr>
             <tr>
               <td class="row-head">Apport initial nécessaire</td>
-              <td>43 000 € (capital)</td>
+              <td>43 000 € (capital + comptes courants)</td>
               <td>Report N1</td>
               <td>Report N2</td>
             </tr>
             <tr>
               <td class="row-head">Profil de risque trésorerie</td>
-              <td>Modéré</td>
-              <td style="color:var(--red); font-weight:600;">Critique (M3 : 842 €)</td>
-              <td style="color:var(--emerald); font-weight:600;">Faible — plancher solide</td>
+              <td style="color:var(--red); font-weight:600;">Critique (M5 : 1 177 €)</td>
+              <td style="color:var(--amber); font-weight:600;">Modéré (frais certification M1)</td>
+              <td style="color:var(--emerald); font-weight:600;">Très faible — plancher 90 k€</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
+    <!-- Insight cards -->
     <div class="analysis-grid">
       <div class="insight-card ic-navy animate d2">
         <div class="insight-number">Enseignement 01</div>
-        <div class="insight-title">Point mort et rentabilité structurelle</div>
+        <div class="insight-title">Marge brute exceptionnelle à 79,9 %</div>
         <div class="insight-body">
-          Avec un coût de revient de <strong>50,35 €</strong> et un prix de vente à <strong>179,99 €</strong>, la marge brute unitaire atteint <strong>72 %</strong>. Cette configuration permet d'absorber les charges fixes dès les premiers mois dès que le volume de ventes dépasse le seuil de couverture. Le modèle est rentable à l'unité dès la première vente ; la question est uniquement celle de la vitesse de montée en volume B2B.
+          Avec un coût de revient de <strong>50,35 €</strong> et un prix de vente public à <strong>249,99 €</strong>, la marge brute unitaire B2C atteint <strong>199,64 €</strong> soit <strong>79,9 %</strong>. En canal B2B compagnies aériennes à <strong>199,99 € HT</strong>, la marge reste très solide à <strong>149,64 € HT (74,8 %)</strong>. Ce niveau de marge permet d'absorber rapidement les charges fixes et de dégager de la trésorerie dès les premières commandes B2B significatives.
         </div>
-        <span class="insight-metric">Seuil de rentabilité brute : 1 unité vendue</span>
+        <span class="insight-metric">Marge B2C : 199,64 € — 79,9 % · Marge B2B : 149,64 € HT</span>
       </div>
 
-      <div class="insight-card ic-emerald animate d3">
+      <div class="insight-card ic-red animate d3">
         <div class="insight-number">Enseignement 02</div>
-        <div class="insight-title">B2B compagnies aériennes : canal principal dès N1</div>
+        <div class="insight-title">Point de vigilance critique : N1 mois 5 (1 177 €)</div>
         <div class="insight-body">
-          La stratégie B2B-First positionne les compagnies aériennes comme <strong>canal dominant dès l'amorçage</strong>, avec une part de <strong>65 % en N1</strong> qui monte à <strong>90 % en N3</strong>. Les contrats B2B génèrent des encaissements massifs et ponctuels — jusqu'à <strong>43 197 €</strong> par occurrence en N3 — ce qui constitue le principal moteur de croissance de trésorerie. La montée progressive de la part B2B (65 → 80 → 90 %) est le levier le plus structurant de la trajectoire financière sur 3 ans.
+          En Scénario N1, la trésorerie atteint un minimum absolu de <strong>1 177 €</strong> au mois 5, avant que le premier contrat B2B significatif (143 unités en M6) ne génère <strong>41 248 €</strong> d'encaissements. Ce creux résulte du délai entre les premiers investissements (production, charges fixes) et les premiers encaissements B2B. Une réserve de <strong>10 000 € minimum</strong> supplémentaire en début de phase ou une accélération du premier contrat B2B est fortement recommandée pour éliminer ce risque de rupture.
+        </div>
+        <span class="insight-metric">Tréso min. N1 : 1 177 € — Mois 5 ⚠ Risque critique</span>
+      </div>
+
+      <div class="insight-card ic-emerald animate d4">
+        <div class="insight-number">Enseignement 03</div>
+        <div class="insight-title">B2B compagnies aériennes : moteur financier structurant</div>
+        <div class="insight-body">
+          Les contrats B2B génèrent des encaissements massifs et ponctuels : <strong>41 248 € en M6</strong> et <strong>56 248 € en M11</strong> pour N1, jusqu'à <strong>85 497 €</strong> par occurrence en N3. Ces pulsations de trésorerie constituent l'architecture financière du projet. La montée progressive de la part B2B de <strong>65 % (N1)</strong> à <strong>80 % (N2)</strong> puis <strong>90 % (N3)</strong> est le levier de croissance le plus déterminant sur les 3 années.
         </div>
         <span class="insight-metric">Part B2B : 65 % (N1) → 80 % (N2) → 90 % (N3)</span>
       </div>
 
-      <div class="insight-card ic-amber animate d4">
-        <div class="insight-number">Enseignement 03</div>
-        <div class="insight-title">Point de vigilance : creux N2 mois 3</div>
-        <div class="insight-body">
-          En Scénario N2, la trésorerie atteint un minimum critique de <strong>842 €</strong> au mois 3 avant un rebond soutenu par les encaissements B2B. Ce creux impose soit un coussin de sécurité renforcé issu de N1, soit l'anticipation d'une ligne de crédit court terme. Au-delà de ce point, la trésorerie ne descend plus sous <strong>14 000 €</strong>, attestant d'une solidification progressive du modèle grâce à la récurrence des contrats B2B.
-        </div>
-        <span class="insight-metric">Trésorerie min. N2 : 842 € — mois 3</span>
-      </div>
-
       <div class="insight-card ic-blue animate d5">
         <div class="insight-number">Enseignement 04</div>
-        <div class="insight-title">Trajectoire de trésorerie sur 3 ans</div>
+        <div class="insight-title">Trajectoire de trésorerie : +2,3× sur 3 ans</div>
         <div class="insight-body">
-          La progression est nette et conforme aux hypothèses de montée en charge : <strong>26 838 €</strong> en fin N1, <strong>97 135 €</strong> en fin N2, <strong>142 682 €</strong> en fin N3. La trésorerie cumulée évolue de façon non-linéaire, portée par la montée en puissance des contrats B2B compagnies aériennes. En scénario N3, le plancher de trésorerie ne descend jamais sous <strong>48 632 €</strong>, signe d'une autonomie financière pleine sans besoin de financement externe.
+          La progression est nette et exponentielle : <strong>42 196 €</strong> en fin N1, <strong>99 725 €</strong> en fin N2, <strong>327 843 €</strong> en fin N3. La hausse du prix de vente à <strong>249,99 €</strong> produit un effet de levier majeur sur les volumes B2B : chaque commande de 200 unités génère désormais <strong>49 998 €</strong> supplémentaires vs l'ancienne tarification. En N3, le plancher de trésorerie ne descend jamais sous <strong>90 000 €</strong>, confirmant une autonomie financière complète sans besoin de financement externe.
         </div>
-        <span class="insight-metric">Trésorerie cumulée 3 ans : +142 682 €</span>
+        <span class="insight-metric">Trésorerie cumulée 3 ans : +327 843 € · Plancher N3 : 90 203 €</span>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!-- ═══════════════ FOOTER ═══════════════ -->
   <footer class="dash-footer">
     <div class="footer-team">
       <span class="footer-label">Équipe</span>
