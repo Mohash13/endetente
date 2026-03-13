@@ -484,7 +484,6 @@ footer { background:var(--black); padding:64px 48px 44px; }
 <!-- NAV -->
 <nav>
   <a class="nav-brand" href="#">
-    <!-- MODIFICATION 10 : suppression du doublon "En Détente" — une seule occurrence -->
     <img class="nav-logo-img" src="logo_endetente.png" alt="En Détente">
     <span class="nav-wordmark">En Détente</span>
   </a>
@@ -504,7 +503,6 @@ footer { background:var(--black); padding:64px 48px 44px; }
   <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
 
-  <!-- MODIFICATION 9 : logo affiché en haut à gauche (nav) + icône hero -->
   <div class="hero-logo-wrap">
     <img src="logo_endetente.png" alt="En Détente logo" onerror="this.style.display='none'">
   </div>
@@ -546,7 +544,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
   </div>
 </div>
 
-<!-- SUPPLY STRIP — MODIFICATION 1 : suppression STMicroelectronics & KNF Micro Allemagne -->
+<!-- SUPPLY STRIP -->
 <div class="supply-strip">
   <div class="supply-item">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
@@ -625,7 +623,6 @@ footer { background:var(--black); padding:64px 48px 44px; }
   <div class="mif-full-grid">
     <div class="rev">
       <span class="lbl lbl-mid" style="margin-bottom:14px">Origine & Fabrication</span>
-      <!-- MODIFICATION 2 : titre remplacé par "Made in France" uniquement -->
       <h2 class="sh2"><em>Made in France</em></h2>
       <p>En Détente est assemblé, produit et conçu en France. Chaque composant est sourcé exclusivement auprès de fournisseurs européens, pour garantir qualité, traçabilité et soutien à l'industrie locale.</p>
       <p>Nos locaux sont basés en France. Notre chaîne de production est entièrement maîtrisée, de la conception technique à l'assemblage final.</p>
@@ -636,7 +633,6 @@ footer { background:var(--black); padding:64px 48px 44px; }
         </div>
       </div>
     </div>
-    <!-- MODIFICATION 3 : suppression des noms de fournisseurs, conservation de la provenance uniquement -->
     <div class="supply-chain-cards rev d1">
       <div class="sc-card">
         <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
@@ -658,7 +654,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
   </div>
 </section>
 
-<!-- MODIFICATION 4 : SECTION ÉQUIPE -->
+<!-- ÉQUIPE -->
 <section class="team-sec" id="equipe">
   <div class="section-head rev">
     <span class="lbl lbl-mid" style="margin-bottom:14px">Notre équipe</span>
@@ -719,7 +715,6 @@ footer { background:var(--black); padding:64px 48px 44px; }
     </div>
   </div>
 
-  <!-- MODIFICATION 11 : mise à jour de la réponse FAQ "Convient-il aux enfants ?" -->
   <div class="faq-wrap rev">
     <h3 class="faq-title">Questions fréquentes</h3>
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Le casque est-il autorisé en cabine ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Oui. En Détente respecte les normes IATA relatives aux batteries lithium intégrées (UN 3481). Il peut être utilisé en cabine sans restriction.</div></div>
@@ -820,8 +815,13 @@ footer { background:var(--black); padding:64px 48px 44px; }
   <h2 class="sh2 rev">Réservez votre<br><em>En Détente.</em></h2>
   <p class="subp rev">Faites partie des premiers à découvrir la fin des douleurs auriculaires en vol.</p>
   <div class="ob rev">
+
+    <!-- ── MODIFICATION : ancien prix barré + nouveau prix ── -->
+    <div style="font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--ink-soft); text-decoration:line-through; letter-spacing:-.02em; margin-bottom:4px;">179<span style="font-size:1rem;">,99 €</span></div>
     <div class="op">149<span>,99 €</span></div>
-    <div class="opn">PRIX DE LANCEMENT · LIVRAISON ESTIMÉE 2026</div>
+    <!-- ── FIN MODIFICATION ── -->
+
+    <div class="opn">OFFRE LANCEMENT · VALABLE POUR LES 150 PREMIERS CASQUES</div>
     <div class="ostk"><div class="odot"></div>Phase pilote — Places disponibles</div>
     <div class="oform">
       <div class="orow">
