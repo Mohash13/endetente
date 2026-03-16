@@ -108,7 +108,7 @@ nav {
 }
 h1 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 7vw, 6rem); font-weight: 400;
+  font-size: clamp(4rem, 10vw, 8.5rem); font-weight: 400;
   line-height: .92; color: var(--white); letter-spacing: -.025em;
   animation: slideup .9s .3s cubic-bezier(.16,1,.3,1) both;
 }
@@ -477,634 +477,6 @@ footer { background:var(--black); padding:64px 48px 44px; }
   .mif-badges { flex-direction:column; }
   .team-grid { grid-template-columns:1fr; }
 }
-
-/* ═══════════════════════════════════════════════════════════════════
-   EN DÉTENTE — DESKTOP COMFORT PATCH
-   ───────────────────────────────────────────────────────────────────
-   Objectif  : Amplifier la présence visuelle sur desktop (~+30 %)
-   Scope     : min-width: 981px uniquement (au-dessus du breakpoint
-               responsive existant à 980px)
-   Règles    : Aucune modification de HTML · Aucun breakpoint modifié
-               · Patch additionnel — ne touche jamais au responsive
-   ═══════════════════════════════════════════════════════════════════ */
-
-@media (min-width: 981px) {
-
-  /* ──────────────────────────────────────────────
-     NAV
-  ────────────────────────────────────────────── */
-  nav {
-    height: 72px;
-    padding: 0 72px;
-  }
-  .nav-wordmark {
-    font-size: 1.15rem;
-  }
-  .nav-links a {
-    font-size: .9rem;
-    padding: 8px 22px;
-  }
-  .nav-cta {
-    padding: 12px 30px;
-    font-size: .88rem;
-  }
-  .nav-logo-img {
-    height: 36px;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     HERO
-  ────────────────────────────────────────────── */
- .hero {
-  min-height: auto;
-  padding: 90px 80px 80px;
-}
-  h1 {
-    font-size: clamp(5.5rem, 12vw, 11rem);
-  }
-  .hero-logo-wrap {
-  width: 320px;
-  margin-bottom: 10px;
-}
-  .hero-sub {
-    font-size: 1.2rem;
-    max-width: 620px;
-    margin-top: 32px;
-  }
- .hero-btns {
-  margin-top: 36px;
-  gap: 16px;
-}
-  .btn-white,
-  .btn-ghost {
-    padding: 17px 52px;
-    font-size: .98rem;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     MADE IN FRANCE — BAND
-  ────────────────────────────────────────────── */
-  .mif-flag-zone {
-    padding: 60px 70px;
-  }
-  .mif-flag-img {
-    height: 68px;
-  }
-  .mif-content {
-    padding: 60px 70px;
-    gap: 56px;
-  }
-  .mif-text h2 {
-    font-size: clamp(2rem, 3.2vw, 3rem);
-    margin-bottom: 14px;
-  }
-  .mif-text p {
-    font-size: 1rem;
-    max-width: 640px;
-  }
-  .mif-badge {
-    padding: 17px 26px;
-    font-size: .86rem;
-    gap: 12px;
-    border-radius: 14px;
-  }
-  .mif-badge .dot-fr,
-  .mif-badge .dot-eu {
-    width: 12px;
-    height: 12px;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     SUPPLY STRIP
-  ────────────────────────────────────────────── */
-  .supply-strip {
-    padding: 24px 72px;
-    gap: 72px;
-  }
-  .supply-item {
-    font-size: .84rem;
-    gap: 14px;
-  }
-  .supply-item svg {
-    width: 16px;
-    height: 16px;
-  }
-  .supply-sep {
-    height: 22px;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     STATS
-  ────────────────────────────────────────────── */
-  .stats {
-    padding: 100px 72px;
-  }
-  .stat {
-    max-width: 300px;
-    padding: 0 52px;
-  }
-  .stat-n {
-    font-size: 4.4rem;
-  }
-  .stat-d {
-    font-size: .9rem;
-    margin-top: 14px;
-    line-height: 1.65;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     SECTION HELPERS — Typographie globale
-  ────────────────────────────────────────────── */
-  .sh2 {
-    font-size: clamp(3rem, 6vw, 6rem);
-  }
-  .section-p {
-    font-size: 1.08rem;
-    line-height: 1.85;
-  }
-  .lbl {
-    font-size: .76rem;
-    letter-spacing: .28em;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     PRODUCT SECTION
-  ────────────────────────────────────────────── */
-  .product-sec {
-    padding: 180px 80px;
-  }
-  .product-sec .sh2 {
-    margin-top: 12px;
-  }
-  .product-sec .section-p {
-    margin-top: 28px;
-    max-width: 600px;
-  }
-  .product-box {
-    max-width: 540px;
-    padding: 72px 48px;
-    border-radius: 36px;
-    margin-top: 90px;
-  }
-  .hs {
-    width: 290px;
-  }
-  .chips {
-    margin-top: 36px;
-    gap: 10px;
-  }
-  .chip {
-    padding: 9px 22px;
-    font-size: .78rem;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     FEATURE GRID
-  ────────────────────────────────────────────── */
-  .fg-sec {
-    padding: 160px 80px;
-  }
-  .fg-sec .sh2 {
-    margin-bottom: 80px;
-  }
-  .fg {
-    max-width: 1300px;
-    gap: 3px;
-  }
-  .fc {
-    padding: 54px 46px;
-  }
-  .fi {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    margin-bottom: 26px;
-  }
-  .fi svg {
-    width: 22px;
-    height: 22px;
-  }
-  .fc h3 {
-    font-size: 1.28rem;
-    margin-bottom: 13px;
-  }
-  .fc p {
-    font-size: .92rem;
-    line-height: 1.85;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     HOW IT WORKS
-  ────────────────────────────────────────────── */
-  .how {
-    padding: 180px 80px;
-  }
-  .steps {
-    max-width: 1200px;
-    margin-top: 88px;
-  }
-  .si {
-    padding: 54px 40px;
-  }
-  .si-num {
-    font-size: 4.4rem;
-    margin-bottom: 26px;
-  }
-  .si h3 {
-    font-size: .8rem;
-    letter-spacing: .18em;
-    margin-bottom: 14px;
-  }
-  .si p {
-    font-size: .98rem;
-    line-height: 1.85;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     MADE IN FRANCE — SECTION COMPLÈTE
-  ────────────────────────────────────────────── */
-  .mif-full {
-    padding: 130px 80px;
-  }
-  .mif-full-grid {
-    max-width: 1280px;
-    gap: 100px;
-  }
-  .mif-full .sh2 {
-    margin: 22px 0 28px;
-  }
-  .mif-full p {
-    font-size: 1rem;
-    line-height: 1.85;
-    margin-bottom: 14px;
-  }
-  .mif-flags-row {
-    margin-top: 38px;
-    gap: 20px;
-  }
-  .mif-flag-card {
-    padding: 17px 26px;
-    font-size: .92rem;
-    gap: 14px;
-    border-radius: 16px;
-  }
-  .mif-flag-card img {
-    height: 28px;
-  }
-  .supply-chain-cards {
-    gap: 16px;
-  }
-  .sc-card {
-    padding: 28px 34px;
-    border-radius: 20px;
-    gap: 22px;
-  }
-  .sc-card-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-  }
-  .sc-card-icon svg {
-    width: 21px;
-    height: 21px;
-  }
-  .sc-card h4 {
-    font-size: .98rem;
-    margin-bottom: 6px;
-  }
-  .sc-card p {
-    font-size: .88rem;
-    line-height: 1.65;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     ÉQUIPE
-  ────────────────────────────────────────────── */
-  .team-sec {
-    padding: 130px 80px;
-  }
-  .team-sec .section-head {
-    margin-bottom: 68px;
-  }
-  .team-grid {
-    max-width: 1280px;
-    gap: 20px;
-  }
-  .team-card {
-    padding: 40px 28px;
-    border-radius: 24px;
-  }
-  .team-avatar {
-    width: 62px;
-    height: 62px;
-    font-size: 1.25rem;
-    margin-bottom: 20px;
-  }
-  .team-card h4 {
-    font-size: .96rem;
-    margin-bottom: 8px;
-  }
-  .team-card p {
-    font-size: .8rem;
-    line-height: 1.6;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     SERVICE CLIENT & SUPPORT
-  ────────────────────────────────────────────── */
-  .support {
-    padding: 180px 80px;
-  }
-  .section-head {
-    margin-bottom: 80px;
-  }
-  .sg {
-    max-width: 1180px;
-    gap: 20px;
-    margin-bottom: 88px;
-  }
-  .sc2 {
-    padding: 46px 40px;
-    border-radius: 24px;
-    gap: 24px;
-  }
-  .si3 {
-    width: 54px;
-    height: 54px;
-    border-radius: 14px;
-  }
-  .si3 svg {
-    width: 23px;
-    height: 23px;
-  }
-  .sc2 h3 {
-    font-size: 1.28rem;
-    margin-bottom: 10px;
-  }
-  .sc2 p {
-    font-size: .92rem;
-    line-height: 1.78;
-  }
-  .sc2-link {
-    font-size: .88rem;
-    margin-top: 16px;
-  }
-
-  /* FAQ */
-  .faq-wrap {
-    max-width: 860px;
-  }
-  .faq-title {
-    font-size: 2rem;
-    margin-bottom: 28px;
-  }
-  .fq {
-    padding: 24px 0;
-  }
-  .fq-q {
-    font-size: 1.02rem;
-  }
-  .fq-icon {
-    width: 20px;
-    height: 20px;
-  }
-  .fq-a {
-    font-size: .94rem;
-    line-height: 1.8;
-    margin-top: 14px;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     PRO / COMPAGNIES
-  ────────────────────────────────────────────── */
-  .pro {
-    padding: 180px 80px;
-  }
-  .pro-grid {
-    max-width: 1280px;
-    gap: 100px;
-  }
-  .pro-c p {
-    font-size: 1rem;
-    line-height: 1.85;
-    margin-bottom: 14px;
-  }
-  .pro-ul {
-    gap: 18px;
-    margin: 34px 0 44px;
-  }
-  .pro-ul li {
-    font-size: .98rem;
-    gap: 14px;
-  }
-  .pck {
-    width: 22px;
-    height: 22px;
-    margin-top: 2px;
-  }
-  .pro-btns {
-    gap: 14px;
-  }
-  .bp {
-    padding: 16px 40px;
-    font-size: .95rem;
-  }
-  .p-cards {
-    gap: 14px;
-  }
-  .pc {
-    padding: 26px 28px;
-    border-radius: 20px;
-    gap: 20px;
-  }
-  .pci {
-    width: 50px;
-    height: 50px;
-    border-radius: 13px;
-  }
-  .pci svg {
-    width: 23px;
-    height: 23px;
-  }
-  .pc h4 {
-    font-size: .96rem;
-    margin-bottom: 4px;
-  }
-  .pc p {
-    font-size: .82rem;
-  }
-  .pca {
-    width: 20px;
-    height: 20px;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     PRÉ-COMMANDE
-  ────────────────────────────────────────────── */
-  .preorder {
-    padding: 180px 80px;
-  }
-  .preorder .sh2 {
-    margin-bottom: 18px;
-  }
-  .preorder > .subp {
-    font-size: 1.06rem;
-    max-width: 560px;
-    margin-bottom: 60px;
-  }
-  .ob {
-    max-width: 620px;
-    padding: 72px;
-    border-radius: 32px;
-  }
-  .op {
-    font-size: 5rem;
-  }
-  .op span {
-    font-size: 2.5rem;
-  }
-  .opn {
-    font-size: .8rem;
-    margin-bottom: 36px;
-    letter-spacing: .08em;
-  }
-  .ostk {
-    padding: 9px 22px;
-    font-size: .78rem;
-    margin-bottom: 36px;
-  }
-  .odot {
-    width: 8px;
-    height: 8px;
-  }
-  .oform {
-    gap: 12px;
-  }
-  input[type=text],
-  input[type=email] {
-    padding: 16px 18px;
-    font-size: .96rem;
-    border-radius: 12px;
-  }
-  .osubmit {
-    padding: 17px;
-    font-size: .96rem;
-    border-radius: 12px;
-  }
-  .otrust {
-    gap: 26px;
-    margin-top: 22px;
-  }
-  .tp {
-    font-size: .76rem;
-    gap: 7px;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     FOOTER
-  ────────────────────────────────────────────── */
-  footer {
-    padding: 84px 80px 54px;
-  }
-  .ft {
-    padding-bottom: 50px;
-    gap: 56px;
-  }
-  .fb-logo img {
-    height: 38px;
-    margin-bottom: 14px;
-  }
-  .fb-name {
-    font-size: 1.2rem;
-  }
-  .fb-tag {
-    font-size: .7rem;
-    margin-top: 6px;
-  }
-  .fc-cols {
-    gap: 64px;
-  }
-  .fc-col h4 {
-    font-size: .68rem;
-    letter-spacing: .2em;
-    margin-bottom: 18px;
-  }
-  .fc-col a {
-    font-size: .88rem;
-    margin-bottom: 11px;
-  }
-  .fb2 {
-    padding-top: 28px;
-  }
-  .fb2-copy {
-    font-size: .76rem;
-  }
-  .fb2-links {
-    gap: 24px;
-  }
-  .fb2-links a {
-    font-size: .76rem;
-  }
-
-
-  /* ──────────────────────────────────────────────
-     CONTACT MODAL
-  ────────────────────────────────────────────── */
-  .modal {
-    padding: 64px;
-    max-width: 640px;
-    border-radius: 28px;
-  }
-  .modal-close {
-    top: 24px;
-    right: 24px;
-    width: 36px;
-    height: 36px;
-  }
-  .modal h3 {
-    font-size: 2rem;
-    margin-bottom: 8px;
-  }
-  .modal > p {
-    font-size: .94rem;
-    margin-bottom: 32px;
-    line-height: 1.7;
-  }
-  .mform {
-    gap: 14px;
-  }
-  .mrow {
-    gap: 14px;
-  }
-  .mfield {
-    padding: 16px 18px;
-    font-size: .96rem;
-    border-radius: 12px;
-  }
-  textarea.mfield {
-    min-height: 130px;
-  }
-  .msubmit {
-    padding: 17px;
-    font-size: .96rem;
-    border-radius: 12px;
-  }
-
-} /* end @media (min-width: 981px) */
 </style>
 </head>
 <body>
@@ -1112,6 +484,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
 <!-- NAV -->
 <nav>
   <a class="nav-brand" href="#">
+    <!-- MODIFICATION 10 : suppression du doublon "En Détente" — une seule occurrence -->
     <img class="nav-logo-img" src="logo_endetente.png" alt="En Détente">
     <span class="nav-wordmark">En Détente</span>
   </a>
@@ -1131,6 +504,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
   <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
 
+  <!-- MODIFICATION 9 : logo affiché en haut à gauche (nav) + icône hero -->
   <div class="hero-logo-wrap">
     <img src="logo_endetente.png" alt="En Détente logo" onerror="this.style.display='none'">
   </div>
@@ -1139,7 +513,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
 <h1>En <em>Détente.</em></h1>
 <p class="hero-sub">Le premier casque actif à dépressurisation contrôlée. Conçu pour éliminer les douleurs auriculaires en avion — décollage, atterrissage, en toute sérénité.</p>
 <div class="hero-btns">
-  <button class="btn-white" onclick="scrollSec('precommande')">Pré-commander — 199,99 €</button>
+  <button class="btn-white" onclick="scrollSec('precommande')">Pré-commander — 149,99 €</button>
   <button class="btn-ghost" onclick="scrollSec('produit')">Découvrir</button>
 </div>
 
@@ -1172,7 +546,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
   </div>
 </div>
 
-<!-- SUPPLY STRIP -->
+<!-- SUPPLY STRIP — MODIFICATION 1 : suppression STMicroelectronics & KNF Micro Allemagne -->
 <div class="supply-strip">
   <div class="supply-item">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
@@ -1251,6 +625,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
   <div class="mif-full-grid">
     <div class="rev">
       <span class="lbl lbl-mid" style="margin-bottom:14px">Origine & Fabrication</span>
+      <!-- MODIFICATION 2 : titre remplacé par "Made in France" uniquement -->
       <h2 class="sh2"><em>Made in France</em></h2>
       <p>En Détente est assemblé, produit et conçu en France. Chaque composant est sourcé exclusivement auprès de fournisseurs européens, pour garantir qualité, traçabilité et soutien à l'industrie locale.</p>
       <p>Nos locaux sont basés en France. Notre chaîne de production est entièrement maîtrisée, de la conception technique à l'assemblage final.</p>
@@ -1261,6 +636,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
         </div>
       </div>
     </div>
+    <!-- MODIFICATION 3 : suppression des noms de fournisseurs, conservation de la provenance uniquement -->
     <div class="supply-chain-cards rev d1">
       <div class="sc-card">
         <div class="sc-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
@@ -1282,7 +658,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
   </div>
 </section>
 
-<!-- ÉQUIPE -->
+<!-- MODIFICATION 4 : SECTION ÉQUIPE -->
 <section class="team-sec" id="equipe">
   <div class="section-head rev">
     <span class="lbl lbl-mid" style="margin-bottom:14px">Notre équipe</span>
@@ -1343,6 +719,7 @@ footer { background:var(--black); padding:64px 48px 44px; }
     </div>
   </div>
 
+  <!-- MODIFICATION 11 : mise à jour de la réponse FAQ "Convient-il aux enfants ?" -->
   <div class="faq-wrap rev">
     <h3 class="faq-title">Questions fréquentes</h3>
     <div class="fq"><div class="fq-q" onclick="tFaq(this)">Le casque est-il autorisé en cabine ? <svg class="fq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a">Oui. En Détente respecte les normes IATA relatives aux batteries lithium intégrées (UN 3481). Il peut être utilisé en cabine sans restriction.</div></div>
@@ -1443,13 +820,8 @@ footer { background:var(--black); padding:64px 48px 44px; }
   <h2 class="sh2 rev">Réservez votre<br><em>En Détente.</em></h2>
   <p class="subp rev">Faites partie des premiers à découvrir la fin des douleurs auriculaires en vol.</p>
   <div class="ob rev">
-
-    <!-- ── MODIFICATION : ancien prix barré + nouveau prix ── -->
-    <div style="font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--ink-soft); text-decoration:line-through; letter-spacing:-.02em; margin-bottom:4px;">249<span style="font-size:1rem;">,99 €</span></div>
-    <div class="op">199<span>,99 €</span></div>
-    <!-- ── FIN MODIFICATION ── -->
-
-    <div class="opn">OFFRE LANCEMENT · VALABLE POUR LES 150 PREMIERS CASQUES</div>
+    <div class="op">149<span>,99 €</span></div>
+    <div class="opn">PRIX DE LANCEMENT · LIVRAISON ESTIMÉE 2026</div>
     <div class="ostk"><div class="odot"></div>Phase pilote — Places disponibles</div>
     <div class="oform">
       <div class="orow">
