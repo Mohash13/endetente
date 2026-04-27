@@ -1,1 +1,1076 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed Shimi — Ingénieur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════
+   DESIGN SYSTEM — Apple-inspired, Tricolore palette
+   ══════════════════════════════════════════════════ */
+:root {
+  /* Palette */
+  --blue:       #0055A4;   /* bleu France */
+  --blue-mid:   #1a6bbf;
+  --blue-light: #e8f0fb;
+  --red:        #EF4444;   /* rouge vif */
+  --red-fr:     #EF2341;   /* rouge France exact */
+  --white:      #FFFFFF;
+  --off-white:  #F5F5F7;   /* Apple off-white */
+  --surface:    #FBFBFD;
+  --ink:        #1D1D1F;   /* Apple black */
+  --ink-2:      #3a3a3c;
+  --ink-3:      #6e6e73;   /* Apple secondary */
+  --border:     rgba(0,0,0,0.08);
+  --border-blue:rgba(0,85,164,0.15);
+  --shadow-sm:  0 2px 12px rgba(0,0,0,0.06);
+  --shadow-md:  0 8px 32px rgba(0,0,0,0.10);
+  --shadow-lg:  0 24px 64px rgba(0,0,0,0.12);
+  --r:          18px;
+  --r-sm:       10px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size:16px; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--off-white); }
+::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+/* ══════════════════════════════════════════════════
+   NAV
+   ══════════════════════════════════════════════════ */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:200;
+  height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  width: 100%; max-width: 1200px;
+  padding: 0 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.nav-logo {
+  font-weight: 700; font-size: 1rem; letter-spacing: -.02em;
+  color: var(--ink); text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.logo-flag {
+  display: flex; height: 14px; width: 22px;
+  border-radius: 2px; overflow: hidden;
+}
+.logo-flag span { flex:1; }
+.flag-b { background: var(--blue); }
+.flag-w { background: var(--white); border: 1px solid #e0e0e0; }
+.flag-r { background: var(--red-fr); }
+
+.nav-links {
+  display: flex; gap: 2rem; list-style: none;
+}
+.nav-links a {
+  font-size: .82rem; color: var(--ink-3); text-decoration: none;
+  letter-spacing: -.01em; transition: color .2s;
+}
+.nav-links a:hover { color: var(--blue); }
+
+.nav-cta {
+  background: var(--blue); color: #fff;
+  font-size: .8rem; font-weight: 500;
+  padding: .4rem 1.1rem; border-radius: 50px;
+  text-decoration: none; transition: background .2s, transform .15s;
+  letter-spacing: -.01em;
+}
+.nav-cta:hover { background: var(--blue-mid); transform: scale(1.03); }
+
+/* ══════════════════════════════════════════════════
+   HERO — Full-screen, Apple-style
+   ══════════════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 100px 40px 60px;
+  background: var(--white);
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+
+/* Subtle radial glow */
+.hero-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0,85,164,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 30% at 15% 70%, rgba(239,35,65,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 30% at 85% 70%, rgba(0,85,164,0.04) 0%, transparent 60%);
+}
+
+/* Decorative lines — very Apple */
+.hero-line {
+  position: absolute; left: 0; right: 0;
+  height: 1px; background: linear-gradient(90deg, transparent, rgba(0,85,164,0.12), transparent);
+}
+.hero-line-1 { top: 52px; }
+.hero-line-2 { bottom: 0; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-light); color: var(--blue);
+  font-size: .72rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; padding: .35rem 1rem;
+  border-radius: 50px; margin-bottom: 2rem;
+  border: 1px solid rgba(0,85,164,0.15);
+  animation: fadeUp .6s ease both;
+}
+
+.hero-eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.5; transform:scale(1.3); }
+}
+
+.hero-photo-wrap {
+  width: 140px; height: 140px; border-radius: 50%;
+  overflow: hidden; margin: 0 auto 2rem;
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--blue), var(--shadow-md);
+  animation: fadeUp .6s ease .05s both;
+  position: relative; z-index: 1;
+}
+
+.hero-photo-wrap img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top center;
+  display: block;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 700; letter-spacing: -.04em; line-height: 1;
+  color: var(--ink); margin-bottom: .4rem;
+  animation: fadeUp .6s ease .1s both;
+}
+
+.hero-title-accent {
+  background: linear-gradient(135deg, var(--blue) 0%, #0077cc 50%, var(--red) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  color: var(--ink-3); font-weight: 300; letter-spacing: -.02em;
+  margin-bottom: 2.5rem; animation: fadeUp .6s ease .2s both;
+}
+
+.hero-chips {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem;
+  margin-bottom: 3rem; animation: fadeUp .6s ease .3s both;
+}
+
+.chip {
+  font-size: .75rem; font-weight: 500; letter-spacing: -.01em;
+  padding: .35rem .9rem; border-radius: 50px;
+  border: 1px solid var(--border); color: var(--ink-2);
+  background: var(--off-white);
+}
+
+.chip.blue { background: var(--blue-light); border-color: rgba(0,85,164,0.2); color: var(--blue); }
+.chip.red  { background: #FEF2F2; border-color: rgba(239,35,65,0.2); color: var(--red-fr); }
+
+.hero-btns {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp .6s ease .4s both;
+}
+
+.btn {
+  font-size: .9rem; font-weight: 500; letter-spacing: -.01em;
+  padding: .75rem 1.8rem; border-radius: 50px;
+  text-decoration: none; display: inline-flex; align-items: center; gap: .5rem;
+  transition: all .2s;
+}
+
+.btn-fill {
+  background: var(--blue); color: #fff;
+  box-shadow: 0 2px 16px rgba(0,85,164,0.3);
+}
+.btn-fill:hover { background: var(--blue-mid); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,85,164,0.4); }
+
+.btn-ghost {
+  background: transparent; color: var(--blue);
+  border: 1.5px solid rgba(0,85,164,0.25);
+}
+.btn-ghost:hover { background: var(--blue-light); border-color: rgba(0,85,164,0.4); }
+
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .4rem;
+  animation: fadeUp .6s ease .8s both;
+}
+.scroll-label { font-size: .68rem; color: var(--ink-3); letter-spacing: .1em; text-transform: uppercase; }
+.scroll-arrow { width: 1px; height: 32px; background: linear-gradient(180deg, var(--blue), transparent); margin: 0 auto;
+  animation: scrollBounce 1.8s ease infinite; }
+@keyframes scrollBounce {
+  0%,100% { opacity:1; transform: translateY(0); }
+  50%      { opacity:.4; transform: translateY(6px); }
+}
+
+/* ══════════════════════════════════════════════════
+   SECTION SHARED
+   ══════════════════════════════════════════════════ */
+section { padding: 7rem 40px; }
+
+.container { max-width: 1100px; margin: 0 auto; }
+
+.eyebrow {
+  font-size: .72rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: .8rem;
+}
+
+.section-h {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700; letter-spacing: -.04em;
+  color: var(--ink); line-height: 1.05; margin-bottom: 1rem;
+}
+
+.section-p {
+  font-size: 1rem; color: var(--ink-3); line-height: 1.7;
+  max-width: 580px; font-weight: 300;
+}
+
+.section-divider {
+  width: 100%; height: 1px;
+  background: var(--border);
+}
+
+/* ══════════════════════════════════════════════════
+   ABOUT
+   ══════════════════════════════════════════════════ */
+#about { background: var(--off-white); }
+
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start;
+}
+
+.about-body p {
+  font-size: .95rem; color: var(--ink-2); line-height: 1.8;
+  margin-bottom: 1rem; font-weight: 300;
+}
+
+.about-body strong { color: var(--blue); font-weight: 600; }
+
+.qualities {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .6rem;
+  margin-top: 2rem;
+}
+
+.q-item {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .7rem 1rem; border-radius: var(--r-sm);
+  background: var(--white); border: 1px solid var(--border);
+  font-size: .82rem; color: var(--ink-2); font-weight: 500;
+  transition: border-color .2s, box-shadow .2s;
+}
+.q-item:hover { border-color: var(--blue-mid); box-shadow: var(--shadow-sm); }
+.q-icon { font-size: 1rem; }
+
+/* ── Language bars ── */
+.lang-block { display: flex; flex-direction: column; gap: 1.2rem; }
+.lang-row {}
+.lang-meta { display: flex; justify-content: space-between; margin-bottom: .4rem; }
+.lang-name { font-size: .85rem; font-weight: 500; color: var(--ink); }
+.lang-level { font-size: .78rem; color: var(--ink-3); }
+.bar-bg { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.bar { height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-mid)); }
+
+/* ══════════════════════════════════════════════════
+   SKILLS — Apple-style cards grid
+   ══════════════════════════════════════════════════ */
+#skills { background: var(--white); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-top: 3rem;
+}
+
+.skill-card {
+  background: var(--white); padding: 2rem;
+  transition: background .2s;
+}
+.skill-card:hover { background: var(--off-white); }
+
+.skill-card-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 1rem;
+  background: var(--blue-light);
+}
+
+.skill-card h3 {
+  font-size: .9rem; font-weight: 600; letter-spacing: -.02em;
+  margin-bottom: .9rem; color: var(--ink);
+}
+
+.tag-cloud { display: flex; flex-wrap: wrap; gap: .4rem; }
+
+.tag {
+  font-size: .72rem; font-weight: 500;
+  padding: .25rem .7rem; border-radius: 50px;
+  background: var(--off-white); color: var(--ink-2);
+  border: 1px solid var(--border);
+}
+.tag.b { background: var(--blue-light); color: var(--blue); border-color: rgba(0,85,164,0.2); }
+.tag.r { background: #FEF2F2; color: var(--red-fr); border-color: rgba(239,35,65,0.15); }
+
+/* ══════════════════════════════════════════════════
+   EXPERIENCE — Timeline style
+   ══════════════════════════════════════════════════ */
+#experience { background: var(--off-white); }
+
+.timeline { margin-top: 3rem; display: flex; flex-direction: column; }
+
+.tl-item {
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 3rem; padding: 2.5rem 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+
+.tl-item:last-child { border-bottom: 1px solid var(--border); }
+
+.tl-meta {}
+.tl-period {
+  font-size: .72rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: .3rem;
+}
+.tl-type {
+  display: inline-block; font-size: .68rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: .2rem .6rem; border-radius: 4px;
+  background: var(--off-white); color: var(--ink-3);
+  border: 1px solid var(--border);
+}
+.tl-type.alt { background: var(--blue-light); color: var(--blue); border-color: rgba(0,85,164,0.2); }
+.tl-type.stage { background: #FEF2F2; color: var(--red-fr); border-color: rgba(239,35,65,0.15); }
+.tl-type.vol { background: #F0FDF4; color: #15803d; border-color: rgba(21,128,61,0.2); }
+
+.tl-content h3 {
+  font-size: 1.1rem; font-weight: 600; letter-spacing: -.03em;
+  color: var(--ink); margin-bottom: .25rem;
+}
+
+.tl-company { font-size: .85rem; color: var(--blue); margin-bottom: 1rem; font-weight: 500; }
+
+.tl-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+.tl-list li {
+  font-size: .85rem; color: var(--ink-3); line-height: 1.6;
+  display: flex; gap: .7rem; font-weight: 300;
+}
+.tl-list li::before {
+  content: '—'; color: var(--blue); flex-shrink: 0;
+  font-weight: 300;
+}
+
+.tl-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+.tl-tag {
+  font-size: .68rem; font-weight: 500;
+  padding: .2rem .6rem; border-radius: 4px;
+  background: var(--white); color: var(--ink-3);
+  border: 1px solid var(--border);
+}
+
+/* ══════════════════════════════════════════════════
+   FORMATION — Cards
+   ══════════════════════════════════════════════════ */
+#formation { background: var(--white); }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 3rem;
+}
+
+.form-card {
+  background: var(--off-white); border-radius: var(--r);
+  padding: 2rem; border: 1px solid var(--border);
+  transition: box-shadow .25s, transform .2s;
+  position: relative; overflow: hidden;
+}
+.form-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+/* Top accent strip */
+.form-card::before {
+  content: '';
+  position: absolute; top:0; left:0; right:0; height:3px;
+}
+.form-card.main::before { background: linear-gradient(90deg, var(--blue), var(--red-fr)); }
+.form-card.prepa::before { background: var(--blue); }
+.form-card.bac::before   { background: var(--red-fr); }
+
+.form-year {
+  font-size: .68rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: .6rem;
+}
+.form-card h3 {
+  font-size: 1rem; font-weight: 600; letter-spacing: -.03em;
+  color: var(--ink); margin-bottom: .25rem;
+}
+.form-school { font-size: .82rem; color: var(--blue); margin-bottom: .8rem; font-weight: 500; }
+.form-card p { font-size: .82rem; color: var(--ink-3); line-height: 1.7; font-weight: 300; }
+
+.form-badge {
+  display: inline-block; margin-top: 1rem;
+  font-size: .68rem; font-weight: 600; letter-spacing: .04em;
+  padding: .25rem .7rem; border-radius: 50px;
+  background: var(--blue-light); color: var(--blue);
+  border: 1px solid rgba(0,85,164,0.2);
+}
+
+/* ══════════════════════════════════════════════════
+   OBJECTIFS — Apple "big statement" section
+   ══════════════════════════════════════════════════ */
+#projet { background: var(--ink); color: var(--white); }
+
+#projet .eyebrow { color: #5b9bd5; }
+#projet .section-h { color: var(--white); }
+#projet .section-p { color: rgba(255,255,255,0.55); }
+
+.obj-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r); overflow: hidden;
+  margin-top: 3rem;
+}
+
+.obj-card {
+  background: var(--ink); padding: 2.5rem;
+  transition: background .2s;
+}
+.obj-card:hover { background: #2a2a2e; }
+
+.obj-num {
+  font-size: 3rem; font-weight: 700; letter-spacing: -.06em;
+  background: linear-gradient(135deg, var(--blue) 0%, #3b82f6 40%, var(--red) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; line-height: 1; margin-bottom: .8rem;
+}
+
+.obj-card h4 {
+  font-size: 1rem; font-weight: 600; letter-spacing: -.03em;
+  color: var(--white); margin-bottom: .5rem;
+}
+
+.obj-card p { font-size: .85rem; color: rgba(255,255,255,0.5); line-height: 1.7; font-weight: 300; }
+
+/* ══════════════════════════════════════════════════
+   CONTACT — Minimal Apple style
+   ══════════════════════════════════════════════════ */
+#contact { background: var(--off-white); text-align: center; }
+
+.contact-wrap { max-width: 680px; margin: 0 auto; }
+.contact-wrap .section-p { margin: 0 auto; }
+
+.contact-cards {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: 1rem; margin-top: 3rem;
+}
+
+.c-card {
+  display: flex; align-items: center; gap: .8rem;
+  padding: 1rem 1.5rem; border-radius: var(--r);
+  background: var(--white); border: 1px solid var(--border);
+  text-decoration: none; color: var(--ink);
+  transition: box-shadow .2s, transform .15s, border-color .2s;
+  min-width: 200px;
+}
+.c-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: rgba(0,85,164,0.3); }
+
+.c-icon { font-size: 1.4rem; }
+.c-label { font-size: .72rem; color: var(--ink-3); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; display:block; margin-bottom:.1rem; }
+.c-value { font-size: .82rem; color: var(--ink); font-weight: 500; }
+
+.github-link {
+  margin-top: 2rem;
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: .85rem; color: var(--blue); font-weight: 500; text-decoration: none;
+  padding: .6rem 1.4rem; border-radius: 50px;
+  border: 1.5px solid rgba(0,85,164,0.25);
+  transition: background .2s, border-color .2s;
+}
+.github-link:hover { background: var(--blue-light); border-color: rgba(0,85,164,0.4); }
+
+/* ══════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════ */
+footer {
+  background: var(--white);
+  padding: 2rem 40px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+
+.footer-flag { display: flex; align-items: center; gap: 6px; font-size: .78rem; color: var(--ink-3); }
+.mini-flag { display: flex; height: 10px; width: 16px; border-radius: 1px; overflow: hidden; }
+.mini-flag span { flex:1; }
+
+footer p { font-size: .78rem; color: var(--ink-3); }
+
+/* ══════════════════════════════════════════════════
+   ANIMATIONS
+   ══════════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(20px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* Intersection Observer driven */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* Staggered children */
+.stagger > * {
+  opacity:0; transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:.05s; }
+.stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:.15s; }
+.stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:.25s; }
+.stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:.35s; }
+.stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:.45s; }
+.stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:.55s; }
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .form-grid { grid-template-columns: 1fr; }
+  .obj-grid { grid-template-columns: 1fr; }
+  .tl-item { grid-template-columns: 1fr; gap: .5rem; }
+  section { padding: 5rem 24px; }
+  nav { height: 52px; }
+  .nav-inner { padding: 0 24px; }
+  footer { padding: 2rem 24px; }
+}
+
+@media (max-width: 600px) {
+  .hero-title { letter-spacing: -.03em; }
+  .contact-cards { flex-direction: column; align-items: center; }
+  .c-card { width: 100%; max-width: 320px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <div class="logo-flag">
+        <span class="flag-b"></span>
+        <span class="flag-w"></span>
+        <span class="flag-r"></span>
+      </div>
+      Mohammed Shimi
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#experience">Expériences</a></li>
+      <li><a href="#formation">Formation</a></li>
+      <li><a href="#projet">Objectifs</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-line hero-line-1"></div>
+
+  <div class="hero-eyebrow">
+    <span class="hero-eyebrow-dot"></span>
+    Disponible &amp;
+  </div>
+
+  <div class="hero-photo-wrap">
+    <img
+      src="photo_shimi_Mohammed.jpg"
+      alt="Mohammed Shimi"
+      onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#0055A4,#EF2341)'"
+    >
+  </div>
+
+  <h1 class="hero-title">
+    <span class="hero-title-accent">Mohammed Shimi</span>
+  </h1>
+
+  <p class="hero-sub">Ingénieur Électronique &amp; Informatique Industrielle<br>ISEN Yncréa Méditerranée — Marseille</p>
+
+  <div class="hero-chips">
+    <span class="chip blue">Alternant DGA · Essais Missiles</span>
+    <span class="chip red">Bac+5 · 2026</span>
+    <span class="chip">Mobilité internationale</span>
+  </div>
+
+  <div class="hero-btns">
+    <a href="#experience" class="btn btn-fill">Voir mon parcours →</a>
+    <a href="#contact" class="btn btn-ghost">Me contacter</a>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+
+  <div class="hero-line hero-line-2"></div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="eyebrow">À propos</p>
+        <h2 class="section-h">Technique,<br>stratégie, impact.</h2>
+        <div class="about-body" style="margin-top:1.5rem;">
+          <p>Né d'une curiosité profonde pour les systèmes complexes, mon parcours m'a mené des bancs du lycée <strong>STI2D</strong> jusqu'aux salles d'essais de la <strong>Direction Générale de l'Armement</strong>, en passant par deux années de classe préparatoire TSI.</p>
+          <p>En 5e année à l'<strong>ISEN Yncréa Méditerranée</strong>, je me spécialise en Électronique et Informatique Industrielle avec une option Ingénieur d'Affaires — une double culture technique et commerciale qui me permet d'aborder les projets sous tous leurs angles.</p>
+          <p>En dehors des études, je m'investis à la <strong>Croix-Rouge Française</strong> et cultive ma créativité par le sport et l'écriture.</p>
+        </div>
+        <div class="qualities stagger" style="margin-top:1.8rem;">
+          <div class="q-item"><span class="q-icon">🎯</span> Leadership</div>
+          <div class="q-item"><span class="q-icon">⚙️</span> Gestion de projet</div>
+          <div class="q-item"><span class="q-icon">✍️</span> Rédaction technique</div>
+          <div class="q-item"><span class="q-icon">💡</span> Créativité</div>
+          <div class="q-item"><span class="q-icon">🤝</span> Sens des responsabilités</div>
+          <div class="q-item"><span class="q-icon">🔍</span> Rigueur analytique</div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.15s;">
+        <p class="eyebrow">Langues</p>
+        <h3 style="font-size:1.2rem;font-weight:600;letter-spacing:-.03em;margin-bottom:1.8rem;">Communication multilingue</h3>
+        <div class="lang-block">
+          <div class="lang-row">
+            <div class="lang-meta"><span class="lang-name">Français</span><span class="lang-level">Natif</span></div>
+            <div class="bar-bg"><div class="bar" style="width:100%"></div></div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-meta"><span class="lang-name">Arabe</span><span class="lang-level">Courant</span></div>
+            <div class="bar-bg"><div class="bar" style="width:80%"></div></div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-meta"><span class="lang-name">Anglais</span><span class="lang-level">Courant</span></div>
+            <div class="bar-bg"><div class="bar" style="width:82%"></div></div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-meta"><span class="lang-name">Espagnol</span><span class="lang-level">Intermédiaire</span></div>
+            <div class="bar-bg"><div class="bar" style="width:50%"></div></div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div style="display:flex;gap:2rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);">
+          <div>
+            <div style="font-size:2rem;font-weight:700;letter-spacing:-.05em;color:var(--blue);">5+</div>
+            <div style="font-size:.78rem;color:var(--ink-3);font-weight:400;">Expériences pro</div>
+          </div>
+          <div>
+            <div style="font-size:2rem;font-weight:700;letter-spacing:-.05em;color:var(--blue);">Bac+5</div>
+            <div style="font-size:.78rem;color:var(--ink-3);font-weight:400;">Diplôme visé 2026</div>
+          </div>
+          <div>
+            <div style="font-size:2rem;font-weight:700;letter-spacing:-.05em;color:var(--red-fr);">4</div>
+            <div style="font-size:.78rem;color:var(--ink-3);font-weight:400;">Langues</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Compétences</p>
+      <h2 class="section-h">Mes outils &amp; expertises</h2>
+      <p class="section-p" style="margin-top:.8rem;">Un ensemble de compétences forgé en prépa, à l'école d'ingénieurs et sur le terrain — de l'électronique embarquée à la stratégie commerciale.</p>
+    </div>
+    <div class="skills-grid stagger">
+      <div class="skill-card">
+        <div class="skill-cat-icon">💻</div>
+        <h3>Programmation</h3>
+        <div class="tag-cloud">
+          <span class="tag b">Python</span>
+          <span class="tag b">C</span>
+          <span class="tag b">C++</span>
+          <span class="tag b">VHDL</span>
+          <span class="tag b">Arduino</span>
+          <span class="tag b">MATLAB</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat-icon">📡</div>
+        <h3>Électronique &amp; Systèmes</h3>
+        <div class="tag-cloud">
+          <span class="tag">Schémas électriques</span>
+          <span class="tag">Traitement du signal</span>
+          <span class="tag">Télémesure IRIG 106</span>
+          <span class="tag">MIL-STD-1553</span>
+          <span class="tag">Hyperfréquences</span>
+          <span class="tag">RF / Antennes</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat-icon">🌐</div>
+        <h3>Web &amp; Outils</h3>
+        <div class="tag-cloud">
+          <span class="tag r">Développement web</span>
+          <span class="tag r">Bases de données</span>
+          <span class="tag r">CMS</span>
+          <span class="tag r">Photoshop</span>
+          <span class="tag r">GitHub</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat-icon">📊</div>
+        <h3>Compétences transversales</h3>
+        <div class="tag-cloud">
+          <span class="tag">Gestion de projet</span>
+          <span class="tag">Analyse de risques</span>
+          <span class="tag">Rédaction technique</span>
+          <span class="tag">Négociation</span>
+          <span class="tag">Chiffrage</span>
+          <span class="tag">Autonomie</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Expériences</p>
+      <h2 class="section-h">Parcours professionnel</h2>
+      <p class="section-p" style="margin-top:.8rem;">Des environnements exigeants et variés — défense nationale, industrie, commerce international, humanitaire.</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-period">Sept. 2023 – Juil. 2026</div>
+          <span class="tl-type alt">Alternance</span>
+        </div>
+        <div class="tl-content">
+          <h3>Alternant Ingénieur Essais de Missiles</h3>
+          <div class="tl-company">Direction Générale de l'Armement — DGA</div>
+          <ul class="tl-list">
+            <li>Présentation et analyse des données de télémesure des missiles testés</li>
+            <li>Analyse en temps réel de centaines de paramètres transmis en vol</li>
+            <li>Programmation en langage C sur outils informatiques dédiés DGA</li>
+            <li>Appui aux ingénieurs concepteurs pour l'évaluation des performances réelles</li>
+            <li>Maîtrise des normes IRIG 106, MIL-STD-1553, CE83</li>
+            <li>Compétences acquises : codage numérique, réseaux Ethernet, traitement du signal, antennes paraboliques, modulations FM/PM</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Langage C</span>
+            <span class="tl-tag">Télémesure</span>
+            <span class="tl-tag">Traitement du signal</span>
+            <span class="tl-tag">Hyperfréquences</span>
+            <span class="tl-tag">Défense</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-period">Avr. 2025 – Août 2025</div>
+          <span class="tl-type stage">Stage</span>
+        </div>
+        <div class="tl-content">
+          <h3>Ingénieur d'Affaires</h3>
+          <div class="tl-company">Evolution Contractors — Casablanca, Maroc</div>
+          <ul class="tl-list">
+            <li>Préparation et présentation d'offres techniques et commerciales pour des projets datacenter</li>
+            <li>Réalisation de chiffrages et élaboration de devis complexes</li>
+            <li>Contribution à la stratégie marketing et gestion du site internet</li>
+            <li>Rédaction de livrables et présentation des solutions aux clients et partenaires</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Commerce B2B</span>
+            <span class="tl-tag">Datacenter</span>
+            <span class="tl-tag">Marketing</span>
+            <span class="tl-tag">Chiffrage</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-period">Déc. 2022 – Mar. 2023</div>
+          <span class="tl-type stage">Stage</span>
+        </div>
+        <div class="tl-content">
+          <h3>Technicien Maintenance Industrielle</h3>
+          <div class="tl-company">TK Elevator</div>
+          <ul class="tl-list">
+            <li>Exécution de visites de maintenance sous supervision du Responsable Service Clients</li>
+            <li>Rédaction de constats et rapports techniques détaillés</li>
+            <li>Garantie de la fiabilité opérationnelle des équipements</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Maintenance</span>
+            <span class="tl-tag">Rapport technique</span>
+            <span class="tl-tag">Industrie</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-period">Juin – Août 2022</div>
+          <span class="tl-type stage">Stage</span>
+        </div>
+        <div class="tl-content">
+          <h3>Développeur Web</h3>
+          <div class="tl-company">Nero Dev</div>
+          <ul class="tl-list">
+            <li>Développement d'une interface utilisateur web dynamique</li>
+            <li>Création d'une interface CMS et gestion de base de données</li>
+            <li>Développement complet du front-end du site</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Frontend</span>
+            <span class="tl-tag">Base de données</span>
+            <span class="tl-tag">CMS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-period">Sept. 2021 – Déc. 2023</div>
+          <span class="tl-type vol">Bénévolat</span>
+        </div>
+        <div class="tl-content">
+          <h3>Équipier Maraude</h3>
+          <div class="tl-company">Croix-Rouge Française</div>
+          <ul class="tl-list">
+            <li>Rencontre, accueil et orientation de personnes en situation de précarité</li>
+            <li>Distribution de nourriture et aide logistique lors des maraudes</li>
+            <li>Participation active aux briefings et préparation du matériel</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Humanitaire</span>
+            <span class="tl-tag">Travail d'équipe</span>
+            <span class="tl-tag">Engagement citoyen</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══ FORMATION ══ -->
+<section id="formation">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Formation</p>
+      <h2 class="section-h">Mon Parcours</h2>
+      <p class="section-p" style="margin-top:.8rem;">De la classe préparatoire à l'école d'ingénieurs.</p>
+    </div>
+    <div class="form-grid stagger" style="margin-top:3rem;">
+      <div class="form-card main">
+        <div class="form-year">2023 – 2026 · EN COURS</div>
+        <h3>Diplôme d'Ingénieur</h3>
+        <div class="form-school">ISEN Yncréa Méditerranée — Marseille</div>
+        <p>Spécialité Électronique &amp; Informatique Industrielle. Option Ingénieur d'Affaires (5e année). Formation alliant systèmes embarqués, traitement du signal, programmation et dimension commerciale / managériale.</p>
+        <span class="form-badge">Bac+5 · Ingénieur</span>
+      </div>
+      <div class="form-card prepa">
+        <div class="form-year">2019 – 2022</div>
+        <h3>CPGE TSI / Math Spé</h3>
+        <div class="form-school">Institut Emmanuel d'Alzon — Nîmes</div>
+        <p>Option Technologie des Sciences Industrielles. Formation intensive en mathématiques, physique et sciences de l'ingénieur. Socle rigoureux pour l'analyse de systèmes complexes sous contrainte.</p>
+        <span class="form-badge" style="background:#e8f0fb;color:var(--blue);">Prépa · Sciences industrielles</span>
+      </div>
+      <div class="form-card bac">
+        <div class="form-year">2018 – 2019</div>
+        <h3>Baccalauréat STI2D</h3>
+        <div class="form-school">Lycée Dhuoda — Nîmes</div>
+        <p>Option Système d'Information et Numérique. Première immersion dans les systèmes numériques, l'informatique appliquée et l'électronique industrielle.</p>
+        <span class="form-badge" style="background:#FEF2F2;color:var(--red-fr);border-color:rgba(239,35,65,0.2);">Bac · Technologique</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══ OBJECTIFS ══ -->
+<section id="projet">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Projet professionnel</p>
+      <h2 class="section-h">Où je veux aller</h2>
+      <p class="section-p" style="margin-top:.8rem;">Diplômé en 2026, je cherche à m'investir dans des environnements où rigueur technique et vision stratégique se rejoignent.</p>
+    </div>
+    <div class="obj-grid stagger">
+      <div class="obj-card">
+        <div class="obj-num">01</div>
+        <h4>Diplôme d'ingénieur 2026</h4>
+        <p>Finaliser ma formation à l'ISEN avec la double compétence technique et Ingénieur d'Affaires.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-num">02</div>
+        <h4>Systèmes embarqués critiques</h4>
+        <p>Approfondir mon expertise dans les domaines de la défense, l'aéronautique ou la mobilité autonome.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-num">03</div>
+        <h4>Dimension internationale</h4>
+        <p>Travailler dans un environnement multiculturel en mettant à profit mes compétences en langues.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-num">04</div>
+        <h4>Impact concret &amp; responsabilité</h4>
+        <p>Contribuer à des projets où la rigueur technique fait une différence réelle sur le terrain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap reveal">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-h">Travaillons ensemble</h2>
+      <p class="section-p" style="margin:1rem auto 0;">Vous avez un projet, une opportunité ou souhaitez simplement échanger ? Je suis disponible et ouvert à toute discussion.</p>
+
+      <div class="contact-cards">
+        <a href="mailto:mohamed.shimi30@gmail.com" class="c-card">
+          <span class="c-icon">✉️</span>
+          <div>
+            <span class="c-label">Email</span>
+            <span class="c-value">mohamed.shimi30@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/mohammed-s-himi" target="_blank" class="c-card">
+          <span class="c-icon">💼</span>
+          <div>
+            <span class="c-label">LinkedIn</span>
+            <span class="c-value">Mohammed S'himi</span>
+          </div>
+        </a>
+        <a href="tel:+33760136105" class="c-card">
+          <span class="c-icon">📱</span>
+          <div>
+            <span class="c-label">Téléphone</span>
+            <span class="c-value">07 60 13 61 05</span>
+          </div>
+        </a>
+        <div class="c-card" style="cursor:default;">
+          <span class="c-icon">📍</span>
+          <div>
+            <span class="c-label">Localisation</span>
+            <span class="c-value">Marseille</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GitHub link — à remplacer par ton vrai lien -->
+      <a href="https://github.com/MohammedShimi" target="_blank" class="github-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.11.793-.26.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+        Voir mon GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-flag">
+    <div class="mini-flag">
+      <span class="flag-b"></span>
+      <span class="flag-w"></span>
+      <span class="flag-r"></span>
+    </div>
+    Mohammed Shimi — Ingénieur ISEN
+  </div>
+  <p>© 2026 · Marseille, France</p>
+</footer>
+
+<!-- ══ SCROLL ANIMATIONS ══ -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
