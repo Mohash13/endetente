@@ -11,7 +11,7 @@
             --sidebar-bg: #FFFFFF;
             --text-main: #121212;
             --text-muted: #6B6B6B;
-            --accent: #0A1128; /* Bleu Marine Luxe */
+            --accent: #0A1128;
             --border: #EAEAEA;
             --gold: #C5A059;
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -20,290 +20,177 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); overflow: hidden; }
 
-        /* --- LAYOUT --- */
         .app-container { display: flex; height: 100vh; width: 100vw; }
 
-        /* SIDEBAR GAZETTE STYLE */
+        /* SIDEBAR */
         .sidebar {
             width: 320px; background: var(--sidebar-bg); border-right: 1px solid var(--border);
             display: flex; flex-direction: column; padding: 50px 40px; z-index: 100;
         }
-        .brand { margin-bottom: 60px; }
         .brand h1 { font-family: 'Syne'; font-size: 32px; line-height: 0.9; color: var(--accent); }
         .brand span { font-family: 'Playfair Display'; font-style: italic; font-size: 24px; color: var(--gold); display: block; margin-top: 5px; }
         
-        .countdown-box { margin-bottom: 50px; }
+        .countdown-box { margin: 50px 0; }
         .countdown-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 10px; }
         .countdown-val { font-family: 'Syne'; font-size: 28px; font-weight: 800; }
 
-        .nav-menu { flex-grow: 1; }
         .nav-item { 
             padding: 15px 0; font-size: 13px; font-weight: 600; text-transform: uppercase; 
             letter-spacing: 1px; color: var(--text-muted); cursor: pointer; transition: var(--transition);
             border-bottom: 1px solid transparent; display: block;
         }
-        .nav-item:hover, .nav-item.active { color: var(--accent); border-bottom: 1px solid var(--accent); }
+        .nav-item.active { color: var(--accent); border-bottom: 1px solid var(--accent); }
 
-        /* MAIN CANVAS */
+        /* MAIN CONTENT */
         .main-canvas { flex: 1; position: relative; overflow-y: auto; padding: 60px 80px; }
 
-        /* --- DASHBOARD ELEMENTS --- */
-        .hero-map {
-            width: 100%; height: 400px; background: #E5E2DE; margin-bottom: 50px;
-            display: flex; align-items: center; justify-content: center; position: relative;
-            overflow: hidden; border: 1px solid var(--border);
-        }
-        .map-overlay { position: absolute; inset: 0; background: url('https://www.transparenttextures.com/patterns/natural-paper.png'); opacity: 0.5; }
-        .map-title { font-family: 'Playfair Display'; font-size: 40px; z-index: 2; position: relative; text-align: center; }
-
         .stats-bar { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
             gap: 20px; margin-bottom: 60px; border-top: 1px solid var(--text-main); padding-top: 30px;
         }
         .stat-item .label { font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; }
-        .stat-item .val { font-family: 'Syne'; font-size: 22px; font-weight: 800; }
+        .stat-item .val { font-family: 'Syne'; font-size: 20px; font-weight: 800; }
 
-        /* COUNTRY CARDS */
         .country-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
         .country-card { 
             background: white; border: 1px solid var(--border); padding: 40px; 
-            cursor: pointer; transition: var(--transition); position: relative;
+            cursor: pointer; transition: var(--transition);
         }
-        .country-card:hover { transform: translateY(-10px); border-color: var(--gold); }
-        .country-card h3 { font-family: 'Syne'; font-size: 24px; margin-bottom: 15px; }
-        .country-card .meta { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; font-weight: 500; }
+        .country-card:hover { transform: translateY(-5px); border-color: var(--gold); }
 
-        /* MODAL SYSTEM */
+        /* MODAL */
         .modal { 
             display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.98); 
-            z-index: 1000; padding: 100px; overflow-y: auto;
+            z-index: 1000; padding: 60px 100px; overflow-y: auto;
         }
-        .modal.active { display: block; animation: slideIn 0.5s ease; }
-        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        
-        .close-modal { position: absolute; top: 50px; right: 50px; font-size: 30px; cursor: pointer; }
-
-        /* FORM ELEMENTS */
+        .modal.active { display: block; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px; }
         label { display: block; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; color: var(--gold); }
         input, select, textarea { 
             width: 100%; padding: 15px 0; border: none; border-bottom: 1px solid var(--border);
-            font-family: 'Inter'; font-size: 16px; outline: none; background: transparent;
+            font-size: 16px; outline: none; background: transparent;
         }
-        .btn-save { background: var(--accent); color: white; padding: 20px 40px; border: none; font-family: 'Syne'; cursor: pointer; margin-top: 30px; }
-
-        .sync-indicator { font-size: 11px; color: #00BA88; margin-top: 10px; font-weight: 600; display: none; }
+        .btn-save { background: var(--accent); color: white; padding: 20px 40px; border: none; font-family: 'Syne'; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="app-container">
         <aside class="sidebar">
-            <div class="brand">
-                <h1>MO&MI</h1>
-                <span>in ASIA</span>
-            </div>
-
+            <div class="brand"><h1>MO&MI</h1><span>in ASIA</span></div>
             <div class="countdown-box">
                 <div class="countdown-label">Départ dans</div>
-                <div class="countdown-val" id="timer">--j --h --m</div>
+                <div class="countdown-val" id="timer">-- Jours</div>
             </div>
-
             <nav class="nav-menu">
-                <div class="nav-item active" onclick="showView('main')">Dashboard</div>
-                <div class="nav-item" onclick="showView('logistics')">Vols & Logement</div>
-                <div class="nav-item" onclick="showView('expenses')">Dépenses</div>
-                <div class="nav-item" onclick="showView('bucket')">Bucket List</div>
+                <div class="nav-item active">Dashboard</div>
+                <div class="nav-item">Logistique</div>
+                <div class="nav-item">Dépenses</div>
             </nav>
         </aside>
 
-        <main class="main-canvas" id="view-container">
-            </main>
+        <main class="main-canvas">
+            <div id="dashboard-view">
+                <h2 style="font-family:'Syne'; font-size:48px; margin-bottom:40px;">The Odyssey Map.</h2>
+                <div class="stats-bar" id="stats-bar">
+                    </div>
+                <div class="country-grid" id="country-list">
+                    </div>
+            </div>
+        </main>
     </div>
 
     <div class="modal" id="country-modal">
-        <span class="close-modal" onclick="closeCountry()">✕</span>
-        <div style="max-width: 900px; margin: 0 auto;">
-            <h2 id="modal-country-name" style="font-family: 'Syne'; font-size: 60px; margin-bottom: 10px;">Pays</h2>
-            <p style="font-family: 'Playfair Display'; italic; font-size: 20px; margin-bottom: 60px;">Détails de l'étape et synchronisation.</p>
+        <div style="max-width: 900px; margin: 0 auto; position: relative;">
+            <span style="position:absolute; right:0; top:0; cursor:pointer; font-size:24px;" onclick="closeCountry()">✕</span>
+            <h2 id="m-title" style="font-family:'Syne'; font-size:60px; margin-bottom:40px;">Pays</h2>
             
             <div class="form-row">
-                <div>
-                    <label>Transport d'arrivée</label>
-                    <select id="m-transport">
-                        <option value="Avion">✈️ Avion</option>
-                        <option value="Ferry">⛵ Ferry</option>
-                        <option value="Bus">🚌 Bus</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Prix du transport (€)</label>
-                    <input type="number" id="m-trans-price" placeholder="0.00" onchange="autoSync()">
-                </div>
+                <div><label>Comment y aller (Transport)</label><input id="m-trans-type" placeholder="Ex: Vol AirAsia"></div>
+                <div><label>Budget Transport (€)</label><input type="number" id="m-trans-price" placeholder="0"></div>
             </div>
-
             <div class="form-row">
-                <div>
-                    <label>Hébergement (Nom)</label>
-                    <input type="text" id="m-hotel-name" placeholder="Nom de l'hôtel / Airbnb">
-                </div>
-                <div>
-                    <label>Prix Total Nuits (€)</label>
-                    <input type="number" id="m-hotel-price" placeholder="0.00" onchange="autoSync()">
-                </div>
+                <div><label>Où dormir (Hébergement)</label><input id="m-hotel-name" placeholder="Nom Hostel/Airbnb"></div>
+                <div><label>Budget Nuits (€)</label><input type="number" id="m-hotel-price" placeholder="0"></div>
             </div>
-
             <div class="form-row">
-                <div>
-                    <label>Statut</label>
-                    <select id="m-status">
-                        <option value="À réserver">⏳ À réserver</option>
-                        <option value="Réservé">✅ Réservé</option>
-                        <option value="Payé">💰 Payé</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Nombre de nuits estimé</label>
-                    <input type="number" id="m-nights" placeholder="4">
-                </div>
+                <div><label>Budget Nourriture (€/j)</label><input type="number" id="m-food-price" placeholder="15"></div>
+                <div><label>Quoi visiter</label><textarea id="m-visits" placeholder="Batu Caves, Street art..."></textarea></div>
             </div>
-
-            <label>Ce que l'on visite (Notes)</label>
-            <textarea id="m-notes" placeholder="Ex: Temples, Street food, Plongée..."></textarea>
-
-            <button class="btn-save" onclick="saveCountryData()">Enregistrer & Synchroniser</button>
-            <div class="sync-indicator" id="sync-ok">✓ Synchronisation automatique effectuée vers Logistique et Dépenses</div>
+            <button class="btn-save" onclick="saveData()">Enregistrer & Synchroniser</button>
         </div>
     </div>
 
     <script>
-        // --- CONFIGURATION & DATA ---
-        const BUDGET_BASE = 10000; // 5000 x 2 [cite: 76, 77]
-        let travelData = JSON.parse(localStorage.getItem('momi_asia_core')) || {
-            countries: {
-                "Malaisie": { trans: 0, hotel: 0, nights: 6, cities: 2, status: "Planning", notes: "" },
-                "Singapour": { trans: 0, hotel: 0, nights: 2, cities: 1, status: "Planning", notes: "" },
-                "Indonésie": { trans: 0, hotel: 0, nights: 14, cities: 4, status: "Planning", notes: "" },
-                "Vietnam": { trans: 0, hotel: 0, nights: 2, cities: 1, status: "Planning", notes: "" },
-                "Thaïlande": { trans: 0, hotel: 0, nights: 22, cities: 3, status: "Planning", notes: "" }
-            },
-            vols: [],
-            totalKm: 12450
-        };
+        const BUDGET_BASE = 10000;
+        let activeIdx = null;
+        let data = JSON.parse(localStorage.getItem('momi_data')) || [
+            { name: "Kuala Lumpur", country: "Malaisie", nights: 2, trans: "Vol", tPrice: 800, hotel: "Airbnb", hPrice: 30, food: 20, visits: "Batu Caves, Jalan Alor" },
+            { name: "Penang", country: "Malaisie", nights: 2, trans: "Bus", tPrice: 5, hotel: "Hostel", hPrice: 30, food: 15, visits: "Street art" },
+            { name: "Singapour", country: "Singapour", nights: 2, trans: "Bus", tPrice: 20, hotel: "Hostel", hPrice: 90, food: 40, visits: "Gardens by the Bay" },
+            { name: "Bali", country: "Indonésie", nights: 7, trans: "Vol", tPrice: 75, hotel: "Airbnb", hPrice: 175, food: 25, visits: "Ubud, Surf Canggu" },
+            { name: "Lombok", country: "Indonésie", nights: 7, trans: "Boat", tPrice: 30, hotel: "Bungalow", hPrice: 140, food: 20, visits: "Gili Air, Rinjani" },
+            { name: "Ho Chi Minh", country: "Vietnam", nights: 2, trans: "Vol", tPrice: 70, hotel: "Hostel", hPrice: 25, food: 15, visits: "Cu Chi" },
+            { name: "Bangkok", country: "Thaïlande", nights: 2, trans: "Vol", tPrice: 45, hotel: "Hostel", hPrice: 35, food: 20, visits: "Wat Pho" },
+            { name: "Koh Tao", country: "Thaïlande", nights: 7, trans: "Ferry", tPrice: 25, hotel: "Bungalow", hPrice: 140, food: 20, visits: "PADI Open Water" },
+            { name: "Krabi", country: "Thaïlande", nights: 7, trans: "Ferry", tPrice: 30, hotel: "Guest House", hPrice: 140, food: 20, visits: "Railay Beach" }
+        ];
 
-        let currentCountry = "";
-
-        // --- DASHBOARD RENDER ---
-        function renderDashboard() {
-            const container = document.getElementById('view-container');
+        function render() {
+            let spent = 0, nights = 0, cities = data.length;
+            const grid = document.getElementById('country-list');
+            grid.innerHTML = "";
             
-            // Calculs dynamiques
-            let totalSpent = 0;
-            let totalNights = 0;
-            let totalCities = 0;
-            Object.values(travelData.countries).forEach(c => {
-                totalSpent += (Number(c.trans) + Number(c.hotel));
-                totalNights += Number(c.nights);
-                totalCities += Number(c.cities);
+            data.forEach((item, i) => {
+                let cost = Number(item.tPrice) + Number(item.hPrice) + (Number(item.food) * item.nights);
+                spent += cost;
+                nights += item.nights;
+                grid.innerHTML += `
+                    <div class="country-card" onclick="openModal(${i})">
+                        <div style="font-size:10px; color:var(--gold); font-weight:800; margin-bottom:5px;">${item.country.toUpperCase()}</div>
+                        <h3>${item.name}</h3>
+                        <div style="font-size:12px; color:var(--text-muted);">${item.nights} nuits · ${item.trans}</div>
+                        <div style="margin-top:20px; font-weight:800;">Budget Stop : ${cost} €</div>
+                    </div>`;
             });
 
-            container.innerHTML = `
-                <div class="hero-map">
-                    <div class="map-overlay"></div>
-                    <h2 class="map-title">Marseille → Kuala Lumpur → Bali → Bangkok</h2>
-                </div>
-
-                <div class="stats-bar">
-                    <div class="stat-item"><div class="label">Jours Estimés</div><div class="val">${totalNights} Jours</div></div>
-                    <div class="stat-item"><div class="label">Pays</div><div class="val">5</div></div>
-                    <div class="stat-item"><div class="label">Villes</div><div class="val">${totalCities}</div></div>
-                    <div class="stat-item"><div class="label">KM Traversés</div><div class="val">${travelData.totalKm.toLocaleString()} KM</div></div>
-                    <div class="stat-item"><div class="label">Budget Restant</div><div class="val" style="color:var(--gold)">${(BUDGET_BASE - totalSpent).toLocaleString()} €</div></div>
-                    <div class="stat-item"><div class="label">Argent Dépensé</div><div class="val">${totalSpent.toLocaleString()} €</div></div>
-                </div>
-
-                <div class="country-grid">
-                    ${Object.keys(travelData.countries).map(name => `
-                        <div class="country-card" onclick="openCountry('${name}')">
-                            <h3>${name}</h3>
-                            <div class="meta">${travelData.countries[name].nights} nuits · ${travelData.countries[name].status}</div>
-                            <div style="font-size:11px; font-weight:700; color:var(--text-muted)">ENGAGÉ : ${(Number(travelData.countries[name].trans) + Number(travelData.countries[name].hotel))} €</div>
-                        </div>
-                    `).join('')}
-                </div>
+            document.getElementById('stats-bar').innerHTML = `
+                <div class="stat-item"><div class="label">Jours</div><div class="val">${nights}</div></div>
+                <div class="stat-item"><div class="label">Villes</div><div class="val">${cities}</div></div>
+                <div class="stat-item"><div class="label">Budget Restant</div><div class="val" style="color:var(--gold)">${BUDGET_BASE - spent} €</div></div>
+                <div class="stat-item"><div class="label">Dépensé</div><div class="val">${spent} €</div></div>
             `;
-            updateTimer();
+            
+            const diff = new Date('2026-07-01') - new Date();
+            document.getElementById('timer').innerText = Math.floor(diff / (1000*60*60*24)) + " Jours";
+            localStorage.setItem('momi_data', JSON.stringify(data));
         }
 
-        // --- INTERACTION ---
-        function openCountry(name) {
-            currentCountry = name;
-            const data = travelData.countries[name];
-            document.getElementById('modal-country-name').innerText = name;
-            document.getElementById('m-trans-price').value = data.trans;
-            document.getElementById('m-hotel-price').value = data.hotel;
-            document.getElementById('m-nights').value = data.nights;
-            document.getElementById('m-notes').value = data.notes;
-            document.getElementById('m-status').value = data.status;
+        function openModal(i) {
+            activeIdx = i;
+            document.getElementById('m-title').innerText = data[i].name;
+            document.getElementById('m-trans-type').value = data[i].trans;
+            document.getElementById('m-trans-price').value = data[i].tPrice;
+            document.getElementById('m-hotel-name').value = data[i].hotel;
+            document.getElementById('m-hotel-price').value = data[i].hPrice;
+            document.getElementById('m-food-price').value = data[i].food;
+            document.getElementById('m-visits').value = data[i].visits;
             document.getElementById('country-modal').classList.add('active');
         }
 
-        function closeCountry() {
-            document.getElementById('country-modal').classList.remove('active');
-            document.getElementById('sync-ok').style.display = 'none';
+        function saveData() {
+            data[activeIdx].trans = document.getElementById('m-trans-type').value;
+            data[activeIdx].tPrice = document.getElementById('m-trans-price').value;
+            data[activeIdx].hotel = document.getElementById('m-hotel-name').value;
+            data[activeIdx].hPrice = document.getElementById('m-hotel-price').value;
+            data[activeIdx].food = document.getElementById('m-food-price').value;
+            data[activeIdx].visits = document.getElementById('m-visits').value;
+            closeCountry();
+            render();
         }
 
-        function saveCountryData() {
-            travelData.countries[currentCountry] = {
-                trans: document.getElementById('m-trans-price').value,
-                hotel: document.getElementById('m-hotel-price').value,
-                nights: document.getElementById('m-nights').value,
-                notes: document.getElementById('m-notes').value,
-                status: document.getElementById('m-status').value,
-                cities: travelData.countries[currentCountry].cities // garde l'existant
-            };
-            
-            localStorage.setItem('momi_asia_core', JSON.stringify(travelData));
-            document.getElementById('sync-ok').style.display = 'block';
-            setTimeout(() => {
-                closeCountry();
-                renderDashboard();
-            }, 1000);
-        }
-
-        function autoSync() {
-            // Effet visuel de synchro en temps réel
-            console.log("Synchronisation en cours vers les modules Budget et Logistique...");
-        }
-
-        function updateTimer() {
-            const depart = new Date('2026-07-01');
-            const now = new Date();
-            const diff = depart - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('timer').innerText = days + " Jours";
-        }
-
-        // --- NAVIGATION ---
-        function showView(type) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            if(type === 'main') renderDashboard();
-            else {
-                document.getElementById('view-container').innerHTML = `
-                    <div class="header" style="margin-bottom:40px">
-                        <h2 style="font-family:'Syne'; font-size:40px">${type.toUpperCase()}</h2>
-                        <p style="color:var(--text-muted)">Synchronisation en direct avec les données pays.</p>
-                    </div>
-                    <div style="background:white; padding:40px; border:1px solid var(--border)">
-                        Liste synchronisée des réservations, vols et paiements... (Données chargées)
-                    </div>
-                `;
-            }
-        }
-
-        window.onload = renderDashboard;
+        function closeCountry() { document.getElementById('country-modal').classList.remove('active'); }
+        window.onload = render;
     </script>
 </body>
 </html>
