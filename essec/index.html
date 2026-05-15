@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* --- DESIGN SYSTEM & CSS VARIABLES --- */
@@ -30,11 +30,11 @@
             --sidebar-width: 280px;
         }
 
-        /* --- RESET & BASE STYLES --- */
+        /* --- RESET & LAYOUT CONTROL --- */
         * {
             margin: 0;
             padding: 0;
-            box-box-sizing: border-box;
+            box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -42,14 +42,15 @@
             background-color: var(--bg-cream);
             color: var(--dark-pure);
             font-family: var(--ff-body);
-            overflow-x: hidden;
-            line-height: 1.6;
+            overflow: hidden; /* Empêche le scroll global pour éviter les débordements d'écran */
+            line-height: 1.5;
+            height: 100vh;
         }
 
-        /* --- LAYOUT STRUCTURE --- */
         .app-container {
             display: flex;
-            min-height: 100vh;
+            height: 100vh;
+            width: 100vw;
         }
 
         /* --- FIXED SIDEBAR --- */
@@ -57,25 +58,21 @@
             width: var(--sidebar-width);
             background-color: var(--navy-premium);
             color: var(--white);
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
             display: flex;
             flex-direction: column;
-            padding: 2.5rem 1.75rem;
-            z-index: 100;
+            padding: 2rem 1.5rem;
+            flex-shrink: 0;
             border-right: 1px solid rgba(255,255,255,0.05);
-            transition: var(--transition-smooth);
+            justify-content: space-between;
         }
 
         .brand-zone {
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .brand-logo {
             font-family: var(--ff-title);
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             font-weight: 800;
             letter-spacing: 2px;
             color: var(--white);
@@ -85,27 +82,25 @@
         .brand-subtitle {
             font-family: var(--ff-serif);
             font-style: italic;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--gold-premium);
             margin-top: 0.25rem;
         }
 
-        /* Sidebar Live KPIs */
         .sidebar-widgets {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border-left: 2px solid var(--gold-premium);
-            padding: 1rem;
-            margin-bottom: 2rem;
-            border-radius: 0 4px 4px 0;
+            padding: 0.85rem;
+            margin-bottom: 1.5rem;
         }
 
         .widget-item {
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
         .widget-item:last-child { margin-bottom: 0; }
 
         .widget-label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--gray-muted);
@@ -113,27 +108,25 @@
 
         .widget-value {
             font-family: var(--ff-title);
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
-            color: var(--bg-cream);
         }
 
-        /* Navigation Menu */
         nav.sidebar-nav {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.35rem;
+            gap: 0.25rem;
+            overflow-y: auto;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            padding: 0.75rem 1rem;
+            padding: 0.65rem 0.85rem;
             color: var(--gray-light);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 400;
+            font-size: 0.85rem;
             border-radius: 4px;
             transition: var(--transition-smooth);
             letter-spacing: 0.5px;
@@ -142,65 +135,63 @@
         .nav-link:hover, .nav-link.active {
             background-color: rgba(255, 255, 255, 0.07);
             color: var(--white);
-            padding-left: 1.25rem;
         }
         
         .nav-link.active {
             border-right: 3px solid var(--gold-premium);
+            font-weight: 600;
         }
 
-        .mobile-toggle {
-            display: none;
-        }
-
-        /* --- MAIN CONTENT AREA --- */
+        /* --- MAIN VIEWPORT WITH SCROLL ISOLATION --- */
         main.main-content {
-            margin-left: var(--sidebar-width);
             flex-grow: 1;
-            padding: 3rem 4rem;
-            transition: var(--transition-smooth);
+            padding: 2.5rem 3rem;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow-y: auto; /* Seul le contenu défile si nécessaire */
         }
 
-        /* --- HEADER COMPONENT --- */
+        /* --- MAIN HEADER --- */
         header.main-header {
             border-bottom: 1px solid var(--gray-light);
-            padding-bottom: 2rem;
-            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            flex-shrink: 0;
         }
 
         .header-titles h1 {
             font-family: var(--ff-title);
-            font-size: 2.75rem;
+            font-size: 2.25rem;
             font-weight: 700;
             text-transform: uppercase;
             line-height: 1.1;
-            letter-spacing: -1px;
         }
 
         .header-titles p {
             font-family: var(--ff-serif);
             font-style: italic;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--gold-premium);
-            margin-top: 0.5rem;
+            margin-top: 0.25rem;
         }
 
         .header-stats {
             display: flex;
-            gap: 3rem;
+            gap: 2.5rem;
         }
 
         .header-stat-block .stat-val {
             font-family: var(--ff-title);
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 700;
         }
 
         .header-stat-block .stat-lbl {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             color: var(--gray-muted);
             letter-spacing: 1px;
@@ -209,89 +200,76 @@
         /* --- VIEW MANAGEMENT --- */
         .app-view {
             display: none;
-            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            height: 100%;
         }
 
         .app-view.active-view {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- PREMIUM CARDS & COMPONENTS --- */
+        /* --- CARDS & GRIDS (COMPACT & CLEAN) --- */
         .luxury-card {
             background: var(--white);
             border: 1px solid var(--gray-light);
-            padding: 2.5rem;
-            border-radius: 0px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.01);
+            padding: 2rem;
+            margin-bottom: 1.75rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
             position: relative;
         }
 
         .card-title-editorial {
             font-family: var(--ff-title);
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             border-bottom: 1px solid var(--dark-pure);
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.4rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* Hero Layout Grid */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 1.75rem;
         }
 
-        /* KPIs Ribbon Grid */
         .kpi-ribbon {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
         }
 
         .kpi-box {
             background: var(--white);
             border: 1px solid var(--gray-light);
-            padding: 1.5rem;
+            padding: 1.25rem;
             text-align: center;
         }
 
         .kpi-box .num {
             font-family: var(--ff-title);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--navy-premium);
         }
 
         .kpi-box .lbl {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             color: var(--gray-muted);
-            letter-spacing: 1px;
             margin-top: 0.25rem;
         }
 
-        /* ROUTE MAP WORKAROUND (Minimalist Vector Art Aesthetic) */
+        /* --- MAP ARTWORK COMPONENT --- */
         .map-container {
-            height: 320px;
-            background: #0f1626;
+            height: 380px;
+            background: #090E1A;
             position: relative;
-            overflow: hidden;
             border: 1px solid var(--dark-pure);
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .map-svg-layer {
@@ -299,171 +277,78 @@
             height: 100%;
         }
 
-        /* TIMELINE LUXE */
+        /* --- TIMELINE --- */
         .timeline-vertical {
             position: relative;
-            padding-left: 2rem;
+            padding-left: 1.5rem;
             border-left: 1px solid var(--gold-premium);
+            max-height: 380px;
+            overflow-y: auto;
         }
 
         .timeline-item {
             position: relative;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: calc(-2rem - 5px);
+            left: calc(-1.5rem - 4px);
             top: 6px;
-            width: 9px;
-            height: 9px;
+            width: 7px;
+            height: 7px;
             background: var(--dark-pure);
             border: 2px solid var(--gold-premium);
             border-radius: 50%;
         }
 
         .timeline-meta {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
             color: var(--gold-premium);
             font-weight: 600;
         }
 
         .timeline-title {
             font-family: var(--ff-title);
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             text-transform: uppercase;
-            margin: 0.25rem 0;
         }
 
-        .timeline-desc {
-            font-size: 0.9rem;
-            color: var(--navy-secondary);
-        }
-
-        /* --- DESTINATIONS GRID & CARDS --- */
-        .destinations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .destination-card {
-            background: var(--dark-pure);
-            color: var(--white);
-            height: 400px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 2rem;
-            cursor: pointer;
-            overflow: hidden;
-            border: 1px solid transparent;
-            transition: var(--transition-smooth);
-        }
-
-        .destination-card:hover {
-            border-color: var(--gold-premium);
-            transform: translateY(-4px);
-        }
-
-        .dest-bg {
-            position: absolute;
-            top:0; left:0; width:100%; height:100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.4;
-            mix-blend-mode: luminosity;
-            transition: var(--transition-smooth);
-        }
-
-        .destination-card:hover .dest-bg {
-            opacity: 0.6;
-            scale: 1.05;
-        }
-
-        .dest-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .dest-content h3 {
-            font-family: var(--ff-title);
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
-
-        .dest-content p {
-            font-family: var(--ff-serif);
-            font-style: italic;
-            color: var(--gold-premium);
-            font-size: 1rem;
-        }
-
-        /* --- BUDGET SYSTEM ELEMENTS --- */
-        .budget-dashboard-layout {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2.5rem;
-        }
-
-        .progress-bar-container {
-            background: var(--gray-light);
-            height: 6px;
-            width: 100%;
-            margin-top: 0.5rem;
-            position: relative;
-        }
-
-        .progress-bar-fill {
-            background: var(--navy-premium);
-            height: 100%;
-            width: 0%;
-            transition: width 0.8s ease;
-        }
-        
-        .progress-bar-fill.gold {
-            background: var(--gold-premium);
-        }
-
+        /* --- TABLES & INTERACTIVE FORMS --- */
         .premium-table-wrapper {
             overflow-x: auto;
+            max-height: 450px;
         }
 
         table.premium-table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            margin-top: 1rem;
         }
 
         table.premium-table th {
-            padding: 1rem;
-            font-size: 0.75rem;
+            padding: 0.85rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
             border-bottom: 2px solid var(--dark-pure);
             color: var(--gray-muted);
         }
 
         table.premium-table td {
-            padding: 1.25rem 1rem;
+            padding: 1rem 0.85rem;
             border-bottom: 1px solid var(--gray-light);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
-        /* Buttons & CTA */
         .btn-premium {
             background: var(--dark-pure);
             color: var(--white);
             border: 1px solid var(--dark-pure);
-            padding: 0.75rem 1.5rem;
+            padding: 0.6rem 1.25rem;
             font-family: var(--ff-title);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
@@ -473,213 +358,165 @@
         .btn-premium:hover {
             background: transparent;
             color: var(--dark-pure);
-            border-color: var(--dark-pure);
         }
 
-        /* --- NOTION STYLE TEXTAREA --- */
-        .notion-textarea {
-            width: 100%;
-            min-height: 400px;
+        .btn-danger {
             background: transparent;
+            color: #C1121F;
             border: none;
-            outline: none;
-            font-family: var(--ff-body);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--dark-pure);
-            resize: vertical;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-transform: uppercase;
         }
 
-        /* --- PREMIUM FULLSCREEN MODAL / EDITOR --- */
-        .fullscreen-modal {
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* --- FULLSCREEN COMPACT MODALS --- */
+        .fullscreen-modal, .overlay-modal {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background: var(--bg-cream);
             z-index: 500;
             display: none;
             overflow-y: auto;
-            padding: 4rem;
-            animation: modalFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            padding: 3rem;
         }
 
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(1.02); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .modal-close-trigger {
-            position: absolute;
-            top: 3rem; right: 4rem;
-            font-family: var(--ff-title);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            border-bottom: 1px solid var(--dark-pure);
-        }
-
-        /* Form Controls */
-        .form-group-premium {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group-premium label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .form-group-premium input, .form-group-premium select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--gray-light);
-            background: var(--white);
-            font-family: var(--ff-body);
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-
-        .form-group-premium input:focus {
-            border-color: var(--dark-pure);
-        }
-
-        /* Grid Framework for Modal Editors */
-        .editor-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-
-        /* Checklist Component */
-        .luxury-checklist-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .luxury-checklist-item input[type="checkbox"] {
-            accent-color: var(--gold-premium);
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        /* Generic Overlay Modal (For Quick expense add) */
         .overlay-modal {
-            position: fixed;
-            top:0; left:0; width:100vw; height:100vh;
-            background: rgba(11, 17, 40, 0.6);
+            background: rgba(10, 17, 40, 0.5);
             backdrop-filter: blur(8px);
-            z-index: 600;
-            display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0; pointer-events: none;
-            transition: var(--transition-smooth);
         }
 
         .overlay-modal.active {
-            opacity: 1; pointer-events: auto;
+            display: flex;
         }
 
         .overlay-card {
             background: var(--bg-cream);
             width: 100%;
-            max-width: 550px;
-            padding: 3rem;
-            position: relative;
+            max-width: 500px;
+            padding: 2.5rem;
+            border: 1px solid var(--dark-pure);
         }
 
-        /* --- RESPONSIVE RESPONSES --- */
+        .modal-close-trigger {
+            position: absolute;
+            top: 2rem; right: 3rem;
+            font-family: var(--ff-title);
+            text-transform: uppercase;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-bottom: 1px solid var(--dark-pure);
+        }
+
+        .form-group-premium {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group-premium label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+
+        .form-group-premium input, .form-group-premium select {
+            width: 100%;
+            padding: 0.65rem;
+            border: 1px solid var(--gray-light);
+            font-family: var(--ff-body);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .editor-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .progress-bar-container {
+            background: var(--gray-light);
+            height: 5px;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .progress-bar-fill {
+            background: var(--dark-pure);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .notion-textarea {
+            width: 100%;
+            height: 350px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: var(--ff-body);
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: none;
+        }
+
+        .mobile-toggle { display: none; }
+
         @media(max-width: 1024px) {
-            aside.sidebar {
-                transform: translateX(-100%);
-            }
-            aside.sidebar.mobile-open {
-                transform: translateX(0);
-            }
-            main.main-content {
-                margin-left: 0;
-                padding: 2rem;
-            }
-            .mobile-toggle {
-                display: block;
-                position: fixed;
-                bottom: 2rem; right: 2rem;
-                background: var(--navy-premium);
-                color: var(--white);
-                padding: 1rem;
-                border-radius: 50%;
-                z-index: 1000;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                cursor: pointer;
-                font-family: var(--ff-title);
-                font-size: 0.8rem;
-            }
-            .dashboard-grid, .budget-dashboard-layout, .editor-grid {
-                grid-template-columns: 1fr;
-            }
-            header.main-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1.5rem;
-            }
-            .fullscreen-modal {
-                padding: 2rem;
-            }
+            body { overflow: auto; height: auto; }
+            .app-container { flex-direction: column; height: auto; }
+            aside.sidebar { width: 100%; height: auto; }
+            main.main-content { height: auto; padding: 1.5rem; overflow: visible; }
+            .dashboard-grid, .editor-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Mobile Navigation Trigger Toggle -->
-    <div class="mobile-toggle" onclick="toggleMobileSidebar()">MENU</div>
-
     <div class="app-container">
         
-        <!-- SIDEBAR COMPONENT -->
+        <!-- SIDEBAR -->
         <aside class="sidebar" id="sidebar">
             <div class="brand-zone">
                 <div class="brand-logo">MO&MI in ASIA</div>
                 <div class="brand-subtitle">Luxury Command Center</div>
             </div>
 
-            <!-- Dynamic Live Widgets -->
             <div class="sidebar-widgets">
                 <div class="widget-item">
-                    <div class="widget-label">Compte à Rebours</div>
-                    <div class="widget-value" id="sidebar-countdown">00d 00h 00m</div>
+                    <div class="widget-label">Départ Horizon</div>
+                    <div class="widget-value" id="sidebar-countdown">00j 00h</div>
                 </div>
-                <div class="widget-item" style="margin-top: 1rem;">
-                    <div class="widget-label">Solde Restant</div>
+                <div class="widget-item" style="margin-top: 0.75rem;">
+                    <div class="widget-label">Budget Restant</div>
                     <div class="widget-value" id="sidebar-balance" style="color: var(--gold-premium);">10 000,00 €</div>
                 </div>
             </div>
 
-            <!-- Global Internal Router Architecture Links -->
             <nav class="sidebar-nav">
                 <a href="#dashboard" class="nav-link active" onclick="switchView('dashboard')">Dashboard</a>
-                <a href="#destinations" class="nav-link" onclick="switchView('destinations')">Destinations</a>
-                <a href="#logistique" class="nav-link" onclick="switchView('logistique')">Logistique</a>
-                <a href="#depenses" class="nav-link" onclick="switchView('depenses')">Dépenses & Budget</a>
+                <a href="#stops" class="nav-link" onclick="switchView('stops')">Gestion des Étapes (Stops)</a>
+                <a href="#logistique" class="nav-link" onclick="switchView('logistique')">Logistique & Vols</a>
+                <a href="#depenses" class="nav-link" onclick="switchView('depenses')">Fonds & Dépenses</a>
                 <a href="#hebergements" class="nav-link" onclick="switchView('hebergements')">Hébergements</a>
-                <a href="#restaurants" class="nav-link" onclick="switchView('restaurants')">Restaurants</a>
-                <a href="#activites" class="nav-link" onclick="switchView('activites')">Activités</a>
-                <a href="#notes" class="nav-link" onclick="switchView('notes')">Notes Éditoriales</a>
+                <a href="#restaurants" class="nav-link" onclick="switchView('restaurants')">Gastronomie</a>
+                <a href="#activites" class="nav-link" onclick="switchView('activites')">Expériences</a>
+                <a href="#notes" class="nav-link" onclick="switchView('notes')">Notes</a>
             </nav>
         </aside>
 
         <!-- MAIN CONTAINER -->
         <main class="main-content">
             
-            <!-- VIEW DECORATOR HEADER -->
             <header class="main-header">
                 <div class="header-titles">
                     <h1 id="header-main-title">Grand Horizon</h1>
@@ -688,223 +525,255 @@
                 <div class="header-stats">
                     <div class="header-stat-block">
                         <div class="stat-val" id="stat-progress-pct">0%</div>
-                        <div class="stat-lbl">Progression</div>
+                        <div class="stat-lbl">Fonds Engagés</div>
                     </div>
                     <div class="header-stat-block">
-                        <div class="stat-val" id="stat-cities-count">11</div>
-                        <div class="stat-lbl">Villes Cibles</div>
+                        <div class="stat-val" id="stat-cities-count">0</div>
+                        <div class="stat-lbl">Stops Actifs</div>
                     </div>
                 </div>
             </header>
 
-            <!-- ================= VIEW: DASHBOARD ================= -->
+            <!-- VIEW: DASHBOARD -->
             <section id="view-dashboard" class="app-view active-view">
                 <div class="kpi-ribbon">
-                    <div class="kpi-box"><div class="num" id="kpi-budget-initial">10 000 €</div><div class="lbl">Allocation</div></div>
-                    <div class="kpi-box"><div class="num" id="kpi-budget-remaining">10 000 €</div><div class="lbl">Restant</div></div>
-                    <div class="kpi-box"><div class="num" id="kpi-expenses">0 €</div><div class="lbl">Dépenses</div></div>
-                    <div class="kpi-box"><div class="num">5</div><div class="lbl">Pays Visités</div></div>
-                    <div class="kpi-box"><div class="num" id="kpi-nights">32</div><div class="lbl">Nuits Total</div></div>
+                    <div class="kpi-box"><div class="num">10 000 €</div><div class="lbl">Allocation Dotation</div></div>
+                    <div class="kpi-box"><div class="num" id="kpi-budget-remaining">10 000 €</div><div class="lbl">Ressources Libres</div></div>
+                    <div class="kpi-box"><div class="num" id="kpi-expenses">0 €</div><div class="lbl">Total Sécurisé</div></div>
+                    <div class="kpi-box"><div class="num" id="kpi-stops-count">0</div><div class="lbl">Destinations</div></div>
                 </div>
 
                 <div class="dashboard-grid">
-                    <!-- Column Left: Map & Route Narrative -->
-                    <div class="left-col">
-                        <div class="luxury-card">
-                            <h2 class="card-title-editorial">Cartographie de l'Itinéraire Premium</h2>
-                            <div class="map-container">
-                                <!-- Clean UI Minimalist Route Graphic (SVG Canvas Map Interface Concept) -->
-                                <svg class="map-svg-layer" viewBox="0 0 800 400">
-                                    <path d="M 50,300 Q 150,220 220,200 T 380,260 T 500,280 T 680,180 T 750,150" fill="none" stroke="#C5A059" stroke-width="2" stroke-dasharray="6,4"/>
-                                    <!-- City Anchor Nodes -->
-                                    <circle cx="50" cy="300" r="5" fill="#111" stroke="#C5A059" stroke-width="2"/>
-                                    <circle cx="220" cy="200" r="4" fill="#FFF" stroke="#111" stroke-width="2"/>
-                                    <circle cx="380" cy="260" r="4" fill="#FFF" stroke="#111" stroke-width="2"/>
-                                    <circle cx="500" cy="280" r="4" fill="#FFF" stroke="#111" stroke-width="2"/>
-                                    <circle cx="680" cy="180" r="4" fill="#FFF" stroke="#111" stroke-width="2"/>
-                                    <circle cx="750" cy="150" r="5" fill="#C5A059"/>
-                                    <text x="55" y="305" fill="#fff" font-size="10" font-family="Syne">MRS</text>
-                                    <text x="225" y="195" fill="#fff" font-size="10" font-family="Syne">KUL</text>
-                                    <text x="385" y="255" fill="#fff" font-size="10" font-family="Syne">SIN</text>
-                                    <text x="505" y="295" fill="#fff" font-size="10" font-family="Syne">DPS</text>
-                                    <text x="685" y="175" fill="#fff" font-size="10" font-family="Syne">SGN</text>
-                                    <text x="710" y="140" fill="#fff" font-size="10" font-family="Syne">BKK</text>
-                                </svg>
-                            </div>
+                    <div class="luxury-card">
+                        <h2 class="card-title-editorial">Cartographie Vectorielle Exclusive</h2>
+                        <div class="map-container">
+                            <svg class="map-svg-layer" viewBox="0 0 800 450">
+                                <!-- Background grid stylisée -->
+                                <line x1="0" y1="100" x2="800" y2="100" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                                <line x1="0" y1="200" x2="800" y2="200" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                                <line x1="0" y1="300" x2="800" y2="300" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                                <line x1="0" y1="400" x2="800" y2="400" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                                
+                                <!-- Trajectoire principale Terre / Asie -->
+                                <path d="M 60,350 Q 180,220 280,190 T 420,240 T 540,310 T 660,180 T 740,120" fill="none" stroke="#C5A059" stroke-width="2.5" stroke-dasharray="8,4" id="map-curve"/>
+                                
+                                <!-- Noeuds géographiques fixes stylisés -->
+                                <circle cx="60" cy="350" r="6" fill="#111" stroke="#C5A059" stroke-width="2"/>
+                                <text x="75" y="355" fill="#8E8E93" font-size="11" font-family="Syne">MARSEILLE</text>
+
+                                <circle cx="280" cy="190" r="4" fill="#FFF" stroke="#C5A059" stroke-width="1.5"/>
+                                <text x="295" y="190" fill="#FFF" font-size="10" font-family="Inter">Kuala Lumpur</text>
+
+                                <circle cx="420" cy="240" r="4" fill="#FFF" stroke="#C5A059" stroke-width="1.5"/>
+                                <text x="435" y="240" fill="#FFF" font-size="10" font-family="Inter">Singapour</text>
+
+                                <circle cx="540" cy="310" r="4" fill="#FFF" stroke="#C5A059" stroke-width="1.5"/>
+                                <text x="555" y="315" fill="#FFF" font-size="10" font-family="Inter">Bali / Lombok</text>
+
+                                <circle cx="660" cy="180" r="4" fill="#FFF" stroke="#C5A059" stroke-width="1.5"/>
+                                <text x="675" y="180" fill="#FFF" font-size="10" font-family="Inter">Ho Chi Minh</text>
+
+                                <circle cx="740" cy="120" r="6" fill="#C5A059" stroke="#FFF" stroke-width="1"/>
+                                <text x="670" y="115" fill="#C5A059" font-size="11" font-family="Syne">BANGKOK</text>
+                            </svg>
                         </div>
                     </div>
 
-                    <!-- Column Right: Timeline Luxe -->
-                    <div class="right-col">
-                        <div class="luxury-card">
-                            <h2 class="card-title-editorial">Chronologie de Vol</h2>
-                            <div class="timeline-vertical" id="dashboard-timeline">
-                                <!-- Injected dynamically via JS rendering engine -->
-                            </div>
+                    <div class="luxury-card">
+                        <h2 class="card-title-editorial">Chronologie Horlogère des Stops</h2>
+                        <div class="timeline-vertical" id="dashboard-timeline">
+                            <!-- Injecté par le JS -->
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ================= VIEW: DESTINATIONS ================= -->
-            <section id="view-destinations" class="app-view">
-                <div class="destinations-grid" id="destinations-wrapper">
-                    <!-- Standard Injection Template Elements loaded automatically -->
-                </div>
-            </section>
-
-            <!-- ================= VIEW: LOGISTIQUE ================= -->
-            <section id="view-logistique" class="app-view">
+            <!-- VIEW: STOPS (AJOUT / EDITION COMPLETE) -->
+            <section id="view-stops" class="app-view">
                 <div class="luxury-card">
-                    <h2 class="card-title-editorial">Manifeste de Transit Logistique</h2>
+                    <div class="card-title-editorial">
+                        <span>Registre Central des Escales & Villes</span>
+                        <button class="btn-premium" onclick="openNewCityModal()">+ Ajouter une Ville / Étape</button>
+                    </div>
                     <div class="premium-table-wrapper">
                         <table class="premium-table">
                             <thead>
                                 <tr>
-                                    <th>Étape / Ville</th>
-                                    <th>Type</th>
-                                    <th>Opérateur / Compagnie</th>
-                                    <th>Horaires</th>
-                                    <th>Tarification</th>
-                                    <th>Statut</th>
+                                    <th>Ville Étape</th>
+                                    <th>Pays Terroir</th>
+                                    <th>Hébergement Prévu</th>
+                                    <th>Transit Opérationnel</th>
+                                    <th>Budget Global (€)</th>
+                                    <th style="text-align:right;">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="logistique-table-body">
-                                <!-- Populated automatically by system processing engine -->
+                            <tbody id="stops-table-body">
+                                <!-- Contenu dynamique -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <!-- ================= VIEW: DÉPENSES & BUDGET ================= -->
+            <!-- VIEW: LOGISTIQUE -->
+            <section id="view-logistique" class="app-view">
+                <div class="luxury-card">
+                    <h2 class="card-title-editorial">Manifeste Global de Transit Terrestre & Aérien</h2>
+                    <div class="premium-table-wrapper">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Ville Cible</th>
+                                    <th>Vecteur</th>
+                                    <th>Compagnie / Ligne</th>
+                                    <th>Planification Horaire</th>
+                                    <th>Tarification Directe</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logistique-table-body">
+                                <!-- Rempli dynamiquement -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: DEPENSES & BUDGET -->
             <section id="view-depenses" class="app-view">
-                <div class="budget-dashboard-layout">
-                    <div>
-                        <div class="luxury-card">
-                            <h2 class="card-title-editorial">Contrôle de Caisse</h2>
-                            <button class="btn-premium" style="width: 100%; margin-bottom: 2rem;" onclick="openAddExpenseModal()">Déclarer une Dépense</button>
-                            
-                            <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-muted);">Allocation Exploitation</p>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar-fill" id="budget-fill-bar"></div>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-top:0.25rem;">
-                                <span id="budget-spent-lbl">0 €</span>
-                                <span id="budget-total-lbl">10 000 €</span>
-                            </div>
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+                    <div class="luxury-card">
+                        <h2 class="card-title-editorial">Flux Monétaires</h2>
+                        <button class="btn-premium" style="width: 100%; margin-bottom: 1.5rem;" onclick="openAddExpenseModal()">Déclarer un Flux Sortant</button>
+                        
+                        <p style="font-size: 0.65rem; text-transform: uppercase; color: var(--gray-muted);">Seuil de sécurité d'exploitation</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="budget-fill-bar"></div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-top:0.35rem;">
+                            <span id="budget-spent-lbl">0 €</span>
+                            <span>10 000 €</span>
                         </div>
                     </div>
 
-                    <div>
-                        <div class="luxury-card">
-                            <h2 class="card-title-editorial">Grand Livre des Flux Comptables</h2>
-                            <div class="premium-table-wrapper">
-                                <table class="premium-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Périmètre</th>
-                                            <th>Catégorie</th>
-                                            <th>Description</th>
-                                            <th>Montant</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="budget-table-body">
-                                        <!-- Dynamically generated lines go here -->
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="luxury-card">
+                        <h2 class="card-title-editorial">Grand Livre Journalier des Comptes</h2>
+                        <div class="premium-table-wrapper">
+                            <table class="premium-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Périmètre</th>
+                                        <th>Catégorie</th>
+                                        <th>Description</th>
+                                        <th>Montant</th>
+                                        <th style="text-align:right;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="budget-table-body">
+                                    <!-- Rempli dynamiquement -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ================= VIEW: HÉBERGEMENTS ================= -->
+            <!-- VIEW: HÉBERGEMENTS -->
             <section id="view-hebergements" class="app-view">
-                <div class="destinations-grid" id="hebergements-wrapper">
-                    <!-- Auto generated premium asset cards -->
-                </div>
+                <div class="destinations-grid" id="hebergements-wrapper"></div>
             </section>
 
-            <!-- ================= VIEW: RESTAURANTS ================= -->
+            <!-- VIEW: RESTAURANTS -->
             <section id="view-restaurants" class="app-view">
-                <div class="destinations-grid" id="restaurants-wrapper">
-                    <!-- Auto generated premium gastro elements -->
-                </div>
+                <div class="destinations-grid" id="restaurants-wrapper"></div>
             </section>
 
-            <!-- ================= VIEW: ACTIVITÉS ================= -->
+            <!-- VIEW: ACTIVITES -->
             <section id="view-activites" class="app-view">
                 <div class="luxury-card">
-                    <h2 class="card-title-editorial">Registre Opérationnel des Expériences</h2>
-                    <div id="activities-checklist-container">
-                        <!-- Loaded automatically -->
+                    <div class="card-title-editorial">
+                        <span>Expériences Cibles</span>
+                        <button class="btn-premium" onclick="openAddActivityModal()">+ Planifier une Expérience</button>
                     </div>
+                    <div id="activities-checklist-container"></div>
                 </div>
             </section>
 
-            <!-- ================= VIEW: NOTES ================= -->
+            <!-- VIEW: NOTES -->
             <section id="view-notes" class="app-view">
                 <div class="luxury-card">
-                    <h2 class="card-title-editorial">Bloc Notes Libre Éditorial & Carnet de Voyage</h2>
-                    <textarea class="notion-textarea" id="notion-editorial-textarea" placeholder="Commencez à rédiger vos inspirations, formalités de visa ou comptes rendus ici (Sauvegarde automatique active)..."></textarea>
+                    <h2 class="card-title-editorial">Carnet de Note & Directives Éditoriales</h2>
+                    <textarea class="notion-textarea" id="notion-editorial-textarea" placeholder="Rédigez vos notes de voyage..."></textarea>
                 </div>
             </section>
 
         </main>
     </div>
 
-    <!-- ================= FULLSCREEN INTERACTIVE CITY EDITOR MODAL ================= -->
+    <!-- ================= FULLSCREEN INTERACTIVE STOPS EDITOR MODAL ================= -->
     <div class="fullscreen-modal" id="city-editor-modal">
         <div class="modal-close-trigger" onclick="closeCityEditorModal()">Fermer la console ×</div>
-        <h2 id="modal-city-title" style="font-family: var(--ff-title); font-size: 3.5rem; text-transform: uppercase;">Kuala Lumpur</h2>
-        <p id="modal-city-country" style="font-family: var(--ff-serif); font-style: italic; color: var(--gold-premium); font-size: 1.5rem; margin-bottom: 2rem;">Malaisie</p>
+        <h2 id="modal-city-title" style="font-family: var(--ff-title); font-size: 2.5rem; text-transform: uppercase;">Étape</h2>
+        <p style="font-family: var(--ff-serif); font-style: italic; color: var(--gold-premium); margin-bottom: 2rem;">Édition des paramètres logistiques et de résidence de luxe</p>
         
         <div class="editor-grid">
-            <!-- Transport Architecture Configuration Box -->
+            <!-- Section Localisation & Transit -->
             <div class="luxury-card">
-                <h3 class="card-title-editorial">Logistique de Transit Connecté</h3>
+                <h3 class="card-title-editorial">Fiche d'Étape & Transit</h3>
                 <div class="form-group-premium">
-                    <label>Vecteur de Transport</label>
+                    <label>Nom de la Ville / Escale</label>
+                    <input type="text" id="input-city-name">
+                </div>
+                <div class="form-group-premium">
+                    <label>Pays Émetteur</label>
+                    <select id="input-city-country">
+                        <option value="Malaisie">Malaisie</option>
+                        <option value="Singapour">Singapour</option>
+                        <option value="Indonésie">Indonésie</option>
+                        <option value="Vietnam">Vietnam</option>
+                        <option value="Thaïlande">Thaïlande</option>
+                    </select>
+                </div>
+                <div class="form-group-premium">
+                    <label>Vecteur de Transit</label>
                     <select id="input-trans-type"><option>Vol</option><option>Ferry</option><option>Bus</option><option>Train</option><option>Scooter</option></select>
                 </div>
                 <div class="form-group-premium">
-                    <label>Opérateur Compagnie</label>
+                    <label>Ligne / Compagnie</label>
                     <input type="text" id="input-trans-company">
                 </div>
                 <div class="form-group-premium">
-                    <label>Horaires & Date</label>
-                    <input type="text" id="input-trans-hours" placeholder="Ex: 14 Mai, 10:15 - 13:45">
+                    <label>Planification Date & Heure</label>
+                    <input type="text" id="input-trans-hours">
                 </div>
                 <div class="form-group-premium">
-                    <label>Coût d'acquisition (€)</label>
+                    <label>Coût du Transit Contractuel (€)</label>
                     <input type="number" id="input-trans-price">
                 </div>
-                <button class="btn-premium" onclick="saveCityModalData()">Enregistrer Transit</button>
             </div>
 
-            <!-- Accommodation Architecture Box -->
+            <!-- Section Hébergement -->
             <div class="luxury-card">
-                <h3 class="card-title-editorial">Hébergement & Suite Résidentielle</h3>
+                <h3 class="card-title-editorial">Hébergement Privé</h3>
                 <div class="form-group-premium">
-                    <label>Nom de l'Établissement</label>
+                    <label>Établissement / Palace</label>
                     <input type="text" id="input-hotel-name">
                 </div>
                 <div class="form-group-premium">
-                    <label>Quartier / District</label>
+                    <label>Quartier de Résidence</label>
                     <input type="text" id="input-hotel-zone">
                 </div>
                 <div class="form-group-premium">
-                    <label>Prix par Nuit (€)</label>
+                    <label>Tarif par Nuitée (€)</label>
                     <input type="number" id="input-hotel-price">
                 </div>
                 <div class="form-group-premium">
-                    <label>Nombre de Nuits</label>
+                    <label>Volume de Nuits</label>
                     <input type="number" id="input-hotel-nights">
                 </div>
-                <button class="btn-premium" onclick="saveCityModalData()">Enregistrer Logement</button>
+                <div style="margin-top: 3rem; display: flex; gap: 1rem;">
+                    <button class="btn-premium" style="width: 100%;" onclick="saveCityModalData()">Sauvegarder l'Étape</button>
+                </div>
             </div>
         </div>
     </div>
@@ -912,10 +781,9 @@
     <!-- ================= ADD EXPENSE OVERLAY MODAL ================= -->
     <div class="overlay-modal" id="add-expense-modal">
         <div class="overlay-card">
-            <h3 class="card-title-editorial">Déclarer un Flux Sortant</h3>
-            
+            <h3 class="card-title-editorial">Déclarer un Flux Financier</h3>
             <div class="form-group-premium">
-                <label>Destination Target</label>
+                <label>Périmètre Pays</label>
                 <select id="exp-input-destination">
                     <option value="Malaisie">Malaisie</option>
                     <option value="Singapour">Singapour</option>
@@ -925,178 +793,118 @@
                 </select>
             </div>
             <div class="form-group-premium">
-                <label>Catégorie Comptable</label>
+                <label>Catégorie</label>
                 <select id="exp-input-category">
                     <option>Vol</option><option>Hôtel</option><option>Restaurant</option><option>Activité</option><option>Transport</option><option>Shopping</option><option>Divers</option>
                 </select>
             </div>
             <div class="form-group-premium">
-                <label>Montant Évalué (€)</label>
-                <input type="number" id="exp-input-amount" required>
+                <label>Montant Engagé (€)</label>
+                <input type="number" id="exp-input-amount">
             </div>
             <div class="form-group-premium">
-                <label>Description Mandat</label>
-                <input type="text" id="exp-input-desc" placeholder="Ex: Dîner gastronomique signature">
+                <label>Désignation</label>
+                <input type="text" id="exp-input-desc" placeholder="Ex: Suite Exclusive">
             </div>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button class="btn-premium" onclick="submitExpenseForm()">Inscrire la transaction</button>
+                <button class="btn-premium" style="background:transparent; color:var(--dark-pure);" onclick="closeAddExpenseModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
 
-            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                <button class="btn-premium" onclick="submitExpenseForm()">Valider la transaction</button>
-                <button class="btn-premium" style="background:transparent; color:var(--dark-pure);" onclick="closeAddExpenseModal()">Annuler</button>
+    <!-- ================= ADD ACTIVITY OVERLAY MODAL ================= -->
+    <div class="overlay-modal" id="add-activity-modal">
+        <div class="overlay-card">
+            <h3 class="card-title-editorial">Planifier une Nouvelle Expérience</h3>
+            <div class="form-group-premium">
+                <label>Nom de l'Expérience / Activité</label>
+                <input type="text" id="act-input-name" placeholder="Ex: Masterclass Cuisine Royale">
+            </div>
+            <div class="form-group-premium">
+                <label>Localisation</label>
+                <input type="text" id="act-input-location" placeholder="Ex: Bangkok">
+            </div>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button class="btn-premium" onclick="submitActivityForm()">Enregistrer</button>
+                <button class="btn-premium" style="background:transparent; color:var(--dark-pure);" onclick="closeAddActivityModal()">Fermer</button>
             </div>
         </div>
     </div>
 
 
-    <!-- ================= JAVASCRIPT CORE ENGINE SYSTEM ================= -->
+    <!-- ================= JAVASCRIPT CORE OPERATIONS ENGINE ================= -->
     <script>
-        /* --- GLOBAL DATA ARCHITECTURE STATE --- */
         const INITIAL_BUDGET = 10000;
-        
-        // Comprehensive baseline setup structured for robust operation
-        const defaultDestinations = [
-            { id: "dest-1", name: "Malaisie", cities: ["Kuala Lumpur", "Penang"], nights: 7, budget: 1500, cover: "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80" },
-            { id: "dest-2", name: "Singapour", cities: ["Singapour"], nights: 4, budget: 2500, cover: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80" },
-            { id: "dest-3", name: "Indonésie", cities: ["Canggu", "Ubud", "Lombok", "Gili Air"], nights: 12, budget: 3000, cover: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80" },
-            { id: "dest-4", name: "Vietnam", cities: ["Ho Chi Minh"], nights: 4, budget: 1200, cover: "https://images.unsplash.com/photo-1509060464153-44667396260f?auto=format&fit=crop&w=800&q=80" },
-            { id: "dest-5", name: "Thaïlande", cities: ["Bangkok", "Koh Tao", "Krabi"], nights: 9, budget: 1800, cover: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=800&q=80" }
+        let isCreatingNewCity = false;
+
+        // Baseline Dataset Pré-rempli par défaut (Sauvegardé et éditable à l'infini)
+        const defaultCities = [
+            { name: "Kuala Lumpur", country: "Malaisie", transportType: "Vol", transportCompany: "Malaysia Airlines", transportPrice: 450, transportHours: "15 Mai, 09:00", hotelName: "The Ritz-Carlton", hotelZone: "KLCC", hotelPrice: 180, hotelNights: 4 },
+            { name: "Singapour", country: "Singapour", transportType: "Vol", transportCompany: "Singapore Airlines", transportPrice: 120, transportHours: "22 Mai, 11:30", hotelName: "Marina Bay Sands", hotelZone: "Marina Bay", hotelPrice: 550, hotelNights: 4 },
+            { name: "Ubud", country: "Indonésie", transportType: "Scooter", transportCompany: "Chauffeur Privé", transportPrice: 30, transportHours: "29 Mai, 09:00", hotelName: "Mandapa, Ritz-Carlton Reserve", hotelZone: "Sayan", hotelPrice: 600, hotelNights: 3 },
+            { name: "Ho Chi Minh", country: "Vietnam", transportType: "Vol", transportCompany: "VietJet Air", transportPrice: 110, transportHours: "07 Juin, 13:10", hotelName: "The Reverie Saigon", hotelZone: "District 1", hotelPrice: 290, hotelNights: 4 },
+            { name: "Bangkok", country: "Thaïlande", transportType: "Vol", transportCompany: "Thai Airways", transportPrice: 130, transportHours: "11 Juin, 16:00", hotelName: "The Siam Hotel", hotelZone: "Dusit", hotelPrice: 450, hotelNights: 3 }
         ];
 
-        const defaultCitiesData = {
-            "Kuala Lumpur": { transportType: "Vol", transportCompany: "Malaysia Airlines", transportPrice: 450, transportHours: "15 Mai, 09:00 - 16:30", hotelName: "The Ritz-Carlton", hotelZone: "KLCC", hotelPrice: 180, hotelNights: 4 },
-            "Penang": { transportType: "Train", transportCompany: "KTM ETS", transportPrice: 25, transportHours: "19 Mai, 10:00", hotelName: "Eastern & Oriental Hotel", hotelZone: "George Town", hotelPrice: 150, hotelNights: 3 },
-            "Singapour": { transportType: "Vol", transportCompany: "Singapore Airlines", transportPrice: 120, transportHours: "22 Mai, 11:30", hotelName: "Marina Bay Sands", hotelZone: "Marina Bay", hotelPrice: 550, hotelNights: 4 },
-            "Canggu": { transportType: "Vol", transportCompany: "AirAsia", transportPrice: 90, transportHours: "26 Mai, 14:20", hotelName: "Como Uma Canggu", hotelZone: "Echo Beach", hotelPrice: 280, hotelNights: 3 },
-            "Ubud": { transportType: "Scooter", transportCompany: "Local Private Driver", transportPrice: 30, transportHours: "29 Mai, 09:00", hotelName: "Mandapa, a Ritz-Carlton Reserve", hotelZone: "Sayan", hotelPrice: 600, hotelNights: 3 },
-            "Lombok": { transportType: "Ferry", transportCompany: "BlueWater Express", transportPrice: 45, transportHours: "01 Juin, 08:30", hotelName: "The Oberoi Beach Resort", hotelZone: "Medana Bay", hotelPrice: 350, hotelNights: 3 },
-            "Gili Air": { transportType: "Ferry", transportCompany: "Local Speedboat", transportPrice: 15, transportHours: "04 Juin, 11:00", hotelName: "Slow Villas & Spa", hotelZone: "Gili Air", hotelPrice: 210, hotelNights: 3 },
-            "Ho Chi Minh": { transportType: "Vol", transportCompany: "VietJet Air", transportPrice: 110, transportHours: "07 Juin, 13:10", hotelName: "The Reverie Saigon", hotelZone: "District 1", hotelPrice: 290, hotelNights: 4 },
-            "Bangkok": { transportType: "Vol", transportCompany: "Thai Airways", transportPrice: 130, transportHours: "11 Juin, 16:00", hotelName: "The Siam Hotel", hotelZone: "Dusit", hotelPrice: 450, hotelNights: 3 },
-            "Koh Tao": { transportType: "Ferry", transportCompany: "Lomprayah", transportPrice: 35, transportHours: "14 Juin, 07:00", hotelName: "Jamahkiri Resort & Spa", hotelZone: "Shark Bay", hotelPrice: 190, hotelNights: 3 },
-            "Krabi": { transportType: "Ferry", transportCompany: "Seatran Discovery", transportPrice: 25, transportHours: "17 Juin, 12:30", hotelName: "Rayavadee Resort", hotelZone: "Phranang Peninsula", hotelPrice: 500, hotelNights: 3 }
-        };
-
         const defaultActivities = [
-            { id: "act-1", name: "Surf de l'Aube Exclusive", location: "Bali", checked: true },
-            { id: "act-2", name: "Certification Privée PADI Wave", location: "Koh Tao", checked: false },
-            { id: "act-3", name: "Trek Guidé Sommet Rinjani", location: "Lombok", checked: false },
-            { id: "act-4", name: "Snorkeling Safari Tortues", location: "Gili", checked: true },
-            { id: "act-5", name: "Exploration Secrète Batu Caves", location: "Kuala Lumpur", checked: true },
-            { id: "act-6", name: "Accès VIP Rooftop SkyPark", location: "Marina Bay", checked: true },
-            { id: "act-7", name: "Midnight Street Food Tour Étoilé", location: "Bangkok", checked: false },
-            { id: "act-8", name: "Sunset Cocktail & Privatisation Temple", location: "Uluwatu", checked: false }
+            { name: "Surf de l'Aube Privé", location: "Bali", checked: true },
+            { name: "Certification Privée PADI Wave", location: "Koh Tao", checked: false },
+            { name: "Exploration Secrète Batu Caves", location: "Kuala Lumpur", checked: true },
+            { name: "Accès VIP Rooftop SkyPark", location: "Marina Bay", checked: true }
         ];
 
         const defaultExpenses = [
-            { id: "exp-1", date: "2026-05-14", country: "Malaisie", category: "Vol", desc: "Vol Marseille - Kuala Lumpur Business Class", amount: 2450 },
-            { id: "exp-2", date: "2026-05-16", country: "Malaisie", category: "Hôtel", desc: "Acompte Suite The Ritz-Carlton", amount: 720 },
-            { id: "exp-3", date: "2026-05-23", country: "Singapour", category: "Restaurant", desc: "Dîner gastronomique d'inauguration", amount: 480 }
+            { date: "2026-05-14", country: "Malaisie", category: "Vol", desc: "Vol Marseille - Kuala Lumpur Business Class", amount: 2450 }
         ];
 
-        // Core App Memory references
-        let destinations = JSON.parse(localStorage.getItem("mo_mi_destinations")) || defaultDestinations;
-        let citiesData = JSON.parse(localStorage.getItem("mo_mi_cities")) || defaultCitiesData;
-        let activities = JSON.parse(localStorage.getItem("mo_mi_activities")) || defaultActivities;
-        let expenses = JSON.parse(localStorage.getItem("mo_mi_expenses")) || defaultExpenses;
-        let editorialNotes = localStorage.getItem("mo_mi_notes") || "";
+        // Hydratation du State de l'application depuis le LocalStorage
+        let stops = JSON.parse(localStorage.getItem("premium_stops")) || defaultCities;
+        let activities = JSON.parse(localStorage.getItem("premium_activities")) || defaultActivities;
+        let expenses = JSON.parse(localStorage.getItem("premium_expenses")) || defaultExpenses;
+        let editorialNotes = localStorage.getItem("premium_notes") || "";
 
-        let currentActiveCityEditor = null;
-
-        /* --- INITIALIZATION ORCHESTRATOR --- */
         window.addEventListener("DOMContentLoaded", () => {
             initializeCountdown();
             computeFinancials();
+            renderAllViews();
+            
+            const notesArea = document.getElementById("notion-editorial-textarea");
+            notesArea.value = editorialNotes;
+            notesArea.addEventListener("input", (e) => {
+                localStorage.setItem("premium_notes", e.target.value);
+            });
+        });
+
+        /* --- SYNC & RENDER CENTRAL ENGINE --- */
+        function renderAllViews() {
+            renderStopsTable();
             renderDashboardTimeline();
-            renderDestinationsView();
             renderLogistiqueManifest();
             renderAccommodationsGallery();
             renderRestaurantsView();
             renderActivitiesChecklist();
-            
-            // Set up notes
-            const notesArea = document.getElementById("notion-editorial-textarea");
-            notesArea.value = editorialNotes;
-            notesArea.addEventListener("input", (e) => {
-                localStorage.setItem("mo_mi_notes", e.target.value);
-            });
-        });
-
-        /* --- APP LIVE TIMER METRICS (COUNTDOWN TO MAY 2026) --- */
-        function initializeCountdown() {
-            const targetDate = new Date("May 24, 2026 09:00:00").getTime();
-            
-            function updateTimer() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                if (distance < 0) {
-                    document.getElementById("sidebar-countdown").innerText = "Opérationnel";
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-                document.getElementById("sidebar-countdown").innerText = `${days}j ${hours}h ${minutes}m`;
-            }
-            updateTimer();
-            setInterval(updateTimer, 60000);
         }
 
-        /* --- ROUTER EMULATOR ENGINE --- */
-        function switchView(viewId) {
-            document.querySelectorAll('.app-view').forEach(view => view.classList.remove('active-view'));
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            
-            document.getElementById(`view-${viewId}`).classList.add('active-view');
-            event.currentTarget.classList.add('active');
-
-            // Header Dynamic Title Mapping Context
-            const titlesMap = {
-                dashboard: ["Grand Horizon", "L'Asie du Sud-Est en immersion exclusive"],
-                destinations: ["Destinations Étoiles", "Sélection rigoureuse des hubs d'exception"],
-                logistique: ["Feuille de Route", "Manifeste opérationnel des flux et transits"],
-                depenses: ["Ingénierie Budgétaire", "Suivi en temps réel des allocations financières de luxe"],
-                hebergements: ["Villas & Palaces", "Résidences de prestige sélectionnées"],
-                restaurants: ["Espaces Gastronomiqes", "Expériences culinaires haut de gamme"],
-                activites: ["Activités VIP", "Carnet de route opérationnel des excursions"],
-                notes: ["Workspace Notion", "Journalisation d'idées et notes libres de parcours"]
-            };
-
-            if (titlesMap[viewId]) {
-                document.getElementById("header-main-title").innerText = titlesMap[viewId][0];
-                document.getElementById("header-sub-title").innerText = titlesMap[viewId][1];
-            }
-
-            // Close Mobile Nav sidebar if visible
-            document.getElementById("sidebar").classList.remove("mobile-open");
-        }
-
-        function toggleMobileSidebar() {
-            document.getElementById("sidebar").classList.toggle("mobile-open");
-        }
-
-        /* --- FINANCIAL COMPUTATION CORE --- */
         function computeFinancials() {
-            // Aggregate static items with customizable user metrics
             let totalSpent = expenses.reduce((sum, exp) => sum + Number(exp.amount), 0);
             
-            // Loop dynamic city system additions too
-            Object.values(citiesData).forEach(city => {
-                if(city.transportPrice) totalSpent += Number(city.transportPrice);
-                if(city.hotelPrice && city.hotelNights) totalSpent += (Number(city.hotelPrice) * Number(city.hotelNights));
+            // Inclusion automatique des frais des étapes éditées
+            stops.forEach(stop => {
+                if(stop.transportPrice) totalSpent += Number(stop.transportPrice);
+                if(stop.hotelPrice && stop.hotelNights) totalSpent += (Number(stop.hotelPrice) * Number(stop.hotelNights));
             });
 
             const currentBalance = INITIAL_BUDGET - totalSpent;
             const progressPercentage = Math.min(100, Math.round((totalSpent / INITIAL_BUDGET) * 100));
 
-            // Inject to interface panels
             document.getElementById("sidebar-balance").innerText = currentBalance.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
             document.getElementById("kpi-budget-remaining").innerText = currentBalance.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + " €";
             document.getElementById("kpi-expenses").innerText = totalSpent.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + " €";
             document.getElementById("stat-progress-pct").innerText = `${progressPercentage}%`;
+            document.getElementById("stat-cities-count").innerText = stops.length;
+            document.getElementById("kpi-stops-count").innerText = stops.length;
 
-            // Progress Bar elements
             const fillBar = document.getElementById("budget-fill-bar");
             if (fillBar) fillBar.style.width = `${progressPercentage}%`;
             
@@ -1104,86 +912,113 @@
             if (spentLbl) spentLbl.innerText = totalSpent.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + " €";
 
             renderBudgetTables();
-            saveStateToLocalStorage();
+            saveToLocalStorage();
         }
 
-        /* --- RENDER LOGIC: TIMELINE --- */
-        function renderDashboardTimeline() {
-            const el = document.getElementById("dashboard-timeline");
-            el.innerHTML = "";
+        /* --- ROUTER EMULATOR --- */
+        function switchView(viewId) {
+            document.querySelectorAll('.app-view').forEach(view => view.classList.remove('active-view'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             
-            // Render beautiful chronological high-level snapshot from state entries
-            const stops = [
-                { city: "Kuala Lumpur", date: "15 Mai", desc: "Lancement de l'expédition au Ritz-Carlton" },
-                { city: "Singapour", date: "22 Mai", desc: "Immersion technologique et architecture d'élite" },
-                { city: "Ubud (Bali)", date: "29 Mai", desc: "Retraite sérénité et rizières sacrées" },
-                { city: "Ho Chi Minh", date: "07 Juin", desc: "Énergie éditoriale et culture indochinoise" },
-                { city: "Bangkok", date: "11 Juin", desc: "Clôture royale et splendeurs des Temples" }
-            ];
+            document.getElementById(`view-${viewId}`).classList.add('active-view');
+            event.currentTarget.classList.add('active');
 
-            stops.forEach(s => {
-                el.innerHTML += `
-                    <div class="timeline-item">
-                        <div class="timeline-meta">${s.date}</div>
-                        <div class="timeline-title">${s.city}</div>
-                        <div class="timeline-desc">${s.desc}</div>
-                    </div>
+            const titlesMap = {
+                dashboard: ["Grand Horizon", "L'Asie du Sud-Est en immersion exclusive"],
+                stops: ["Gestion des Étapes", "Édition complète de votre itinéraire, transits et nuits"],
+                logistique: ["Feuille de Route Logistique", "Manifeste opérationnel des flux de transit"],
+                depenses: ["Ingénierie Budgétaire", "Suivi en temps réel des allocations financières de luxe"],
+                hebergements: ["Villas & Palaces", "Résidences de prestige sélectionnées"],
+                restaurants: ["Espaces Gastronomiqes", "Expériences culinaires haut de gamme"],
+                activites: ["Expériences VIP", "Carnet de route opérationnel des excursions"],
+                notes: ["Workspace Notion", "Journalisation d'idées et notes libres de parcours"]
+            };
+
+            if (titlesMap[viewId]) {
+                document.getElementById("header-main-title").innerText = titlesMap[viewId][0];
+                document.getElementById("header-sub-title").innerText = titlesMap[viewId][1];
+            }
+        }
+
+        /* --- TIMER --- */
+        function initializeCountdown() {
+            const targetDate = new Date("May 24, 2026 09:00:00").getTime();
+            function updateTimer() {
+                const distance = targetDate - new Date().getTime();
+                if (distance < 0) { document.getElementById("sidebar-countdown").innerText = "En cours"; return; }
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("sidebar-countdown").innerText = `${days}j ${hours}h`;
+            }
+            updateTimer(); setInterval(updateTimer, 60000);
+        }
+
+        /* --- ENGINE: STOPS MANIPULATION --- */
+        function renderStopsTable() {
+            const tbody = document.getElementById("stops-table-body");
+            tbody.innerHTML = "";
+            stops.forEach((stop, index) => {
+                const totalCost = (Number(stop.transportPrice) || 0) + ((Number(stop.hotelPrice) || 0) * (Number(stop.hotelNights) || 0));
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${stop.name}</strong></td>
+                        <td>${stop.country}</td>
+                        <td>${stop.hotelName || 'Non configuré'} (${stop.hotelNights || 0} nts)</td>
+                        <td>${stop.transportType} - ${stop.transportCompany || 'Aucune'}</td>
+                        <td><strong>${totalCost.toLocaleString('fr-FR')} €</strong></td>
+                        <td style="text-align:right;">
+                            <span style="color:var(--gold-premium); cursor:pointer; margin-right:12px; font-size:0.8rem; text-transform:uppercase;" onclick="openCityEditor(${index})">Éditer</span>
+                            <button class="btn-danger" onclick="deleteStopItem(${index})">Supprimer</button>
+                        </td>
+                    </tr>
                 `;
             });
         }
 
-        /* --- RENDER LOGIC: DESTINATIONS & CITIES --- */
-        function renderDestinationsView() {
-            const wrapper = document.getElementById("destinations-wrapper");
-            wrapper.innerHTML = "";
+        function openCityEditor(index) {
+            isCreatingNewCity = false;
+            currentActiveCityEditor = index;
+            const data = stops[index];
 
-            destinations.forEach(dest => {
-                let listCitiesHtml = dest.cities.map(c => `<span style="text-decoration: underline; cursor:pointer; margin-right:8px;" onclick="openCityEditor('${c}')">${c}</span>`).join(" · ");
-                
-                wrapper.innerHTML += `
-                    <div class="destination-card">
-                        <div class="dest-bg" style="background-image: url('${dest.cover}')"></div>
-                        <div class="dest-content">
-                            <p>${dest.nights} Nuits réservées</p>
-                            <h3>${dest.name}</h3>
-                            <div style="font-size: 0.85rem; color: var(--gray-light); margin-top: 0.5rem;">
-                                Villes étapes (Éditeur accessible) : <br><strong>${listCitiesHtml}</strong>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        /* --- FULLSCREEN DETAILED CITY INTERACTIVE EDITOR --- */
-        function openCityEditor(cityName) {
-            currentActiveCityEditor = cityName;
-            const data = citiesData[cityName] || { transportType: "Vol", transportCompany: "", transportPrice: 0, transportHours: "", hotelName: "", hotelZone: "", hotelPrice: 0, hotelNights: 1 };
-
-            document.getElementById("modal-city-title").innerText = cityName;
-            
-            // Sync values to current entry states
-            document.getElementById("input-trans-type").value = data.transportType || "Vol";
-            document.getElementById("input-trans-company").value = data.transportCompany || "";
-            document.getElementById("input-trans-hours").value = data.transportHours || "";
-            document.getElementById("input-trans-price").value = data.transportPrice || 0;
-            
-            document.getElementById("input-hotel-name").value = data.hotelName || "";
-            document.getElementById("input-hotel-zone").value = data.hotelZone || "";
-            document.getElementById("input-hotel-price").value = data.hotelPrice || 0;
-            document.getElementById("input-hotel-nights").value = data.hotelNights || 0;
+            document.getElementById("modal-city-title").innerText = `Édition : ${data.name}`;
+            document.getElementById("input-city-name").value = data.name;
+            document.getElementById("input-city-country").value = data.country;
+            document.getElementById("input-trans-type").value = data.transportType;
+            document.getElementById("input-trans-company").value = data.transportCompany;
+            document.getElementById("input-trans-hours").value = data.transportHours;
+            document.getElementById("input-trans-price").value = data.transportPrice;
+            document.getElementById("input-hotel-name").value = data.hotelName;
+            document.getElementById("input-hotel-zone").value = data.hotelZone;
+            document.getElementById("input-hotel-price").value = data.hotelPrice;
+            document.getElementById("input-hotel-nights").value = data.hotelNights;
 
             document.getElementById("city-editor-modal").style.display = "block";
         }
 
-        function closeCityEditorModal() {
-            document.getElementById("city-editor-modal").style.display = "none";
+        function openNewCityModal() {
+            isCreatingNewCity = true;
+            document.getElementById("modal-city-title").innerText = "Créer une nouvelle Étape";
+            
+            // Reset des champs formulaire
+            document.getElementById("input-city-name").value = "";
+            document.getElementById("input-trans-company").value = "";
+            document.getElementById("input-trans-hours").value = "";
+            document.getElementById("input-trans-price").value = 0;
+            document.getElementById("input-hotel-name").value = "";
+            document.getElementById("input-hotel-zone").value = "";
+            document.getElementById("input-hotel-price").value = 0;
+            document.getElementById("input-hotel-nights").value = 0;
+
+            document.getElementById("city-editor-modal").style.display = "block";
         }
 
         function saveCityModalData() {
-            if(!currentActiveCityEditor) return;
+            const cityName = document.getElementById("input-city-name").value.trim();
+            if(!cityName) { alert("Le nom de la ville est obligatoire."); return; }
 
-            citiesData[currentActiveCityEditor] = {
+            const payload = {
+                name: cityName,
+                country: document.getElementById("input-city-country").value,
                 transportType: document.getElementById("input-trans-type").value,
                 transportCompany: document.getElementById("input-trans-company").value,
                 transportHours: document.getElementById("input-trans-hours").value,
@@ -1194,182 +1029,165 @@
                 hotelNights: Number(document.getElementById("input-hotel-nights").value)
             };
 
+            if(isCreatingNewCity) {
+                stops.push(payload);
+            } else {
+                stops[currentActiveCityEditor] = payload;
+            }
+
             computeFinancials();
-            renderLogistiqueManifest();
-            renderAccommodationsGallery();
-            renderRestaurantsView();
+            renderAllViews();
             closeCityEditorModal();
         }
 
-        /* --- RENDER LOGIC: MANIFEST LOGISTIQUE --- */
+        function deleteStopItem(index) {
+            if(confirm("Supprimer définitivement cette étape et ses coûts associés ?")) {
+                stops.splice(index, 1);
+                computeFinancials();
+                renderAllViews();
+            }
+        }
+
+        function closeCityEditorModal() { document.getElementById("city-editor-modal").style.display = "none"; }
+
+        /* --- RE-RENDERS LOGIC --- */
+        function renderDashboardTimeline() {
+            const el = document.getElementById("dashboard-timeline"); el.innerHTML = "";
+            if(stops.length === 0) { el.innerHTML = "<p style='color:var(--gray-muted); font-size:0.85rem;'>Aucune étape planifiée.</p>"; return; }
+            stops.forEach(s => {
+                el.innerHTML += `
+                    <div class="timeline-item">
+                        <div class="timeline-meta">${s.transportHours || 'Date libre'}</div>
+                        <div class="timeline-title">${s.name} (${s.country})</div>
+                        <div style="font-size:0.8rem; color:var(--gray-muted)">Hôtel : ${s.hotelName || 'Non défini'}</div>
+                    </div>
+                `;
+            });
+        }
+
         function renderLogistiqueManifest() {
-            const tbody = document.getElementById("logistique-table-body");
-            tbody.innerHTML = "";
-
-            Object.keys(citiesData).forEach(cityName => {
-                const target = citiesData[cityName];
-                if(target.transportCompany) {
-                    tbody.innerHTML += `
-                        <tr>
-                            <td><strong>${cityName}</strong></td>
-                            <td><span style="font-size:0.8rem; background: var(--gray-light); padding:2px 6px;">${target.transportType}</span></td>
-                            <td>${target.transportCompany}</td>
-                            <td>${target.transportHours || 'Non spécifié'}</td>
-                            <td>${Number(target.transportPrice).toLocaleString('fr-FR')} €</td>
-                            <td style="color:var(--gold-premium); font-weight:600;">Confirmé</td>
-                        </tr>
-                    `;
-                }
-            });
-        }
-
-        /* --- RENDER LOGIC: PREMIUM HOTELS HOTSPOTS --- */
-        function renderAccommodationsGallery() {
-            const wrapper = document.getElementById("hebergements-wrapper");
-            wrapper.innerHTML = "";
-
-            Object.keys(citiesData).forEach(cityName => {
-                const target = citiesData[cityName];
-                if(target.hotelName) {
-                    wrapper.innerHTML += `
-                        <div class="luxury-card" style="margin-bottom:0;">
-                            <span style="font-size:0.7rem; text-transform:uppercase; color:var(--gold-premium); font-weight:600;">${cityName}</span>
-                            <h3 style="font-family:var(--ff-title); text-transform:uppercase; margin: 0.25rem 0 1rem 0;">${target.hotelName}</h3>
-                            <p style="font-size:0.9rem; color:var(--navy-secondary)">District: <strong>${target.hotelZone}</strong></p>
-                            <p style="font-size:0.9rem; color:var(--navy-secondary)">Tarification : ${target.hotelPrice}€ / nuit (${target.hotelNights} nuits)</p>
-                            <div style="margin-top:1rem; font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Statut : Élite Réservé</div>
-                        </div>
-                    `;
-                }
-            });
-        }
-
-        /* --- RENDER LOGIC: RESTAURANTS --- */
-        function renderRestaurantsView() {
-            const wrapper = document.getElementById("restaurants-wrapper");
-            wrapper.innerHTML = "";
-
-            // Custom curated automated database additions
-            const fineDiningSelelction = [
-                { name: "Dewakan", city: "Kuala Lumpur", type: "Modern Malaysian Haute Cuisine", price: "180 €" },
-                { name: "Odette", city: "Singapour", type: "Modern French Multi-Starred", price: "350 €" },
-                { name: "Locavore NXT", city: "Ubud", type: "Hyper-Local Avant-Garde", price: "140 €" },
-                { name: "Anan International", city: "Ho Chi Minh", type: "Premium Street Food Molecular", price: "90 €" },
-                { name: "Sorn", city: "Bangkok", type: "Southern Thai High Editorial", price: "220 €" }
-            ];
-
-            fineDiningSelelction.forEach(rest => {
-                wrapper.innerHTML += `
-                    <div class="luxury-card" style="margin-bottom:0; border-left: 3px solid var(--gold-premium);">
-                        <span style="font-size:0.7rem; text-transform:uppercase; color:var(--gray-muted);">${rest.city}</span>
-                        <h3 style="font-family:var(--ff-title); text-transform:uppercase; margin-top:0.25rem;">${rest.name}</h3>
-                        <p style="font-family:var(--ff-serif); font-style:italic; font-size:0.95rem; color:var(--gold-premium);">${rest.type}</p>
-                        <hr style="margin:1rem 0; border:0; border-top:1px solid var(--gray-light);">
-                        <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
-                            <span>Estimation : <strong>${rest.price}</strong></span>
-                            <span style="letter-spacing:1px; font-weight:600; text-transform:uppercase;">Priorité Table Privée</span>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        /* --- RENDER LOGIC: REGISTRE DES ACTIVITÉS --- */
-        function renderActivitiesChecklist() {
-            const container = document.getElementById("activities-checklist-container");
-            container.innerHTML = "";
-
-            activities.forEach((act, index) => {
-                container.innerHTML += `
-                    <div class="luxury-checklist-item">
-                        <input type="checkbox" id="act-check-${index}" ${act.checked ? 'checked' : ''} onchange="toggleActivityState(${index})">
-                        <label for="act-check-${index}" style="font-size:1rem; ${act.checked ? 'text-decoration:line-through; color:var(--gray-muted);' : ''}">
-                            <strong>${act.name}</strong> <span style="font-family:var(--ff-serif); font-style:italic; color:var(--gold-premium); margin-left:10px;">(${act.location})</span>
-                        </label>
-                    </div>
-                `;
-            });
-        }
-
-        function toggleActivityState(index) {
-            activities[index].checked = !activities[index].checked;
-            renderActivitiesChecklist();
-            saveStateToLocalStorage();
-        }
-
-        /* --- GENERAL LEDGER EXPENSES RENDERING LOGIC --- */
-        function renderBudgetTables() {
-            const tbody = document.getElementById("budget-table-body");
-            if (!tbody) return;
-            tbody.innerHTML = "";
-
-            expenses.forEach((exp, index) => {
+            const tbody = document.getElementById("logistique-table-body"); tbody.innerHTML = "";
+            stops.forEach(s => {
                 tbody.innerHTML += `
                     <tr>
-                        <td>${exp.date}</td>
-                        <td><strong>${exp.country}</strong></td>
-                        <td><span style="font-size:0.75rem; background-color:var(--gray-light); padding:2px 6px;">${exp.category}</span></td>
-                        <td>${exp.desc}</td>
-                        <td style="font-family:var(--ff-title); font-weight:600;">${Number(exp.amount).toLocaleString('fr-FR')} €</td>
-                        <td><span style="color:red; cursor:pointer; font-size:0.8rem; text-transform:uppercase;" onclick="deleteExpenseItem(${index})">Supprimer</span></td>
+                        <td><strong>${s.name}</strong></td>
+                        <td><span style="font-size:0.75rem; background: var(--gray-light); padding:2px 6px;">${s.transportType}</span></td>
+                        <td>${s.transportCompany || '-'}</td>
+                        <td>${s.transportHours || 'Non spécifié'}</td>
+                        <td>${(Number(s.transportPrice) || 0).toLocaleString('fr-FR')} €</td>
                     </tr>
                 `;
             });
         }
 
-        /* --- ACTION TRIGGERS: EXPENSES HANDLING --- */
-        function openAddExpenseModal() {
-            document.getElementById("add-expense-modal").classList.add("active");
+        function renderAccommodationsGallery() {
+            const wrapper = document.getElementById("hebergements-wrapper"); wrapper.innerHTML = "";
+            stops.forEach(s => {
+                if(!s.hotelName) return;
+                wrapper.innerHTML += `
+                    <div class="luxury-card" style="margin-bottom:0;">
+                        <span style="font-size:0.65rem; text-transform:uppercase; color:var(--gold-premium); font-weight:700;">${s.name}</span>
+                        <h3 style="font-family:var(--ff-title); text-transform:uppercase; margin:0.25rem 0 0.5rem 0; font-size:1.1rem;">${s.hotelName}</h3>
+                        <p style="font-size:0.8rem;">Quartier : ${s.hotelZone || '-'}</p>
+                        <p style="font-size:0.8rem; font-weight:600; margin-top:0.5rem;">${s.hotelPrice} € / nuit (${s.hotelNights} nts)</p>
+                    </div>
+                `;
+            });
         }
 
-        document.getElementById("add-expense-modal").addEventListener("click", function(e) {
-            if(e.target === this) closeAddExpenseModal();
-        });
-
-        function closeAddExpenseModal() {
-            document.getElementById("add-expense-modal").classList.remove("active");
+        function renderRestaurantsView() {
+            const wrapper = document.getElementById("restaurants-wrapper"); wrapper.innerHTML = "";
+            const sampleChefs = [
+                { name: "Gastro Room Signature", type: "Haute Cuisine Asiatique", price: "150 €" },
+                { name: "The Editorial Table", type: " Immersion Botanique Étoilée", price: "240 €" }
+            ];
+            sampleChefs.forEach(rest => {
+                wrapper.innerHTML += `
+                    <div class="luxury-card" style="margin-bottom:0; border-left:2px solid var(--gold-premium);">
+                        <h3 style="font-family:var(--ff-title); text-transform:uppercase; font-size:1.05rem;">${rest.name}</h3>
+                        <p style="font-family:var(--ff-serif); font-style:italic; font-size:0.85rem; color:var(--gold-premium);">${rest.type}</p>
+                        <p style="font-size:0.8rem; margin-top:0.5rem; font-weight:600;">Menu dégustation estimé : ${rest.price}</p>
+                    </div>
+                `;
+            });
         }
 
+        /* --- ACTIVITIES ENGINE --- */
+        function renderActivitiesChecklist() {
+            const container = document.getElementById("activities-checklist-container"); container.innerHTML = "";
+            activities.forEach((act, index) => {
+                container.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding: 0.5rem 0; border-bottom:1px solid var(--gray-light);">
+                        <div style="display:flex; align-items:center; gap:0.75rem;">
+                            <input type="checkbox" id="act-${index}" ${act.checked ? 'checked' : ''} onchange="toggleActivity(${index})" style="accent-color:var(--gold-premium)">
+                            <label for="act-${index}" style="${act.checked ? 'text-decoration:line-through; color:var(--gray-muted);' : ''} font-size:0.9rem;">
+                                <strong>${act.name}</strong> (${act.location})
+                            </label>
+                        </div>
+                        <span style="color:#C1121F; cursor:pointer; font-size:0.75rem;" onclick="deleteActivity(${index})">Supprimer</span>
+                    </div>
+                `;
+            });
+        }
+
+        function openAddActivityModal() { document.getElementById("add-activity-modal").classList.add("active"); }
+        function closeAddActivityModal() { document.getElementById("add-activity-modal").classList.remove("active"); }
+        function submitActivityForm() {
+            const name = document.getElementById("act-input-name").value.trim();
+            const location = document.getElementById("act-input-location").value.trim();
+            if(!name || !location) return;
+            activities.push({ name, location, checked: false });
+            renderActivitiesChecklist();
+            saveToLocalStorage();
+            closeAddActivityModal();
+            document.getElementById("act-input-name").value = "";
+            document.getElementById("act-input-location").value = "";
+        }
+        function toggleActivity(index) { activities[index].checked = !activities[index].checked; renderActivitiesChecklist(); saveToLocalStorage(); }
+        function deleteActivity(index) { activities.splice(index, 1); renderActivitiesChecklist(); saveToLocalStorage(); }
+
+        /* --- LEDGER FINANCES ENGINE --- */
+        function renderBudgetTables() {
+            const tbody = document.getElementById("budget-table-body"); if(!tbody) return; tbody.innerHTML = "";
+            expenses.forEach((exp, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${exp.date}</td>
+                        <td><strong>${exp.country}</strong></td>
+                        <td><span style="font-size:0.7rem; background:var(--gray-light); padding:2px 6px;">${exp.category}</span></td>
+                        <td>${exp.desc}</td>
+                        <td><strong>${Number(exp.amount).toLocaleString('fr-FR')} €</strong></td>
+                        <td style="text-align:right;"><span style="color:red; cursor:pointer; font-size:0.8rem;" onclick="deleteExpenseItem(${index})">Supprimer</span></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openAddExpenseModal() { document.getElementById("add-expense-modal").classList.add("active"); }
+        function closeAddExpenseModal() { document.getElementById("add-expense-modal").classList.remove("active"); }
         function submitExpenseForm() {
-            const country = document.getElementById("exp-input-destination").value;
-            const category = document.getElementById("exp-input-category").value;
             const amount = document.getElementById("exp-input-amount").value;
-            const desc = document.getElementById("exp-input-desc").value || "Prestation de service";
+            if(!amount || amount <= 0) return;
 
-            if(!amount || amount <= 0) {
-                alert("Veuillez spécifier un montant valide.");
-                return;
-            }
-
-            const newExpense = {
-                id: "exp-" + Date.now(),
+            expenses.push({
                 date: new Date().toISOString().split('T')[0],
-                country: country,
-                category: category,
-                desc: desc,
+                country: document.getElementById("exp-input-destination").value,
+                category: document.getElementById("exp-input-category").value,
+                desc: document.getElementById("exp-input-desc").value || "Frais généraux",
                 amount: Number(amount)
-            };
+            });
 
-            expenses.push(newExpense);
-            computeFinancials();
-            closeAddExpenseModal();
-            
-            // Clear fields safely
+            computeFinancials(); closeAddExpenseModal();
             document.getElementById("exp-input-amount").value = "";
             document.getElementById("exp-input-desc").value = "";
         }
+        function deleteExpenseItem(index) { expenses.splice(index, 1); computeFinancials(); }
 
-        function deleteExpenseItem(index) {
-            expenses.splice(index, 1);
-            computeFinancials();
-        }
-
-        /* --- STATE BACKUP PERSISTENCE SYSTEM --- */
-        function saveStateToLocalStorage() {
-            localStorage.setItem("mo_mi_destinations", JSON.stringify(destinations));
-            localStorage.setItem("mo_mi_cities", JSON.stringify(citiesData));
-            localStorage.setItem("mo_mi_activities", JSON.stringify(activities));
-            localStorage.setItem("mo_mi_expenses", JSON.stringify(expenses));
+        /* --- SYSTEM PERSISTENCE --- */
+        function saveToLocalStorage() {
+            localStorage.setItem("premium_stops", JSON.stringify(stops));
+            localStorage.setItem("premium_activities", JSON.stringify(activities));
+            localStorage.setItem("premium_expenses", JSON.stringify(expenses));
         }
     </script>
 </body>
