@@ -1,524 +1,1183 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌏 Voyage Asie — Dashboard Principal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0e0f0d;
-      --surface: #161714;
-      --surface2: #1e201b;
-      --border: #2a2d25;
-      --border2: #353830;
-      --text: #e8ead4;
-      --muted: #8a8d78;
-      --dim: #4a4d3a;
-      --accent: #c8e050;
-      --accent2: #7ed4a0;
-      --accent3: #f0a060;
-      --accent4: #e06080;
-      --accent5: #70c8e8;
-      --red: #e05050;
-      --yellow: #e8c050;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌏 Voyage Asie — Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0e0f0d;
+            --surface: #161714;
+            --surface2: #1e201b;
+            --border: #2a2d25;
+            --border2: #353830;
+            --text: #e8ead4;
+            --muted: #8a8d78;
+            --dim: #4a4d3a;
+            --accent: #c8e050;
+            --accent2: #7ed4a0;
+            --accent3: #f0a060;
+            --accent4: #e06080;
+            --accent5: #70c8e8;
+            --red: #e05050;
+            --yellow: #e8c050;
+        }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
-    
-    .app { display: flex; min-height: 100vh; }
-    
-    /* Sidebar */
-    .sidebar { width: 240px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); position: fixed; height: 100vh; overflow-y: auto; z-index: 100; }
-    .main { margin-left: 240px; flex: 1; padding: 28px 32px; max-width: 1300px; }
-    .logo { padding: 24px 20px 20px; border-bottom: 1px solid var(--border); }
-    .logo h1 { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; }
-    .logo p { font-size: 11px; color: var(--muted); margin-top: 3px; font-family: 'DM Mono', monospace; }
-    
-    .nav-section { padding: 16px 12px 8px; }
-    .nav-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--dim); font-family: 'DM Mono', monospace; padding: 0 8px; margin-bottom: 6px; }
-    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; cursor: pointer; color: var(--muted); font-size: 13px; transition: all 0.15s; margin-bottom: 2px; }
-    .nav-item:hover { background: var(--surface2); color: var(--text); }
-    .nav-item.active { background: var(--accent); color: #0e0f0d; font-weight: 500; }
-    .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
-    
-    .budget-pill { margin: 16px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
-    .budget-pill .label { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; margin-bottom: 6px; }
-    .budget-pill .amount { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--accent); }
-    .budget-pill .sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
-    .progress-bar { height: 5px; background: var(--border); border-radius: 3px; margin-top: 10px; overflow: hidden; }
-    .progress-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
-    
-    /* Layouts & Tabs */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .page-header { margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; }
-    .page-header h2 { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
-    .page-header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
-    
-    /* Countdown banner */
-    .countdown-container { background: linear-gradient(135deg, rgba(200,224,80,0.15), rgba(112,200,232,0.05)); border: 1px solid var(--accent); border-radius: 12px; padding: 16px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
-    .countdown-text h3 { font-family: 'Syne', sans-serif; font-size: 16px; color: var(--accent); }
-    .countdown-timer { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 700; color: #fff; background: var(--surface); padding: 6px 16px; border-radius: 8px; border: 1px solid var(--border2); }
-    
-    /* Cards Grid */
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; position: relative; overflow: hidden; }
-    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent-color, var(--accent)); }
-    .card .card-label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; margin-bottom: 6px; }
-    .card .card-value { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 700; }
-    .card .card-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
-    
-    /* Map Container */
-    .map-container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 28px; text-align: center; }
-    .map-svg { width: 100%; max-height: 220px; background: #11120f; border-radius: 8px; border: 1px solid var(--border); }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    /* Tables & Forms */
-    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
-    .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .table-header h3 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; }
-    
-    table { width: 100%; border-collapse: collapse; }
-    th { text-align: left; padding: 12px 16px; font-size: 10px; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; border-bottom: 1px solid var(--border); font-weight: 400; }
-    td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
-    tr:hover td { background: var(--surface2); }
-    
-    .btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 6px; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
-    .btn:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-accent { background: var(--accent); border-color: var(--accent); color: #0e0f0d; font-weight: 500; }
-    .btn-sm { padding: 4px 10px; font-size: 11px; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            font-size: 14px;
+        }
 
-    /* Badges Statuts & Catégories */
-    .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-    .badge-paid { background: rgba(126,212,160,0.15); color: var(--accent2); border: 1px solid rgba(126,212,160,0.3); }
-    .badge-topay { background: rgba(240,160,96,0.15); color: var(--accent3); border: 1px solid rgba(240,160,96,0.3); }
-    .badge-estimate { background: rgba(112,200,232,0.15); color: var(--accent5); border: 1px solid rgba(112,200,232,0.3); }
-    .badge-transport { background: #2a2d25; color: #fff; }
-    
-    /* Country Section */
-    .country-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
-    .country-header { padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); cursor: pointer; }
-    .country-header:hover { background: var(--surface2); }
-    .country-name { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; flex: 1; }
-    .country-dates { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
-    .country-chevron { color: var(--muted); font-size: 12px; transition: transform 0.2s; }
-    .country-block.open .country-chevron { transform: rotate(180deg); }
-    .country-body { padding: 10px 20px; display: none; }
-    .country-block.open .country-body { display: block; }
-    
-    /* Modals */
-    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-    .modal-backdrop.open { display: flex; }
-    .modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 14px; padding: 24px; width: 460px; max-width: 95vw; }
-    .form-row { margin-bottom: 14px; }
-    .form-label { font-size: 11px; color: var(--muted); text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px; display: block; }
-    input, select, textarea { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 6px; font-family: 'DM Sans', sans-serif; width: 100%; outline: none; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
-  </style>
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 220px;
+            flex-shrink: 0;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .main {
+            margin-left: 220px;
+            flex: 1;
+            padding: 28px 32px;
+            max-width: 1200px;
+        }
+
+        .logo {
+            padding: 24px 20px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: -0.5px;
+        }
+
+        .logo p {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 3px;
+            font-family: 'DM Mono', monospace;
+        }
+
+        .nav-section {
+            padding: 16px 12px 8px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--dim);
+            font-family: 'DM Mono', monospace;
+            padding: 0 8px;
+            margin-bottom: 6px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 400;
+            transition: all 0.15s;
+            margin-bottom: 2px;
+        }
+
+        .nav-item:hover {
+            background: var(--surface2);
+            color: var(--text);
+        }
+
+        .nav-item.active {
+            background: var(--accent);
+            color: #0e0f0d;
+            font-weight: 500;
+        }
+
+        .nav-item .icon {
+            font-size: 16px;
+            width: 20px; text-align: center;
+        }
+
+        .budget-pill {
+            margin: 16px 12px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .budget-pill .label {
+            font-size: 10px;
+            color: var(--muted);
+            font-family: 'DM Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .budget-pill .amount {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .budget-pill .sub {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .page-header {
+            margin-bottom: 28px;
+        }
+
+        .page-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-color, var(--accent));
+        }
+
+        .card .card-label {
+            font-size: 11px;
+            color: var(--muted);
+            font-family: 'DM Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .card .card-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .card .card-sub {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .table-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .table-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .table-header h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .btn {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.15s;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #0e0f0d;
+            font-weight: 500;
+        }
+
+        .btn-accent:hover {
+            background: #d8f060;
+            border-color: #d8f060;
+            color: #0e0f0d;
+        }
+
+        .btn-sm {
+            padding: 3px 10px;
+            font-size: 11px;
+        }
+
+        .btn-danger {
+            background: transparent;
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .btn-danger:hover {
+            background: var(--red);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px 16px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--muted);
+            font-family: 'DM Mono', monospace;
+            border-bottom: 1px solid var(--border);
+            font-weight: 400;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: var(--surface2);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .badge-booked {
+            background: rgba(126,212,160,0.15);
+            color: var(--accent2);
+            border: 1px solid rgba(126,212,160,0.3);
+        }
+
+        .badge-todo {
+            background: rgba(200,224,80,0.12);
+            color: var(--accent);
+            border: 1px solid rgba(200,224,80,0.25);
+        }
+
+        .badge-option {
+            background: rgba(240,160,96,0.12);
+            color: var(--accent3);
+            border: 1px solid rgba(240,160,96,0.25);
+        }
+
+        .badge-fly {
+            background: rgba(112,200,232,0.12);
+            color: var(--accent5);
+            border: 1px solid rgba(112,200,232,0.25);
+        }
+
+        .badge-bus {
+            background: rgba(74,77,58,0.4);
+            color: var(--muted);
+            border: 1px solid var(--border2);
+        }
+
+        .badge-ferry {
+            background: rgba(112,200,232,0.12);
+            color: var(--accent5);
+            border: 1px solid rgba(112,200,232,0.25);
+        }
+
+        .country-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .country-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .country-header:hover {
+            background: var(--surface2);
+        }
+
+        .country-flag {
+            font-size: 22px;
+        }
+
+        .country-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .country-dates {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .country-budget {
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .country-chevron {
+            color: var(--muted);
+            transition: transform 0.2s;
+            font-size: 12px;
+        }
+
+        .country-block.open .country-chevron {
+            transform: rotate(180deg);
+        }
+
+        .country-body {
+            padding: 0;
+            display: none;
+        }
+
+        .country-block.open .country-body {
+            display: block;
+        }
+
+        .item-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .item-row:last-child {
+            border-bottom: none;
+        }
+
+        .item-check {
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--border2);
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: transparent;
+            transition: all 0.15s;
+        }
+
+        .item-check.checked {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #0e0f0d;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-title {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .item-sub {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .item-price {
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+            color: var(--accent3);
+            white-space: nowrap;
+        }
+
+        .bucket-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .bucket-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .bucket-card:hover {
+            border-color: var(--border2);
+        }
+
+        .bucket-card.done {
+            opacity: 0.5;
+        }
+
+        .bucket-emoji {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .bucket-info {
+            flex: 1;
+        }
+
+        .bucket-title {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .bucket-loc {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .bucket-type {
+            font-size: 10px;
+            font-family: 'DM Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .bucket-type.eat { color: var(--accent3); }
+        .bucket-type.see { color: var(--accent5); }
+        .bucket-type.do { color: var(--accent2); }
+
+        .bucket-check {
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid var(--border2);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            transition: all 0.15s;
+        }
+
+        .bucket-card.done .bucket-check {
+            background: var(--accent2);
+            border-color: var(--accent2);
+            color: #0e0f0d;
+        }
+
+        .budget-country-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .budget-country-row:last-child {
+            border-bottom: none;
+        }
+
+        .bcr-flag { font-size: 18px; width: 26px; text-align: center; }
+        .bcr-name { font-size: 13px; font-weight: 500; flex: 1; }
+        .bcr-days { font-size: 12px; color: var(--muted); width: 50px; text-align: right; }
+        .bcr-bar-wrap { width: 140px; }
+        .bcr-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+        .bcr-bar-fill { height: 100%; border-radius: 3px; }
+        .bcr-amount { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text); width: 70px; text-align: right; }
+
+        input[type="text"], input[type="number"], input[type="date"], select {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent);
+        }
+
+        input[type="text"] { width: 100%; }
+        select option { background: var(--surface2); }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-backdrop.open { display: flex; }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 14px;
+            padding: 24px;
+            width: 460px;
+            max-width: 95vw;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .form-row { margin-bottom: 14px; }
+        .form-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'DM Mono', monospace;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+        textarea {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            width: 100%;
+            outline: none;
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        textarea:focus { border-color: var(--accent); }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 24px 0 14px;
+        }
+
+        .alert {
+            background: rgba(200,224,80,0.08);
+            border: 1px solid rgba(200,224,80,0.2);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
 </head>
 <body>
-
-  <div class="app">
+<div class="app">
     <nav class="sidebar">
-      <div class="logo">
-        <h1>🌏 ASIE ÉTÉ 2025</h1>
-        <p>1 juil → 15 août · 46 jours</p>
-      </div>
-      
-      <div class="budget-pill">
-        <div class="label">Budget Restant Global</div>
-        <div class="amount" id="sidebar-remaining">5 000 €</div>
-        <div class="sub" id="sidebar-spent">0 € engagé</div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="sidebar-bar" style="width: 0%; background: var(--accent);"></div>
+        <div class="logo">
+            <h1>🌏 ASIE ÉTÉ 25</h1>
+            <p>1 juil → 15 août · 46 jours</p>
         </div>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-label">Navigation</div>
-        <div class="nav-item active" onclick="goTab('overview', this)"><span class="icon">🗺</span> Accueil & Itinéraire</div>
-        <div class="nav-item" onclick="goTab('expenses', this)"><span class="icon">💰</span> Dépenses Totales</div>
-        <div class="nav-item" onclick="goTab('reservations', this)"><span class="icon">🏨</span> Réservations</div>
-        <div class="nav-item" onclick="goTab('transport', this)"><span class="icon">✈️</span> Transports</div>
-        <div class="nav-item" onclick="goTab('bucket', this)"><span class="icon">⭐</span> Bucket List</div>
-      </div>
+        <div class="budget-pill">
+            <div class="label">Budget restant / pers.</div>
+            <div class="amount" id="sidebar-remaining">5 000 €</div>
+            <div class="sub" id="sidebar-spent">0 € engagé</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="sidebar-bar" style="width:0%; background: var(--accent);"></div>
+            </div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-label">Navigation</div>
+            <div class="nav-item active" onclick="goTab('overview',this)"><span class="icon">🗺</span> Vue d'ensemble</div>
+            <div class="nav-item" onclick="goTab('budget',this)"><span class="icon">💰</span> Budget</div>
+            <div class="nav-item" onclick="goTab('reservations',this)"><span class="icon">🏨</span> Hébergements</div>
+            <div class="nav-item" onclick="goTab('transport',this)"><span class="icon">✈️</span> Transports</div>
+            <div class="nav-item" onclick="goTab('bucket',this)"><span class="icon">⭐</span> Bucket list</div>
+            <div class="nav-item" onclick="goTab('notes',this)"><span class="icon">📝</span> Notes & Docs</div>
+        </div>
     </nav>
-
     <main class="main">
-      
-      <div id="tab-overview" class="tab-content active">
-        <div class="page-header">
-          <div>
-            <h2>Tableau de bord — Vue d'ensemble</h2>
-            <p>Marseille → Asie du Sud-Est · 2 personnes</p>
-          </div>
-          <button class="btn btn-accent" onclick="openModal('modal-add-expense')">+ Ajouter une dépense</button>
+        <div id="tab-overview" class="tab-content active">
+            <div class="page-header">
+                <h2>Vue d'ensemble</h2>
+                <p>1er juillet – 15 août 2025 · Marseille → Asie du Sud-Est · 2 personnes</p>
+            </div>
+            <div class="alert">⚡ Priorité n°1 : réserver le vol MRS → KUL maintenant — juillet = haute saison, les prix augmentent chaque semaine.</div>
+            <div class="cards-grid">
+                <div class="card" style="--accent-color: var(--accent)">
+                    <div class="card-label">Budget total / pers.</div>
+                    <div class="card-value" style="color:var(--accent)">5 000 €</div>
+                    <div class="card-sub">Tout compris · préparatifs inclus</div>
+                </div>
+                <div class="card" style="--accent-color: var(--accent3)">
+                    <div class="card-label">Engagé / dépensé</div>
+                    <div class="card-value" style="color:var(--accent3)" id="card-spent">0 €</div>
+                    <div class="card-sub" id="card-pct">0 % du budget utilisé</div>
+                </div>
+                <div class="card" style="--accent-color: var(--accent2)">
+                    <div class="card-label">Reste disponible</div>
+                    <div class="card-value" style="color:var(--accent2)" id="card-remaining">5 000 €</div>
+                    <div class="card-sub">Pour vols + vie sur place</div>
+                </div>
+                <div class="card" style="--accent-color: var(--accent5)">
+                    <div class="card-label">Durée du voyage</div>
+                    <div class="card-value" style="color:var(--accent5)">46 j</div>
+                    <div class="card-sub">6 pays · 8 étapes</div>
+                </div>
+            </div>
+            <div class="section-title">Itinéraire par étape</div>
+            <div class="country-block open" id="b-my">
+                <div class="country-header" onclick="toggleBlock('b-my')">
+                    <span class="country-flag">🇲🇾</span><span class="country-name">Malaisie — KL + Penang</span>
+                    <span class="country-dates">1 – 5 juil · 4 nuits</span>
+                    <span class="country-budget">~160–200 €</span><span class="country-chevron">▼</span>
+                </div>
+                <div class="country-body">
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vol MRS → KUL — à réserver MAINTENANT</div><div class="item-sub">Turkish Airlines / Qatar Airways / China Eastern · avec escale</div></div><div class="item-price">~750–850 €</div></div>
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Remplir la MDAC (Malaysia Digital Arrival Card)</div><div class="item-sub">Obligatoire · gratuit en ligne · 3 jours avant l'arrivée max</div></div><div class="item-price">Gratuit</div></div>
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Kuala Lumpur · 2 nuits</div><div class="item-sub">Hostel ou Airbnb · Bukit Bintang ou Chinatown · Batu Caves + Jalan Alor</div></div><div class="item-price">~15 €/nuit</div></div>
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Bus KL → Penang</div><div class="item-sub">Transnasional · 4h30 · gare TBS</div></div><div class="item-price">~5 €</div></div>
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Penang · 2 nuits</div><div class="item-sub">George Town · street art + asam laksa · patrimoine UNESCO</div></div><div class="item-price">~15 €/nuit</div></div>
+                </div>
+            </div>
+            <div class="country-block" id="b-sg">
+                <div class="country-header" onclick="toggleBlock('b-sg')">
+                    <span class="country-flag">🇸🇬</span><span class="country-name">Singapour</span>
+                    <span class="country-dates">5 – 7 juil · 2 nuits</span>
+                    <span class="country-budget">~150–170 €</span><span class="country-chevron">▼</span>
+                </div>
+                <div class="country-body">
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vol ou bus Penang → Singapour</div><div class="item-sub">AirAsia / Firefly ~40 € · ou bus longue distance ~20 €</div></div><div class="item-price">~20–40 €</div></div>
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Hostel · 2 nuits</div><div class="item-sub">Little India ou Chinatown · hawker centers pour manger pas cher</div></div><div class="item-price">~40–50 €/nuit</div></div>
+                </div>
+            </div>
+            <div class="country-block" id="b-bali">
+                <div class="country-header" onclick="toggleBlock('b-bali')">
+                    <span class="country-flag">🇮🇩</span><span class="country-name">Bali — Indonésie</span>
+                    <span class="country-dates">7 – 14 juil · 7 nuits</span>
+                    <span class="country-budget">~210–315 €</span><span class="country-chevron">▼</span>
+                </div>
+                <div class="country-body">
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vol SIN → Denpasar (DPS)</div><div class="item-sub">AirAsia / Scoot / Batik Air · bagage inclus</div></div><div class="item-price">~60–90 €</div></div>
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Canggu · 3 nuits ✦ freestyle</div><div class="item-sub">Surf + café + vibes · pas de plan imposé · Batu Bolong area</div></div><div class="item-price">~15–20 €/nuit</div></div>
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Ubud · 2 nuits</div><div class="item-sub">Rizières + temples + marché · guest house ou Airbnb</div></div><div class="item-price">~20–30 €/nuit</div></div>
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Uluwatu · 2 nuits</div><div class="item-sub">Falaises + temple sunset + Kecak dance</div></div><div class="item-price">~15–25 €/nuit</div></div>
+                    <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Location scooter · 7 jours</div><div class="item-sub">Indispensable à Bali · ~4–5 €/jour</div></div><div class="item-price">~28–35 €</div></div>
+                </div>
+            </div>
         </div>
 
-        <div class="countdown-container">
-          <div class="countdown-text">
-            <h3>⏱ Temps restant avant le grand départ !</h3>
-            <p style="font-size:12px; color:var(--muted)">Prévu le 1er juillet 2025</p>
-          </div>
-          <div class="countdown-timer" id="countdown">00j 00h 00m</div>
+        <div id="tab-budget" class="tab-content">
+            <div class="page-header">
+                <h2>Suivi du Budget</h2>
+                <p>Gestion des dépenses par poste et par destination</p>
+            </div>
+            <div class="table-wrap">
+                <div class="table-header">
+                    <h3>Estimation théorique initiale</h3>
+                </div>
+                <div style="padding: 20px;">
+                    <div class="budget-country-row"><span class="bcr-flag">🇲🇾</span><span class="bcr-name">Malaisie</span><span class="bcr-days">4 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:40%; background:var(--accent)"></div></div></div><span class="bcr-amount">200 €</span></div>
+                    <div class="budget-country-row"><span class="bcr-flag">🇸🇬</span><span class="bcr-name">Singapour</span><span class="bcr-days">2 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:30%; background:var(--accent5)"></div></div></div><span class="bcr-amount">150 €</span></div>
+                    <div class="budget-country-row"><span class="bcr-flag">🇮🇩</span><span class="bcr-name">Indonésie</span><span class="bcr-days">14 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:80%; background:var(--accent2)"></div></div></div><span class="bcr-amount">600 €</span></div>
+                </div>
+            </div>
         </div>
 
-        <div class="map-container">
-          <div class="form-label" style="text-align: left; margin-bottom: 10px;">🗺 Tracé schématique de ton itinéraire</div>
-          <svg class="map-svg" viewBox="0 0 800 200">
-            <circle cx="50" cy="100" r="6" fill="var(--accent4)" />
-            <text x="50" y="130" fill="var(--muted)" font-size="11" text-anchor="middle">Marseille</text>
-            
-            <circle cx="180" cy="80" r="5" fill="var(--accent)" />
-            <text x="180" y="60" fill="var(--text)" font-size="11" text-anchor="middle">🇲🇾 Malaisie</text>
-            
-            <circle cx="300" cy="120" r="5" fill="var(--accent)" />
-            <text x="300" y="145" fill="var(--text)" font-size="11" text-anchor="middle">🇸🇬 Singapour</text>
-            
-            <circle cx="430" cy="135" r="5" fill="var(--accent)" />
-            <text x="430" y="160" fill="var(--text)" font-size="11" text-anchor="middle">🇮🇩 Bali / Lombok</text>
-            
-            <circle cx="560" cy="70" r="5" fill="var(--accent)" />
-            <text x="560" y="50" fill="var(--text)" font-size="11" text-anchor="middle">🇻🇳 Vietnam</text>
-            
-            <circle cx="700" cy="90" r="5" fill="var(--accent)" />
-            <text x="700" y="120" fill="var(--text)" font-size="11" text-anchor="middle">🇹🇭 Bangkok</text>
-
-            <path d="M 50 100 Q 115 60 180 80 T 300 120 T 430 135 T 560 70 T 700 90" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6,4" />
-          </svg>
+        <div id="tab-reservations" class="tab-content">
+            <div class="page-header">
+                <h2>Hébergements & Logements</h2>
+                <p>Suivi complet des réservations d'hôtels et d'hostels</p>
+            </div>
+            <div class="table-wrap">
+                <div class="table-header">
+                    <h3>Liste des hébergements</h3>
+                    <button class="btn btn-accent" onclick="openModal('modal-hotel')">+ Ajouter</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Statut</th>
+                            <th>Étape / Ville</th>
+                            <th>Hébergement / Type</th>
+                            <th>Dates / Nuits</th>
+                            <th>Prix total</th>
+                            <th>Référence / Notes</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="hotel-table">
+                        </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="section-title">Ton Programme Initial</div>
-        
-        <div class="country-block open">
-          <div class="country-header" onclick="this.parentElement.classList.toggle('open')">
-            <span class="country-name">🇲🇾 Étape 1 : Malaisie (KL + Penang)</span>
-            <span class="country-dates">1 – 5 juil · 4 nuits</span>
-            <span class="country-chevron">▼</span>
-          </div>
-          <div class="country-body">
-            <p style="color:var(--muted)">Vol MRS → KUL obligatoire, escale requise. Visite de Bukit Bintang, Chinatown et bus vers George Town.</p>
-          </div>
+        <div id="tab-transport" class="tab-content">
+            <div class="page-header">
+                <h2>Transports & Liaisons</h2>
+                <p>Vols internationaux, vols internes, bus de nuit et ferries</p>
+            </div>
+            <div class="table-wrap">
+                <div class="table-header">
+                    <h3>Plan de transport</h3>
+                    <button class="btn btn-accent" onclick="openModal('modal-transport')">+ Ajouter</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Trajet</th>
+                            <th>Date</th>
+                            <th>Horaire</th>
+                            <th>Compagnie</th>
+                            <th>Prix / pers</th>
+                            <th>Statut</th>
+                            <th>Référence</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="transport-table">
+                        </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="country-block">
-          <div class="country-header" onclick="this.parentElement.classList.toggle('open')">
-            <span class="country-name">🇸🇬 Étape 2 : Singapour</span>
-            <span class="country-dates">5 – 7 juil · 2 nuits</span>
-            <span class="country-chevron">▼</span>
-          </div>
-          <div class="country-body">
-            <p style="color:var(--muted)">Transit ou visite express. Logement à Little India ou Chinatown. Hawker centers pour manger.</p>
-          </div>
+        <div id="tab-bucket" class="tab-content">
+            <div class="page-header">
+                <h2>Bucket List Asie</h2>
+                <p>Les expériences, plats et spots incontournables validés par la communauté</p>
+            </div>
+            <div class="bucket-grid">
+                <div class="bucket-card" onclick="toggleBucket(this)">
+                    <span class="bucket-emoji">🍜</span>
+                    <div class="bucket-info">
+                        <div class="bucket-title">Manger un Asam Laksa à Penang</div>
+                        <div class="bucket-loc">George Town, Malaisie</div>
+                        <span class="badge bucket-type eat">Food</span>
+                    </div>
+                    <div class="bucket-check">✓</div>
+                </div>
+                <div class="bucket-card" onclick="toggleBucket(this)">
+                    <span class="bucket-emoji">🐢</span>
+                    <div class="bucket-info">
+                        <div class="bucket-title">Nager avec les tortues marines</div>
+                        <div class="bucket-loc">Gili Air, Indonésie</div>
+                        <span class="badge bucket-type do">Expérience</span>
+                    </div>
+                    <div class="bucket-check">✓</div>
+                </div>
+            </div>
         </div>
 
-        <div class="country-block">
-          <div class="country-header" onclick="this.parentElement.classList.toggle('open')">
-            <span class="country-name">🇮🇩 Étape 3 : Indonésie (Bali + Lombok)</span>
-            <span class="country-dates">7 – 21 juil · 14 nuits</span>
-            <span class="country-chevron">▼</span>
-          </div>
-          <div class="country-body">
-            <p style="color:var(--muted)">Canggu (Surf/Vibes), Ubud (Rizières/Temples), Uluwatu et transfert Fast boat pour Gili Air et Lombok.</p>
-          </div>
+        <div id="tab-notes" class="tab-content">
+            <div class="page-header">
+                <h2>Notes libres & Documents</h2>
+                <p>Pense-bête, adresses utiles et liens importants</p>
+            </div>
+            <textarea id="free-notes" placeholder="Écris tes notes ici..."></textarea>
+            <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+                <span id="notes-saved" style="color:var(--accent2); font-size:12px; opacity:0; transition:opacity 0.3s;">✓ Sauvegardé automatiquement</span>
+                <button class="btn btn-accent" onclick="saveNotes()">Sauvegarder les notes</button>
+            </div>
         </div>
-      </div>
-
-      <div id="tab-expenses" class="tab-content">
-        <div class="page-header">
-          <div>
-            <h2>Dépenses Totales</h2>
-            <p>Toutes les entrées financières centralisées et triées automatiquement</p>
-          </div>
-        </div>
-
-        <div class="cards-grid">
-          <div class="card" style="--accent-color: var(--accent2)">
-            <div class="card-label">Déjà payé</div>
-            <div class="card-value" id="total-paid" style="color:var(--accent2)">0 €</div>
-          </div>
-          <div class="card" style="--accent-color: var(--accent3)">
-            <div class="card-label">À payer / Engagé</div>
-            <div class="card-value" id="total-topay" style="color:var(--accent3)">0 €</div>
-          </div>
-          <div class="card" style="--accent-color: var(--accent5)">
-            <div class="card-label">Estimations prévues</div>
-            <div class="card-value" id="total-estimate" style="color:var(--accent5)">0 €</div>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <div class="table-header">
-            <h3>Historique Global des Dépenses</h3>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Voyage / Pays</th>
-                <th>Intitulé / Élément</th>
-                <th>Catégorie</th>
-                <th>Montant</th>
-                <th>Statut</th>
-                <th>Date / Note</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="global-expenses-tbody">
-              </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div id="tab-reservations" class="tab-content">
-        <div class="page-header">
-          <div>
-            <h2>Suivi des Réservations</h2>
-            <p>Hébergements, hôtels, activités sur place, parcs nationaux</p>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Pays</th>
-                <th>Hébergement / Activité</th>
-                <th>Coût / Pers</th>
-                <th>Statut</th>
-              </tr>
-            </thead>
-            <tbody id="reservations-tbody">
-              </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div id="tab-transport" class="tab-content">
-        <div class="page-header">
-          <div>
-            <h2>Transports</h2>
-            <p>Vols internationaux, vols internes, trains, bus de nuit et bateaux</p>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Pays</th>
-                <th>Type / Trajet</th>
-                <th>Prix</th>
-                <th>Statut</th>
-              </tr>
-            </thead>
-            <tbody id="transports-tbody">
-              </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div id="tab-bucket" class="tab-content">
-        <div class="page-header">
-          <div>
-            <h2>Idées de Trucs à faire</h2>
-            <p>Garde ici tout ce que tu aimerais faire ou tester par pays !</p>
-          </div>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); padding:20px; border-radius:12px">
-          <ul style="margin-left:20px; line-height:2">
-            <li>🍜 <strong>Malaisie :</strong> Tester le Asam Laksa à Penang et le Street food à Jalan Alor.</li>
-            <li>🐢 <strong>Gili Air :</strong> Faire du PMT (Snorkeling) matinal pour nager avec les tortues.</li>
-            <li>🌋 <strong>Lombok :</strong> Randonner sur le Volcan Rinjani (physique mais magique).</li>
-            <li>🛶 <strong>Vietnam :</strong> Explorer les tunnels de Cu Chi près de Ho Chi Minh.</li>
-          </ul>
-        </div>
-      </div>
-
     </main>
-  </div>
+</div>
 
-  <div class="modal-backdrop" id="modal-add-expense">
+<div class="modal-backdrop" id="modal-hotel">
     <div class="modal">
-      <h3>➕ Entrer une nouvelle dépense</h3>
-      
-      <div class="form-row">
-        <label class="form-label">Voyage / Destination concernée</label>
-        <select id="exp-country">
-          <option value="🇲🇾 Malaisie">🇲🇾 Malaisie</option>
-          <option value="🇸🇬 Singapour">🇸🇬 Singapour</option>
-          <option value="🇮🇩 Indonésie">🇮🇩 Indonésie</option>
-          <option value="🇻🇳 Vietnam">🇻🇳 Vietnam</option>
-          <option value="🇹🇭 Thaïlande">🇹🇭 Thaïlande</option>
-          <option value="✈️ Vol International">✈️ Vol International (Général)</option>
-        </select>
-      </div>
-
-      <div class="form-row">
-        <label class="form-label">Description / Nom</label>
-        <input type="text" id="exp-name" placeholder="Ex: Hôtel Central, Vol AirAsia, Resto...">
-      </div>
-
-      <div class="form-grid">
+        <h3>Ajouter un hébergement</h3>
         <div class="form-row">
-          <label class="form-label">Catégorie</label>
-          <select id="exp-category">
-            <option value="Hébergement">🏨 Hébergement / Réservation</option>
-            <option value="Transport">✈️ Transport (Vol, Bus, Bateau)</option>
-            <option value="Activité">⭐ Activité / Sortie</option>
-            <option value="Repas">🍲 Nourriture / Vie sur place</option>
-          </select>
+            <label class="form-label">Étape / Ville</label>
+            <input type="text" id="h-city" placeholder="Ex: Kuala Lumpur">
         </div>
         <div class="form-row">
-          <label class="form-label">Montant (€)</label>
-          <input type="number" id="exp-amount" placeholder="0.00">
+            <label class="form-label">Nom de l'établissement</label>
+            <input type="text" id="h-name" placeholder="Ex: Container Hotel">
         </div>
-      </div>
-
-      <div class="form-row">
-        <label class="form-label">Statut</label>
-        <select id="exp-status">
-          <option value="Payé">✅ Payé</option>
-          <option value="À payer">⏳ À payer / Engagé</option>
-          <option value="Estimé">🔮 Estimé</option>
-        </select>
-      </div>
-
-      <div class="modal-actions">
-        <button class="btn" onclick="closeModal('modal-add-expense')">Annuler</button>
-        <button class="btn btn-accent" onclick="saveNewExpense()">Enregistrer l'élément</button>
-      </div>
+        <div class="form-grid form-row">
+            <div>
+                <label class="form-label">Date d'arrivée</label>
+                <input type="date" id="h-checkin">
+            </div>
+            <div>
+                <label class="form-label">Date de départ</label>
+                <input type="date" id="h-checkout">
+            </div>
+        </div>
+        <div class="form-grid form-row">
+            <div>
+                <label class="form-label">Prix Total (€)</label>
+                <input type="number" id="h-price" placeholder="Ex: 60">
+            </div>
+            <div>
+                <label class="form-label">Statut</label>
+                <select id="h-status">
+                    <option value="À réserver">À réserver</option>
+                    <option value="Réservé">Réservé</option>
+                    <option value="En option">En option</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Référence / Notes</label>
+            <input type="text" id="h-ref" placeholder="Booking ref, lien...">
+        </div>
+        <div class="modal-actions">
+            <button class="btn" onclick="closeModal('modal-hotel')">Annuler</button>
+            <button class="btn btn-accent" onclick="addHotelRow()">Ajouter</button>
+        </div>
     </div>
-  </div>
+</div>
 
-  <script>
-    // Base de données réinitialisable
-    let expenses = [
-      { id: 1, country: '✈️ Vol International', name: 'Vol Aller-Retour Marseille-KL', category: 'Transport', amount: 850, status: 'À payer', note: 'Haute saison' },
-      { id: 2, country: '🇲🇾 Malaisie', name: 'Hôtel Kuala Lumpur - 2 nuits', category: 'Hébergement', amount: 30, status: 'Payé', note: 'Quartier Chinatown' },
-      { id: 3, country: '🇮🇩 Indonésie', name: 'Fast boat Bali vers Gili', category: 'Transport', amount: 35, status: 'Estimé', note: 'Depuis Padang Bai' },
-      { id: 4, country: '🇹🇭 Thaïlande', name: 'Bus de nuit + Ferry Bangkok', category: 'Transport', amount: 25, status: 'Estimé', note: 'Combo Lomprayah' }
-    ];
+<div class="modal-backdrop" id="modal-transport">
+    <div class="modal">
+        <h3>Ajouter un transport</h3>
+        <div class="form-row">
+            <label class="form-label">Type de transport</label>
+            <select id="t-type">
+                <option value="✈ Vol">✈ Vol</option>
+                <option value="🚌 Bus">🚌 Bus</option>
+                <option value="🚢 Ferry">🚢 Ferry</option>
+            </select>
+        </div>
+        <div class="form-grid form-row">
+            <div>
+                <label class="form-label">De</label>
+                <input type="text" id="t-from" placeholder="Ex: MRS">
+            </div>
+            <div>
+                <label class="form-label">À</label>
+                <input type="text" id="t-to" placeholder="Ex: KUL">
+            </div>
+        </div>
+        <div class="form-grid form-row">
+            <div>
+                <label class="form-label">Date</label>
+                <input type="date" id="t-date">
+            </div>
+            <div>
+                <label class="form-label">Compagnie</label>
+                <input type="text" id="t-co" placeholder="Ex: AirAsia">
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Prix (€) / personne</label>
+            <input type="number" id="t-price" placeholder="Ex: 450">
+        </div>
+        <div class="form-row">
+            <label class="form-label">Référence</label>
+            <input type="text" id="t-ref" placeholder="Numéro de vol, dossier...">
+        </div>
+        <div class="modal-actions">
+            <button class="btn" onclick="closeModal('modal-transport')">Annuler</button>
+            <button class="btn btn-accent" onclick="addTransportRow()">Ajouter</button>
+        </div>
+    </div>
+</div>
 
-    // Navigation entre onglets
+<script>
+    let totalSpent = 0;
+    const initialBudget = 5000;
+
     function goTab(tabId, el) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      document.getElementById('tab-' + tabId).classList.add('active');
-      el.classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        el.classList.add('active');
     }
 
-    function openModal(id) { document.getElementById(id).classList.add('open'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-    // Enregistrement d'une nouvelle dépense
-    function saveNewExpense() {
-      const country = document.getElementById('exp-country').value;
-      const name = document.getElementById('exp-name').value || 'Sans nom';
-      const category = document.getElementById('exp-category').value;
-      const amount = parseFloat(document.getElementById('exp-amount').value) || 0;
-      const status = document.getElementById('exp-status').value;
-
-      expenses.push({ id: Date.now(), country, name, category, amount, status, note: 'Ajouté manuellement' });
-      closeModal('modal-add-expense');
-      renderApp();
+    function toggleBlock(id) {
+        document.getElementById(id).classList.toggle('open');
     }
 
-    // Suppression d'une ligne
-    function deleteExpense(id) {
-      expenses = expenses.filter(e => e.id !== id);
-      renderApp();
+    function toggleCheck(el) {
+        el.classList.toggle('checked');
+        if (el.classList.contains('checked')) {
+            el.innerHTML = '✓';
+        } else {
+            el.innerHTML = '';
+        }
     }
 
-    // Rendu applicatif global et calculs automatiques
-    function renderApp() {
-      const globalTbody = document.getElementById('global-expenses-tbody');
-      const resTbody = document.getElementById('reservations-tbody');
-      const transTbody = document.getElementById('transports-tbody');
-      
-      // Nettoyage des tableaux
-      globalTbody.innerHTML = '';
-      resTbody.innerHTML = '';
-      transTbody.innerHTML = '';
+    function toggleBucket(card) {
+        card.classList.toggle('done');
+    }
 
-      let paidSum = 0;
-      let topaySum = 0;
-      let estSum = 0;
+    function openModal(id) {
+        document.getElementById(id).classList.add('open');
+    }
 
-      expenses.forEach(e => {
-        // Sommes cumulées selon le statut
-        if (e.status === 'Payé') paidSum += e.amount;
-        else if (e.status === 'À payer') topaySum += e.amount;
-        else if (e.status === 'Estimé') estSum += e.amount;
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+    }
 
-        // Badge CSS de statut
-        const badgeClass = e.status === 'Payé' ? 'badge-paid' : e.status === 'À payer' ? 'badge-topay' : 'badge-estimate';
+    function updateBudget() {
+        const remaining = initialBudget - totalSpent;
+        const pct = Math.min(100, Math.round((totalSpent / initialBudget) * 100));
 
-        // Ligne pour l'onglet Dépenses Générales
+        document.getElementById('sidebar-spent').innerText = totalSpent + ' € engagé';
+        document.getElementById('sidebar-remaining').innerText = remaining + ' €';
+        document.getElementById('sidebar-bar').style.width = pct + '%';
+
+        if(document.getElementById('card-spent')) {
+            document.getElementById('card-spent').innerText = totalSpent + ' €';
+            document.getElementById('card-remaining').innerText = remaining + ' €';
+            document.getElementById('card-pct').innerText = pct + ' % du budget utilisé';
+        }
+    }
+
+    function removeRow(btn, price) {
+        if (price) {
+            totalSpent -= Number(price);
+            updateBudget();
+        }
+        btn.closest('tr').remove();
+    }
+
+    function addHotelRow() {
+        const city = document.getElementById('h-city').value;
+        const name = document.getElementById('h-name').value;
+        const checkin = document.getElementById('h-checkin').value;
+        const checkout = document.getElementById('h-checkout').value;
+        const price = document.getElementById('h-price').value;
+        const status = document.getElementById('h-status').value;
+        const ref = document.getElementById('h-ref').value || '—';
+
+        if (!city || !name) return alert('Veuillez remplir la ville et le nom.');
+
+        const fmt = d => d ? d.slice(5).replace('-', '/') : '—';
+        let badgeClass = 'badge-todo';
+        if (status === 'Réservé') badgeClass = 'badge-booked';
+        if (status === 'En option') badgeClass = 'badge-option';
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td style="font-weight:600">${e.country}</td>
-          <td>${e.name}</td>
-          <td><span class="badge badge-transport">${e.category}</span></td>
-          <td style="font-family:'DM Mono'; font-weight:bold">${e.amount} €</td>
-          <td><span class="badge ${badgeClass}">${e.status}</span></td>
-          <td style="color:var(--muted); font-size:12px">${e.note}</td>
-          <td><button class="btn btn-sm" style="color:var(--red); border-color:var(--border)" onclick="deleteExpense(${e.id})">✕</button></td>
+            <td><span class="badge ${badgeClass}">${status}</span></td>
+            <td><strong>${city}</strong></td>
+            <td>${name}</td>
+            <td style="font-family:'DM Mono',monospace;font-size:12px">${fmt(checkin)} → ${fmt(checkout)}</td>
+            <td style="font-family:'DM Mono',monospace;color:var(--accent)">${price ? price + ' €' : '—'}</td>
+            <td style="color:var(--muted);font-size:12px">${ref}</td>
+            <td><button class="btn btn-sm btn-danger" onclick="removeRow(this, ${price || 0})">✕</button></td>
         `;
-        globalTbody.appendChild(tr);
 
-        // Dispatch vers l'onglet Réservations (Hébergements / Activités)
-        if (e.category === 'Hébergement' || e.category === 'Activité') {
-          const trRes = document.createElement('tr');
-          trRes.innerHTML = `<td>${e.country}</td><td>${e.name}</td><td>${e.amount} €</td><td><span class="badge ${badgeClass}">${e.status}</span></td>`;
-          resTbody.appendChild(trRes);
+        document.getElementById('hotel-table').appendChild(tr);
+
+        if (price) {
+            totalSpent += Number(price);
+            updateBudget();
         }
 
-        // Dispatch vers l'onglet Transports
-        if (e.category === 'Transport') {
-          const trTrans = document.createElement('tr');
-          trTrans.innerHTML = `<td>${e.country}</td><td>${e.name}</td><td>${e.amount} €</td><td><span class="badge ${badgeClass}">${e.status}</span></td>`;
-          transTbody.appendChild(trTrans);
+        closeModal('modal-hotel');
+        ['h-city', 'h-name', 'h-checkin', 'h-checkout', 'h-price', 'h-ref'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    function addTransportRow() {
+        const type = document.getElementById('t-type').value;
+        const from = document.getElementById('t-from').value;
+        const to = document.getElementById('t-to').value;
+        const date = document.getElementById('t-date').value;
+        const co = document.getElementById('t-co').value;
+        const price = document.getElementById('t-price').value;
+        const ref = document.getElementById('t-ref').value || '—';
+
+        if (!from || !to) return alert('Veuillez remplir le départ et l\'arrivée.');
+
+        const fmt = d => d ? d.slice(5).replace('-', '/') : '—';
+        const typeBadge = type.includes('Vol') ? 'badge-fly' : type.includes('Bus') ? 'badge-bus' : 'badge-ferry';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><span class="badge ${typeBadge}">${type}</span></td>
+            <td><strong>${from} → ${to}</strong></td>
+            <td style="font-family:'DM Mono',monospace;font-size:12px">${fmt(date)}</td>
+            <td style="color:var(--muted)">—</td>
+            <td>${co}</td>
+            <td style="font-family:'DM Mono',monospace;color:var(--accent3)">${price ? '~' + price + ' €' : '—'}</td>
+            <td><span class="badge badge-todo">À réserver</span></td>
+            <td style="color:var(--muted);font-size:12px">${ref}</td>
+            <td><button class="btn btn-sm btn-danger" onclick="removeRow(this, ${price || 0})">✕</button></td>
+        `;
+
+        document.getElementById('transport-table').appendChild(tr);
+
+        if (price) {
+            totalSpent += Number(price);
+            updateBudget();
         }
-      });
 
-      // Mises à jour des blocs compteurs financiers
-      document.getElementById('total-paid').innerText = paidSum + ' €';
-      document.getElementById('total-topay').innerText = topaySum + ' €';
-      document.getElementById('total-estimate').innerText = estSum + ' €';
-
-      const totalEngaged = paidSum + topaySum;
-      const globalBudget = 5000;
-      const remaining = globalBudget - totalEngaged;
-
-      document.getElementById('sidebar-spent').innerText = totalEngaged + ' € engagés';
-      document.getElementById('sidebar-remaining').innerText = remaining + ' €';
-      
-      const pct = Math.min((totalEngaged / globalBudget) * 100, 100);
-      document.getElementById('sidebar-bar').style.width = pct + '%';
+        closeModal('modal-transport');
+        ['t-from', 't-to', 't-date', 't-co', 't-price', 't-ref'].forEach(id => document.getElementById(id).value = '');
     }
 
-    // Compte à rebours dynamique jusqu'au 1er Juillet 2025 (ou année courante)
-    function updateCountdown() {
-      const launchDate = new Date("Jul 1, 2025 00:00:00").getTime();
-      const now = new Date().getTime();
-      const diff = launchDate - now;
-
-      if (diff < 0) {
-        document.getElementById("countdown").innerText = "✈️ C'est le grand départ !";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-      document.getElementById("countdown").innerText = `${days}j ${hours}h ${mins}m`;
+    function saveNotes() {
+        try {
+            localStorage.setItem('voyage-notes', document.getElementById('free-notes').value);
+        } catch(e){}
+        const el = document.getElementById('notes-saved');
+        el.style.opacity = 1;
+        setTimeout(() => el.style.opacity = 0, 2000);
     }
 
-    // Init au chargement
-    renderApp();
-    updateCountdown();
-    setInterval(updateCountdown, 60000);
-  </script>
+    window.onload = function() {
+        try {
+            const saved = localStorage.getItem('voyage-notes');
+            if (saved) document.getElementById('free-notes').value = saved;
+        } catch(e){}
+        updateBudget();
+    }
+</script>
 </body>
 </html>
