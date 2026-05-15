@@ -1,686 +1,1008 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌏 Voyage Asie — Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>🌏 Mo&Mi en Asie</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
-:root {
-  --bg: #0e0f0d;
-  --surface: #161714;
-  --surface2: #1e201b;
-  --border: #2a2d25;
-  --border2: #353830;
-  --text: #e8ead4;
-  --muted: #8a8d78;
-  --dim: #4a4d3a;
-  --accent: #c8e050;
-  --accent2: #7ed4a0;
-  --accent3: #f0a060;
-  --accent4: #e06080;
-  --accent5: #70c8e8;
-  --red: #e05050;
-  --yellow: #e8c050;
+
+:root{
+  --bg:#0d0f0c;
+  --surface:#161914;
+  --surface2:#1d211a;
+  --border:#2a2f25;
+  --text:#f1f0e6;
+  --muted:#8d9182;
+
+  --green:#c9e265;
+  --orange:#f0a15c;
+  --blue:#78c9ff;
+  --purple:#b78dff;
+  --red:#ff6868;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
-.app { display: flex; min-height: 100vh; }
-.sidebar { width: 220px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); padding: 0; position: fixed; height: 100vh; overflow-y: auto; z-index: 100; }
-.main { margin-left: 220px; flex: 1; padding: 28px 32px; max-width: 1200px; }
-.logo { padding: 24px 20px 20px; border-bottom: 1px solid var(--border); }
-.logo h1 { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; }
-.logo p { font-size: 11px; color: var(--muted); margin-top: 3px; font-family: 'DM Mono', monospace; }
-.nav-section { padding: 16px 12px 8px; }
-.nav-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--dim); font-family: 'DM Mono', monospace; padding: 0 8px; margin-bottom: 6px; }
-.nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; cursor: pointer; color: var(--muted); font-size: 13px; font-weight: 400; transition: all 0.15s; margin-bottom: 2px; }
-.nav-item:hover { background: var(--surface2); color: var(--text); }
-.nav-item.active { background: var(--accent); color: #0e0f0d; font-weight: 500; }
-.nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
-.budget-pill { margin: 16px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
-.budget-pill .label { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-.budget-pill .amount { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--accent); }
-.budget-pill .sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
-.progress-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 10px; overflow: hidden; }
-.progress-fill { height: 100%; border-radius: 2px; transition: width 0.5s; }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-.page-header { margin-bottom: 28px; }
-.page-header h2 { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
-.page-header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 28px; }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; position: relative; overflow: hidden; }
-.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent-color, var(--accent)); }
-.card .card-label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-.card .card-value { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 700; }
-.card .card-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
-.table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
-.table-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.table-header h3 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; }
-.btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
-.btn:hover { border-color: var(--accent); color: var(--accent); }
-.btn-accent { background: var(--accent); border-color: var(--accent); color: #0e0f0d; font-weight: 500; }
-.btn-accent:hover { background: #d8f060; border-color: #d8f060; color: #0e0f0d; }
-.btn-sm { padding: 3px 10px; font-size: 11px; }
-.btn-danger { background: transparent; border-color: var(--red); color: var(--red); }
-.btn-danger:hover { background: var(--red); color: white; }
-table { width: 100%; border-collapse: collapse; }
-th { text-align: left; padding: 10px 16px; font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); font-family: 'DM Mono', monospace; border-bottom: 1px solid var(--border); font-weight: 400; }
-td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
-tr:last-child td { border-bottom: none; }
-tr:hover td { background: var(--surface2); }
-.badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; white-space: nowrap; }
-.badge-booked { background: rgba(126,212,160,0.15); color: var(--accent2); border: 1px solid rgba(126,212,160,0.3); }
-.badge-todo { background: rgba(200,224,80,0.12); color: var(--accent); border: 1px solid rgba(200,224,80,0.25); }
-.badge-option { background: rgba(240,160,96,0.12); color: var(--accent3); border: 1px solid rgba(240,160,96,0.25); }
-.badge-fly { background: rgba(112,200,232,0.12); color: var(--accent5); border: 1px solid rgba(112,200,232,0.25); }
-.badge-bus { background: rgba(74,77,58,0.4); color: var(--muted); border: 1px solid var(--border2); }
-.badge-ferry { background: rgba(112,200,232,0.12); color: var(--accent5); border: 1px solid rgba(112,200,232,0.25); }
-.country-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
-.country-header { padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
-.country-header:hover { background: var(--surface2); }
-.country-flag { font-size: 22px; }
-.country-name { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; flex: 1; }
-.country-dates { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
-.country-budget { font-family: 'Syne', sans-serif; font-size: 14px; color: var(--accent); font-weight: 600; }
-.country-chevron { color: var(--muted); transition: transform 0.2s; font-size: 12px; }
-.country-block.open .country-chevron { transform: rotate(180deg); }
-.country-body { padding: 0; display: none; }
-.country-block.open .country-body { display: block; }
-.item-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--border); }
-.item-row:last-child { border-bottom: none; }
-.item-check { width: 18px; height: 18px; border: 1.5px solid var(--border2); border-radius: 4px; cursor: pointer; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: transparent; transition: all 0.15s; }
-.item-check.checked { background: var(--accent); border-color: var(--accent); color: #0e0f0d; }
-.item-info { flex: 1; }
-.item-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-.item-sub { font-size: 12px; color: var(--muted); }
-.item-price { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent3); white-space: nowrap; }
-.bucket-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-.bucket-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer; transition: all 0.15s; }
-.bucket-card:hover { border-color: var(--border2); }
-.bucket-card.done { opacity: 0.5; }
-.bucket-emoji { font-size: 24px; flex-shrink: 0; }
-.bucket-info { flex: 1; }
-.bucket-title { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
-.bucket-loc { font-size: 11px; color: var(--muted); }
-.bucket-type { font-size: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-.bucket-type.eat { color: var(--accent3); }
-.bucket-type.see { color: var(--accent5); }
-.bucket-type.do { color: var(--accent2); }
-.bucket-check { width: 20px; height: 20px; border: 1.5px solid var(--border2); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; transition: all 0.15s; }
-.bucket-card.done .bucket-check { background: var(--accent2); border-color: var(--accent2); color: #0e0f0d; }
-.budget-country-row { display: flex; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
-.budget-country-row:last-child { border-bottom: none; }
-.bcr-flag { font-size: 18px; width: 26px; text-align: center; }
-.bcr-name { font-size: 13px; font-weight: 500; flex: 1; }
-.bcr-days { font-size: 12px; color: var(--muted); width: 50px; text-align: right; }
-.bcr-bar-wrap { width: 140px; }
-.bcr-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-.bcr-bar-fill { height: 100%; border-radius: 3px; }
-.bcr-amount { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text); width: 70px; text-align: right; }
-input[type="text"], input[type="number"], input[type="date"], select { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 7px 12px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; transition: border-color 0.15s; }
-input:focus, select:focus { border-color: var(--accent); }
-input[type="text"] { width: 100%; }
-select option { background: var(--surface2); }
-.modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-.modal-backdrop.open { display: flex; }
-.modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 14px; padding: 24px; width: 460px; max-width: 95vw; max-height: 90vh; overflow-y: auto; }
-.modal h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 20px; }
-.form-row { margin-bottom: 14px; }
-.form-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'DM Mono', monospace; margin-bottom: 6px; display: block; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-textarea { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 12px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; width: 100%; outline: none; resize: vertical; min-height: 120px; line-height: 1.6; }
-textarea:focus { border-color: var(--accent); }
-.section-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 24px 0 14px; }
-.alert { background: rgba(200,224,80,0.08); border: 1px solid rgba(200,224,80,0.2); border-radius: 10px; padding: 12px 16px; margin-bottom: 24px; font-size: 13px; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+}
+
+.layout{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:280px;
+  background:rgba(17,18,15,.92);
+  backdrop-filter:blur(10px);
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  padding:26px;
+  overflow:auto;
+}
+
+.logo h1{
+  font-family:'Syne',sans-serif;
+  font-size:34px;
+  line-height:1;
+}
+
+.logo p{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.hero-box{
+  margin-top:30px;
+  background:linear-gradient(135deg,#1d211a,#262c21);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:22px;
+}
+
+.hero-box span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.hero-box h2{
+  margin-top:12px;
+  color:var(--green);
+  font-size:38px;
+  font-weight:800;
+}
+
+.progress{
+  height:8px;
+  background:#2b3028;
+  border-radius:999px;
+  overflow:hidden;
+  margin:18px 0;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--green),#dff58d);
+  border-radius:999px;
+  transition:.4s;
+}
+
+nav{
+  margin-top:32px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.nav-btn{
+  background:none;
+  border:none;
+  color:var(--muted);
+  padding:15px;
+  border-radius:16px;
+  text-align:left;
+  cursor:pointer;
+  transition:.25s;
+  font-size:15px;
+}
+
+.nav-btn:hover{
+  background:var(--surface2);
+  color:white;
+}
+
+.nav-btn.active{
+  background:var(--green);
+  color:#111;
+  font-weight:700;
+}
+
+/* CONTENT */
+
+.content{
+  margin-left:280px;
+  width:100%;
+  padding:36px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:28px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  padding-bottom:16px;
+  backdrop-filter:blur(10px);
+}
+
+.topbar h2{
+  font-family:'Syne',sans-serif;
+  font-size:42px;
+}
+
+.topbar p{
+  color:var(--muted);
+  margin-top:6px;
+}
+
+.countdown{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:20px 26px;
+}
+
+.countdown span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.countdown h3{
+  margin-top:8px;
+  font-size:30px;
+  color:var(--blue);
+}
+
+/* STATS */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:rgba(25,28,23,.85);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:26px;
+  backdrop-filter:blur(12px);
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+.card span{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.card h3{
+  margin-top:14px;
+  font-size:38px;
+}
+
+.green h3{color:var(--green);}
+.orange h3{color:var(--orange);}
+.blue h3{color:var(--blue);}
+.purple h3{color:var(--purple);}
+
+/* SECTION */
+
+.section{
+  margin-top:26px;
+  background:rgba(22,25,20,.9);
+  border:1px solid var(--border);
+  border-radius:26px;
+  padding:28px;
+}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+}
+
+.section-header h3{
+  font-family:'Syne',sans-serif;
+  font-size:28px;
+}
+
+.alert{
+  background:rgba(201,226,101,.08);
+  border:1px solid rgba(201,226,101,.22);
+  padding:20px;
+  border-radius:18px;
+  color:var(--green);
+  font-weight:500;
+}
+
+/* TIMELINE */
+
+.timeline{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.timeline-item{
+  display:flex;
+  gap:18px;
+}
+
+.dot{
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:var(--green);
+  margin-top:10px;
+  flex-shrink:0;
+}
+
+.timeline-content{
+  background:var(--surface2);
+  border-radius:20px;
+  padding:20px;
+  width:100%;
+}
+
+.timeline-content h4{
+  font-size:20px;
+}
+
+.timeline-content p{
+  margin-top:8px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th{
+  text-align:left;
+  padding:16px;
+  color:var(--muted);
+  border-bottom:1px solid var(--border);
+}
+
+td{
+  padding:18px 16px;
+  border-bottom:1px solid var(--border);
+}
+
+tr:hover{
+  background:rgba(255,255,255,.02);
+}
+
+.delete-btn{
+  background:none;
+  border:none;
+  color:var(--red);
+  cursor:pointer;
+  font-size:18px;
+}
+
+/* BUTTON */
+
+.primary-btn{
+  background:var(--green);
+  border:none;
+  padding:14px 20px;
+  border-radius:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.primary-btn:hover{
+  transform:scale(1.03);
+}
+
+/* HOTEL */
+
+.hotel-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+}
+
+.hotel-card{
+  background:var(--surface2);
+  border-radius:20px;
+  padding:22px;
+}
+
+.hotel-card h4{
+  font-size:20px;
+}
+
+.hotel-card p{
+  margin-top:10px;
+  color:var(--muted);
+}
+
+.hotel-card span{
+  margin-top:16px;
+  display:inline-block;
+  color:var(--green);
+}
+
+/* TRANSPORT */
+
+.transport-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.transport-item{
+  background:var(--surface2);
+  border-radius:20px;
+  padding:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.transport-item p{
+  color:var(--muted);
+  margin-top:6px;
+}
+
+/* BUCKET */
+
+.bucket-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:16px;
+}
+
+.bucket-item{
+  background:var(--surface2);
+  border-radius:18px;
+  padding:18px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+/* NOTES */
+
+textarea{
+  width:100%;
+  min-height:260px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px;
+  color:white;
+  resize:none;
+  font-family:'Inter',sans-serif;
+  font-size:15px;
+}
+
+/* TABS */
+
+.tab{
+  display:none;
+}
+
+.tab.active{
+  display:block;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+  .layout{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .content{
+    margin-left:0;
+    padding:24px;
+  }
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:20px;
+  }
+
+}
+
 </style>
 </head>
 <body>
-<div class="app">
-<nav class="sidebar">
-  <div class="logo">
-    <h1>🌏 ASIE ÉTÉ 25</h1>
-    <p>1 juil → 15 août · 46 jours</p>
-  </div>
-  <div class="budget-pill">
-    <div class="label">Budget restant / pers.</div>
-    <div class="amount" id="sidebar-remaining">5 000 €</div>
-    <div class="sub" id="sidebar-spent">0 € engagé</div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="sidebar-bar" style="width:0%; background: var(--accent);"></div>
-    </div>
-  </div>
-  <div class="nav-section">
-    <div class="nav-label">Navigation</div>
-    <div class="nav-item active" onclick="goTab('overview',this)"><span class="icon">🗺</span> Vue d'ensemble</div>
-    <div class="nav-item" onclick="goTab('budget',this)"><span class="icon">💰</span> Budget</div>
-    <div class="nav-item" onclick="goTab('reservations',this)"><span class="icon">🏨</span> Hébergements</div>
-    <div class="nav-item" onclick="goTab('transport',this)"><span class="icon">✈️</span> Transports</div>
-    <div class="nav-item" onclick="goTab('bucket',this)"><span class="icon">⭐</span> Bucket list</div>
-    <div class="nav-item" onclick="goTab('notes',this)"><span class="icon">📝</span> Notes & Docs</div>
-  </div>
-</nav>
 
-<main class="main">
+<div class="layout">
 
-<!-- OVERVIEW -->
-<div id="tab-overview" class="tab-content active">
-  <div class="page-header">
-    <h2>Vue d'ensemble</h2>
-    <p>1er juillet – 15 août 2025 · Marseille → Asie du Sud-Est · 2 personnes</p>
-  </div>
-  <div class="alert">⚡ Priorité n°1 : réserver le vol MRS → KUL maintenant — juillet = haute saison, les prix augmentent chaque semaine.</div>
-  <div class="cards-grid">
-    <div class="card" style="--accent-color: var(--accent)">
-      <div class="card-label">Budget total / pers.</div>
-      <div class="card-value" style="color:var(--accent)">5 000 €</div>
-      <div class="card-sub">Tout compris · préparatifs inclus</div>
-    </div>
-    <div class="card" style="--accent-color: var(--accent3)">
-      <div class="card-label">Engagé / dépensé</div>
-      <div class="card-value" style="color:var(--accent3)" id="card-spent">0 €</div>
-      <div class="card-sub" id="card-pct">0 % du budget utilisé</div>
-    </div>
-    <div class="card" style="--accent-color: var(--accent2)">
-      <div class="card-label">Reste disponible</div>
-      <div class="card-value" style="color:var(--accent2)" id="card-remaining">5 000 €</div>
-      <div class="card-sub">Pour vols + vie sur place</div>
-    </div>
-    <div class="card" style="--accent-color: var(--accent5)">
-      <div class="card-label">Durée du voyage</div>
-      <div class="card-value" style="color:var(--accent5)">46 j</div>
-      <div class="card-sub">6 pays · 8 étapes</div>
-    </div>
-  </div>
+  <aside class="sidebar">
 
-  <div class="section-title">Itinéraire par étape</div>
-
-  <div class="country-block open" id="b-my">
-    <div class="country-header" onclick="toggleBlock('b-my')">
-      <span class="country-flag">🇲🇾</span><span class="country-name">Malaisie — KL + Penang</span>
-      <span class="country-dates">1 – 5 juil · 4 nuits</span>
-      <span class="country-budget">~160–200 €</span><span class="country-chevron">▼</span>
+    <div class="logo">
+      <h1>🌏 Mo&Mi</h1>
+      <p>Asie Été 2026 · 46 jours</p>
     </div>
-    <div class="country-body">
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vol MRS → KUL — à réserver MAINTENANT</div><div class="item-sub">Turkish Airlines / Qatar Airways / China Eastern · avec escale</div></div><div class="item-price">~750–850 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Remplir la MDAC (Malaysia Digital Arrival Card)</div><div class="item-sub">Obligatoire · gratuit en ligne · 3 jours avant l'arrivée max</div></div><div class="item-price">Gratuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Kuala Lumpur · 2 nuits</div><div class="item-sub">Hostel ou Airbnb · Bukit Bintang ou Chinatown · Batu Caves + Jalan Alor</div></div><div class="item-price">~15 €/nuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Bus KL → Penang</div><div class="item-sub">Transnasional · 4h30 · gare TBS</div></div><div class="item-price">~5 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Penang · 2 nuits</div><div class="item-sub">George Town · street art + asam laksa · patrimoine UNESCO</div></div><div class="item-price">~15 €/nuit</div></div>
-    </div>
-  </div>
 
-  <div class="country-block" id="b-sg">
-    <div class="country-header" onclick="toggleBlock('b-sg')">
-      <span class="country-flag">🇸🇬</span><span class="country-name">Singapour</span>
-      <span class="country-dates">5 – 7 juil · 2 nuits</span>
-      <span class="country-budget">~150–170 €</span><span class="country-chevron">▼</span>
-    </div>
-    <div class="country-body">
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vol ou bus Penang → Singapour</div><div class="item-sub">AirAsia / Firefly ~40 € · ou bus longue distance ~20 €</div></div><div class="item-price">~20–40 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Hostel · 2 nuits</div><div class="item-sub">Little India ou Chinatown · hawker centers pour manger pas cher</div></div><div class="item-price">~40–50 €/nuit</div></div>
-    </div>
-  </div>
+    <div class="hero-box">
 
-  <div class="country-block" id="b-bali">
-    <div class="country-header" onclick="toggleBlock('b-bali')">
-      <span class="country-flag">🇮🇩</span><span class="country-name">Bali — Indonésie</span>
-      <span class="country-dates">7 – 14 juil · 7 nuits</span>
-      <span class="country-budget">~210–315 €</span><span class="country-chevron">▼</span>
-    </div>
-    <div class="country-body">
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vol SIN → Denpasar (DPS)</div><div class="item-sub">AirAsia / Scoot / Batik Air · bagage inclus</div></div><div class="item-price">~60–90 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Canggu · 3 nuits ✦ freestyle</div><div class="item-sub">Surf + café + vibes · pas de plan imposé · Batu Bolong area</div></div><div class="item-price">~15–20 €/nuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Ubud · 2 nuits</div><div class="item-sub">Rizières + temples + marché · guest house ou Airbnb</div></div><div class="item-price">~20–30 €/nuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Uluwatu · 2 nuits</div><div class="item-sub">Falaises + temple sunset + Kecak dance</div></div><div class="item-price">~15–25 €/nuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Location scooter · 7 jours</div><div class="item-sub">Indispensable à Bali · ~4–5 €/jour</div></div><div class="item-price">~28–35 €</div></div>
-    </div>
-  </div>
+      <span>BUDGET RESTANT</span>
 
-  <div class="country-block" id="b-lombok">
-    <div class="country-header" onclick="toggleBlock('b-lombok')">
-      <span class="country-flag">🇮🇩</span><span class="country-name">Lombok + Gili Air</span>
-      <span class="country-dates">14 – 21 juil · 7 nuits</span>
-      <span class="country-budget">~210–315 €</span><span class="country-chevron">▼</span>
-    </div>
-    <div class="country-body">
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Fast boat Bali → Gili Air</div><div class="item-sub">Depuis Padang Bai · Gili Getaway ou Blue Water Express · 2h</div></div><div class="item-price">~25–35 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Gili Air · 4 nuits ✦ freestyle</div><div class="item-sub">Bungalow + snorkeling tortues + hamac · pas de voitures ni scooters</div></div><div class="item-price">~15–25 €/nuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Lombok · 3 nuits</div><div class="item-sub">Kuta Lombok ou plages Sud · beaucoup moins touristique que Bali</div></div><div class="item-price">~15–20 €/nuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Trek Rinjani (optionnel) — 2 jours</div><div class="item-sub">Volcan 3726m · guide obligatoire · réserver à l'avance · physiquement exigeant</div></div><div class="item-price">~50–80 €</div></div>
-    </div>
-  </div>
+      <h2 id="remainingBudget">5000 €</h2>
 
-  <div class="country-block" id="b-vn">
-    <div class="country-header" onclick="toggleBlock('b-vn')">
-      <span class="country-flag">🇻🇳</span><span class="country-name">Ho Chi Minh-Ville</span>
-      <span class="country-dates">21 – 23 juil · 2 nuits</span>
-      <span class="country-budget">~60–80 €</span><span class="country-chevron">▼</span>
-    </div>
-    <div class="country-body">
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vol Lombok ou DPS → Ho Chi Minh</div><div class="item-sub">Vietjet / AirAsia · avec bagage</div></div><div class="item-price">~60–90 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Hostel · 2 nuits</div><div class="item-sub">District 1 ou Bui Vien · bière 50 cts · pho du matin</div></div><div class="item-price">~10–15 €/nuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Visite tunnels de Cu Chi</div><div class="item-sub">Tour guidé depuis HCM · demi-journée · incontournable</div></div><div class="item-price">~15 €</div></div>
-    </div>
-  </div>
-
-  <div class="country-block" id="b-bkk">
-    <div class="country-header" onclick="toggleBlock('b-bkk')">
-      <span class="country-flag">🇹🇭</span><span class="country-name">Bangkok</span>
-      <span class="country-dates">23 – 25 juil · 2 nuits</span>
-      <span class="country-budget">~70–100 €</span><span class="country-chevron">▼</span>
-    </div>
-    <div class="country-body">
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vol HCM → Bangkok</div><div class="item-sub">Vietjet / Thai AirAsia / Bangkok Airways</div></div><div class="item-price">~30–60 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Hostel · 2 nuits</div><div class="item-sub">Khao San Road ou Silom · Wat Pho + marchés de nuit</div></div><div class="item-price">~12–20 €/nuit</div></div>
-    </div>
-  </div>
-
-  <div class="country-block" id="b-kt">
-    <div class="country-header" onclick="toggleBlock('b-kt')">
-      <span class="country-flag">🇹🇭</span><span class="country-name">Koh Tao</span>
-      <span class="country-dates">25 juil – 1 août · 7 nuits</span>
-      <span class="country-budget">~245–400 €</span><span class="country-chevron">▼</span>
-    </div>
-    <div class="country-body">
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Bus de nuit + ferry Bangkok → Koh Tao</div><div class="item-sub">Combo Lompraya · 12h · économise une nuit d'hébergement</div></div><div class="item-price">~20–30 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Bungalow / hostel · 7 nuits</div><div class="item-sub">Sairee Beach · beachfront bungalow dispo à 12 $/nuit</div></div><div class="item-price">~15–25 €/nuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">PADI Open Water (si pas certifiés)</div><div class="item-sub">Moins cher au monde ici · 3 jours · à réserver sur place</div></div><div class="item-price">~110–140 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Sorties plongée (si déjà certifiés)</div><div class="item-sub">~3 sorties × 25–35 € · meilleurs spots : HTMS Sattakut, Shark Island</div></div><div class="item-price">~75–105 €</div></div>
-    </div>
-  </div>
-
-  <div class="country-block" id="b-krabi">
-    <div class="country-header" onclick="toggleBlock('b-krabi')">
-      <span class="country-flag">🇹🇭</span><span class="country-name">Krabi ✦ dernière étape freestyle</span>
-      <span class="country-dates">1 – 12 août · 11 nuits</span>
-      <span class="country-budget">~385–495 €</span><span class="country-chevron">▼</span>
-    </div>
-    <div class="country-body">
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Ferry Koh Tao → Krabi</div><div class="item-sub">Via Koh Phangan + Surat Thani · ou vol direct Bangkok → Krabi</div></div><div class="item-price">~25–40 €</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Hébergement Ao Nang · 11 nuits ✦ freestyle</div><div class="item-sub">Hostel ou petite guest house · Railay en longue tail · aucun planning imposé</div></div><div class="item-price">~15–25 €/nuit</div></div>
-      <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vol retour Krabi ou BKK → Marseille</div><div class="item-sub">Turkish / Qatar / Cathay · à réserver en même temps que l'aller</div></div><div class="item-price">~600–800 €</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- BUDGET -->
-<div id="tab-budget" class="tab-content">
-  <div class="page-header"><h2>Budget détaillé</h2><p>Suivi de tes dépenses et réservations — mets à jour au fur et à mesure</p></div>
-  <div class="cards-grid">
-    <div class="card" style="--accent-color:var(--accent)"><div class="card-label">Budget initial</div><div class="card-value" style="color:var(--accent)">5 000 €</div><div class="card-sub">Par personne</div></div>
-    <div class="card" style="--accent-color:var(--accent3)"><div class="card-label">Engagé / dépensé</div><div class="card-value" style="color:var(--accent3)" id="b-spent">0 €</div><div class="card-sub">Réservations + dépenses réelles</div></div>
-    <div class="card" style="--accent-color:var(--accent2)"><div class="card-label">Reste</div><div class="card-value" style="color:var(--accent2)" id="b-remaining">5 000 €</div><div class="card-sub">Encore disponible</div></div>
-    <div class="card" style="--accent-color:var(--accent5)"><div class="card-label">Projection totale</div><div class="card-value" style="color:var(--accent5)">~4 200 €</div><div class="card-sub">Estimation voyage complet</div></div>
-  </div>
-
-  <div class="table-wrap">
-    <div class="table-header"><h3>Dépenses</h3><button class="btn btn-accent" onclick="openModal('modal-expense')">+ Ajouter une dépense</button></div>
-    <table>
-      <thead><tr><th>Catégorie</th><th>Description</th><th>Estimé</th><th>Réel payé</th><th>Statut</th><th></th></tr></thead>
-      <tbody id="expense-table">
-        <tr><td>✈️ Vols AR</td><td>MRS → KUL + retour BKK → MRS</td><td style="color:var(--muted)">~1 550 €</td><td style="font-family:'DM Mono',monospace">—</td><td><span class="badge badge-todo">À réserver</span></td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>✈️ Vols internes</td><td>5 vols low cost intra-Asie</td><td style="color:var(--muted)">~350 €</td><td style="font-family:'DM Mono',monospace">—</td><td><span class="badge badge-todo">À réserver</span></td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🏨 Hébergement</td><td>46 nuits · mix hostel + Airbnb</td><td style="color:var(--muted)">~820 €</td><td style="font-family:'DM Mono',monospace">—</td><td><span class="badge badge-option">En cours</span></td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🍜 Repas</td><td>46 jours · street food + restau · ~15 €/j</td><td style="color:var(--muted)">~690 €</td><td style="font-family:'DM Mono',monospace">—</td><td><span class="badge badge-option">Sur place</span></td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🚌 Transports locaux</td><td>Bus, ferry, scooter, Grab</td><td style="color:var(--muted)">~200 €</td><td style="font-family:'DM Mono',monospace">—</td><td><span class="badge badge-option">Sur place</span></td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🤿 Activités</td><td>Plongée, PADI, tours, temples</td><td style="color:var(--muted)">~450 €</td><td style="font-family:'DM Mono',monospace">—</td><td><span class="badge badge-option">Sur place</span></td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🛡 Assurance voyage</td><td>Avec couverture plongée — OBLIGATOIRE</td><td style="color:var(--muted)">~100 €</td><td style="font-family:'DM Mono',monospace">—</td><td><span class="badge badge-todo">À souscrire</span></td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🎁 Souvenirs + imprévus</td><td>Marge de liberté</td><td style="color:var(--muted)">~350 €</td><td style="font-family:'DM Mono',monospace">—</td><td><span class="badge badge-option">Prévu</span></td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="table-wrap">
-    <div class="table-header"><h3>Répartition par pays (vie sur place uniquement)</h3></div>
-    <div style="padding: 16px 20px;">
-      <div class="budget-country-row"><span class="bcr-flag">🇲🇾</span><span class="bcr-name">Malaisie (KL + Penang)</span><span class="bcr-days">4 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:22%;background:var(--accent2)"></div></div></div><span class="bcr-amount">~160 €</span></div>
-      <div class="budget-country-row"><span class="bcr-flag">🇸🇬</span><span class="bcr-name">Singapour</span><span class="bcr-days">2 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:24%;background:var(--accent5)"></div></div></div><span class="bcr-amount">~170 €</span></div>
-      <div class="budget-country-row"><span class="bcr-flag">🇮🇩</span><span class="bcr-name">Bali + Lombok + Gili Air</span><span class="bcr-days">14 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:58%;background:var(--accent3)"></div></div></div><span class="bcr-amount">~490 €</span></div>
-      <div class="budget-country-row"><span class="bcr-flag">🇻🇳</span><span class="bcr-name">Ho Chi Minh-Ville</span><span class="bcr-days">2 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:10%;background:var(--accent4)"></div></div></div><span class="bcr-amount">~70 €</span></div>
-      <div class="budget-country-row"><span class="bcr-flag">🇹🇭</span><span class="bcr-name">Bangkok</span><span class="bcr-days">2 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:14%;background:var(--yellow)"></div></div></div><span class="bcr-amount">~90 €</span></div>
-      <div class="budget-country-row"><span class="bcr-flag">🇹🇭</span><span class="bcr-name">Koh Tao</span><span class="bcr-days">7 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:42%;background:var(--yellow)"></div></div></div><span class="bcr-amount">~330 €</span></div>
-      <div class="budget-country-row"><span class="bcr-flag">🇹🇭</span><span class="bcr-name">Krabi</span><span class="bcr-days">11 j</span><div class="bcr-bar-wrap"><div class="bcr-bar"><div class="bcr-bar-fill" style="width:56%;background:var(--yellow)"></div></div></div><span class="bcr-amount">~440 €</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- HEBERGEMENTS -->
-<div id="tab-reservations" class="tab-content">
-  <div class="page-header"><h2>Hébergements</h2><p>Ajoute tes réservations au fur et à mesure · réserve au minimum la 1ère nuit à l'avance</p></div>
-  <div class="table-wrap">
-    <div class="table-header"><h3>Toutes les nuits</h3><button class="btn btn-accent" onclick="openModal('modal-hotel')">+ Ajouter un hébergement</button></div>
-    <table>
-      <thead><tr><th>Destination</th><th>Établissement</th><th>Check-in</th><th>Check-out</th><th>Nuits</th><th>Prix/nuit</th><th>Statut</th><th>Réf. / lien</th><th></th></tr></thead>
-      <tbody id="hotel-table">
-        <tr><td>🇲🇾 KL</td><td>À trouver · Bukit Bintang</td><td style="font-family:'DM Mono',monospace;font-size:12px">01/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">03/07</td><td style="text-align:center">2</td><td>~15 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇲🇾 Penang</td><td>À trouver · George Town</td><td style="font-family:'DM Mono',monospace;font-size:12px">03/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">05/07</td><td style="text-align:center">2</td><td>~15 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇸🇬 Singapour</td><td>À trouver · Little India</td><td style="font-family:'DM Mono',monospace;font-size:12px">05/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">07/07</td><td style="text-align:center">2</td><td>~40 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇮🇩 Bali – Canggu</td><td>À trouver · Batu Bolong</td><td style="font-family:'DM Mono',monospace;font-size:12px">07/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">10/07</td><td style="text-align:center">3</td><td>~18 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇮🇩 Bali – Ubud</td><td>À trouver · rizières</td><td style="font-family:'DM Mono',monospace;font-size:12px">10/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">12/07</td><td style="text-align:center">2</td><td>~22 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇮🇩 Bali – Uluwatu</td><td>À trouver · falaises</td><td style="font-family:'DM Mono',monospace;font-size:12px">12/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">14/07</td><td style="text-align:center">2</td><td>~20 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇮🇩 Gili Air</td><td>À trouver · bungalow plage</td><td style="font-family:'DM Mono',monospace;font-size:12px">14/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">18/07</td><td style="text-align:center">4</td><td>~20 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇮🇩 Lombok</td><td>À trouver · Kuta Lombok</td><td style="font-family:'DM Mono',monospace;font-size:12px">18/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">21/07</td><td style="text-align:center">3</td><td>~15 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇻🇳 Ho Chi Minh</td><td>À trouver · Bui Vien / D1</td><td style="font-family:'DM Mono',monospace;font-size:12px">21/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">23/07</td><td style="text-align:center">2</td><td>~12 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇹🇭 Bangkok</td><td>À trouver · Khao San Rd</td><td style="font-family:'DM Mono',monospace;font-size:12px">23/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">25/07</td><td style="text-align:center">2</td><td>~15 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇹🇭 Koh Tao</td><td>À trouver · Sairee Beach</td><td style="font-family:'DM Mono',monospace;font-size:12px">25/07</td><td style="font-family:'DM Mono',monospace;font-size:12px">01/08</td><td style="text-align:center">7</td><td>~20 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td>🇹🇭 Krabi</td><td>À trouver · Ao Nang</td><td style="font-family:'DM Mono',monospace;font-size:12px">01/08</td><td style="font-family:'DM Mono',monospace;font-size:12px">12/08</td><td style="text-align:center">11</td><td>~20 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- TRANSPORTS -->
-<div id="tab-transport" class="tab-content">
-  <div class="page-header"><h2>Transports</h2><p>Tous les déplacements du voyage · vols, bus, ferries</p></div>
-  <div class="table-wrap">
-    <div class="table-header"><h3>Tous les trajets</h3><button class="btn btn-accent" onclick="openModal('modal-transport')">+ Ajouter un trajet</button></div>
-    <table>
-      <thead><tr><th>Type</th><th>Trajet</th><th>Date</th><th>Durée</th><th>Compagnie</th><th>Prix/pers.</th><th>Statut</th><th>N° réf.</th><th></th></tr></thead>
-      <tbody id="transport-table">
-        <tr><td><span class="badge badge-fly">✈ Vol</span></td><td>MRS → KUL</td><td style="font-family:'DM Mono',monospace;font-size:12px">01/07</td><td style="color:var(--muted)">~15h</td><td>Turkish / Qatar / CEA</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~780 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td><span class="badge badge-bus">🚌 Bus</span></td><td>KL → Penang</td><td style="font-family:'DM Mono',monospace;font-size:12px">03/07</td><td style="color:var(--muted)">4h30</td><td>Transnasional</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~5 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td><span class="badge badge-fly">✈ Vol</span></td><td>Penang → Singapour</td><td style="font-family:'DM Mono',monospace;font-size:12px">05/07</td><td style="color:var(--muted)">1h20</td><td>AirAsia / Firefly</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~40 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td><span class="badge badge-fly">✈ Vol</span></td><td>Singapour → Bali (DPS)</td><td style="font-family:'DM Mono',monospace;font-size:12px">07/07</td><td style="color:var(--muted)">2h20</td><td>AirAsia / Scoot</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~70 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td><span class="badge badge-ferry">⛵ Ferry</span></td><td>Bali → Gili Air</td><td style="font-family:'DM Mono',monospace;font-size:12px">14/07</td><td style="color:var(--muted)">2h</td><td>Gili Getaway</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~30 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td><span class="badge badge-fly">✈ Vol</span></td><td>Lombok → Ho Chi Minh</td><td style="font-family:'DM Mono',monospace;font-size:12px">21/07</td><td style="color:var(--muted)">~4h</td><td>AirAsia / Batik</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~75 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td><span class="badge badge-fly">✈ Vol</span></td><td>Ho Chi Minh → Bangkok</td><td style="font-family:'DM Mono',monospace;font-size:12px">23/07</td><td style="color:var(--muted)">1h40</td><td>Vietjet / Thai AirAsia</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~40 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td><span class="badge badge-bus">🚌 Bus+Ferry</span></td><td>Bangkok → Koh Tao</td><td style="font-family:'DM Mono',monospace;font-size:12px">25/07</td><td style="color:var(--muted)">12h</td><td>Lompraya combo</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~22 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td><span class="badge badge-ferry">⛵ Ferry</span></td><td>Koh Tao → Krabi</td><td style="font-family:'DM Mono',monospace;font-size:12px">01/08</td><td style="color:var(--muted)">~6h</td><td>Songserm / Lompraya</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~30 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-        <tr><td><span class="badge badge-fly">✈ Vol</span></td><td>Krabi / BKK → Marseille</td><td style="font-family:'DM Mono',monospace;font-size:12px">12/08</td><td style="color:var(--muted)">~15h</td><td>Turkish / Qatar / Cathay</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">~750 €</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">—</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- BUCKET LIST -->
-<div id="tab-bucket" class="tab-content">
-  <div class="page-header"><h2>Bucket list</h2><p>Absolument manger · voir · faire — coche au fur et à mesure du voyage</p></div>
-
-  <div class="section-title">🍜 À manger absolument</div>
-  <div class="bucket-grid">
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🍢</span><div class="bucket-info"><div class="bucket-title">Nasi lemak au petit-déj</div><div class="bucket-loc">🇲🇾 Malaisie — riz à la coco + sambal</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🦀</span><div class="bucket-info"><div class="bucket-title">Char kway teow · Jalan Alor</div><div class="bucket-loc">🇲🇾 KL — marché de nuit · incontournable</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🍜</span><div class="bucket-info"><div class="bucket-title">Asam laksa de Penang</div><div class="bucket-loc">🇲🇾 Penang — spécialité ultime · goût unique</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🍛</span><div class="bucket-info"><div class="bucket-title">Satay au hawker center · Lau Pa Sat</div><div class="bucket-loc">🇸🇬 Singapour — le soir sous les étoiles</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🐟</span><div class="bucket-info"><div class="bucket-title">Poisson grillé au warung de plage</div><div class="bucket-loc">🇮🇩 Bali — Jimbaran beach · les pieds dans le sable</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🥥</span><div class="bucket-info"><div class="bucket-title">Smoothie bowl face à l'océan</div><div class="bucket-loc">🇮🇩 Bali Canggu — rituel du matin</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🍺</span><div class="bucket-info"><div class="bucket-title">Bière pression à 50 centimes</div><div class="bucket-loc">🇻🇳 Ho Chi Minh — Bui Vien street</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🍲</span><div class="bucket-info"><div class="bucket-title">Pho bo au petit-déjeuner</div><div class="bucket-loc">🇻🇳 Ho Chi Minh — dans un troquet local à 6h du mat</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🌮</span><div class="bucket-info"><div class="bucket-title">Pad thaï d'un food cart de rue</div><div class="bucket-loc">🇹🇭 Bangkok — pas dans un resto touristique</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🥭</span><div class="bucket-info"><div class="bucket-title">Mango sticky rice</div><div class="bucket-loc">🇹🇭 Thaïlande — partout · 1 € · inoubliable</div><div class="bucket-type eat">manger</div></div><div class="bucket-check"></div></div>
-  </div>
-
-  <div class="section-title">👁 À voir absolument</div>
-  <div class="bucket-grid">
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🦇</span><div class="bucket-info"><div class="bucket-title">Batu Caves avant 8h du matin</div><div class="bucket-loc">🇲🇾 KL — 272 marches · sans la foule touristique</div><div class="bucket-type see">voir</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🌃</span><div class="bucket-info"><div class="bucket-title">Skyline depuis Marina Bay de nuit</div><div class="bucket-loc">🇸🇬 Singapour — Gardens by the Bay · gratuit</div><div class="bucket-type see">voir</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🌿</span><div class="bucket-info"><div class="bucket-title">Rizières en terrasses d'Ubud</div><div class="bucket-loc">🇮🇩 Bali — Tegalalang ou Jatiluwih · matin tôt</div><div class="bucket-type see">voir</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🌅</span><div class="bucket-info"><div class="bucket-title">Coucher de soleil au temple d'Uluwatu</div><div class="bucket-loc">🇮🇩 Bali — avec le Kecak dance show · magique</div><div class="bucket-type see">voir</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🐢</span><div class="bucket-info"><div class="bucket-title">Snorkeler avec les tortues</div><div class="bucket-loc">🇮🇩 Gili Air — nord de l'île · le matin</div><div class="bucket-type see">voir</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🕳</span><div class="bucket-info"><div class="bucket-title">Tunnels de Cu Chi</div><div class="bucket-loc">🇻🇳 Ho Chi Minh — visite guidée · demi-journée</div><div class="bucket-type see">voir</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🏯</span><div class="bucket-info"><div class="bucket-title">Wat Pho et le Bouddha couché</div><div class="bucket-loc">🇹🇭 Bangkok — matin tôt avant la foule</div><div class="bucket-type see">voir</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🏝</span><div class="bucket-info"><div class="bucket-title">Railay Beach en longue tail boat</div><div class="bucket-loc">🇹🇭 Krabi — inaccessible en voiture · falaises épiques</div><div class="bucket-type see">voir</div></div><div class="bucket-check"></div></div>
-  </div>
-
-  <div class="section-title">🎯 À faire absolument</div>
-  <div class="bucket-grid">
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🤿</span><div class="bucket-info"><div class="bucket-title">Certification PADI Open Water</div><div class="bucket-loc">🇹🇭 Koh Tao — ~130 € vs 500 € en France</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🌋</span><div class="bucket-info"><div class="bucket-title">Trek Rinjani — 2 jours</div><div class="bucket-loc">🇮🇩 Lombok — volcan 3726m · expérience de vie</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🏄</span><div class="bucket-info"><div class="bucket-title">Cours de surf</div><div class="bucket-loc">🇮🇩 Bali Canggu — ~25 €/cours · débutants ok</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🛵</span><div class="bucket-info"><div class="bucket-title">Road trip scooter à Bali</div><div class="bucket-loc">🇮🇩 Bali — côte est · villages · cascades cachées</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🧗</span><div class="bucket-info"><div class="bucket-title">Escalade sur les falaises de Krabi</div><div class="bucket-loc">🇹🇭 Krabi — demi-journée avec guide · débutants ok</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🚤</span><div class="bucket-info"><div class="bucket-title">4 Islands Tour en bateau</div><div class="bucket-loc">🇹🇭 Krabi — ~15 € la journée · snorkeling inclus</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🛶</span><div class="bucket-info"><div class="bucket-title">Kayak dans les mangroves</div><div class="bucket-loc">🇹🇭 Krabi — Ao Thalane · matinée calme</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🌿</span><div class="bucket-info"><div class="bucket-title">Cours de cuisine balinaise</div><div class="bucket-loc">🇮🇩 Ubud — marché + cours · ~30 € · souvenir ultime</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">🌄</span><div class="bucket-info"><div class="bucket-title">Lever de soleil depuis un viewpoint</div><div class="bucket-loc">🇹🇭 Koh Tao — John-Suwan Rock viewpoint</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-    <div class="bucket-card" onclick="toggleBucket(this)"><span class="bucket-emoji">💆</span><div class="bucket-info"><div class="bucket-title">Massage thaï traditionnel 1h</div><div class="bucket-loc">🇹🇭 Thaïlande partout — ~7 € l'heure · à faire plusieurs fois</div><div class="bucket-type do">faire</div></div><div class="bucket-check"></div></div>
-  </div>
-
-  <div style="margin-top:20px;padding:14px;background:var(--surface2);border-radius:10px;border:1px solid var(--border);">
-    <span id="bucket-progress" style="font-family:'DM Mono',monospace;font-size:13px;color:var(--accent)">0 / 28 accompli</span>
-    <span style="color:var(--muted);font-size:13px;margin-left:8px">— coche au fur et à mesure du voyage !</span>
-  </div>
-</div>
-
-<!-- NOTES -->
-<div id="tab-notes" class="tab-content">
-  <div class="page-header"><h2>Notes & Documents</h2><p>Check-list, applis, contacts importants, notes libres</p></div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
-    <div class="table-wrap">
-      <div class="table-header"><h3>✅ Check-list avant départ</h3></div>
-      <div style="padding:8px 0;">
-        <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Réserver vols AR — PRIORITÉ</div><div class="item-sub">Prix juillet en hausse · agir maintenant</div></div></div>
-        <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Souscrire assurance voyage</div><div class="item-sub">Avec couverture plongée obligatoire</div></div></div>
-        <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vérifier validité passeports</div><div class="item-sub">6 mois min. après la date de retour</div></div></div>
-        <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Ouvrir carte Revolut ou Wise</div><div class="item-sub">0 frais à l'étranger · indispensable</div></div></div>
-        <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">MDAC Malaisie</div><div class="item-sub">3 jours avant l'arrivée · gratuit en ligne</div></div></div>
-        <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Vaccins conseillés</div><div class="item-sub">Hépatite A, Typhus · DTP à jour · voir médecin</div></div></div>
-        <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Photocopies numériques des docs</div><div class="item-sub">Passeport + assurance → email à soi-même</div></div></div>
-        <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">SIM locale à l'arrivée KL</div><div class="item-sub">Maxis ou Hotlink · ~5 € pour 15j data</div></div></div>
-        <div class="item-row"><div class="item-check" onclick="toggleCheck(this)"></div><div class="item-info"><div class="item-title">Télécharger cartes offline Maps.me</div><div class="item-sub">Malaisie + Singapour + Indonésie + Thaïlande + Vietnam</div></div></div>
+      <div class="progress">
+        <div class="progress-fill" id="budgetBar"></div>
       </div>
+
+      <small id="spentText">0 € dépensé</small>
+
     </div>
-    <div class="table-wrap">
-      <div class="table-header"><h3>📱 Applis à installer</h3></div>
-      <div style="padding:8px 0;">
-        <div class="item-row"><div style="font-size:20px;width:28px;text-align:center;flex-shrink:0">🗺</div><div class="item-info"><div class="item-title">Maps.me</div><div class="item-sub">Cartes hors-ligne toute la SEA</div></div></div>
-        <div class="item-row"><div style="font-size:20px;width:28px;text-align:center;flex-shrink:0">🚕</div><div class="item-info"><div class="item-title">Grab</div><div class="item-sub">Uber de l'Asie · prix fixé d'avance</div></div></div>
-        <div class="item-row"><div style="font-size:20px;width:28px;text-align:center;flex-shrink:0">💱</div><div class="item-info"><div class="item-title">XE Currency</div><div class="item-sub">Conversion MYR / SGD / IDR / THB / VND</div></div></div>
-        <div class="item-row"><div style="font-size:20px;width:28px;text-align:center;flex-shrink:0">🛏</div><div class="item-info"><div class="item-title">Hostelworld + Booking.com</div><div class="item-sub">Trouver hébergements last-minute</div></div></div>
-        <div class="item-row"><div style="font-size:20px;width:28px;text-align:center;flex-shrink:0">✈️</div><div class="item-info"><div class="item-title">Skyscanner</div><div class="item-sub">Vols internes + alertes prix</div></div></div>
-        <div class="item-row"><div style="font-size:20px;width:28px;text-align:center;flex-shrink:0">💬</div><div class="item-info"><div class="item-title">Google Translate offline</div><div class="item-sub">Thaï + malais + bahasa + vietnamien</div></div></div>
-        <div class="item-row"><div style="font-size:20px;width:28px;text-align:center;flex-shrink:0">💰</div><div class="item-info"><div class="item-title">Splitwise</div><div class="item-sub">Gérer les dépenses à deux</div></div></div>
-        <div class="item-row"><div style="font-size:20px;width:28px;text-align:center;flex-shrink:0">🍜</div><div class="item-info"><div class="item-title">Eatigo / HappyCow (Ubud)</div><div class="item-sub">Trouver les bons restos locaux</div></div></div>
+
+    <nav>
+
+      <button class="nav-btn active" data-tab="overview">🗺 Vue d'ensemble</button>
+
+      <button class="nav-btn" data-tab="budget">💰 Budget</button>
+
+      <button class="nav-btn" data-tab="hotels">🏨 Hébergements</button>
+
+      <button class="nav-btn" data-tab="transport">✈️ Transports</button>
+
+      <button class="nav-btn" data-tab="bucket">⭐ Bucket List</button>
+
+      <button class="nav-btn" data-tab="notes">📝 Notes</button>
+
+    </nav>
+
+  </aside>
+
+  <main class="content">
+
+    <header class="topbar">
+
+      <div>
+        <h2>Mo&Mi en Asie</h2>
+        <p>Malaisie · Singapour · Indonésie · Vietnam · Thaïlande</p>
       </div>
-    </div>
-  </div>
-  <div class="table-wrap">
-    <div class="table-header"><h3>📝 Notes libres</h3></div>
-    <div style="padding:16px;">
-      <textarea id="free-notes" placeholder="Tes notes, contacts, numéros de réservation...&#10;&#10;Ex:&#10;Guide Rinjani : +62 812 xxxxxx&#10;Code résa vol aller : ABCDEF&#10;Hostel Canggu : The Loft Batu Bolong&#10;N° urgence assurance : 0800 xxx xxx"></textarea>
-      <div style="margin-top:10px;text-align:right;">
-        <button class="btn btn-accent" onclick="saveNotes()">Sauvegarder</button>
-        <span id="notes-saved" style="font-size:12px;color:var(--accent2);margin-left:10px;opacity:0;transition:opacity 0.3s">✓ Sauvegardé</span>
+
+      <div class="countdown">
+        <span>DÉPART DANS</span>
+        <h3 id="countdown">-- jours</h3>
       </div>
-    </div>
-  </div>
-</div>
 
-</main>
-</div>
+    </header>
 
-<!-- MODALS -->
-<div class="modal-backdrop" id="modal-expense">
-  <div class="modal">
-    <h3>Ajouter une dépense</h3>
-    <div class="form-row"><label class="form-label">Catégorie</label><select id="exp-cat" style="width:100%"><option>✈️ Vol</option><option>🏨 Hébergement</option><option>🍜 Repas</option><option>🚌 Transport local</option><option>🤿 Activité</option><option>🛡 Assurance</option><option>🎁 Souvenir</option><option>🚨 Imprévu</option></select></div>
-    <div class="form-row"><label class="form-label">Description</label><input type="text" id="exp-desc" placeholder="Ex: Vol MRS→KUL Turkish Airlines"></div>
-    <div class="form-grid">
-      <div class="form-row"><label class="form-label">Estimé (€)</label><input type="number" id="exp-est" placeholder="780"></div>
-      <div class="form-row"><label class="form-label">Réel payé (€)</label><input type="number" id="exp-real" placeholder="—"></div>
-    </div>
-    <div class="form-row"><label class="form-label">Statut</label><select id="exp-status" style="width:100%"><option value="todo">À réserver</option><option value="booked">Confirmé</option><option value="paid">Payé</option><option value="option">Sur place</option></select></div>
-    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-expense')">Annuler</button><button class="btn btn-accent" onclick="addExpense()">Ajouter</button></div>
-  </div>
-</div>
+    <!-- OVERVIEW -->
 
-<div class="modal-backdrop" id="modal-hotel">
-  <div class="modal">
-    <h3>Ajouter un hébergement</h3>
-    <div class="form-row"><label class="form-label">Destination</label><input type="text" id="h-dest" placeholder="Ex: 🇮🇩 Bali – Ubud"></div>
-    <div class="form-row"><label class="form-label">Établissement</label><input type="text" id="h-name" placeholder="Nom du hostel / Airbnb / guesthouse"></div>
-    <div class="form-grid">
-      <div class="form-row"><label class="form-label">Check-in</label><input type="date" id="h-in"></div>
-      <div class="form-row"><label class="form-label">Check-out</label><input type="date" id="h-out"></div>
-    </div>
-    <div class="form-grid">
-      <div class="form-row"><label class="form-label">Prix/nuit (€)</label><input type="number" id="h-price" placeholder="20"></div>
-      <div class="form-row"><label class="form-label">Statut</label><select id="h-status" style="width:100%"><option value="todo">À réserver</option><option value="booked">Confirmé</option></select></div>
-    </div>
-    <div class="form-row"><label class="form-label">N° de réservation / lien</label><input type="text" id="h-ref" placeholder="Booking.com · XXXXXXX · ou URL"></div>
-    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-hotel')">Annuler</button><button class="btn btn-accent" onclick="addHotel()">Ajouter</button></div>
-  </div>
-</div>
+    <section class="tab active" id="overview">
 
-<div class="modal-backdrop" id="modal-transport">
-  <div class="modal">
-    <h3>Ajouter un transport</h3>
-    <div class="form-grid">
-      <div class="form-row"><label class="form-label">Type</label><select id="t-type" style="width:100%"><option>✈ Vol</option><option>🚌 Bus</option><option>⛵ Ferry</option><option>🚂 Train</option><option>🚕 Taxi/Grab</option></select></div>
-      <div class="form-row"><label class="form-label">Date</label><input type="date" id="t-date"></div>
-    </div>
-    <div class="form-grid">
-      <div class="form-row"><label class="form-label">Départ</label><input type="text" id="t-from" placeholder="Marseille / MRS"></div>
-      <div class="form-row"><label class="form-label">Arrivée</label><input type="text" id="t-to" placeholder="Kuala Lumpur / KUL"></div>
-    </div>
-    <div class="form-grid">
-      <div class="form-row"><label class="form-label">Compagnie</label><input type="text" id="t-co" placeholder="Turkish Airlines"></div>
-      <div class="form-row"><label class="form-label">Prix/pers. (€)</label><input type="number" id="t-price" placeholder="780"></div>
-    </div>
-    <div class="form-row"><label class="form-label">N° billet / référence PNR</label><input type="text" id="t-ref" placeholder="ABCDEF"></div>
-    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-transport')">Annuler</button><button class="btn btn-accent" onclick="addTransport()">Ajouter</button></div>
-  </div>
+      <div class="stats-grid">
+
+        <div class="card green">
+          <span>Budget total</span>
+          <h3>5 000 €</h3>
+        </div>
+
+        <div class="card orange">
+          <span>Dépensé</span>
+          <h3 id="spentCard">0 €</h3>
+        </div>
+
+        <div class="card blue">
+          <span>Restant</span>
+          <h3 id="remainingCard">5 000 €</h3>
+        </div>
+
+        <div class="card purple">
+          <span>Durée</span>
+          <h3>46 j</h3>
+        </div>
+
+      </div>
+
+      <div class="section">
+
+        <div class="section-header">
+          <h3>⚡ Priorité</h3>
+        </div>
+
+        <div class="alert">
+          Réserver les vols internationaux Marseille → Kuala Lumpur maintenant avant augmentation des prix.
+        </div>
+
+      </div>
+
+      <div class="section">
+
+        <div class="section-header">
+          <h3>🗺 Itinéraire</h3>
+        </div>
+
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="dot"></div>
+            <div class="timeline-content">
+              <h4>🇲🇾 Kuala Lumpur & Penang</h4>
+              <p>1 → 5 juillet · Batu Caves · Jalan Alor · George Town · street food</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="dot"></div>
+            <div class="timeline-content">
+              <h4>🇸🇬 Singapour</h4>
+              <p>5 → 7 juillet · Marina Bay · Gardens by the Bay · Chinatown</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="dot"></div>
+            <div class="timeline-content">
+              <h4>🇮🇩 Bali</h4>
+              <p>7 → 14 juillet · Canggu · Ubud · Uluwatu · surf · scooter · sunsets</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="dot"></div>
+            <div class="timeline-content">
+              <h4>🇮🇩 Lombok & Gili Air</h4>
+              <p>14 → 21 juillet · snorkeling tortues · plages · trek Rinjani</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="dot"></div>
+            <div class="timeline-content">
+              <h4>🇻🇳 Ho Chi Minh</h4>
+              <p>21 → 23 juillet · pho · tunnels Cu Chi · bière locale</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="dot"></div>
+            <div class="timeline-content">
+              <h4>🇹🇭 Bangkok · Koh Tao · Krabi</h4>
+              <p>23 juillet → 12 août · PADI · plongée · Railay · Ao Nang</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BUDGET -->
+
+    <section class="tab" id="budget">
+
+      <div class="section">
+
+        <div class="section-header">
+          <h3>💰 Dépenses</h3>
+
+          <button class="primary-btn" onclick="addExpensePrompt()">
+            + Ajouter
+          </button>
+        </div>
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Catégorie</th>
+              <th>Description</th>
+              <th>Montant</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="expenseTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+    <!-- HOTELS -->
+
+    <section class="tab" id="hotels">
+
+      <div class="section">
+
+        <div class="section-header">
+          <h3>🏨 Hébergements</h3>
+        </div>
+
+        <div class="hotel-grid">
+
+          <div class="hotel-card">
+            <h4>🇲🇾 Kuala Lumpur</h4>
+            <p>Bukit Bintang</p>
+            <span>2 nuits</span>
+          </div>
+
+          <div class="hotel-card">
+            <h4>🇮🇩 Canggu</h4>
+            <p>Batu Bolong</p>
+            <span>3 nuits</span>
+          </div>
+
+          <div class="hotel-card">
+            <h4>🇹🇭 Koh Tao</h4>
+            <p>Sairee Beach</p>
+            <span>7 nuits</span>
+          </div>
+
+          <div class="hotel-card">
+            <h4>🇹🇭 Krabi</h4>
+            <p>Ao Nang</p>
+            <span>11 nuits</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TRANSPORT -->
+
+    <section class="tab" id="transport">
+
+      <div class="section">
+
+        <div class="section-header">
+          <h3>✈️ Transports</h3>
+        </div>
+
+        <div class="transport-list">
+
+          <div class="transport-item">
+            <div>
+              <h4>Marseille → Kuala Lumpur</h4>
+              <p>Turkish Airlines / Qatar</p>
+            </div>
+
+            <span>780 €</span>
+          </div>
+
+          <div class="transport-item">
+            <div>
+              <h4>Singapour → Bali</h4>
+              <p>AirAsia</p>
+            </div>
+
+            <span>70 €</span>
+          </div>
+
+          <div class="transport-item">
+            <div>
+              <h4>Bangkok → Koh Tao</h4>
+              <p>Bus + Ferry Lomprayah</p>
+            </div>
+
+            <span>22 €</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BUCKET -->
+
+    <section class="tab" id="bucket">
+
+      <div class="section">
+
+        <div class="section-header">
+          <h3>⭐ Bucket List</h3>
+        </div>
+
+        <div class="bucket-grid">
+
+          <div class="bucket-item">
+            <input type="checkbox">
+            <span>🤿 PADI Open Water à Koh Tao</span>
+          </div>
+
+          <div class="bucket-item">
+            <input type="checkbox">
+            <span>🌋 Trek Rinjani</span>
+          </div>
+
+          <div class="bucket-item">
+            <input type="checkbox">
+            <span>🏄 Surf à Bali</span>
+          </div>
+
+          <div class="bucket-item">
+            <input type="checkbox">
+            <span>🍜 Street food Bangkok</span>
+          </div>
+
+          <div class="bucket-item">
+            <input type="checkbox">
+            <span>🐢 Snorkeling avec tortues à Gili Air</span>
+          </div>
+
+          <div class="bucket-item">
+            <input type="checkbox">
+            <span>🌅 Sunset Uluwatu</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- NOTES -->
+
+    <section class="tab" id="notes">
+
+      <div class="section">
+
+        <div class="section-header">
+
+          <h3>📝 Notes</h3>
+
+          <button class="primary-btn" onclick="saveNotes()">
+            Sauvegarder
+          </button>
+
+        </div>
+
+        <textarea id="notesArea" placeholder="Réservations, idées, numéros de vols, hôtels..."></textarea>
+
+      </div>
+
+    </section>
+
+  </main>
+
 </div>
 
 <script>
-const BUDGET = 5000;
-let totalSpent = 0;
 
-function goTab(id, el) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  el.classList.add('active');
-}
+const budget = 5000;
+let spent = 0;
 
-function toggleBlock(id) {
-  document.getElementById(id).classList.toggle('open');
-}
+/* NAVIGATION */
 
-function toggleCheck(el) {
-  el.classList.toggle('checked');
-  el.textContent = el.classList.contains('checked') ? '✓' : '';
-}
+const navButtons = document.querySelectorAll('.nav-btn');
+const tabs = document.querySelectorAll('.tab');
 
-function toggleBucket(card) {
-  card.classList.toggle('done');
-  const chk = card.querySelector('.bucket-check');
-  chk.textContent = card.classList.contains('done') ? '✓' : '';
-  updateBucketProgress();
-}
+navButtons.forEach(btn => {
 
-function updateBucketProgress() {
-  const total = document.querySelectorAll('.bucket-card').length;
-  const done = document.querySelectorAll('.bucket-card.done').length;
-  document.getElementById('bucket-progress').textContent = done + ' / ' + total + ' accompli';
-}
+  btn.addEventListener('click', () => {
 
-function updateBudget() {
-  const remaining = BUDGET - totalSpent;
-  const pct = Math.round((totalSpent / BUDGET) * 100);
-  document.getElementById('sidebar-remaining').textContent = remaining.toLocaleString('fr-FR') + ' €';
-  document.getElementById('sidebar-spent').textContent = totalSpent.toLocaleString('fr-FR') + ' € engagé';
-  const bar = document.getElementById('sidebar-bar');
-  bar.style.width = Math.min(pct, 100) + '%';
-  bar.style.background = pct > 80 ? 'var(--red)' : pct > 60 ? 'var(--accent3)' : 'var(--accent)';
-  document.getElementById('card-spent').textContent = totalSpent.toLocaleString('fr-FR') + ' €';
-  document.getElementById('card-pct').textContent = pct + '% du budget utilisé';
-  document.getElementById('card-remaining').textContent = remaining.toLocaleString('fr-FR') + ' €';
-  if (document.getElementById('b-spent')) {
-    document.getElementById('b-spent').textContent = totalSpent.toLocaleString('fr-FR') + ' €';
-    document.getElementById('b-remaining').textContent = remaining.toLocaleString('fr-FR') + ' €';
-  }
-}
+    navButtons.forEach(b => b.classList.remove('active'));
+    tabs.forEach(t => t.classList.remove('active'));
 
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    btn.classList.add('active');
 
-document.querySelectorAll('.modal-backdrop').forEach(m => {
-  m.addEventListener('click', function(e) { if (e.target === m) m.classList.remove('open'); });
+    document
+      .getElementById(btn.dataset.tab)
+      .classList.add('active');
+
+  });
+
 });
 
-function statusBadge(v) {
-  const map = { todo:'badge-todo', booked:'badge-booked', paid:'badge-booked', option:'badge-option' };
-  const label = { todo:'À réserver', booked:'Confirmé', paid:'Payé', option:'Sur place' };
-  return `<span class="badge ${map[v]||'badge-todo'}">${label[v]||v}</span>`;
+/* BUDGET */
+
+function updateBudget(){
+
+  const remaining = budget - spent;
+
+  const percent = (spent / budget) * 100;
+
+  document.getElementById('remainingBudget').innerText =
+    remaining + ' €';
+
+  document.getElementById('spentText').innerText =
+    spent + ' € dépensé';
+
+  document.getElementById('spentCard').innerText =
+    spent + ' €';
+
+  document.getElementById('remainingCard').innerText =
+    remaining + ' €';
+
+  document.getElementById('budgetBar').style.width =
+    percent + '%';
+
 }
 
-function removeRow(btn) {
-  btn.closest('tr').remove();
-}
+function addExpense(category, description, amount){
 
-function addExpense() {
-  const cat = document.getElementById('exp-cat').value;
-  const desc = document.getElementById('exp-desc').value || '—';
-  const est = document.getElementById('exp-est').value;
-  const real = document.getElementById('exp-real').value;
-  const status = document.getElementById('exp-status').value;
+  spent += amount;
+
+  updateBudget();
+
   const tr = document.createElement('tr');
-  tr.innerHTML = `<td>${cat}</td><td>${desc}</td><td style="color:var(--muted)">${est?'~'+est+' €':'—'}</td><td style="font-family:'DM Mono',monospace">${real?real+' €':'—'}</td><td>${statusBadge(status)}</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td>`;
-  document.getElementById('expense-table').appendChild(tr);
-  if (real) { totalSpent += Number(real); updateBudget(); }
-  closeModal('modal-expense');
-  ['exp-desc','exp-est','exp-real'].forEach(id => document.getElementById(id).value = '');
+
+  tr.innerHTML = `
+    <td>${category}</td>
+    <td>${description}</td>
+    <td>${amount} €</td>
+    <td>
+      <button class="delete-btn"
+      onclick="removeExpense(this, ${amount})">
+      ✕
+      </button>
+    </td>
+  `;
+
+  document
+    .getElementById('expenseTable')
+    .appendChild(tr);
+
+  saveExpenses();
+
 }
 
-function addHotel() {
-  const dest = document.getElementById('h-dest').value || '—';
-  const name = document.getElementById('h-name').value || 'À trouver';
-  const hin = document.getElementById('h-in').value;
-  const hout = document.getElementById('h-out').value;
-  const price = document.getElementById('h-price').value;
-  const status = document.getElementById('h-status').value;
-  const ref = document.getElementById('h-ref').value || '—';
-  const fmt = d => d ? d.slice(5).replace('-','/') : '—';
-  let nights = '';
-  if (hin && hout) {
-    const n = Math.round((new Date(hout) - new Date(hin)) / 86400000);
-    nights = n > 0 ? n : '';
+function removeExpense(btn, amount){
+
+  spent -= amount;
+
+  updateBudget();
+
+  btn.parentElement.parentElement.remove();
+
+  saveExpenses();
+
+}
+
+function addExpensePrompt(){
+
+  const category = prompt('Catégorie ?');
+  if(!category) return;
+
+  const desc = prompt('Description ?');
+  if(!desc) return;
+
+  const amount = parseInt(prompt('Montant (€) ?'));
+
+  if(isNaN(amount)) return;
+
+  addExpense(category, desc, amount);
+
+}
+
+/* STORAGE */
+
+function saveExpenses(){
+
+  localStorage.setItem('moMiSpent', spent);
+
+}
+
+function loadExpenses(){
+
+  const saved = localStorage.getItem('moMiSpent');
+
+  if(saved){
+
+    spent = parseInt(saved);
+
+    updateBudget();
+
   }
-  const tr = document.createElement('tr');
-  tr.innerHTML = `<td>${dest}</td><td>${name}</td><td style="font-family:'DM Mono',monospace;font-size:12px">${fmt(hin)}</td><td style="font-family:'DM Mono',monospace;font-size:12px">${fmt(hout)}</td><td style="text-align:center">${nights}</td><td>${price?'~'+price+' €':'—'}</td><td>${statusBadge(status)}</td><td style="color:var(--muted);font-size:12px">${ref}</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td>`;
-  document.getElementById('hotel-table').appendChild(tr);
-  closeModal('modal-hotel');
-  ['h-dest','h-name','h-in','h-out','h-price','h-ref'].forEach(id => document.getElementById(id).value = '');
+
 }
 
-function addTransport() {
-  const type = document.getElementById('t-type').value;
-  const from = document.getElementById('t-from').value || '—';
-  const to = document.getElementById('t-to').value || '—';
-  const date = document.getElementById('t-date').value;
-  const co = document.getElementById('t-co').value || '—';
-  const price = document.getElementById('t-price').value;
-  const ref = document.getElementById('t-ref').value || '—';
-  const fmt = d => d ? d.slice(5).replace('-','/') : '—';
-  const typeBadge = type.includes('Vol') ? 'badge-fly' : type.includes('Bus') ? 'badge-bus' : 'badge-ferry';
-  const tr = document.createElement('tr');
-  tr.innerHTML = `<td><span class="badge ${typeBadge}">${type}</span></td><td>${from} → ${to}</td><td style="font-family:'DM Mono',monospace;font-size:12px">${fmt(date)}</td><td style="color:var(--muted)">—</td><td>${co}</td><td style="font-family:'DM Mono',monospace;color:var(--accent3)">${price?'~'+price+' €':'—'}</td><td><span class="badge badge-todo">À réserver</span></td><td style="color:var(--muted);font-size:12px">${ref}</td><td><button class="btn btn-sm btn-danger" onclick="removeRow(this)">✕</button></td>`;
-  document.getElementById('transport-table').appendChild(tr);
-  if (price) { totalSpent += Number(price); updateBudget(); }
-  closeModal('modal-transport');
-  ['t-from','t-to','t-date','t-co','t-price','t-ref'].forEach(id => document.getElementById(id).value = '');
+function saveNotes(){
+
+  const value =
+    document.getElementById('notesArea').value;
+
+  localStorage.setItem('moMiNotes', value);
+
+  alert('Notes sauvegardées');
+
 }
 
-function saveNotes() {
-  try { localStorage.setItem('voyage-notes', document.getElementById('free-notes').value); } catch(e){}
-  const el = document.getElementById('notes-saved');
-  el.style.opacity = 1;
-  setTimeout(() => el.style.opacity = 0, 2500);
+function loadNotes(){
+
+  const saved = localStorage.getItem('moMiNotes');
+
+  if(saved){
+
+    document.getElementById('notesArea').value =
+      saved;
+
+  }
+
 }
 
-try {
-  const saved = localStorage.getItem('voyage-notes');
-  if (saved) document.getElementById('free-notes').value = saved;
-} catch(e){}
+/* COUNTDOWN */
 
+function updateCountdown(){
+
+  const departure = new Date('2026-07-01');
+
+  const today = new Date();
+
+  const diff = departure - today;
+
+  const days = Math.ceil(
+    diff / (1000 * 60 * 60 * 24)
+  );
+
+  document.getElementById('countdown').innerText =
+    days + ' jours';
+
+}
+
+/* INIT */
+
+updateCountdown();
 updateBudget();
-updateBucketProgress();
+loadExpenses();
+loadNotes();
+
+/* DEFAULT DATA */
+
+addExpense('✈️ Vol', 'Marseille → Kuala Lumpur', 780);
+
+addExpense('🏨 Hébergement', 'Canggu Bali', 90);
+
 </script>
+
 </body>
 </html>
