@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>🌏 Mo&Mi en Asie</title>
+<title>Mo&Mi Asia Dashboard</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
-  --bg:#0d0f0c;
-  --surface:#161914;
-  --surface2:#1d211a;
-  --border:#2a2f25;
-  --text:#f1f0e6;
-  --muted:#8d9182;
 
-  --green:#c9e265;
-  --orange:#f0a15c;
-  --blue:#78c9ff;
-  --purple:#b78dff;
-  --red:#ff6868;
+  --bg:#070b14;
+  --surface:#0f1725;
+  --surface2:#151f32;
+  --surface3:#1c2940;
+
+  --border:#26344d;
+
+  --text:#f5f7fb;
+  --muted:#93a0b8;
+
+  --blue:#4da3ff;
+  --blue2:#1d4ed8;
+  --cyan:#4cc9f0;
+
+  --green:#42d392;
+  --orange:#ffb347;
+  --red:#ff6b6b;
+
+  --shadow:0 10px 40px rgba(0,0,0,.35);
+
 }
 
 *{
@@ -37,10 +46,13 @@ html{
 }
 
 body{
-  background:var(--bg);
+  background:linear-gradient(180deg,#05070d,#0b1220);
   color:var(--text);
   font-family:'Inter',sans-serif;
+  overflow-x:hidden;
 }
+
+/* LAYOUT */
 
 .layout{
   display:flex;
@@ -50,376 +62,683 @@ body{
 /* SIDEBAR */
 
 .sidebar{
-  width:280px;
-  background:rgba(17,18,15,.92);
-  backdrop-filter:blur(10px);
-  border-right:1px solid var(--border);
+
+  width:290px;
   position:fixed;
   height:100vh;
-  padding:26px;
-  overflow:auto;
+
+  background:rgba(9,13,22,.92);
+
+  backdrop-filter:blur(18px);
+
+  border-right:1px solid var(--border);
+
+  padding:28px;
+
+  overflow-y:auto;
+
+  z-index:100;
 }
 
 .logo h1{
   font-family:'Syne',sans-serif;
-  font-size:34px;
-  line-height:1;
+  font-size:36px;
+  font-weight:800;
+  letter-spacing:-1px;
 }
 
 .logo p{
-  margin-top:10px;
   color:var(--muted);
+  margin-top:10px;
   font-size:14px;
 }
 
-.hero-box{
-  margin-top:30px;
-  background:linear-gradient(135deg,#1d211a,#262c21);
+/* BUDGET */
+
+.budget-box{
+
+  margin-top:32px;
+
+  background:linear-gradient(145deg,#111b2c,#18263d);
+
   border:1px solid var(--border);
-  border-radius:24px;
-  padding:22px;
+
+  border-radius:28px;
+
+  padding:24px;
+
+  box-shadow:var(--shadow);
+
 }
 
-.hero-box span{
-  color:var(--muted);
+.budget-box span{
+
   font-size:12px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:1px;
+
 }
 
-.hero-box h2{
-  margin-top:12px;
-  color:var(--green);
-  font-size:38px;
+.budget-box h2{
+
+  margin-top:14px;
+
+  font-size:42px;
+
+  color:var(--blue);
+
   font-weight:800;
+
 }
 
 .progress{
-  height:8px;
-  background:#2b3028;
+
+  height:10px;
+
+  background:#243146;
+
   border-radius:999px;
+
   overflow:hidden;
-  margin:18px 0;
+
+  margin:20px 0;
+
 }
 
 .progress-fill{
-  height:100%;
+
   width:0%;
-  background:linear-gradient(90deg,var(--green),#dff58d);
+
+  height:100%;
+
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+
   border-radius:999px;
+
   transition:.4s;
+
 }
 
+#spentText{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* NAV */
+
 nav{
-  margin-top:32px;
+
   display:flex;
   flex-direction:column;
-  gap:10px;
+
+  gap:12px;
+
+  margin-top:34px;
+
 }
 
 .nav-btn{
-  background:none;
+
   border:none;
+
+  background:transparent;
+
   color:var(--muted);
-  padding:15px;
-  border-radius:16px;
+
+  padding:16px 18px;
+
+  border-radius:18px;
+
   text-align:left;
+
   cursor:pointer;
+
   transition:.25s;
+
   font-size:15px;
+
+  font-weight:500;
+
 }
 
 .nav-btn:hover{
-  background:var(--surface2);
+
+  background:rgba(77,163,255,.12);
+
   color:white;
+
 }
 
 .nav-btn.active{
-  background:var(--green);
-  color:#111;
-  font-weight:700;
+
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+
+  color:white;
+
+  box-shadow:0 10px 25px rgba(29,78,216,.35);
+
 }
 
 /* CONTENT */
 
 .content{
-  margin-left:280px;
+
+  margin-left:290px;
+
   width:100%;
-  padding:36px;
+
+  padding:34px;
+
 }
 
+/* TOPBAR */
+
 .topbar{
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
-  margin-bottom:28px;
-  position:sticky;
-  top:0;
-  z-index:10;
-  padding-bottom:16px;
-  backdrop-filter:blur(10px);
+
+  margin-bottom:30px;
+
+  gap:20px;
+
 }
 
 .topbar h2{
+
   font-family:'Syne',sans-serif;
-  font-size:42px;
+
+  font-size:52px;
+
+  line-height:1;
+
 }
 
 .topbar p{
+
+  margin-top:12px;
+
   color:var(--muted);
-  margin-top:6px;
+
 }
 
+/* COUNTDOWN */
+
 .countdown{
-  background:var(--surface);
+
+  background:linear-gradient(145deg,#10192a,#18253c);
+
   border:1px solid var(--border);
-  border-radius:22px;
-  padding:20px 26px;
+
+  padding:22px 28px;
+
+  border-radius:24px;
+
+  min-width:220px;
+
+  box-shadow:var(--shadow);
+
 }
 
 .countdown span{
+
   color:var(--muted);
+
   font-size:12px;
+
+  text-transform:uppercase;
+
 }
 
 .countdown h3{
-  margin-top:8px;
-  font-size:30px;
-  color:var(--blue);
+
+  margin-top:10px;
+
+  color:var(--cyan);
+
+  font-size:34px;
+
 }
 
-/* STATS */
+/* CARDS */
 
 .stats-grid{
+
   display:grid;
+
   grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:18px;
+
+  gap:20px;
+
 }
 
 .card{
-  background:rgba(25,28,23,.85);
+
+  background:rgba(16,24,38,.92);
+
   border:1px solid var(--border);
-  border-radius:24px;
-  padding:26px;
-  backdrop-filter:blur(12px);
+
+  border-radius:28px;
+
+  padding:28px;
+
   transition:.25s;
+
+  position:relative;
+
+  overflow:hidden;
+
+  box-shadow:var(--shadow);
+
+}
+
+.card::before{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:100%;
+  height:4px;
+
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+
 }
 
 .card:hover{
-  transform:translateY(-4px);
+
+  transform:translateY(-6px);
+
 }
 
 .card span{
+
   color:var(--muted);
+
   font-size:13px;
+
 }
 
 .card h3{
-  margin-top:14px;
-  font-size:38px;
+
+  margin-top:16px;
+
+  font-size:42px;
+
 }
 
 .green h3{color:var(--green);}
 .orange h3{color:var(--orange);}
 .blue h3{color:var(--blue);}
-.purple h3{color:var(--purple);}
+.purple h3{color:#b197fc;}
 
 /* SECTION */
 
 .section{
-  margin-top:26px;
-  background:rgba(22,25,20,.9);
+
+  margin-top:28px;
+
+  background:rgba(15,23,37,.92);
+
   border:1px solid var(--border);
-  border-radius:26px;
-  padding:28px;
+
+  border-radius:30px;
+
+  padding:30px;
+
+  box-shadow:var(--shadow);
+
 }
 
 .section-header{
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
-  margin-bottom:22px;
+
+  margin-bottom:24px;
+
+  gap:20px;
+
 }
 
 .section-header h3{
+
   font-family:'Syne',sans-serif;
-  font-size:28px;
+
+  font-size:30px;
+
 }
 
+/* ALERT */
+
 .alert{
-  background:rgba(201,226,101,.08);
-  border:1px solid rgba(201,226,101,.22);
-  padding:20px;
-  border-radius:18px;
-  color:var(--green);
-  font-weight:500;
+
+  background:rgba(77,163,255,.08);
+
+  border:1px solid rgba(77,163,255,.22);
+
+  border-radius:20px;
+
+  padding:22px;
+
+  color:var(--cyan);
+
+  line-height:1.7;
+
 }
 
 /* TIMELINE */
 
 .timeline{
+
   display:flex;
   flex-direction:column;
   gap:18px;
+
 }
 
 .timeline-item{
+
   display:flex;
   gap:18px;
+
 }
 
 .dot{
+
   width:16px;
   height:16px;
+
   border-radius:50%;
-  background:var(--green);
+
+  background:var(--blue);
+
   margin-top:10px;
+
+  box-shadow:0 0 20px rgba(77,163,255,.5);
+
   flex-shrink:0;
+
 }
 
 .timeline-content{
+
   background:var(--surface2);
-  border-radius:20px;
-  padding:20px;
+
+  border:1px solid var(--border);
+
+  border-radius:22px;
+
+  padding:22px;
+
   width:100%;
+
 }
 
 .timeline-content h4{
-  font-size:20px;
+
+  font-size:21px;
+
 }
 
 .timeline-content p{
-  margin-top:8px;
+
+  margin-top:10px;
+
   color:var(--muted);
-  line-height:1.6;
-}
 
-/* TABLE */
+  line-height:1.7;
 
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th{
-  text-align:left;
-  padding:16px;
-  color:var(--muted);
-  border-bottom:1px solid var(--border);
-}
-
-td{
-  padding:18px 16px;
-  border-bottom:1px solid var(--border);
-}
-
-tr:hover{
-  background:rgba(255,255,255,.02);
-}
-
-.delete-btn{
-  background:none;
-  border:none;
-  color:var(--red);
-  cursor:pointer;
-  font-size:18px;
 }
 
 /* BUTTON */
 
 .primary-btn{
-  background:var(--green);
+
   border:none;
+
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+
+  color:white;
+
   padding:14px 20px;
+
   border-radius:16px;
+
   font-weight:700;
+
   cursor:pointer;
-  transition:.2s;
+
+  transition:.25s;
+
 }
 
 .primary-btn:hover{
-  transform:scale(1.03);
+
+  transform:translateY(-2px);
+
 }
 
-/* HOTEL */
+/* TABLE */
+
+table{
+
+  width:100%;
+  border-collapse:collapse;
+
+}
+
+th{
+
+  text-align:left;
+
+  color:var(--muted);
+
+  padding:16px;
+
+  border-bottom:1px solid var(--border);
+
+}
+
+td{
+
+  padding:18px 16px;
+
+  border-bottom:1px solid var(--border);
+
+}
+
+tr:hover{
+
+  background:rgba(255,255,255,.02);
+
+}
+
+.delete-btn{
+
+  border:none;
+
+  background:none;
+
+  color:var(--red);
+
+  font-size:18px;
+
+  cursor:pointer;
+
+}
+
+/* HOTELS */
 
 .hotel-grid{
+
   display:grid;
+
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
   gap:18px;
+
 }
 
 .hotel-card{
+
   background:var(--surface2);
-  border-radius:20px;
-  padding:22px;
+
+  border:1px solid var(--border);
+
+  border-radius:22px;
+
+  padding:24px;
+
+  transition:.25s;
+
+}
+
+.hotel-card:hover{
+
+  transform:translateY(-4px);
+
 }
 
 .hotel-card h4{
-  font-size:20px;
+
+  font-size:22px;
+
 }
 
 .hotel-card p{
-  margin-top:10px;
+
   color:var(--muted);
+
+  margin-top:10px;
+
 }
 
 .hotel-card span{
-  margin-top:16px;
+
   display:inline-block;
-  color:var(--green);
+
+  margin-top:16px;
+
+  color:var(--cyan);
+
 }
 
 /* TRANSPORT */
 
 .transport-list{
+
   display:flex;
   flex-direction:column;
   gap:16px;
+
 }
 
 .transport-item{
+
   background:var(--surface2);
-  border-radius:20px;
+
+  border:1px solid var(--border);
+
+  border-radius:22px;
+
   padding:22px;
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
 }
 
 .transport-item p{
+
   color:var(--muted);
-  margin-top:6px;
+
+  margin-top:8px;
+
 }
 
 /* BUCKET */
 
 .bucket-grid{
+
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
   gap:16px;
+
 }
 
 .bucket-item{
+
   background:var(--surface2);
-  border-radius:18px;
+
+  border:1px solid var(--border);
+
+  border-radius:20px;
+
   padding:18px;
+
   display:flex;
+
   gap:14px;
+
   align-items:center;
+
+  transition:.25s;
+
+}
+
+.bucket-item:hover{
+
+  transform:translateY(-3px);
+
+}
+
+.bucket-item input{
+
+  width:18px;
+  height:18px;
+
 }
 
 /* NOTES */
 
 textarea{
+
   width:100%;
+
   min-height:260px;
+
   background:var(--surface2);
+
   border:1px solid var(--border);
-  border-radius:20px;
-  padding:22px;
+
+  border-radius:22px;
+
+  padding:24px;
+
   color:white;
+
   resize:none;
-  font-family:'Inter',sans-serif;
+
   font-size:15px;
+
+  outline:none;
+
 }
 
 /* TABS */
@@ -432,7 +751,7 @@ textarea{
   display:block;
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 
 @media(max-width:1000px){
 
@@ -441,20 +760,31 @@ textarea{
   }
 
   .sidebar{
-    position:relative;
+
     width:100%;
+    position:relative;
     height:auto;
+
   }
 
   .content{
+
     margin-left:0;
-    padding:24px;
+    padding:22px;
+
   }
 
   .topbar{
+
     flex-direction:column;
     align-items:flex-start;
-    gap:20px;
+
+  }
+
+  .topbar h2{
+
+    font-size:42px;
+
   }
 
 }
@@ -465,16 +795,21 @@ textarea{
 
 <div class="layout">
 
+  <!-- SIDEBAR -->
+
   <aside class="sidebar">
 
     <div class="logo">
+
       <h1>🌏 Mo&Mi</h1>
-      <p>Asie Été 2026 · 46 jours</p>
+
+      <p>Asia Summer Dashboard 2026</p>
+
     </div>
 
-    <div class="hero-box">
+    <div class="budget-box">
 
-      <span>BUDGET RESTANT</span>
+      <span>Budget restant</span>
 
       <h2 id="remainingBudget">5000 €</h2>
 
@@ -488,34 +823,56 @@ textarea{
 
     <nav>
 
-      <button class="nav-btn active" data-tab="overview">🗺 Vue d'ensemble</button>
+      <button class="nav-btn active" data-tab="overview">
+        🗺 Vue d'ensemble
+      </button>
 
-      <button class="nav-btn" data-tab="budget">💰 Budget</button>
+      <button class="nav-btn" data-tab="budget">
+        💰 Budget
+      </button>
 
-      <button class="nav-btn" data-tab="hotels">🏨 Hébergements</button>
+      <button class="nav-btn" data-tab="hotels">
+        🏨 Hébergements
+      </button>
 
-      <button class="nav-btn" data-tab="transport">✈️ Transports</button>
+      <button class="nav-btn" data-tab="transport">
+        ✈️ Transports
+      </button>
 
-      <button class="nav-btn" data-tab="bucket">⭐ Bucket List</button>
+      <button class="nav-btn" data-tab="bucket">
+        ⭐ Bucket List
+      </button>
 
-      <button class="nav-btn" data-tab="notes">📝 Notes</button>
+      <button class="nav-btn" data-tab="notes">
+        📝 Notes
+      </button>
 
     </nav>
 
   </aside>
+
+  <!-- CONTENT -->
 
   <main class="content">
 
     <header class="topbar">
 
       <div>
-        <h2>Mo&Mi en Asie</h2>
-        <p>Malaisie · Singapour · Indonésie · Vietnam · Thaïlande</p>
+
+        <h2>Mo&Mi Asia</h2>
+
+        <p>
+          Dashboard premium du voyage Asie · Malaisie · Indonésie · Vietnam · Thaïlande
+        </p>
+
       </div>
 
       <div class="countdown">
-        <span>DÉPART DANS</span>
+
+        <span>Départ dans</span>
+
         <h3 id="countdown">-- jours</h3>
+
       </div>
 
     </header>
@@ -526,24 +883,24 @@ textarea{
 
       <div class="stats-grid">
 
-        <div class="card green">
+        <div class="card blue">
           <span>Budget total</span>
-          <h3>5 000 €</h3>
+          <h3>5000€</h3>
         </div>
 
         <div class="card orange">
           <span>Dépensé</span>
-          <h3 id="spentCard">0 €</h3>
+          <h3 id="spentCard">0€</h3>
         </div>
 
-        <div class="card blue">
+        <div class="card green">
           <span>Restant</span>
-          <h3 id="remainingCard">5 000 €</h3>
+          <h3 id="remainingCard">5000€</h3>
         </div>
 
         <div class="card purple">
           <span>Durée</span>
-          <h3>46 j</h3>
+          <h3>46j</h3>
         </div>
 
       </div>
@@ -555,7 +912,9 @@ textarea{
         </div>
 
         <div class="alert">
-          Réserver les vols internationaux Marseille → Kuala Lumpur maintenant avant augmentation des prix.
+
+          Réserver rapidement les vols Marseille → Kuala Lumpur avant augmentation des tarifs été 2026.
+
         </div>
 
       </div>
@@ -563,7 +922,7 @@ textarea{
       <div class="section">
 
         <div class="section-header">
-          <h3>🗺 Itinéraire</h3>
+          <h3>🗺 Timeline Voyage</h3>
         </div>
 
         <div class="timeline">
@@ -572,7 +931,7 @@ textarea{
             <div class="dot"></div>
             <div class="timeline-content">
               <h4>🇲🇾 Kuala Lumpur & Penang</h4>
-              <p>1 → 5 juillet · Batu Caves · Jalan Alor · George Town · street food</p>
+              <p>1 → 5 juillet · Batu Caves · Jalan Alor · Street food</p>
             </div>
           </div>
 
@@ -580,7 +939,7 @@ textarea{
             <div class="dot"></div>
             <div class="timeline-content">
               <h4>🇸🇬 Singapour</h4>
-              <p>5 → 7 juillet · Marina Bay · Gardens by the Bay · Chinatown</p>
+              <p>5 → 7 juillet · Marina Bay · Gardens by the Bay</p>
             </div>
           </div>
 
@@ -588,7 +947,7 @@ textarea{
             <div class="dot"></div>
             <div class="timeline-content">
               <h4>🇮🇩 Bali</h4>
-              <p>7 → 14 juillet · Canggu · Ubud · Uluwatu · surf · scooter · sunsets</p>
+              <p>7 → 14 juillet · Canggu · Ubud · Uluwatu · Surf</p>
             </div>
           </div>
 
@@ -596,7 +955,7 @@ textarea{
             <div class="dot"></div>
             <div class="timeline-content">
               <h4>🇮🇩 Lombok & Gili Air</h4>
-              <p>14 → 21 juillet · snorkeling tortues · plages · trek Rinjani</p>
+              <p>14 → 21 juillet · Tortues · Rinjani · plages</p>
             </div>
           </div>
 
@@ -604,7 +963,7 @@ textarea{
             <div class="dot"></div>
             <div class="timeline-content">
               <h4>🇻🇳 Ho Chi Minh</h4>
-              <p>21 → 23 juillet · pho · tunnels Cu Chi · bière locale</p>
+              <p>21 → 23 juillet · Pho · Cu Chi · bière locale</p>
             </div>
           </div>
 
@@ -612,7 +971,7 @@ textarea{
             <div class="dot"></div>
             <div class="timeline-content">
               <h4>🇹🇭 Bangkok · Koh Tao · Krabi</h4>
-              <p>23 juillet → 12 août · PADI · plongée · Railay · Ao Nang</p>
+              <p>23 juillet → 12 août · PADI · Railay · Ao Nang</p>
             </div>
           </div>
 
@@ -629,22 +988,26 @@ textarea{
       <div class="section">
 
         <div class="section-header">
-          <h3>💰 Dépenses</h3>
+
+          <h3>💰 Budget Live</h3>
 
           <button class="primary-btn" onclick="addExpensePrompt()">
-            + Ajouter
+            + Ajouter une dépense
           </button>
+
         </div>
 
         <table>
 
           <thead>
+
             <tr>
               <th>Catégorie</th>
               <th>Description</th>
               <th>Montant</th>
               <th></th>
             </tr>
+
           </thead>
 
           <tbody id="expenseTable"></tbody>
@@ -680,15 +1043,15 @@ textarea{
           </div>
 
           <div class="hotel-card">
-            <h4>🇹🇭 Koh Tao</h4>
-            <p>Sairee Beach</p>
-            <span>7 nuits</span>
+            <h4>🇮🇩 Gili Air</h4>
+            <p>Bungalow plage</p>
+            <span>4 nuits</span>
           </div>
 
           <div class="hotel-card">
-            <h4>🇹🇭 Krabi</h4>
-            <p>Ao Nang</p>
-            <span>11 nuits</span>
+            <h4>🇹🇭 Koh Tao</h4>
+            <p>Sairee Beach</p>
+            <span>7 nuits</span>
           </div>
 
         </div>
@@ -710,30 +1073,36 @@ textarea{
         <div class="transport-list">
 
           <div class="transport-item">
+
             <div>
               <h4>Marseille → Kuala Lumpur</h4>
-              <p>Turkish Airlines / Qatar</p>
+              <p>Turkish Airlines</p>
             </div>
 
-            <span>780 €</span>
+            <span>780€</span>
+
           </div>
 
           <div class="transport-item">
+
             <div>
               <h4>Singapour → Bali</h4>
               <p>AirAsia</p>
             </div>
 
-            <span>70 €</span>
+            <span>70€</span>
+
           </div>
 
           <div class="transport-item">
+
             <div>
               <h4>Bangkok → Koh Tao</h4>
-              <p>Bus + Ferry Lomprayah</p>
+              <p>Bus + Ferry</p>
             </div>
 
-            <span>22 €</span>
+            <span>22€</span>
+
           </div>
 
         </div>
@@ -771,12 +1140,12 @@ textarea{
 
           <div class="bucket-item">
             <input type="checkbox">
-            <span>🍜 Street food Bangkok</span>
+            <span>🐢 Snorkeling tortues à Gili Air</span>
           </div>
 
           <div class="bucket-item">
             <input type="checkbox">
-            <span>🐢 Snorkeling avec tortues à Gili Air</span>
+            <span>🍜 Street food Bangkok</span>
           </div>
 
           <div class="bucket-item">
@@ -806,7 +1175,7 @@ textarea{
 
         </div>
 
-        <textarea id="notesArea" placeholder="Réservations, idées, numéros de vols, hôtels..."></textarea>
+        <textarea id="notesArea" placeholder="Réservations, idées, numéros de vols, hôtels, restaurants..."></textarea>
 
       </div>
 
@@ -818,10 +1187,7 @@ textarea{
 
 <script>
 
-const budget = 5000;
-let spent = 0;
-
-/* NAVIGATION */
+/* ========= TABS ========= */
 
 const navButtons = document.querySelectorAll('.nav-btn');
 const tabs = document.querySelectorAll('.tab');
@@ -843,7 +1209,11 @@ navButtons.forEach(btn => {
 
 });
 
-/* BUDGET */
+/* ========= BUDGET ========= */
+
+const budget = 5000;
+
+let spent = parseInt(localStorage.getItem('momiasia_spent')) || 0;
 
 function updateBudget(){
 
@@ -854,14 +1224,14 @@ function updateBudget(){
   document.getElementById('remainingBudget').innerText =
     remaining + ' €';
 
+  document.getElementById('remainingCard').innerText =
+    remaining + '€';
+
   document.getElementById('spentText').innerText =
     spent + ' € dépensé';
 
   document.getElementById('spentCard').innerText =
-    spent + ' €';
-
-  document.getElementById('remainingCard').innerText =
-    remaining + ' €';
+    spent + '€';
 
   document.getElementById('budgetBar').style.width =
     percent + '%';
@@ -872,6 +1242,8 @@ function addExpense(category, description, amount){
 
   spent += amount;
 
+  localStorage.setItem('momiasia_spent', spent);
+
   updateBudget();
 
   const tr = document.createElement('tr');
@@ -879,7 +1251,7 @@ function addExpense(category, description, amount){
   tr.innerHTML = `
     <td>${category}</td>
     <td>${description}</td>
-    <td>${amount} €</td>
+    <td>${amount}€</td>
     <td>
       <button class="delete-btn"
       onclick="removeExpense(this, ${amount})">
@@ -892,19 +1264,17 @@ function addExpense(category, description, amount){
     .getElementById('expenseTable')
     .appendChild(tr);
 
-  saveExpenses();
-
 }
 
 function removeExpense(btn, amount){
 
   spent -= amount;
 
+  localStorage.setItem('momiasia_spent', spent);
+
   updateBudget();
 
   btn.parentElement.parentElement.remove();
-
-  saveExpenses();
 
 }
 
@@ -913,45 +1283,25 @@ function addExpensePrompt(){
   const category = prompt('Catégorie ?');
   if(!category) return;
 
-  const desc = prompt('Description ?');
-  if(!desc) return;
+  const description = prompt('Description ?');
+  if(!description) return;
 
   const amount = parseInt(prompt('Montant (€) ?'));
 
   if(isNaN(amount)) return;
 
-  addExpense(category, desc, amount);
+  addExpense(category, description, amount);
 
 }
 
-/* STORAGE */
-
-function saveExpenses(){
-
-  localStorage.setItem('moMiSpent', spent);
-
-}
-
-function loadExpenses(){
-
-  const saved = localStorage.getItem('moMiSpent');
-
-  if(saved){
-
-    spent = parseInt(saved);
-
-    updateBudget();
-
-  }
-
-}
+/* ========= NOTES ========= */
 
 function saveNotes(){
 
   const value =
     document.getElementById('notesArea').value;
 
-  localStorage.setItem('moMiNotes', value);
+  localStorage.setItem('momiasia_notes', value);
 
   alert('Notes sauvegardées');
 
@@ -959,7 +1309,8 @@ function saveNotes(){
 
 function loadNotes(){
 
-  const saved = localStorage.getItem('moMiNotes');
+  const saved =
+    localStorage.getItem('momiasia_notes');
 
   if(saved){
 
@@ -970,7 +1321,7 @@ function loadNotes(){
 
 }
 
-/* COUNTDOWN */
+/* ========= COUNTDOWN ========= */
 
 function updateCountdown(){
 
@@ -989,18 +1340,25 @@ function updateCountdown(){
 
 }
 
-/* INIT */
+/* ========= INIT ========= */
 
 updateCountdown();
 updateBudget();
-loadExpenses();
 loadNotes();
 
-/* DEFAULT DATA */
+/* DEFAULT EXPENSES */
 
-addExpense('✈️ Vol', 'Marseille → Kuala Lumpur', 780);
+addExpense(
+  '✈️ Vol',
+  'Marseille → Kuala Lumpur',
+  780
+);
 
-addExpense('🏨 Hébergement', 'Canggu Bali', 90);
+addExpense(
+  '🏨 Hôtel',
+  'Canggu Bali',
+  90
+);
 
 </script>
 
