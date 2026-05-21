@@ -3,1404 +3,1097 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MO&MI in ASIA</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Playfair+Display:ital@1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>MO & MI in ASIA — Travel Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
---bg:#F8F7F4;
---white:#FFFFFF;
---navy:#0B1220;
---navy2:#1C2B45;
---gold:#B8913A;
---gold-light:#F5EDD8;
---border:#E2DDD6;
---border2:#CCC6BC;
---text:#1A1A1A;
---muted:#7A7570;
---muted2:#B0ABA4;
---red:#C0392B;
---green:#1E7A45;
---sidebar:260px;
+  --bg:#F7F6F3;--white:#FFFFFF;--navy:#0B1220;--navy2:#1C2B45;
+  --gold:#B8913A;--gold-bg:#FBF5E8;--border:#E0DBD4;--border2:#C8C2BA;
+  --text:#1A1A1A;--muted:#78746E;--muted2:#AAA49C;
+  --red:#C0392B;--green:#1A6B3A;--sidebar:270px;
 }
 html,body{height:100%;overflow:hidden;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);background:var(--bg)}
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.app{display:flex;height:100vh}
 
-/* ── LAYOUT ── */
-.shell{display:flex;height:100vh}
-
-/* ── SIDEBAR ── */
-.sidebar{
-width:var(--sidebar);flex-shrink:0;
-background:var(--navy);
-display:flex;flex-direction:column;
-height:100vh;overflow:hidden;
-position:relative;z-index:10;
-}
-.sb-brand{padding:26px 22px 18px;border-bottom:1px solid rgba(255,255,255,.06)}
-.sb-logo{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#fff;line-height:1.15;letter-spacing:.3px}
-.sb-tagline{font-size:9px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;margin-top:5px;font-weight:500}
-.sb-countdown{padding:14px 22px 12px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(184,145,58,.07)}
-.sb-cd-label{font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
-.sb-cd-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:#fff;line-height:1}
-.sb-cd-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:3px}
-.sb-budget{padding:12px 22px;border-bottom:1px solid rgba(255,255,255,.06)}
-.sb-bl{font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
-.sb-bv{font-family:'Syne',sans-serif;font-size:19px;font-weight:700;color:var(--gold)}
-.sb-bar{height:2px;background:rgba(255,255,255,.08);border-radius:1px;margin-top:8px;overflow:hidden}
-.sb-bar-fill{height:100%;background:var(--gold);border-radius:1px;transition:width .5s}
-.sb-bd{display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.25);margin-top:5px}
-.sb-nav{flex:1;overflow-y:auto;padding:8px 0}
-.sb-nav::-webkit-scrollbar{width:0}
-.sb-sec{font-size:8.5px;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:2px;padding:10px 22px 4px;font-weight:600}
-.sb-item{
-display:flex;align-items:center;gap:10px;
-padding:9px 22px;
-color:rgba(255,255,255,.45);font-size:12.5px;font-weight:400;
-cursor:pointer;border-left:2px solid transparent;
-transition:all .15s;letter-spacing:.1px;
-}
+/* SIDEBAR */
+.sb{width:var(--sidebar);flex-shrink:0;background:var(--navy);display:flex;flex-direction:column;height:100vh;overflow:hidden;z-index:10}
+.sb-brand{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-logo{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#fff;line-height:1.2}
+.sb-tag{font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.sb-cd{padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(184,145,58,.07)}
+.sb-cd-l{font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.sb-cd-v{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#fff}
+.sb-cd-s{font-size:10px;color:rgba(255,255,255,.3);margin-top:2px}
+.sb-nav{flex:1;overflow-y:auto;padding:8px 0}.sb-nav::-webkit-scrollbar{width:0}
+.sb-sec{font-size:8.5px;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:2px;padding:10px 20px 4px;font-weight:600}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 20px;color:rgba(255,255,255,.45);font-size:12.5px;cursor:pointer;border-left:2px solid transparent;transition:all .15s}
 .sb-item:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.03)}
 .sb-item.active{color:#fff;background:rgba(184,145,58,.13);border-left-color:var(--gold);font-weight:500}
-.sb-item svg{width:14px;height:14px;flex-shrink:0;opacity:.5}
-.sb-item.active svg{opacity:.9}
-.sb-foot{padding:14px 22px;border-top:1px solid rgba(255,255,255,.06)}
-.sb-foot-txt{font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:rgba(255,255,255,.25)}
+.sb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:rgba(255,255,255,.2)}
+.sb-item.active .sb-dot{background:var(--gold)}
+.sb-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,.06)}
+.sb-foot-t{font-size:10px;color:rgba(255,255,255,.25)}
 
-/* ── MAIN ── */
-.main{flex:1;overflow:hidden;display:flex;flex-direction:column;background:var(--bg)}
-.topbar{
-height:52px;flex-shrink:0;
-background:var(--white);border-bottom:1px solid var(--border);
-display:flex;align-items:center;padding:0 28px;gap:12px;
-}
-.topbar-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--navy);flex:1;letter-spacing:.2px}
+/* BUDGET BARS sidebar */
+.sb-budgets{padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-b-title{font-size:9px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.sb-person{margin-bottom:8px}
+.sb-p-name{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.6);margin-bottom:4px}
+.sb-p-val{color:var(--gold);font-weight:500}
+.sb-p-bar{height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.sb-p-fill{height:100%;border-radius:2px;background:var(--gold);transition:width .5s}
+
+/* MAIN */
+.main{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.topbar{height:50px;flex-shrink:0;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:12px}
+.topbar-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--navy);flex:1}
 .topbar-actions{display:flex;gap:8px}
-.content{flex:1;overflow-y:auto;padding:0}
+.content{flex:1;overflow-y:auto}
+.page{display:none}.page.active{display:block;animation:fadeUp .18s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.pad{padding:24px 28px}
 
-/* ── PAGES ── */
-.page{display:none}
-.page.active{display:block;animation:fadeUp .2s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.page-pad{padding:28px 32px}
-
-/* ── BUTTONS ── */
-.btn{
-display:inline-flex;align-items:center;gap:6px;
-padding:7px 16px;border-radius:7px;
-font-size:12px;font-weight:500;border:1px solid var(--border);
-background:var(--white);color:var(--text);
-cursor:pointer;transition:all .15s;white-space:nowrap;
-font-family:'Inter',sans-serif;letter-spacing:.1px;
-}
+/* BTNs */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:7px;font-size:12px;font-weight:500;border:1px solid var(--border);background:var(--white);color:var(--text);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
 .btn:hover{background:var(--bg);border-color:var(--border2)}
-.btn-navy{background:var(--navy);color:#fff;border-color:var(--navy)}
-.btn-navy:hover{background:var(--navy2);border-color:var(--navy2)}
-.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
-.btn-gold:hover{background:#C9A045;border-color:#C9A045}
-.btn-ghost{background:transparent;border-color:transparent}
-.btn-ghost:hover{background:var(--bg);border-color:var(--border)}
-.btn-danger{color:var(--red);border-color:transparent;background:transparent}
-.btn-danger:hover{background:#FDF0EE;border-color:#F5C6C2}
-.btn-sm{padding:5px 11px;font-size:11px;border-radius:5px}
-.btn-xs{padding:3px 8px;font-size:10px;border-radius:4px}
+.btn-navy{background:var(--navy);color:#fff;border-color:var(--navy)}.btn-navy:hover{background:var(--navy2)}
+.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}.btn-gold:hover{opacity:.9}
+.btn-sm{padding:4px 10px;font-size:11px;border-radius:5px}
+.btn-xs{padding:2px 8px;font-size:10px;border-radius:4px}
+.btn-danger{color:var(--red);border-color:transparent;background:transparent}.btn-danger:hover{background:#FDF0EE;border-color:#F5C6C2}
+.btn-ghost{background:transparent;border-color:transparent}.btn-ghost:hover{background:var(--bg);border-color:var(--border)}
 
-/* ── HERO ── */
-.hero{
-background:var(--navy);padding:36px 32px 30px;
-position:relative;overflow:hidden;
-}
-.hero::after{
-content:'';position:absolute;
-right:-60px;top:-60px;width:300px;height:300px;
-border-radius:50%;background:rgba(184,145,58,.07);
-}
-.hero-eye{font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:10px;font-weight:500}
-.hero-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff;letter-spacing:-.3px;line-height:1.1}
-.hero-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.45);margin-top:7px}
-.hero-stats{display:flex;gap:32px;margin-top:24px;flex-wrap:wrap}
-.hs{padding-left:16px;border-left:1px solid rgba(255,255,255,.1)}
-.hs-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff}
-.hs-lbl{font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+/* HERO */
+.hero{background:var(--navy);padding:30px 28px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-60px;top:-60px;width:250px;height:250px;border-radius:50%;background:rgba(184,145,58,.06)}
+.h-eye{font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:8px}
+.h-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;line-height:1.1}
+.h-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:6px}
+.h-stats{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap}
+.hs{padding-left:14px;border-left:1px solid rgba(255,255,255,.1)}
+.hs-v{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#fff}
+.hs-l{font-size:9px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-top:1px}
 
-/* ── CARDS GRID ── */
-.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:26px}
-.kpi{background:var(--white);border:1px solid var(--border);border-radius:9px;padding:18px;position:relative;overflow:hidden}
-.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kpi-color,var(--navy))}
-.kpi-label{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:7px;font-weight:500}
-.kpi-value{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:var(--kpi-color,var(--navy))}
-.kpi-sub{font-size:10px;color:var(--muted2);margin-top:4px}
+/* CARDS */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px}
+.kpi{background:var(--white);border:1px solid var(--border);border-radius:9px;padding:16px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kc,var(--navy))}
+.kpi-l{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:500}
+.kpi-v{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--kc,var(--navy))}
+.kpi-s{font-size:10px;color:var(--muted2);margin-top:3px}
 
-/* ══════════════════════════════════════════════════
-═══ ITINERARY BUILDER ═══
-══════════════════════════════════════════════════ */
-.builder-layout{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
-@media(max-width:960px){.builder-layout{grid-template-columns:1fr}}
+/* SECTION */
+.sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-t{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--navy)}
 
-/* Stops list */
-.stops-list{display:flex;flex-direction:column;gap:0}
+/* TABLE */
+.tw{background:var(--white);border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:20px}
+.tw-h{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.015)}
+.tw-ht{font-size:12px;font-weight:600;color:var(--navy)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:8px 14px;font-size:9px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);background:var(--bg);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(0,0,0,.012)}
 
-/* Individual stop card */
-.stop-card{
-background:var(--white);
-border:1px solid var(--border);
-border-radius:10px;
-margin-bottom:10px;
-overflow:hidden;
-transition:box-shadow .2s,border-color .2s;
-position:relative;
-}
-.stop-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
-.stop-card.expanded{border-color:var(--border2);box-shadow:0 4px 20px rgba(0,0,0,.08)}
+/* BADGE */
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500}
+.b-todo{background:#FFF8EC;color:#906010;border:1px solid #F0DEB0}
+.b-done{background:#EDFAF3;color:var(--green);border:1px solid #B5E8CB}
+.b-now{background:#FDECEC;color:var(--red);border:1px solid #F5C6C2}
+.b-momo{background:#EEF2FF;color:#3040C0;border:1px solid #C0C8F0}
+.b-mimi{background:#FFF0F7;color:#A03070;border:1px solid #F0C0D8}
 
-/* connector line between stops */
-.stop-connector{
-width:2px;height:16px;
-background:var(--border);
-margin:0 auto;
-margin-bottom:0;
-margin-left:30px;
-}
-
-.stop-header{
-display:flex;align-items:center;gap:12px;
-padding:14px 16px;cursor:pointer;
-user-select:none;
-}
-.stop-header:hover{background:rgba(0,0,0,.015)}
-.stop-num{
-width:28px;height:28px;border-radius:50%;
-background:var(--navy);color:#fff;
-display:flex;align-items:center;justify-content:center;
-font-size:11px;font-weight:700;flex-shrink:0;
-font-family:'Syne',sans-serif;
-}
-.stop-main{flex:1;min-width:0}
+/* STOP CARDS */
+.stop-card{background:var(--white);border:1px solid var(--border);border-radius:9px;margin-bottom:10px;overflow:hidden}
+.stop-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none}
+.stop-head:hover{background:rgba(0,0,0,.015)}
+.stop-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:'Syne',sans-serif}
+.stop-info{flex:1}
 .stop-name{font-size:13px;font-weight:600;color:var(--navy)}
 .stop-meta{font-size:11px;color:var(--muted);margin-top:1px}
-.stop-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.stop-nights{font-family:'Syne',sans-serif;font-size:12px;color:var(--gold);font-weight:600}
-.stop-chevron{color:var(--muted2);font-size:12px;transition:transform .2s}
-.stop-card.expanded .stop-chevron{transform:rotate(180deg)}
-
-/* Stop body (expanded) */
-.stop-body{display:none;border-top:1px solid var(--border);padding:0}
-.stop-card.expanded .stop-body{display:block}
-
-/* Stop sections */
-.stop-section{padding:14px 16px;border-bottom:1px solid var(--border)}
-.stop-section:last-child{border-bottom:none}
-.ss-label{font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:10px}
-
-/* Date inputs */
-.date-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.date-field{display:flex;flex-direction:column;gap:4px}
-.date-field label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:500}
-.date-input{
-background:var(--bg);border:1px solid var(--border);
-color:var(--text);padding:6px 10px;
-border-radius:6px;font-family:'Inter',sans-serif;
-font-size:12px;outline:none;cursor:pointer;
-transition:border-color .15s;
-}
-.date-input:focus{border-color:var(--navy)}
-.date-input::-webkit-calendar-picker-indicator{opacity:.4;cursor:pointer}
-.nights-badge{
-background:var(--gold-light);border:1px solid rgba(184,145,58,.25);
-color:var(--gold);font-size:11px;font-weight:600;
-padding:4px 10px;border-radius:5px;
-font-family:'Syne',sans-serif;margin-top:14px;
-align-self:flex-end;white-space:nowrap;
-}
-
-/* Transport within stop */
-.transport-field{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
-.tf-item{display:flex;flex-direction:column;gap:3px}
-.tf-item label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
-.mini-input{
-background:var(--bg);border:1px solid var(--border);
-color:var(--text);padding:5px 9px;
-border-radius:5px;font-family:'Inter',sans-serif;
-font-size:12px;outline:none;
-transition:border-color .15s;width:100%;
-}
+.stop-r{text-align:right;flex-shrink:0}
+.stop-nights{font-size:13px;font-weight:600;color:var(--gold)}
+.stop-budget{font-size:10px;color:var(--muted);margin-top:1px}
+.stop-chev{color:var(--muted2);font-size:11px;margin-top:4px;transition:transform .2s}
+.stop-card.open .stop-chev{transform:rotate(180deg)}
+.stop-body{display:none;border-top:1px solid var(--border)}
+.stop-card.open .stop-body{display:block}
+.ss{padding:12px 16px;border-bottom:1px solid var(--border)}
+.ss:last-child{border-bottom:none}
+.ss-t{font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.r4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+.f{display:flex;flex-direction:column;gap:3px}
+.f label{font-size:10px;color:var(--muted)}
+.f-v{font-size:12px;color:var(--text)}
+.mini-input{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:5px;font-family:'Inter',sans-serif;font-size:12px;outline:none;width:100%}
 .mini-input:focus{border-color:var(--navy)}
-.mini-select{appearance:none}
+.check-list{display:flex;flex-direction:column;gap:5px}
+.check-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;padding:2px 0}
+.cb{width:15px;height:15px;border:1.5px solid var(--border2);border-radius:3px;cursor:pointer;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:8px;color:transparent;transition:all .15s}
+.cb.done{background:var(--navy);border-color:var(--navy);color:#fff}
+.cb-text.done{text-decoration:line-through;color:var(--muted2)}
 
-/* Hotel within stop */
-.hotel-field{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
+/* PERSON TABS */
+.person-tabs{display:flex;gap:6px;margin-bottom:16px}
+.ptab{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:var(--white);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;color:var(--muted)}
+.ptab:hover{border-color:var(--border2)}
+.ptab.active-momo{background:#EEF2FF;border-color:#C0C8F0;color:#3040C0}
+.ptab.active-mimi{background:#FFF0F7;border-color:#F0C0D8;color:#A03070}
+.ptab.active-both{background:var(--navy);border-color:var(--navy);color:#fff}
 
-/* Budget within stop */
-.budget-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.bi-item{display:flex;flex-direction:column;gap:3px}
-.bi-item label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+/* BUDGET HERO */
+.bh{background:var(--navy);border-radius:9px;padding:20px 24px;margin-bottom:20px;position:relative;overflow:hidden}
+.bh::after{content:'';position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(184,145,58,.07)}
+.bh-persons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.bh-person{border-left:2px solid rgba(255,255,255,.1);padding-left:14px}
+.bh-p-name{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.bh-p-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff}
+.bh-p-spent{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px}
+.bh-p-bar{height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:8px;overflow:hidden}
+.bh-p-fill{height:100%;border-radius:2px;transition:width .5s}
+.bh-total{padding-top:14px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}
+.bh-total-l{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px}
+.bh-total-v{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)}
 
-/* Notes within stop */
-.stop-notes-input{
-width:100%;background:var(--bg);border:1px solid var(--border);
-color:var(--text);padding:8px 10px;
-border-radius:6px;font-family:'Inter',sans-serif;
-font-size:12px;outline:none;resize:vertical;
-min-height:60px;transition:border-color .15s;
-line-height:1.6;
-}
-.stop-notes-input:focus{border-color:var(--navy)}
+/* EAT ITEMS */
+.eat-item{display:flex;align-items:baseline;gap:6px;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)}
+.eat-item:last-child{border-bottom:none}
+.eat-name{flex:1;font-weight:500}
+.eat-price{color:var(--muted);font-size:11px;flex-shrink:0}
+.eat-note{color:var(--muted2);font-size:11px;flex:1}
 
-/* Checklist within stop */
-.checklist{display:flex;flex-direction:column;gap:5px}
-.check-item{display:flex;align-items:center;gap:8px;padding:5px 0}
-.check-box{
-width:16px;height:16px;border:1.5px solid var(--border2);
-border-radius:3px;cursor:pointer;flex-shrink:0;
-display:flex;align-items:center;justify-content:center;
-font-size:9px;color:transparent;transition:all .15s;
-}
-.check-box.checked{background:var(--navy);border-color:var(--navy);color:#fff}
-.check-label{font-size:12px;color:var(--text);flex:1;cursor:pointer}
-.check-item.done .check-label{text-decoration:line-through;color:var(--muted2)}
-.add-check-row{display:flex;gap:6px;margin-top:6px}
-.add-check-input{
-flex:1;background:var(--bg);border:1px solid var(--border);
-color:var(--text);padding:5px 9px;border-radius:5px;
-font-family:'Inter',sans-serif;font-size:12px;outline:none;
-}
-.add-check-input:focus{border-color:var(--navy)}
+/* TIP */
+.tip{background:#EEF4FF;border-radius:6px;padding:9px 13px;font-size:12px;color:#2A50A0;margin-top:8px;line-height:1.6}
+.warn{background:#FFF8EC;border-radius:6px;padding:9px 13px;font-size:12px;color:#906010;margin-top:8px;line-height:1.6}
 
-/* Add stop panel */
-.add-stop-panel{
-background:var(--white);border:1px solid var(--border);
-border-radius:10px;padding:20px;
-position:sticky;top:16px;
-}
-.asp-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:16px}
-.asp-field{margin-bottom:12px}
-.asp-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:500;margin-bottom:5px;display:block}
-.asp-input{
-width:100%;background:var(--bg);border:1px solid var(--border);
-color:var(--text);padding:8px 10px;border-radius:7px;
-font-family:'Inter',sans-serif;font-size:13px;outline:none;
-transition:border-color .15s;
-}
-.asp-input:focus{border-color:var(--navy)}
-.asp-presets{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
-.preset-chip{
-padding:4px 10px;border-radius:20px;font-size:11px;
-border:1px solid var(--border);background:var(--bg);
-cursor:pointer;color:var(--muted);transition:all .15s;
-}
-.preset-chip:hover{border-color:var(--navy);color:var(--navy);background:var(--white)}
-.preset-chip.selected{background:var(--navy);color:#fff;border-color:var(--navy)}
-
-/* Drag handle */
-.drag-handle{
-color:var(--muted2);cursor:grab;font-size:14px;
-padding:0 4px;flex-shrink:0;
-display:flex;align-items:center;
-}
-.drag-handle:active{cursor:grabbing}
-.stop-card.dragging{opacity:.5;background:var(--gold-light)}
-.stop-card.drag-over{border-color:var(--gold);background:rgba(184,145,58,.04)}
-
-/* ── STATUS BADGE ── */
-.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500}
-.b-todo{background:#FFF8EC;color:#A07020;border:1px solid #F0DEB0}
-.b-done{background:#EDFAF3;color:var(--green);border:1px solid #B5E8CB}
-
-/* ── TABLE WRAP ── */
-.tw{background:var(--white);border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:20px}
-.tw-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.015)}
-.tw-head-title{font-size:12px;font-weight:600;color:var(--navy)}
-table{width:100%;border-collapse:collapse}
-th{text-align:left;padding:9px 16px;font-size:9.5px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);background:var(--bg)}
-td{padding:11px 16px;border-bottom:1px solid var(--border);font-size:12.5px;vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(0,0,0,.015)}
-
-/* ── SECTION TITLE ── */
-.sec-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px}
-.sec-sub{font-size:11px;color:var(--muted);margin-top:2px;margin-bottom:12px}
-
-/* ── MODAL ── */
+/* MODAL */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}
 .modal-bg.open{display:flex;animation:fadeUp .15s ease}
-.modal{background:var(--white);border:1px solid var(--border);border-radius:12px;width:460px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.18)}
-.mh{padding:20px 22px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.modal{background:var(--white);border:1px solid var(--border);border-radius:12px;width:480px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 70px rgba(0,0,0,.18)}
+.mh{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .mh-t{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--navy)}
-.mh-s{font-size:11px;color:var(--muted);margin-top:2px}
-.mh-x{background:none;border:none;color:var(--muted2);font-size:20px;line-height:1;padding:2px;cursor:pointer}
-.mh-x:hover{color:var(--text)}
-.mb{padding:20px 22px}
-.mf{padding:12px 22px 18px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
-.form-row{margin-bottom:14px}
-.form-label{display:block;font-size:9.5px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.form-input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 11px;border-radius:6px;font-size:13px;outline:none;transition:border-color .15s;font-family:'Inter',sans-serif}
-.form-input:focus{border-color:var(--navy)}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-select.form-input option{background:var(--white)}
+.mh-x{background:none;border:none;color:var(--muted2);font-size:20px;cursor:pointer;padding:2px;line-height:1}
+.mb{padding:18px 20px}
+.mf{padding:12px 20px 16px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+.fl{margin-bottom:13px}
+.fl label{display:block;font-size:9.5px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.fi{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:6px;font-size:13px;outline:none;font-family:'Inter',sans-serif;transition:border-color .15s}
+.fi:focus{border-color:var(--navy)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+select.fi option{background:var(--white)}
 
-/* ── BUDGET PAGE ── */
-.budget-hero{background:var(--navy);border-radius:9px;padding:22px 26px;margin-bottom:22px;position:relative;overflow:hidden}
-.budget-hero::after{content:'';position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:rgba(184,145,58,.07)}
-.bh-label{font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
-.bh-val{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:#fff}
-.bh-bar{height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:14px;overflow:hidden}
-.bh-fill{height:100%;background:linear-gradient(90deg,var(--gold),#D4B06A);border-radius:2px;transition:width .5s}
-.bh-stats{display:flex;gap:28px;margin-top:14px;flex-wrap:wrap}
-.bhs{padding-left:14px;border-left:1px solid rgba(255,255,255,.1)}
-.bhs-v{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
-.bhs-l{font-size:9px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-top:1px}
-
-/* Cat bars */
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:22px}
-.cat-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:13px}
-.cat-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.cat-val{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--navy)}
-.cat-bar{height:2px;background:var(--border);border-radius:1px;margin-top:7px;overflow:hidden}
-.cat-fill{height:100%;border-radius:1px;transition:width .5s}
-
-/* Activities */
-.act-item{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--white);border:1px solid var(--border);border-radius:8px;margin-bottom:7px;transition:all .15s}
-.act-item:hover{border-color:var(--border2);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.act-cb{width:17px;height:17px;border:1.5px solid var(--border2);border-radius:3px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;transition:all .15s}
-.act-cb.checked{background:var(--navy);border-color:var(--navy);color:#fff}
-.act-name{flex:1;font-size:13px;font-weight:500;color:var(--navy)}
-.act-city{font-size:11px;color:var(--muted)}
-.act-price{font-size:12px;color:var(--gold);font-weight:500;white-space:nowrap}
-.act-item.done .act-name{text-decoration:line-through;color:var(--muted2)}
-.act-del{background:none;border:none;color:var(--muted2);font-size:16px;line-height:1;cursor:pointer;opacity:0;transition:opacity .15s;padding:2px}
-.act-item:hover .act-del{opacity:1}
-.act-del:hover{color:var(--red)}
-
-/* Restaurants */
-.rst-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--white);border:1px solid var(--border);border-radius:8px;margin-bottom:7px;transition:all .15s}
-.rst-item:hover{border-color:var(--border2);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.rst-ico{width:36px;height:36px;background:var(--bg);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;color:var(--muted)}
-.rst-info{flex:1}
-.rst-name{font-size:13px;font-weight:500;color:var(--navy)}
-.rst-spec{font-size:11px;color:var(--muted);margin-top:1px}
-.rst-right{text-align:right;flex-shrink:0}
-.rst-price{font-size:12px;color:var(--gold);font-weight:500}
-.rst-city{font-size:10px;color:var(--muted2);margin-top:2px}
-
-/* Notes */
-.notes-wrap{background:var(--white);border:1px solid var(--border);border-radius:9px;overflow:hidden}
-.notes-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
-.notes-ta{width:100%;border:none;background:transparent;padding:18px;font-size:13px;color:var(--text);line-height:1.8;min-height:320px;resize:vertical;outline:none;font-family:'Inter',sans-serif}
-
-/* Logistique */
-.log-item{display:flex;gap:14px;align-items:flex-start;padding:13px 16px;border-bottom:1px solid var(--border);transition:background .15s}
+/* LOGISTIQUE */
+.log-item{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--border);transition:background .15s}
 .log-item:last-child{border-bottom:none}
 .log-item:hover{background:var(--bg)}
-.log-ico{width:34px;height:34px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;color:#fff}
+.log-ico{width:32px;height:32px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;color:#fff}
 .log-body{flex:1}
-.log-title{font-size:13px;font-weight:500;color:var(--navy)}
+.log-title{font-size:12px;font-weight:500;color:var(--navy)}
 .log-meta{font-size:11px;color:var(--muted);margin-top:2px}
-.log-right{text-align:right;flex-shrink:0}
-.log-price{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--gold)}
+.log-r{text-align:right;flex-shrink:0}
+.log-1p{font-size:11px;color:var(--muted)}
+.log-2p{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--gold);margin-top:1px}
 
-/* Hebergements */
-.heb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.heb-card{background:var(--white);border:1px solid var(--border);border-radius:9px;overflow:hidden;transition:all .15s}
-.heb-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-1px)}
-.heb-top{height:100px;background:var(--navy);display:flex;align-items:center;justify-content:center;position:relative}
-.heb-top-letter{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:rgba(255,255,255,.08)}
-.heb-status{position:absolute;top:10px;right:10px}
-.heb-body{padding:14px 16px}
-.heb-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:2px}
-.heb-city{font-size:11px;color:var(--muted);margin-bottom:10px}
-.heb-row{display:flex;justify-content:space-between;align-items:flex-end}
-.heb-price{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--gold)}
-.heb-nights{font-size:10px;color:var(--muted);text-align:right}
+/* NOTES */
+.notes-ta{width:100%;background:var(--white);border:none;color:var(--text);padding:16px;font-size:13px;line-height:1.8;min-height:280px;resize:vertical;outline:none;font-family:'Inter',sans-serif}
 
-/* Responsive */
+/* SEP */
+.sep{height:1px;background:var(--border);margin:16px 0}
+
+/* RESPONSIVE */
 @media(max-width:900px){
-.sidebar{position:fixed;left:0;top:0;height:100%;transform:translateX(-100%);z-index:500}
-.sidebar.open{transform:translateX(0)}
-.builder-layout{grid-template-columns:1fr}
-.page-pad{padding:18px 16px}
-.hero{padding:24px 18px 20px}
-.hero-title{font-size:22px}
-.kpi-row{grid-template-columns:1fr 1fr}
+  .sb{position:fixed;left:0;top:0;height:100%;transform:translateX(-100%);z-index:500}
+  .sb.open{transform:translateX(0)}
+  .pad{padding:16px}
+  .r4{grid-template-columns:1fr 1fr}
 }
-.burger{display:none;background:none;border:none;color:var(--text);font-size:20px;padding:2px;margin-right:6px;cursor:pointer}
+.burger{display:none;background:none;border:none;font-size:20px;cursor:pointer;padding:2px;margin-right:6px}
 @media(max-width:900px){.burger{display:flex}}
 </style>
 </head>
 <body>
-<div class="shell">
+<div class="app">
 
-<!-- ── SIDEBAR ── -->
-<nav class="sidebar" id="sidebar">
-<div class="sb-brand">
-<div class="sb-logo">MO &amp; MI<br>in ASIA</div>
-<div class="sb-tagline">Travel Command Center</div>
-</div>
-<div class="sb-countdown">
-<div class="sb-cd-label">Départ dans</div>
-<div class="sb-cd-val" id="cd-val">—</div>
-<div class="sb-cd-sub">1 juillet 2025</div>
-</div>
-<div class="sb-budget">
-<div class="sb-bl">Budget restant</div>
-<div class="sb-bv" id="sb-remaining">10 000 €</div>
-<div class="sb-bar"><div class="sb-bar-fill" id="sb-fill" style="width:0%"></div></div>
-<div class="sb-bd"><span id="sb-spent-txt">0 € dépensé</span><span id="sb-pct">0%</span></div>
-</div>
-<div class="sb-nav">
-<div class="sb-sec">Navigation</div>
-<div class="sb-item active" onclick="go('itineraire',this)">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-Itinéraire
-</div>
-<div class="sb-item" onclick="go('logistique',this)">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-Logistique
-</div>
-<div class="sb-item" onclick="go('depenses',this)">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-Dépenses
-</div>
-<div class="sb-item" onclick="go('hebergements',this)">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-Hébergements
-</div>
-<div class="sb-item" onclick="go('restaurants',this)">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-Restaurants
-</div>
-<div class="sb-item" onclick="go('activites',this)">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-Activités
-</div>
-<div class="sb-item" onclick="go('notes',this)">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-Notes
-</div>
-</div>
-<div class="sb-foot">
-<div class="sb-foot-txt">1 juillet — 15 août 2025</div>
-<div style="font-size:9px;color:rgba(255,255,255,.18);margin-top:3px;letter-spacing:1px">MO &amp; MI · 2 voyageurs</div>
-</div>
+<!-- SIDEBAR -->
+<nav class="sb" id="sidebar">
+  <div class="sb-brand">
+    <div class="sb-logo">MO &amp; MI<br>in ASIA</div>
+    <div class="sb-tag">Travel Command Center</div>
+  </div>
+  <div class="sb-cd">
+    <div class="sb-cd-l">Départ dans</div>
+    <div class="sb-cd-v" id="cd-val">—</div>
+    <div class="sb-cd-s">5 juillet 2025 · Marseille</div>
+  </div>
+  <div class="sb-budgets">
+    <div class="sb-b-title">Budget par personne</div>
+    <div class="sb-person">
+      <div class="sb-p-name"><span>🧑 Momo</span><span class="sb-p-val" id="sb-momo-rem">5 000 €</span></div>
+      <div class="sb-p-bar"><div class="sb-p-fill" id="sb-momo-bar" style="width:0%"></div></div>
+      <div style="font-size:9px;color:rgba(255,255,255,.2);margin-top:3px"><span id="sb-momo-spent">0 €</span> dépensé</div>
+    </div>
+    <div class="sb-person">
+      <div class="sb-p-name"><span>👩 Mimi</span><span class="sb-p-val" id="sb-mimi-rem">5 000 €</span></div>
+      <div class="sb-p-bar"><div class="sb-p-fill" id="sb-mimi-bar" style="width:0%"></div></div>
+      <div style="font-size:9px;color:rgba(255,255,255,.2);margin-top:3px"><span id="sb-mimi-spent">0 €</span> dépensé</div>
+    </div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-sec">Navigation</div>
+    <div class="sb-item active" onclick="go('itineraire',this)"><div class="sb-dot"></div>Itinéraire</div>
+    <div class="sb-item" onclick="go('logistique',this)"><div class="sb-dot"></div>Logistique & vols</div>
+    <div class="sb-item" onclick="go('depenses',this)"><div class="sb-dot"></div>Dépenses</div>
+    <div class="sb-item" onclick="go('avant',this)"><div class="sb-dot"></div>Avant départ</div>
+    <div class="sb-item" onclick="go('manger',this)"><div class="sb-dot"></div>À manger</div>
+    <div class="sb-item" onclick="go('assu',this)"><div class="sb-dot"></div>Assurance</div>
+    <div class="sb-item" onclick="go('notes',this)"><div class="sb-dot"></div>Notes</div>
+  </div>
+  <div class="sb-foot">
+    <div class="sb-foot-t">5 juillet — 20 août 2025</div>
+    <div style="font-size:9px;color:rgba(255,255,255,.15);margin-top:2px">Momo &amp; Mimi · 46 jours</div>
+  </div>
 </nav>
 
-<!-- ── MAIN ── -->
+<!-- MAIN -->
 <div class="main">
-<div class="topbar">
-<button class="burger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-<div class="topbar-title" id="topbar-title">Itinéraire</div>
-<div class="topbar-actions">
-<button class="btn btn-navy" onclick="openModal('modal-expense')">+ Dépense</button>
-</div>
-</div>
+  <div class="topbar">
+    <button class="burger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+    <div class="topbar-title" id="topbar-title">Itinéraire</div>
+    <div class="topbar-actions">
+      <button class="btn btn-navy" onclick="openModal('modal-dep')">+ Dépense</button>
+    </div>
+  </div>
 
-<div class="content">
+  <div class="content">
 
-<!-- ══════════ ITINÉRAIRE ══════════ -->
-<div id="page-itineraire" class="page active">
-<div class="hero">
-<div class="hero-eye">Voyage · Asie du Sud-Est · 2025</div>
-<div class="hero-title">MO &amp; MI in Asia</div>
-<div class="hero-sub">Construis ton itinéraire étape par étape</div>
-<div class="hero-stats">
-<div class="hs"><div class="hs-val" id="h-stops">0</div><div class="hs-lbl">Étapes</div></div>
-<div class="hs"><div class="hs-val" id="h-nights">0</div><div class="hs-lbl">Nuits</div></div>
-<div class="hs"><div class="hs-val" id="h-countries">0</div><div class="hs-lbl">Pays</div></div>
-<div class="hs"><div class="hs-val" id="h-budget">10 000 €</div><div class="hs-lbl">Budget restant</div></div>
-</div>
-</div>
+  <!-- ════ ITINÉRAIRE ════ -->
+  <div id="page-itineraire" class="page active">
+    <div class="hero">
+      <div class="h-eye">Voyage · Asie du Sud-Est · Été 2025</div>
+      <div class="h-title">MO &amp; MI in Asia</div>
+      <div class="h-sub">5 juillet — 20 août · Marseille → 10 étapes</div>
+      <div class="h-stats">
+        <div class="hs"><div class="hs-v">10</div><div class="hs-l">Étapes</div></div>
+        <div class="hs"><div class="hs-v">46</div><div class="hs-l">Nuits</div></div>
+        <div class="hs"><div class="hs-v">6</div><div class="hs-l">Pays</div></div>
+        <div class="hs"><div class="hs-v">10 000 €</div><div class="hs-l">Budget total</div></div>
+      </div>
+    </div>
+    <div class="pad">
 
-<div class="page-pad">
-<div class="builder-layout">
-<!-- LEFT: stops list -->
-<div>
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-<div class="sec-title">Mes étapes</div>
-<div style="font-size:11px;color:var(--muted)">Glisse pour réordonner</div>
-</div>
-<div id="stops-list"></div>
-<div id="empty-stops" style="text-align:center;padding:40px 20px;color:var(--muted);font-style:italic;font-size:13px">
-Aucune étape — ajoute ta première destination à droite
-</div>
-</div>
-<!-- RIGHT: add stop panel -->
-<div>
-<div class="add-stop-panel">
-<div class="asp-title">Ajouter une étape</div>
-<div class="asp-field">
-<label class="asp-label">Ville / destination</label>
-<input type="text" class="asp-input" id="new-stop-name" placeholder="Ex: Kuala Lumpur">
-</div>
-<div class="asp-field">
-<label class="asp-label">Pays</label>
-<select class="asp-input" id="new-stop-country">
-<option value="Malaisie">Malaisie</option>
-<option value="Singapour">Singapour</option>
-<option value="Indonésie">Indonésie</option>
-<option value="Vietnam">Vietnam</option>
-<option value="Thaïlande">Thaïlande</option>
-<option value="Autre">Autre</option>
-</select>
-</div>
-<div class="form-grid" style="gap:8px;margin-bottom:12px">
-<div class="asp-field" style="margin-bottom:0">
-<label class="asp-label">Arrivée</label>
-<input type="date" class="asp-input" id="new-stop-in">
-</div>
-<div class="asp-field" style="margin-bottom:0">
-<label class="asp-label">Départ</label>
-<input type="date" class="asp-input" id="new-stop-out">
-</div>
-</div>
-<div class="asp-field">
-<label class="asp-label">Destinations suggérées</label>
-<div class="asp-presets" id="presets-container"></div>
-</div>
-<button class="btn btn-navy" style="width:100%;justify-content:center" onclick="addStop()">+ Ajouter cette étape</button>
-</div>
-</div>
-</div>
-</div>
-</div>
+      <!-- STOP 1 -->
+      <div class="stop-card" id="s0">
+        <div class="stop-head" onclick="tog('s0')">
+          <div class="stop-num">1</div>
+          <div class="stop-info"><div class="stop-name">🇲🇾 Kuala Lumpur</div><div class="stop-meta">Malaisie · 5–7 juillet · arrivée vol</div></div>
+          <div class="stop-r"><div class="stop-nights">2 nuits</div><div class="stop-budget">~70 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement — chambre double privée</div>
+            <div class="r2">
+              <div class="f"><label>Hôtel</label><div class="f-v">Mesui Boutique Hotel ou Tamu Hotel</div></div>
+              <div class="f"><label>Quartier</label><div class="f-v">Chinatown / Bukit Bintang</div></div>
+              <div class="f"><label>Prix / nuit chambre double</label><div class="f-v">~35–45 €</div></div>
+              <div class="f"><label>Total 2 nuits / 2 pers.</label><div class="f-v">~70–90 €</div></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Batu Caves à 7h du matin — 272 marches, singes, lumière dorée · gratuit</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Jalan Alor le soir — char kway teow, satay, bière Tiger 2 € · manger debout</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Se perdre dans Chinatown + Little India — temples, encens, couleurs</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Petronas Towers de nuit — gratuit depuis le sol</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Nasi lemak au petit-déj dans un kedai kopi — ~1 €</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Transport suivant → Penang</div>
+            <div class="r3"><div class="f"><label>Type</label><div class="f-v">Bus</div></div><div class="f"><label>Compagnie</label><div class="f-v">Transnasional</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~5 € · ~10 €</div></div></div>
+            <div class="tip">Gare TBS · 4h30 · départ recommandé le matin</div>
+          </div>
+        </div>
+      </div>
 
-<!-- ══════════ LOGISTIQUE ══════════ -->
-<div id="page-logistique" class="page">
-<div class="hero">
-<div class="hero-eye">Logistique</div>
-<div class="hero-title">Tous les transports</div>
-<div class="hero-sub">Vols · ferries · bus · transfers — triés par date</div>
-</div>
-<div class="page-pad">
-<div class="tw">
-<div class="tw-head">
-<div class="tw-head-title">Transports chronologiques</div>
-<button class="btn btn-sm btn-navy" onclick="openModal('modal-transport')">+ Ajouter</button>
-</div>
-<div id="log-list"></div>
-</div>
-</div>
-</div>
+      <!-- STOP 2 -->
+      <div class="stop-card" id="s1">
+        <div class="stop-head" onclick="tog('s1')">
+          <div class="stop-num">2</div>
+          <div class="stop-info"><div class="stop-name">🇲🇾 Penang</div><div class="stop-meta">Malaisie · 7–9 juillet</div></div>
+          <div class="stop-r"><div class="stop-nights">2 nuits</div><div class="stop-budget">~70 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement</div>
+            <div class="r2">
+              <div class="f"><label>Hôtel</label><div class="f-v">Penaga Hotel ou Ryokan Muntri</div></div>
+              <div class="f"><label>Quartier</label><div class="f-v">George Town — UNESCO</div></div>
+              <div class="f"><label>Prix / nuit chambre double</label><div class="f-v">~35–50 €</div></div>
+              <div class="f"><label>Total 2 nuits / 2 pers.</label><div class="f-v">~70–100 €</div></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Street art George Town à pied — murales Ernest Zacharevic dans les ruelles</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Penang Hill en funiculaire — vue à 830m sur l'île · 8 €</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Kek Lok Si temple au coucher du soleil — plus grand temple bouddhiste de Malaisie</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Asam laksa marché Chowrasta — 1,50 €, spécialité incontournable</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Clan Jetties — villages sur pilotis au-dessus de l'eau</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Transport suivant → Singapour</div>
+            <div class="r3"><div class="f"><label>Type</label><div class="f-v">Vol</div></div><div class="f"><label>Compagnie</label><div class="f-v">AirAsia / Firefly</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~30–40 € · ~60–80 €</div></div></div>
+          </div>
+        </div>
+      </div>
 
-<!-- ══════════ DÉPENSES ══════════ -->
-<div id="page-depenses" class="page">
-<div class="budget-hero">
-<div class="bh-label">Budget restant</div>
-<div class="bh-val" id="dep-remaining">10 000 €</div>
-<div class="bh-bar"><div class="bh-fill" id="dep-bar" style="width:0%"></div></div>
-<div class="bh-stats">
-<div class="bhs"><div class="bhs-v" id="dep-spent">0 €</div><div class="bhs-l">Dépensé</div></div>
-<div class="bhs"><div class="bhs-v" id="dep-count">0</div><div class="bhs-l">Transactions</div></div>
-<div class="bhs"><div class="bhs-v" id="dep-avg">—</div><div class="bhs-l">/ jour moy.</div></div>
-</div>
-</div>
-<div class="page-pad" style="padding-top:0">
-<div class="cat-grid" id="cat-grid"></div>
-<div class="tw">
-<div class="tw-head">
-<div class="tw-head-title">Toutes les dépenses</div>
-<button class="btn btn-sm btn-navy" onclick="openModal('modal-expense')">+ Ajouter</button>
-</div>
-<table>
-<thead><tr>
-<th>Date</th><th>Description</th><th>Catégorie</th>
-<th>Ville</th><th>Montant</th><th></th>
-</tr></thead>
-<tbody id="exp-tbody"></tbody>
-</table>
-</div>
-</div>
-</div>
+      <!-- STOP 3 -->
+      <div class="stop-card" id="s2">
+        <div class="stop-head" onclick="tog('s2')">
+          <div class="stop-num">3</div>
+          <div class="stop-info"><div class="stop-name">🇸🇬 Singapour</div><div class="stop-meta">Singapour · 9–11 juillet</div></div>
+          <div class="stop-r"><div class="stop-nights">2 nuits</div><div class="stop-budget">~120 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement</div>
+            <div class="r2">
+              <div class="f"><label>Hôtel</label><div class="f-v">The Bohemian Chic ou Check Inn SG</div></div>
+              <div class="f"><label>Quartier</label><div class="f-v">Little India ou Chinatown</div></div>
+              <div class="f"><label>Prix / nuit chambre double</label><div class="f-v">~55–70 €</div></div>
+              <div class="f"><label>Total 2 nuits / 2 pers.</label><div class="f-v">~110–140 €</div></div>
+            </div>
+            <div class="warn">Singapour est la ville la plus chère du circuit. 2 nuits max, chambre privée budget.</div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire — quasi gratuit</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Gardens by the Bay de nuit — Supertrees illuminés à 19h45 et 20h45 · gratuit depuis l'extérieur</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Marina Bay Sands depuis la promenade — architecture folle · gratuit</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Hawker center Lau Pa Sat le soir — satay grillé, ambiance locale · 6–8 €</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Chinatown + Little India à pied — deux mondes, temples, épices</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">MRT pour tout voir — réseau parfait, 1–2 € le trajet</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Transport suivant → Bali</div>
+            <div class="r3"><div class="f"><label>Type</label><div class="f-v">Vol</div></div><div class="f"><label>Compagnie</label><div class="f-v">AirAsia / Scoot</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~60–80 € · ~120–160 €</div></div></div>
+          </div>
+        </div>
+      </div>
 
-<!-- ══════════ HÉBERGEMENTS ══════════ -->
-<div id="page-hebergements" class="page">
-<div class="hero">
-<div class="hero-eye">Hébergements</div>
-<div class="hero-title">Logements</div>
-<div class="hero-sub">Hostels · Airbnb · Bungalows</div>
-</div>
-<div class="page-pad">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-<div class="sec-title">Tous les logements</div>
-<button class="btn btn-sm btn-navy" onclick="openModal('modal-hotel')">+ Hébergement</button>
-</div>
-<div class="heb-grid" id="heb-grid"></div>
-<div id="heb-empty" style="color:var(--muted);font-style:italic;padding:30px;text-align:center;display:none">Aucun hébergement — ajoute-en un</div>
-</div>
-</div>
+      <!-- STOP 4 -->
+      <div class="stop-card" id="s3">
+        <div class="stop-head" onclick="tog('s3')">
+          <div class="stop-num">4</div>
+          <div class="stop-info"><div class="stop-name">🇮🇩 Bali — Canggu · Ubud · Uluwatu</div><div class="stop-meta">Indonésie · 11–18 juillet · freestyle</div></div>
+          <div class="stop-r"><div class="stop-nights">7 nuits</div><div class="stop-budget">~150 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement — 3 bases + scooter toute la semaine (~4–5 €/j)</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)"><span><strong>Canggu 3 nuits</strong> — Nook House ou Hideout Hostel · chambre double ~40–50 €/nuit</span><span class="badge b-todo">À réserver</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)"><span><strong>Ubud 2 nuits</strong> — Bisma Sari ou Pande Permai · chambre double ~40–55 €/nuit</span><span class="badge b-todo">À réserver</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 0"><span><strong>Uluwatu 2 nuits</strong> — Morning Light ou Uluwatu Surf Villas · chambre double ~40–50 €/nuit</span><span class="badge b-todo">À réserver</span></div>
+            </div>
+            <div class="tip">Louer un scooter à l'arrivée — indispensable à Bali, ~4–5 €/jour · total semaine ~30 € pour 2</div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire — Canggu</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Cours de surf à Batu Bolong — 3h avec instructeur · ~20–25 € / pers</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Tanah Lot au coucher du soleil — temple sur rocher dans la mer · 30 min scooter · 3 €</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Echo Beach — regarder surfer les locaux, bière Bintang 1 €</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire — Ubud</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Tegalalang Rice Terraces à 7h du matin — avant les touristes, brume sur les rizières</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Monkey Forest — forêt sacrée, singes partout · entrée 5 €</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Cours de cuisine balinaise — marché + 3h de cours · ~25 € / pers</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Cascade Tegenungan — baignade dans la jungle · 20 min scooter · 2 €</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire — Uluwatu</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Temple Uluwatu + Kecak dance à 18h — spectacle sur falaise face à l'océan · 8 €</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Plage de Padang Padang — escalier dans la roche, petite crique secrète</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Single Fin bar Sunday Sessions — vue sur les surfeurs · entrée libre</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Transport suivant → Gili Air</div>
+            <div class="r3"><div class="f"><label>Type</label><div class="f-v">Fast boat</div></div><div class="f"><label>Compagnie</label><div class="f-v">Gili Getaway</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~30 € · ~60 €</div></div></div>
+            <div class="tip">Depuis Padang Bai · 2h · réserver la veille ou le matin même</div>
+          </div>
+        </div>
+      </div>
 
-<!-- ══════════ RESTAURANTS ══════════ -->
-<div id="page-restaurants" class="page">
-<div class="hero">
-<div class="hero-eye">Gastronomie</div>
-<div class="hero-title">À ne pas manquer</div>
-<div class="hero-sub">Street food · hawkers · restaurants</div>
-</div>
-<div class="page-pad">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-<div class="sec-title">Sélection</div>
-<button class="btn btn-sm btn-navy" onclick="openModal('modal-restaurant')">+ Restaurant</button>
-</div>
-<div id="rst-list"></div>
-</div>
-</div>
+      <!-- STOP 5 -->
+      <div class="stop-card" id="s4">
+        <div class="stop-head" onclick="tog('s4')">
+          <div class="stop-num">5</div>
+          <div class="stop-info"><div class="stop-name">🇮🇩 Gili Air</div><div class="stop-meta">Indonésie · 18–22 juillet · recharge</div></div>
+          <div class="stop-r"><div class="stop-nights">4 nuits</div><div class="stop-budget">~80 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement</div>
+            <div class="r2">
+              <div class="f"><label>Hôtel / bungalow</label><div class="f-v">Villa Almarik ou Sunrise Garden Bungalows</div></div>
+              <div class="f"><label>Quartier</label><div class="f-v">Plage nord — face à Lombok</div></div>
+              <div class="f"><label>Prix / nuit chambre double</label><div class="f-v">~40–55 €</div></div>
+              <div class="f"><label>Total 4 nuits / 2 pers.</label><div class="f-v">~160–220 €</div></div>
+            </div>
+            <div class="tip">Pas de voitures ni scooters — vélos 3 €/j, calèches, marche. L'île se fait à pied en 45 min.</div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Snorkeling avec les tortues au nord — à la nage depuis la plage, gratuit, chaque matin</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Tour de l'île à pied — 3,5 km, 45 min, voir tous les coins</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Coucher de soleil face au Rinjani depuis Sunset Beach — volcan dans les nuages</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Poisson grillé les pieds dans le sable — ~5 €, chaque soir</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Apprendre quelques mots en bahasa — Terima kasih (merci), Apa kabar (ça va ?)</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Transport suivant → Lombok</div>
+            <div class="r3"><div class="f"><label>Type</label><div class="f-v">Bateau local</div></div><div class="f"><label>Trajet</label><div class="f-v">Gili Air → Bangsal</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~3 € · ~6 €</div></div></div>
+          </div>
+        </div>
+      </div>
 
-<!-- ══════════ ACTIVITÉS ══════════ -->
-<div id="page-activites" class="page">
-<div class="hero">
-<div class="hero-eye">Activités</div>
-<div class="hero-title">Bucket list</div>
-<div class="hero-sub" id="act-hero-sub">0 / 0 complétées</div>
-</div>
-<div class="page-pad">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-<div class="sec-title">Toutes les activités</div>
-<button class="btn btn-sm btn-navy" onclick="openModal('modal-activity')">+ Activité</button>
-</div>
-<div id="act-list"></div>
-</div>
-</div>
+      <!-- STOP 6 -->
+      <div class="stop-card" id="s5">
+        <div class="stop-head" onclick="tog('s5')">
+          <div class="stop-num">6</div>
+          <div class="stop-info"><div class="stop-name">🇮🇩 Lombok</div><div class="stop-meta">Indonésie · 22–25 juillet</div></div>
+          <div class="stop-r"><div class="stop-nights">3 nuits</div><div class="stop-budget">~60 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement</div>
+            <div class="r2">
+              <div class="f"><label>Hôtel</label><div class="f-v">Kuta Indah Hotel ou Novotel Lombok</div></div>
+              <div class="f"><label>Quartier</label><div class="f-v">Kuta Lombok (pas Kuta Bali)</div></div>
+              <div class="f"><label>Prix / nuit chambre double</label><div class="f-v">~35–45 €</div></div>
+              <div class="f"><label>Total 3 nuits / 2 pers.</label><div class="f-v">~105–135 €</div></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Plage de Mawun — baie en fer à cheval déserte, eau turquoise · 30 min scooter</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Plage de Selong Belanak — vagues parfaites, vendeurs noix de coco</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Viewpoint Rinjani depuis Senaru — 4h aller-retour à 2000m · vue cratère et lac · ~15 € guide</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Marché local Kuta Lombok le matin — fruits, épices, warungs à 1 €</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Transport suivant → Ho Chi Minh</div>
+            <div class="r3"><div class="f"><label>Type</label><div class="f-v">Vol</div></div><div class="f"><label>Compagnie</label><div class="f-v">Vietjet / AirAsia</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~70–90 € · ~140–180 €</div></div></div>
+            <div class="tip">Aéroport LOP (Lombok International) → SGN · ~4h</div>
+          </div>
+        </div>
+      </div>
 
-<!-- ══════════ NOTES ══════════ -->
-<div id="page-notes" class="page">
-<div class="hero">
-<div class="hero-eye">Journal</div>
-<div class="hero-title">Notes</div>
-<div class="hero-sub">Contacts · réservations · informations</div>
-</div>
-<div class="page-pad">
-<div class="notes-wrap">
-<div class="notes-head">
-<span style="font-size:12px;font-weight:600;color:var(--navy)">Notes libres</span>
-<span style="font-size:10px;color:var(--muted2)" id="notes-saved"></span>
-</div>
-<textarea class="notes-ta" id="notes-ta" placeholder="Contacts guides, numéros de réservation, infos visa, conseils pratiques...&#10;&#10;Exemple :&#10;Guide Rinjani : +62 812 xxxxxx&#10;Code vol aller : ABCDEF&#10;N° assurance : XXXXXX&#10;Urgence ambassade France Bangkok : +66 2 657 5100"></textarea>
-</div>
-</div>
-</div>
+      <!-- STOP 7 -->
+      <div class="stop-card" id="s6">
+        <div class="stop-head" onclick="tog('s6')">
+          <div class="stop-num">7</div>
+          <div class="stop-info"><div class="stop-name">🇻🇳 Ho Chi Minh-Ville</div><div class="stop-meta">Vietnam · 25–27 juillet</div></div>
+          <div class="stop-r"><div class="stop-nights">2 nuits</div><div class="stop-budget">~50 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement</div>
+            <div class="r2">
+              <div class="f"><label>Hôtel</label><div class="f-v">Liberty Central Saigon ou Silverland Jolie</div></div>
+              <div class="f"><label>Quartier</label><div class="f-v">District 1 — centre ville</div></div>
+              <div class="f"><label>Prix / nuit chambre double</label><div class="f-v">~30–45 €</div></div>
+              <div class="f"><label>Total 2 nuits / 2 pers.</label><div class="f-v">~60–90 €</div></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Tunnels de Cu Chi — tour depuis District 1 à 8h30 · ~15 € / pers · expérience unique</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Bui Vien Street à 21h — bière 50 cts, musique, foule internationale</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">War Remnants Museum — 2 €, bouleversant, incontournable</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Pho bo à 6h du matin dans un troquet de quartier — tabouret plastique, bol 1,50 €</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Traverser la rue — rite d'initiation de Saigon, marche lentement</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Transport suivant → Bangkok</div>
+            <div class="r3"><div class="f"><label>Type</label><div class="f-v">Vol</div></div><div class="f"><label>Compagnie</label><div class="f-v">Vietjet / Thai AirAsia</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~35–50 € · ~70–100 €</div></div></div>
+          </div>
+        </div>
+      </div>
 
-</div><!-- /content -->
+      <!-- STOP 8 -->
+      <div class="stop-card" id="s7">
+        <div class="stop-head" onclick="tog('s7')">
+          <div class="stop-num">8</div>
+          <div class="stop-info"><div class="stop-name">🇹🇭 Bangkok</div><div class="stop-meta">Thaïlande · 27–29 juillet · transit actif</div></div>
+          <div class="stop-r"><div class="stop-nights">2 nuits</div><div class="stop-budget">~55 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement</div>
+            <div class="r2">
+              <div class="f"><label>Hôtel</label><div class="f-v">The Yard Hostel ou Phra Nakorn Norn Len</div></div>
+              <div class="f"><label>Quartier</label><div class="f-v">Silom ou Khao San Road</div></div>
+              <div class="f"><label>Prix / nuit chambre double</label><div class="f-v">~30–45 €</div></div>
+              <div class="f"><label>Total 2 nuits / 2 pers.</label><div class="f-v">~60–90 €</div></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Wat Pho à 8h — bouddha couché 46m, mosaïques · entrée 3 €</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Wat Arun — traversée bateau local 10 cts, temple en porcelaine face au Chao Phraya</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Marché Rot Fai de nuit — antiquités, fringues vintage, street food, musique live</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Pad thaï d'un wok de rue avec file de Thaïlandais — ~50 bahts = 1,30 €</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Réseau de ferrys sur le Chao Phraya — 15 cts, voir Bangkok depuis l'eau</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Transport suivant → Koh Tao</div>
+            <div class="r3"><div class="f"><label>Type</label><div class="f-v">Bus nuit + ferry</div></div><div class="f"><label>Compagnie</label><div class="f-v">Lompraya combo</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~22 € · ~44 €</div></div></div>
+            <div class="tip">Départ 21h · arrivée Koh Tao 9h30 · économise une nuit d'hôtel !</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STOP 9 -->
+      <div class="stop-card" id="s8">
+        <div class="stop-head" onclick="tog('s8')">
+          <div class="stop-num">9</div>
+          <div class="stop-info"><div class="stop-name">🇹🇭 Koh Tao</div><div class="stop-meta">Thaïlande · 29 juil – 5 août · PADI</div></div>
+          <div class="stop-r"><div class="stop-nights">7 nuits</div><div class="stop-budget">~230 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement</div>
+            <div class="r2">
+              <div class="f"><label>Hôtel / bungalow</label><div class="f-v">In Touch Resort ou Blue Wind Bakery</div></div>
+              <div class="f"><label>Quartier</label><div class="f-v">Sairee Beach — face à la mer</div></div>
+              <div class="f"><label>Prix / nuit chambre double</label><div class="f-v">~35–50 €</div></div>
+              <div class="f"><label>Total 7 nuits / 2 pers.</label><div class="f-v">~245–350 €</div></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Certification PADI — jours 1 à 3 · ~130 € / pers</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Choisir école plongée à l'arrivée — New Heaven Dive School ou Big Blue Diving</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Jour 1 PADI — théorie + piscine + 1ère plongée en mer encadrée</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Jour 2 PADI — 2 plongées certifiantes · descente à 18m</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Jour 3 PADI — 2 dernières plongées · certification PADI à vie remise</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Jours 4 à 7 — explorer</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Plongées guidées — Chumphon Pinnacle, Shark Island, White Rock · raies léopard, tortues</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">John-Suwan viewpoint au lever du soleil — départ 5h30, 45 min de forêt, vue 360° · gratuit</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Snorkeling Tanote Bay depuis la plage — gratuit, coraux, poissons-papillons</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Sairee Beach au coucher du soleil — fire show, musique, ambiance internationale</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Transport suivant → Krabi</div>
+            <div class="r3"><div class="f"><label>Type</label><div class="f-v">Ferry + bus</div></div><div class="f"><label>Compagnie</label><div class="f-v">Songserm / Lompraya</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~30 € · ~60 €</div></div></div>
+            <div class="tip">Via Koh Phangan + Surat Thani · ~7–8h de trajet</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STOP 10 -->
+      <div class="stop-card" id="s9">
+        <div class="stop-head" onclick="tog('s9')">
+          <div class="stop-num">10</div>
+          <div class="stop-info"><div class="stop-name">🇹🇭 Krabi</div><div class="stop-meta">Thaïlande · 5–20 août · freestyle total</div></div>
+          <div class="stop-r"><div class="stop-nights">15 nuits</div><div class="stop-budget">~200 € / pers.</div><div class="stop-chev">▼</div></div>
+        </div>
+        <div class="stop-body">
+          <div class="ss"><div class="ss-t">Hébergement</div>
+            <div class="r2">
+              <div class="f"><label>Hôtel</label><div class="f-v">Phra Nang Inn ou Baan Ao Nang Resort</div></div>
+              <div class="f"><label>Quartier</label><div class="f-v">Ao Nang — base parfaite</div></div>
+              <div class="f"><label>Prix / nuit chambre double</label><div class="f-v">~35–50 €</div></div>
+              <div class="f"><label>Total 15 nuits / 2 pers.</label><div class="f-v">~525–750 €</div></div>
+            </div>
+            <div class="tip">15 nuits, zéro planning. Pioche dans la liste selon ton énergie du jour.</div>
+          </div>
+          <div class="ss"><div class="ss-t">À faire — pioche librement</div>
+            <div class="check-list">
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Railay Beach en longue tail boat — 15 min depuis Ao Nang · ~3 € · falaises calcaires inaccessibles en voiture</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Escalade sur les falaises de Railay — half day avec guide · ~22 € / pers · débutants acceptés</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">4 Islands Tour en bateau — journée · ~15 € / pers · snorkeling, plage déserte déjeuner</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Tiger Cave Temple — 1 237 marches · bouddha doré au sommet · panorama total · gratuit</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Kayak dans les mangroves d'Ao Thalane — 3h · ~10 € / pers</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Plage de Klong Muang — 20 min de tuk-tuk, quasi déserte</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Marché de nuit Krabi Town — ven/sam/dim · street food, musiciens locaux</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Massage thaï 2h sur la plage — 300 bahts = 8 € · à répéter souvent</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Coucher de soleil Ao Nang Beach + bière Chang 50 bahts — les falaises deviennent oranges</span></div>
+              <div class="check-row"><div class="cb" onclick="ck(this)"></div><span class="cb-text">Mango sticky rice chaque soir — 60 bahts · 1,50 € · règle de vie</span></div>
+            </div>
+          </div>
+          <div class="ss"><div class="ss-t">Retour — vol Krabi / BKK → Marseille</div>
+            <div class="r3"><div class="f"><label>Date</label><div class="f-v">20 août 2025</div></div><div class="f"><label>Compagnie</label><div class="f-v">Turkish / Qatar / Cathay</div></div><div class="f"><label>Prix / pers. · total 2</label><div class="f-v">~800 € · ~1 600 €</div></div></div>
+            <div class="warn" style="background:#FDECEC;color:var(--red)">À réserver maintenant avec le vol aller — billet AR depuis Marseille</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════ LOGISTIQUE ════ -->
+  <div id="page-logistique" class="page">
+    <div class="hero">
+      <div class="h-eye">Logistique</div>
+      <div class="h-title">Tous les transports</div>
+      <div class="h-sub">Prix / pers. et prix total pour 2 · triés par date</div>
+    </div>
+    <div class="pad">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div class="sec-t">Transports chronologiques</div>
+        <button class="btn btn-navy btn-sm" onclick="openModal('modal-transport')">+ Transport</button>
+      </div>
+      <div class="tw"><div id="log-list"></div></div>
+    </div>
+  </div>
+
+  <!-- ════ DÉPENSES ════ -->
+  <div id="page-depenses" class="page">
+    <div class="pad" style="padding-bottom:0">
+      <div class="bh">
+        <div class="bh-persons">
+          <div class="bh-person" style="border-left-color:#4060E0">
+            <div class="bh-p-name">🧑 Momo</div>
+            <div class="bh-p-val" id="dep-momo-rem">5 000 €</div>
+            <div class="bh-p-spent" id="dep-momo-spent">0 € dépensé</div>
+            <div class="bh-p-bar"><div class="bh-p-fill" id="dep-momo-bar" style="width:0%;background:#7090F0"></div></div>
+          </div>
+          <div class="bh-person" style="border-left-color:#D060A0">
+            <div class="bh-p-name">👩 Mimi</div>
+            <div class="bh-p-val" id="dep-mimi-rem">5 000 €</div>
+            <div class="bh-p-spent" id="dep-mimi-spent">0 € dépensé</div>
+            <div class="bh-p-bar"><div class="bh-p-fill" id="dep-mimi-bar" style="width:0%;background:#E080C0"></div></div>
+          </div>
+        </div>
+        <div class="bh-total">
+          <span class="bh-total-l">Budget total restant (2 pers.)</span>
+          <span class="bh-total-v" id="dep-total-rem">10 000 €</span>
+        </div>
+      </div>
+    </div>
+    <div class="pad" style="padding-top:0">
+      <div class="tw">
+        <div class="tw-h">
+          <div class="tw-ht">Toutes les dépenses</div>
+          <div style="display:flex;gap:8px">
+            <div class="person-tabs">
+              <button class="ptab active-both" id="filter-all" onclick="filterDep('all',this)">Toutes</button>
+              <button class="ptab" id="filter-momo" onclick="filterDep('Momo',this)">Momo</button>
+              <button class="ptab" id="filter-mimi" onclick="filterDep('Mimi',this)">Mimi</button>
+              <button class="ptab" id="filter-both" onclick="filterDep('Les deux',this)">Partagé</button>
+            </div>
+            <button class="btn btn-navy btn-sm" onclick="openModal('modal-dep')">+ Dépense</button>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>Date</th><th>Description</th><th>Cat.</th><th>Pour</th><th>/ pers.</th><th>Total</th><th></th></tr></thead>
+          <tbody id="exp-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ AVANT DÉPART ════ -->
+  <div id="page-avant" class="page">
+    <div class="hero">
+      <div class="h-eye">Avant départ</div>
+      <div class="h-title">Check-list complète</div>
+      <div class="h-sub">À faire dans l'ordre — vol en priorité absolue</div>
+    </div>
+    <div class="pad">
+      <div class="tw">
+        <div class="tw-h"><div class="tw-ht">Dans l'ordre de priorité</div></div>
+        <div style="padding:4px 0" id="avant-list">
+          <div class="check-row" style="padding:10px 16px;border-bottom:1px solid var(--border)"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Réserver vol AR MRS → KUL — MAINTENANT</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Turkish Airlines (escale Istanbul) ou Qatar Airways (escale Doha) · Google Flights avec ±3 jours flexibilité · Départ 5 juillet · ~800 € / pers = 1 600 € pour 2</div></div><span class="badge b-now">Urgent</span></div>
+          <div class="check-row" style="padding:10px 16px;border-bottom:1px solid var(--border)"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Souscrire assurance voyage ×2 — avec option plongée</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Chapka Cap Aventure — couvre plongée + scooter + escalade + rapatriement · ~110 € / pers · Chapka.com</div></div></div>
+          <div class="check-row" style="padding:10px 16px;border-bottom:1px solid var(--border)"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Ouvrir carte Revolut ou Wise ×2</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Zéro frais de change · charger ~500 € avant départ · garder CB habituelle en backup</div></div></div>
+          <div class="check-row" style="padding:10px 16px;border-bottom:1px solid var(--border)"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Vérifier validité passeports</div><div style="font-size:11px;color:var(--muted);margin-top:2px">6 mois minimum après retour = valides jusqu'au 20 février 2026 au moins</div></div></div>
+          <div class="check-row" style="padding:10px 16px;border-bottom:1px solid var(--border)"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Remplir MDAC Malaisie</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Malaysia Digital Arrival Card · obligatoire · gratuit · à faire 3 jours avant le vol · digitalarvival.com.my</div></div></div>
+          <div class="check-row" style="padding:10px 16px;border-bottom:1px solid var(--border)"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Vaccins — consulter médecin traitant</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Conseillés : Hépatite A, Typhoïde, DTP à jour · Paludisme : demander avis médical</div></div></div>
+          <div class="check-row" style="padding:10px 16px;border-bottom:1px solid var(--border)"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Réserver 1ère nuit dans chaque ville</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Seulement la 1ère nuit, le reste en freestyle · Booking.com ou Agoda pour l'Asie</div></div></div>
+          <div class="check-row" style="padding:10px 16px;border-bottom:1px solid var(--border)"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Télécharger apps essentielles</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Grab · Maps.me offline · XE Currency · Google Translate (malais, bahasa, thaï, vietnamien) · Skyscanner</div></div></div>
+          <div class="check-row" style="padding:10px 16px;border-bottom:1px solid var(--border)"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Photocopies numériques</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Scanner passeports + assurances + ordonnances · envoyer par email à soi-même et à quelqu'un en France</div></div></div>
+          <div class="check-row" style="padding:10px 16px"><div class="cb" onclick="ck(this)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--navy)">Petite pharmacie de voyage</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Ibuprofène · antihistaminique · Smecta · désinfectant · pansements · SPF 50</div></div></div>
+        </div>
+      </div>
+      <div class="tip">SIM locale : acheter à l'arrivée à KL Airport. Maxis ou Hotlink — 15 jours data illimitée ~5 €. Couvre toute l'Asie du Sud-Est.</div>
+    </div>
+  </div>
+
+  <!-- ════ MANGER ════ -->
+  <div id="page-manger" class="page">
+    <div class="hero">
+      <div class="h-eye">Gastronomie</div>
+      <div class="h-title">À manger absolument</div>
+      <div class="h-sub">Les plats à ne pas manquer · prix réels en euros</div>
+    </div>
+    <div class="pad">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="tw"><div class="tw-h"><div class="tw-ht">🇲🇾 Malaisie</div></div><div style="padding:0 16px">
+          <div class="eat-item"><span class="eat-name">Nasi lemak</span><span class="eat-note">Kedai kopi le matin</span><span class="eat-price">~1 €</span></div>
+          <div class="eat-item"><span class="eat-name">Char kway teow</span><span class="eat-note">Jalan Alor, le soir</span><span class="eat-price">~2,50 €</span></div>
+          <div class="eat-item"><span class="eat-name">Asam laksa Penang</span><span class="eat-note">Marché Chowrasta</span><span class="eat-price">~1,50 €</span></div>
+          <div class="eat-item"><span class="eat-name">Roti canai</span><span class="eat-note">Pain feuilleté + curry</span><span class="eat-price">~0,80 €</span></div>
+          <div class="eat-item"><span class="eat-name">Cendol</span><span class="eat-note">Dessert glacé noix coco</span><span class="eat-price">~1 €</span></div>
+        </div></div>
+        <div class="tw"><div class="tw-h"><div class="tw-ht">🇸🇬 Singapour</div></div><div style="padding:0 16px">
+          <div class="eat-item"><span class="eat-name">Satay Lau Pa Sat</span><span class="eat-note">Hawker center historique</span><span class="eat-price">~6 €</span></div>
+          <div class="eat-item"><span class="eat-name">Laksa Chinatown</span><span class="eat-note">Soupe coco épicée</span><span class="eat-price">~4 €</span></div>
+          <div class="eat-item"><span class="eat-name">Hainanese Chicken Rice</span><span class="eat-note">Plat national</span><span class="eat-price">~4 €</span></div>
+          <div class="eat-item"><span class="eat-name">Kaya toast + soft egg</span><span class="eat-note">Petit-déj singapourien</span><span class="eat-price">~3 €</span></div>
+        </div></div>
+        <div class="tw"><div class="tw-h"><div class="tw-ht">🇮🇩 Bali · Lombok · Gili</div></div><div style="padding:0 16px">
+          <div class="eat-item"><span class="eat-name">Nasi campur warung</span><span class="eat-note">Riz + 4 accompagnements</span><span class="eat-price">~2 €</span></div>
+          <div class="eat-item"><span class="eat-name">Babi guling Ibu Oka</span><span class="eat-note">Cochon rôti balinais · Ubud</span><span class="eat-price">~7 €</span></div>
+          <div class="eat-item"><span class="eat-name">Poisson grillé plage</span><span class="eat-note">Jimbaran ou Gili</span><span class="eat-price">~5 €</span></div>
+          <div class="eat-item"><span class="eat-name">Smoothie bowl</span><span class="eat-note">Canggu · matin</span><span class="eat-price">~4 €</span></div>
+          <div class="eat-item"><span class="eat-name">Bintang beer froide</span><span class="eat-note">Tous les warungs</span><span class="eat-price">~1 €</span></div>
+        </div></div>
+        <div class="tw"><div class="tw-h"><div class="tw-ht">🇻🇳 Vietnam</div></div><div style="padding:0 16px">
+          <div class="eat-item"><span class="eat-name">Pho bo à 6h du matin</span><span class="eat-note">Troquet de quartier</span><span class="eat-price">~1,50 €</span></div>
+          <div class="eat-item"><span class="eat-name">Banh mi</span><span class="eat-note">Baguette vietnamienne farcie</span><span class="eat-price">~0,80 €</span></div>
+          <div class="eat-item"><span class="eat-name">Goi cuon</span><span class="eat-note">Rouleaux de printemps frais</span><span class="eat-price">~2 €</span></div>
+          <div class="eat-item"><span class="eat-name">Bière Saigon Bui Vien</span><span class="eat-note">Tabouret plastique · rue</span><span class="eat-price">~0,50 €</span></div>
+        </div></div>
+        <div class="tw" style="grid-column:span 2"><div class="tw-h"><div class="tw-ht">🇹🇭 Thaïlande — Bangkok · Koh Tao · Krabi</div></div><div style="padding:0 16px;display:grid;grid-template-columns:1fr 1fr;gap:0">
+          <div><div class="eat-item"><span class="eat-name">Pad thaï de rue</span><span class="eat-note">File de Thaïlandais = bonne adresse</span><span class="eat-price">~1,30 €</span></div>
+          <div class="eat-item"><span class="eat-name">Tom yum goong</span><span class="eat-note">Soupe citronnelle + crevettes</span><span class="eat-price">~3 €</span></div>
+          <div class="eat-item"><span class="eat-name">Som tum</span><span class="eat-note">Salade papaye verte épicée</span><span class="eat-price">~1 €</span></div></div>
+          <div><div class="eat-item"><span class="eat-name">Mango sticky rice</span><span class="eat-note">Riz gluant · mangue · coco</span><span class="eat-price">~1,50 €</span></div>
+          <div class="eat-item"><span class="eat-name">Chang beer plage</span><span class="eat-note">Koh Tao / Krabi · coucher soleil</span><span class="eat-price">~1,20 €</span></div>
+          <div class="eat-item"><span class="eat-name">Massage thaï 1h</span><span class="eat-note">Partout · règle de vie absolue</span><span class="eat-price">~7 €</span></div></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ASSURANCE ════ -->
+  <div id="page-assu" class="page">
+    <div class="hero">
+      <div class="h-eye">Assurance</div>
+      <div class="h-title">Ne partez pas sans</div>
+      <div class="h-sub">Couverture obligatoire pour ce voyage actif</div>
+    </div>
+    <div class="pad">
+      <div class="tw" style="margin-bottom:16px"><div class="tw-h"><div class="tw-ht">Ce qui doit être couvert — obligatoire</div></div>
+        <div style="padding:0 16px">
+          <div class="eat-item"><span class="eat-name">Plongée certifiante + loisir</span><span class="eat-note">PADI à Koh Tao · accident de décompression = caisson hyperbare · milliers d'€</span></div>
+          <div class="eat-item"><span class="eat-name">Scooter 2 roues motorisées</span><span class="eat-note">Bali + Lombok · 1ère cause de rapatriement · préciser à la souscription</span></div>
+          <div class="eat-item"><span class="eat-name">Escalade sur falaises</span><span class="eat-note">Krabi · vérifier que le sport de voie est inclus</span></div>
+          <div class="eat-item"><span class="eat-name">Rapatriement médical illimité</span><span class="eat-note">Rapatriement depuis Thaïlande sans assurance = 20 000 à 50 000 €</span></div>
+          <div class="eat-item"><span class="eat-name">Annulation + retard vols</span><span class="eat-note">Vols internes low cost qui annulent sans prévenir</span></div>
+        </div>
+      </div>
+      <div class="tw"><div class="tw-h"><div class="tw-ht">Assureurs recommandés</div></div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:12px;align-items:flex-start;padding-bottom:14px;border-bottom:1px solid var(--border)">
+            <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--navy)">Chapka — Cap Aventure ⭐ Recommandé</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.6">Couvre plongée + sports + scooter + escalade + trek. Rapatriement illimité. La plus complète. Souscription en ligne en 5 min sur Chapka.com</div></div>
+            <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold);flex-shrink:0">~110 €<div style="font-size:10px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400">/ pers.</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding-bottom:14px;border-bottom:1px solid var(--border)">
+            <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--navy)">AVI International — Nomad</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.6">Bonne alternative · couvre plongée et sports nautiques · vérifier exclusions scooter</div></div>
+            <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold);flex-shrink:0">~90 €<div style="font-size:10px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400">/ pers.</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--navy)">MAIF Assurance Voyage</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.6">Si vous êtes déjà MAIF · vérifier que plongée + scooter couverts (souvent en option)</div></div>
+            <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold);flex-shrink:0">~80–100 €<div style="font-size:10px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400">/ pers.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip">Budget total assurance pour 2 : 180–220 €. Certains assureurs font tarif couple. À souscrire dès que le vol est réservé.</div>
+    </div>
+  </div>
+
+  <!-- ════ NOTES ════ -->
+  <div id="page-notes" class="page">
+    <div class="hero">
+      <div class="h-eye">Journal</div>
+      <div class="h-title">Notes</div>
+      <div class="h-sub">Contacts · réservations · infos pratiques</div>
+    </div>
+    <div class="pad">
+      <div class="tw"><div class="tw-h"><div class="tw-ht">Notes libres</div><span style="font-size:10px;color:var(--muted2)" id="notes-saved"></span></div>
+        <textarea class="notes-ta" id="notes-ta" placeholder="Ex:&#10;Vol aller code résa: ABCDEF&#10;Assurance Chapka N°: XXXXXX&#10;Guide Rinjani: +62 812 xxxxxx&#10;Urgence ambassade France Bangkok: +66 2 657 5100&#10;Hostel KL résa: booking.com XXXXXXX"></textarea>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /content -->
 </div><!-- /main -->
-</div><!-- /shell -->
+</div><!-- /app -->
 
-<!-- MODAL EXPENSE -->
-<div class="modal-bg" id="modal-expense">
-<div class="modal">
-<div class="mh"><div><div class="mh-t">Ajouter une dépense</div><div class="mh-s">Mise à jour instantanée du budget</div></div><button class="mh-x" onclick="closeModal('modal-expense')">×</button></div>
-<div class="mb">
-<div class="form-grid">
-<div class="form-row"><label class="form-label">Catégorie</label>
-<select class="form-input" id="ec">
-<option>Vol</option><option>Hébergement</option><option>Restaurant</option>
-<option>Activité</option><option>Transport</option><option>Shopping</option><option>Divers</option>
-</select>
-</div>
-<div class="form-row"><label class="form-label">Date</label><input type="date" class="form-input" id="ed"></div>
-</div>
-<div class="form-row"><label class="form-label">Description</label><input type="text" class="form-input" id="edesc" placeholder="Ex: Vol MRS → KUL Turkish Airlines"></div>
-<div class="form-grid">
-<div class="form-row"><label class="form-label">Ville</label><input type="text" class="form-input" id="ecity" placeholder="Kuala Lumpur"></div>
-<div class="form-row"><label class="form-label">Montant (€)</label><input type="number" class="form-input" id="eamt" placeholder="0.00" step="0.01"></div>
-</div>
-</div>
-<div class="mf"><button class="btn" onclick="closeModal('modal-expense')">Annuler</button><button class="btn btn-navy" onclick="addExpense()">Enregistrer</button></div>
-</div>
+<!-- MODAL DÉPENSE -->
+<div class="modal-bg" id="modal-dep">
+  <div class="modal">
+    <div class="mh"><div><div class="mh-t">Ajouter une dépense</div></div><button class="mh-x" onclick="closeModal('modal-dep')">×</button></div>
+    <div class="mb">
+      <div class="fl"><label>Pour qui</label>
+        <select class="fi" id="d-who">
+          <option value="Les deux">Les deux (partagé)</option>
+          <option value="Momo">Momo uniquement</option>
+          <option value="Mimi">Mimi uniquement</option>
+        </select>
+      </div>
+      <div class="fg">
+        <div class="fl"><label>Catégorie</label>
+          <select class="fi" id="d-cat">
+            <option>Vol</option><option>Hébergement</option><option>Restaurant</option>
+            <option>Activité</option><option>Transport</option><option>Shopping</option><option>Divers</option>
+          </select>
+        </div>
+        <div class="fl"><label>Date</label><input type="date" class="fi" id="d-date"></div>
+      </div>
+      <div class="fl"><label>Description</label><input type="text" class="fi" id="d-desc" placeholder="Ex: Vol MRS → KUL Turkish Airlines"></div>
+      <div class="fg">
+        <div class="fl"><label>Prix / personne (€)</label><input type="number" class="fi" id="d-1p" placeholder="0" step="0.01" oninput="calc2p()"></div>
+        <div class="fl"><label>Total 2 personnes (€)</label><input type="number" class="fi" id="d-2p" placeholder="0" step="0.01" oninput="calc1p()"></div>
+      </div>
+      <div class="fl"><label>Ville</label><input type="text" class="fi" id="d-city" placeholder="Kuala Lumpur"></div>
+    </div>
+    <div class="mf"><button class="btn" onclick="closeModal('modal-dep')">Annuler</button><button class="btn btn-navy" onclick="saveDep()">Enregistrer</button></div>
+  </div>
 </div>
 
 <!-- MODAL TRANSPORT -->
 <div class="modal-bg" id="modal-transport">
-<div class="modal">
-<div class="mh"><div><div class="mh-t">Ajouter un transport</div></div><button class="mh-x" onclick="closeModal('modal-transport')">×</button></div>
-<div class="mb">
-<div class="form-grid">
-<div class="form-row"><label class="form-label">Type</label>
-<select class="form-input" id="tt"><option>Vol</option><option>Ferry</option><option>Bus</option><option>Train</option><option>Taxi / Grab</option><option>Scooter</option></select>
-</div>
-<div class="form-row"><label class="form-label">Date</label><input type="date" class="form-input" id="td"></div>
-</div>
-<div class="form-grid">
-<div class="form-row"><label class="form-label">De</label><input type="text" class="form-input" id="tf" placeholder="Marseille / MRS"></div>
-<div class="form-row"><label class="form-label">Vers</label><input type="text" class="form-input" id="tto" placeholder="Kuala Lumpur / KUL"></div>
-</div>
-<div class="form-grid">
-<div class="form-row"><label class="form-label">Compagnie</label><input type="text" class="form-input" id="tco" placeholder="Turkish Airlines"></div>
-<div class="form-row"><label class="form-label">Prix total (€)</label><input type="number" class="form-input" id="tprice" placeholder="0"></div>
-</div>
-<div class="form-grid">
-<div class="form-row"><label class="form-label">N° réservation</label><input type="text" class="form-input" id="tref" placeholder="ABCDEF"></div>
-<div class="form-row"><label class="form-label">Statut</label>
-<select class="form-input" id="tstatus"><option value="todo">À réserver</option><option value="done">Confirmé</option></select>
-</div>
-</div>
-</div>
-<div class="mf"><button class="btn" onclick="closeModal('modal-transport')">Annuler</button><button class="btn btn-navy" onclick="addTransport()">Enregistrer</button></div>
-</div>
-</div>
-
-<!-- MODAL HOTEL -->
-<div class="modal-bg" id="modal-hotel">
-<div class="modal">
-<div class="mh"><div><div class="mh-t">Ajouter un hébergement</div></div><button class="mh-x" onclick="closeModal('modal-hotel')">×</button></div>
-<div class="mb">
-<div class="form-row"><label class="form-label">Nom</label><input type="text" class="form-input" id="hn" placeholder="The Loft Hostel"></div>
-<div class="form-grid">
-<div class="form-row"><label class="form-label">Ville</label><input type="text" class="form-input" id="hcity" placeholder="Canggu"></div>
-<div class="form-row"><label class="form-label">Quartier</label><input type="text" class="form-input" id="harea" placeholder="Batu Bolong"></div>
-</div>
-<div class="form-grid">
-<div class="form-row"><label class="form-label">Check-in</label><input type="date" class="form-input" id="hci"></div>
-<div class="form-row"><label class="form-label">Check-out</label><input type="date" class="form-input" id="hco"></div>
-</div>
-<div class="form-grid">
-<div class="form-row"><label class="form-label">Prix / nuit (€)</label><input type="number" class="form-input" id="hprice" placeholder="20"></div>
-<div class="form-row"><label class="form-label">Statut</label>
-<select class="form-input" id="hstatus"><option value="todo">À réserver</option><option value="done">Confirmé</option></select>
-</div>
-</div>
-</div>
-<div class="mf"><button class="btn" onclick="closeModal('modal-hotel')">Annuler</button><button class="btn btn-navy" onclick="addHotel()">Enregistrer</button></div>
-</div>
-</div>
-
-<!-- MODAL RESTAURANT -->
-<div class="modal-bg" id="modal-restaurant">
-<div class="modal">
-<div class="mh"><div><div class="mh-t">Ajouter un restaurant</div></div><button class="mh-x" onclick="closeModal('modal-restaurant')">×</button></div>
-<div class="mb">
-<div class="form-row"><label class="form-label">Nom</label><input type="text" class="form-input" id="rn" placeholder="Lau Pa Sat"></div>
-<div class="form-grid">
-<div class="form-row"><label class="form-label">Ville</label><input type="text" class="form-input" id="rcity" placeholder="Singapour"></div>
-<div class="form-row"><label class="form-label">Spécialité</label><input type="text" class="form-input" id="rspec" placeholder="Satay · hawker"></div>
-</div>
-<div class="form-row"><label class="form-label">Prix moyen / pers. (€)</label><input type="number" class="form-input" id="rprice" placeholder="10"></div>
-</div>
-<div class="mf"><button class="btn" onclick="closeModal('modal-restaurant')">Annuler</button><button class="btn btn-navy" onclick="addRestaurant()">Enregistrer</button></div>
-</div>
-</div>
-
-<!-- MODAL ACTIVITY -->
-<div class="modal-bg" id="modal-activity">
-<div class="modal">
-<div class="mh"><div><div class="mh-t">Ajouter une activité</div></div><button class="mh-x" onclick="closeModal('modal-activity')">×</button></div>
-<div class="mb">
-<div class="form-row"><label class="form-label">Nom</label><input type="text" class="form-input" id="an" placeholder="Certification PADI Open Water"></div>
-<div class="form-grid">
-<div class="form-row"><label class="form-label">Ville / lieu</label><input type="text" class="form-input" id="acity" placeholder="Koh Tao"></div>
-<div class="form-row"><label class="form-label">Prix / pers. (€)</label><input type="number" class="form-input" id="aprice" placeholder="0"></div>
-</div>
-<div class="form-row"><label class="form-label">Notes</label><input type="text" class="form-input" id="adesc" placeholder="Durée, infos importantes..."></div>
-</div>
-<div class="mf"><button class="btn" onclick="closeModal('modal-activity')">Annuler</button><button class="btn btn-navy" onclick="addActivity()">Ajouter</button></div>
-</div>
+  <div class="modal">
+    <div class="mh"><div><div class="mh-t">Ajouter un transport</div></div><button class="mh-x" onclick="closeModal('modal-transport')">×</button></div>
+    <div class="mb">
+      <div class="fg">
+        <div class="fl"><label>Type</label><select class="fi" id="t-type"><option>Vol</option><option>Ferry</option><option>Bus</option><option>Train</option><option>Taxi / Grab</option><option>Scooter</option></select></div>
+        <div class="fl"><label>Date</label><input type="date" class="fi" id="t-date"></div>
+      </div>
+      <div class="fg">
+        <div class="fl"><label>De</label><input type="text" class="fi" id="t-from" placeholder="Marseille / MRS"></div>
+        <div class="fl"><label>Vers</label><input type="text" class="fi" id="t-to" placeholder="Kuala Lumpur / KUL"></div>
+      </div>
+      <div class="fg">
+        <div class="fl"><label>Compagnie</label><input type="text" class="fi" id="t-co" placeholder="Turkish Airlines"></div>
+        <div class="fl"><label>N° réservation</label><input type="text" class="fi" id="t-ref" placeholder="ABCDEF"></div>
+      </div>
+      <div class="fg">
+        <div class="fl"><label>Prix / personne (€)</label><input type="number" class="fi" id="t-1p" placeholder="0" oninput="this.nextElementSibling.nextElementSibling.querySelector('input').value=Math.round(this.value*2)"></div>
+        <div class="fl"><label>Total 2 personnes (€)</label><input type="number" class="fi" id="t-2p" placeholder="0"></div>
+      </div>
+      <div class="fl"><label>Statut</label><select class="fi" id="t-status"><option value="todo">À réserver</option><option value="done">Confirmé</option></select></div>
+    </div>
+    <div class="mf"><button class="btn" onclick="closeModal('modal-transport')">Annuler</button><button class="btn btn-navy" onclick="saveTransport()">Enregistrer</button></div>
+  </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════
-// STORAGE
-// ═══════════════════════════════════════════════════
-const LS = {
-get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
-set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
-};
+// ═══════ STORAGE ═══════
+const S={get:(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 
-// ═══════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════
-const BUDGET = 10000;
+// ═══════ STATE ═══════
+const BUDGET=5000; // par personne
+let deps=S.get('mm2_deps',[]);
+let transports=S.get('mm2_trans',defaultTransports());
 
-let stops = LS.get('mm_stops', []);
-let expenses = LS.get('mm_expenses', []);
-let transports = LS.get('mm_transports', []);
-let hotels = LS.get('mm_hotels', []);
-let restaurants= LS.get('mm_restaurants', []);
-let activities = LS.get('mm_activities', []);
-
-function save() {
-LS.set('mm_stops', stops);
-LS.set('mm_expenses', expenses);
-LS.set('mm_transports', transports);
-LS.set('mm_hotels', hotels);
-LS.set('mm_restaurants', restaurants);
-LS.set('mm_activities', activities);
+function defaultTransports(){
+  return [
+    {id:1,type:'Vol',from:'Marseille (MRS)',to:'Kuala Lumpur (KUL)',date:'2025-07-05',co:'Turkish Airlines / Qatar Airways',ref:'—',price1p:800,price2p:1600,status:'todo'},
+    {id:2,type:'Bus',from:'Kuala Lumpur',to:'Penang',date:'2025-07-07',co:'Transnasional',ref:'—',price1p:5,price2p:10,status:'todo'},
+    {id:3,type:'Vol',from:'Penang (PEN)',to:'Singapour (SIN)',date:'2025-07-09',co:'AirAsia / Firefly',ref:'—',price1p:35,price2p:70,status:'todo'},
+    {id:4,type:'Vol',from:'Singapour (SIN)',to:'Bali / Denpasar (DPS)',date:'2025-07-11',co:'AirAsia / Scoot',ref:'—',price1p:70,price2p:140,status:'todo'},
+    {id:5,type:'Ferry',from:'Bali (Padang Bai)',to:'Gili Air',date:'2025-07-18',co:'Gili Getaway',ref:'—',price1p:30,price2p:60,status:'todo'},
+    {id:6,type:'Bateau',from:'Gili Air',to:'Bangsal (Lombok)',date:'2025-07-22',co:'Bateau local',ref:'—',price1p:3,price2p:6,status:'todo'},
+    {id:7,type:'Vol',from:'Lombok (LOP)',to:'Ho Chi Minh (SGN)',date:'2025-07-25',co:'Vietjet / AirAsia',ref:'—',price1p:80,price2p:160,status:'todo'},
+    {id:8,type:'Vol',from:'Ho Chi Minh (SGN)',to:'Bangkok (BKK)',date:'2025-07-27',co:'Vietjet / Thai AirAsia',ref:'—',price1p:40,price2p:80,status:'todo'},
+    {id:9,type:'Bus+Ferry',from:'Bangkok',to:'Koh Tao',date:'2025-07-29',co:'Lompraya combo',ref:'—',price1p:22,price2p:44,status:'todo'},
+    {id:10,type:'Ferry+Bus',from:'Koh Tao',to:'Krabi',date:'2025-08-05',co:'Songserm / Lompraya',ref:'—',price1p:30,price2p:60,status:'todo'},
+    {id:11,type:'Vol',from:'Krabi (KBV) / Bangkok (BKK)',to:'Marseille (MRS)',date:'2025-08-20',co:'Turkish / Qatar / Cathay',ref:'—',price1p:800,price2p:1600,status:'todo'},
+  ];
 }
 
-// ═══════════════════════════════════════════════════
-// PRESETS
-// ═══════════════════════════════════════════════════
-const PRESETS = [
-{name:'Kuala Lumpur', country:'Malaisie'},
-{name:'Penang', country:'Malaisie'},
-{name:'Singapour', country:'Singapour'},
-{name:'Canggu', country:'Indonésie'},
-{name:'Ubud', country:'Indonésie'},
-{name:'Uluwatu', country:'Indonésie'},
-{name:'Gili Air', country:'Indonésie'},
-{name:'Lombok', country:'Indonésie'},
-{name:'Ho Chi Minh', country:'Vietnam'},
-{name:'Bangkok', country:'Thaïlande'},
-{name:'Koh Tao', country:'Thaïlande'},
-{name:'Krabi', country:'Thaïlande'},
-];
-
-function initPresets() {
-const cont = document.getElementById('presets-container');
-if (!cont) return;
-cont.innerHTML = PRESETS.map(p => `
-<div class="preset-chip" onclick="selectPreset('${p.name}','${p.country}')">${p.name}</div>
-`).join('');
+// Dépenses pré-remplies
+function defaultDeps(){
+  return [
+    {id:1,who:'Les deux',cat:'Assurance',date:'2025-06-01',desc:'Assurance Chapka Cap Aventure — Momo',city:'France',p1p:110,p2p:110},
+    {id:2,who:'Les deux',cat:'Assurance',date:'2025-06-01',desc:'Assurance Chapka Cap Aventure — Mimi',city:'France',p1p:110,p2p:110},
+  ];
 }
 
-function selectPreset(name, country) {
-document.getElementById('new-stop-name').value = name;
-document.getElementById('new-stop-country').value = country;
-document.querySelectorAll('.preset-chip').forEach(c => {
-c.classList.toggle('selected', c.textContent === name);
-});
+if(!deps.length) deps=defaultDeps();
+
+function save(){S.set('mm2_deps',deps);S.set('mm2_trans',transports);}
+
+// ═══════ COUNTDOWN ═══════
+function countdown(){
+  const d=Math.ceil((new Date('2025-07-05')-new Date())/86400000);
+  const el=document.getElementById('cd-val');
+  if(el)el.textContent=d>0?d+' jours':d===0?"Aujourd'hui !":'En route !';
 }
 
-// ═══════════════════════════════════════════════════
-// STOPS ENGINE
-// ═══════════════════════════════════════════════════
-function addStop() {
-const name = document.getElementById('new-stop-name').value.trim();
-if (!name) { document.getElementById('new-stop-name').focus(); return; }
-stops.push({
-id: Date.now(),
-name,
-country: document.getElementById('new-stop-country').value,
-dateIn: document.getElementById('new-stop-in').value,
-dateOut: document.getElementById('new-stop-out').value,
-transport: { type:'Vol', from:'', to:'', co:'', price:'', ref:'', status:'todo' },
-hotel: { name:'', area:'', price:'', status:'todo' },
-budget: { food:'', activities:'', transport:'', shopping:'' },
-notes: '',
-checks: [],
-});
-save();
-renderStops();
-// Clear
-document.getElementById('new-stop-name').value = '';
-document.getElementById('new-stop-in').value = '';
-document.getElementById('new-stop-out').value = '';
-document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('selected'));
-updateHeroStats();
+// ═══════ BUDGET ENGINE ═══════
+function calcBudget(){
+  const momo=deps.filter(d=>d.who==='Momo'||d.who==='Les deux').reduce((s,d)=>s+(d.who==='Les deux'?d.p1p:d.p1p),0);
+  const mimi=deps.filter(d=>d.who==='Mimi'||d.who==='Les deux').reduce((s,d)=>s+(d.who==='Les deux'?d.p1p:d.p1p),0);
+  return {momo,mimi,total:momo+mimi};
 }
 
-function removeStop(id) {
-stops = stops.filter(s => s.id !== id);
-save(); renderStops(); updateHeroStats();
+function fmt(n){return Math.round(n).toLocaleString('fr-FR')+' €';}
+
+function updateUI(){
+  const {momo,mimi}=calcBudget();
+  const pMomo=Math.min(momo/BUDGET*100,100), pMimi=Math.min(mimi/BUDGET*100,100);
+  // Sidebar
+  ['sb-momo-rem','dep-momo-rem'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=fmt(BUDGET-momo);});
+  ['sb-mimi-rem','dep-mimi-rem'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=fmt(BUDGET-mimi);});
+  ['sb-momo-bar','dep-momo-bar'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.width=pMomo+'%';});
+  ['sb-mimi-bar','dep-mimi-bar'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.width=pMimi+'%';});
+  const sm=document.getElementById('sb-momo-spent');if(sm)sm.textContent=fmt(momo);
+  const smi=document.getElementById('sb-mimi-spent');if(smi)smi.textContent=fmt(mimi);
+  const dm=document.getElementById('dep-momo-spent');if(dm)dm.textContent=fmt(momo)+' dépensé';
+  const dmi=document.getElementById('dep-mimi-spent');if(dmi)dmi.textContent=fmt(mimi)+' dépensé';
+  const dt=document.getElementById('dep-total-rem');if(dt)dt.textContent=fmt((BUDGET-momo)+(BUDGET-mimi));
 }
 
-function updateStop(id, field, val) {
-const s = stops.find(x => x.id === id);
-if (!s) return;
-const parts = field.split('.');
-if (parts.length === 2) s[parts[0]][parts[1]] = val;
-else s[field] = val;
-save(); updateHeroStats();
+// ═══════ NAVIGATION ═══════
+const TITLES={itineraire:'Itinéraire',logistique:'Logistique & vols',depenses:'Dépenses',avant:'Avant départ',manger:'À manger',assu:'Assurance',notes:'Notes'};
+function go(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id)?.classList.add('active');
+  if(el)el.classList.add('active');
+  document.getElementById('topbar-title').textContent=TITLES[id]||id;
+  if(id==='logistique')renderLog();
+  if(id==='depenses'){renderDeps();updateUI();}
+  document.getElementById('sidebar')?.classList.remove('open');
 }
 
-function nights(s) {
-if (!s.dateIn || !s.dateOut) return 0;
-return Math.max(0, Math.round((new Date(s.dateOut) - new Date(s.dateIn)) / 86400000));
+// ═══════ STOP TOGGLE ═══════
+function tog(id){document.getElementById(id)?.classList.toggle('open');}
+
+// ═══════ CHECKBOXES ═══════
+function ck(el){
+  el.classList.toggle('done');
+  el.textContent=el.classList.contains('done')?'✓':'';
+  const txt=el.closest('.check-row')?.querySelector('.cb-text');
+  if(txt)txt.classList.toggle('done',el.classList.contains('done'));
 }
 
-function fmtDate(d) {
-if (!d) return '—';
-const [y,m,day] = d.split('-');
-const M = ['jan','fév','mars','avr','mai','juin','juil','août','sep','oct','nov','déc'];
-return `${parseInt(day)} ${M[parseInt(m)-1]}`;
+// ═══════ MODALS ═══════
+function openModal(id){document.getElementById(id)?.classList.add('open');}
+function closeModal(id){document.getElementById(id)?.classList.remove('open');}
+document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+
+// ═══════ DÉPENSES ═══════
+function calc2p(){const v=parseFloat(document.getElementById('d-1p').value)||0;document.getElementById('d-2p').value=v?Math.round(v*2):'';}
+function calc1p(){const v=parseFloat(document.getElementById('d-2p').value)||0;document.getElementById('d-1p').value=v?Math.round(v/2*100)/100:'';}
+
+let depFilter='all';
+function filterDep(f,btn){
+  depFilter=f;
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active-both','active-momo','active-mimi'));
+  if(f==='all')btn.classList.add('active-both');
+  else if(f==='Momo')btn.classList.add('active-momo');
+  else if(f==='Mimi')btn.classList.add('active-mimi');
+  else btn.classList.add('active-both');
+  renderDeps();
 }
 
-const TYPE_ICONS = {Vol:'✈',Ferry:'⛵',Bus:'🚌',Train:'🚆','Bus+Ferry':'🚌','Taxi / Grab':'🚕',Scooter:'🛵'};
+const CAT_C={'Vol':'#0B1220','Hébergement':'#B8913A','Restaurant':'#1A6B3A','Activité':'#1840A0','Transport':'#6A1A90','Shopping':'#C05010','Assurance':'#8B0000','Divers':'#607070'};
 
-function renderStops() {
-const list = document.getElementById('stops-list');
-const empty = document.getElementById('empty-stops');
-if (!list) return;
-
-if (stops.length === 0) {
-list.innerHTML = '';
-empty.style.display = 'block';
-return;
-}
-empty.style.display = 'none';
-
-list.innerHTML = stops.map((s, i) => {
-const n = nights(s);
-const checks = s.checks || [];
-return `
-${i > 0 ? '<div class="stop-connector"></div>' : ''}
-<div class="stop-card" id="sc-${s.id}" draggable="true"
-ondragstart="dragStart(event,${s.id})"
-ondragover="dragOver(event,${s.id})"
-ondrop="dragDrop(event,${s.id})"
-ondragleave="dragLeave(${s.id})">
-
-<div class="stop-header" onclick="toggleStop(${s.id})">
-<div class="drag-handle" onclick="event.stopPropagation()">⠿</div>
-<div class="stop-num">${i+1}</div>
-<div class="stop-main">
-<div class="stop-name">${s.name}</div>
-<div class="stop-meta">${s.country}${s.dateIn?' · '+fmtDate(s.dateIn)+' → '+fmtDate(s.dateOut):''}</div>
-</div>
-<div class="stop-right">
-${n > 0 ? `<div class="stop-nights">${n}n</div>` : ''}
-<div class="stop-chevron">▼</div>
-<button class="btn btn-xs btn-danger" onclick="event.stopPropagation();removeStop(${s.id})" title="Supprimer">×</button>
-</div>
-</div>
-
-<div class="stop-body">
-
-<!-- DATES -->
-<div class="stop-section">
-<div class="ss-label">Dates</div>
-<div class="date-row">
-<div class="date-field">
-<label>Arrivée</label>
-<input type="date" class="date-input" value="${s.dateIn||''}"
-onchange="updateStop(${s.id},'dateIn',this.value);rerenderStop(${s.id})">
-</div>
-<div style="color:var(--muted2);margin-top:14px">→</div>
-<div class="date-field">
-<label>Départ</label>
-<input type="date" class="date-input" value="${s.dateOut||''}"
-onchange="updateStop(${s.id},'dateOut',this.value);rerenderStop(${s.id})">
-</div>
-<div class="nights-badge" id="nb-${s.id}">${n > 0 ? n+' nuit'+(n>1?'s':'') : '— nuits'}</div>
-</div>
-</div>
-
-<!-- TRANSPORT D'ARRIVÉE -->
-<div class="stop-section">
-<div class="ss-label">Transport d'arrivée</div>
-<div class="transport-field">
-<div class="tf-item">
-<label>Type</label>
-<select class="mini-input mini-select" onchange="updateStop(${s.id},'transport.type',this.value)">
-${['Vol','Ferry','Bus','Train','Taxi / Grab','Scooter'].map(t=>`<option ${s.transport.type===t?'selected':''}>${t}</option>`).join('')}
-</select>
-</div>
-<div class="tf-item">
-<label>Statut</label>
-<select class="mini-input mini-select" onchange="updateStop(${s.id},'transport.status',this.value)">
-<option value="todo" ${s.transport.status==='todo'?'selected':''}>À réserver</option>
-<option value="done" ${s.transport.status==='done'?'selected':''}>Confirmé</option>
-</select>
-</div>
-<div class="tf-item">
-<label>De</label>
-<input class="mini-input" type="text" placeholder="MRS..." value="${s.transport.from||''}" onchange="updateStop(${s.id},'transport.from',this.value)">
-</div>
-<div class="tf-item">
-<label>Vers</label>
-<input class="mini-input" type="text" placeholder="KUL..." value="${s.transport.to||''}" onchange="updateStop(${s.id},'transport.to',this.value)">
-</div>
-<div class="tf-item">
-<label>Compagnie</label>
-<input class="mini-input" type="text" placeholder="AirAsia..." value="${s.transport.co||''}" onchange="updateStop(${s.id},'transport.co',this.value)">
-</div>
-<div class="tf-item">
-<label>Prix (€)</label>
-<input class="mini-input" type="number" placeholder="0" value="${s.transport.price||''}" onchange="updateStop(${s.id},'transport.price',this.value)">
-</div>
-<div class="tf-item">
-<label>N° résa</label>
-<input class="mini-input" type="text" placeholder="ABCDEF" value="${s.transport.ref||''}" onchange="updateStop(${s.id},'transport.ref',this.value)">
-</div>
-</div>
-</div>
-
-<!-- HÉBERGEMENT -->
-<div class="stop-section">
-<div class="ss-label">Hébergement</div>
-<div class="hotel-field">
-<div class="tf-item" style="grid-column:span 2">
-<label>Nom</label>
-<input class="mini-input" type="text" placeholder="Hostel / Airbnb..." value="${s.hotel.name||''}" onchange="updateStop(${s.id},'hotel.name',this.value)">
-</div>
-<div class="tf-item">
-<label>Quartier</label>
-<input class="mini-input" type="text" placeholder="Centre..." value="${s.hotel.area||''}" onchange="updateStop(${s.id},'hotel.area',this.value)">
-</div>
-<div class="tf-item">
-<label>Prix / nuit (€)</label>
-<input class="mini-input" type="number" placeholder="20" value="${s.hotel.price||''}" onchange="updateStop(${s.id},'hotel.price',this.value)">
-</div>
-<div class="tf-item">
-<label>Statut</label>
-<select class="mini-input mini-select" onchange="updateStop(${s.id},'hotel.status',this.value)">
-<option value="todo" ${s.hotel.status==='todo'?'selected':''}>À réserver</option>
-<option value="done" ${s.hotel.status==='done'?'selected':''}>Confirmé</option>
-</select>
-</div>
-</div>
-</div>
-
-<!-- BUDGET LOCAL -->
-<div class="stop-section">
-<div class="ss-label">Budget quotidien estimé (€/j)</div>
-<div class="budget-inputs">
-<div class="bi-item"><label>Nourriture</label>
-<input class="mini-input" type="number" placeholder="15" value="${s.budget.food||''}" onchange="updateStop(${s.id},'budget.food',this.value)">
-</div>
-<div class="bi-item"><label>Activités</label>
-<input class="mini-input" type="number" placeholder="20" value="${s.budget.activities||''}" onchange="updateStop(${s.id},'budget.activities',this.value)">
-</div>
-<div class="bi-item"><label>Transport local</label>
-<input class="mini-input" type="number" placeholder="5" value="${s.budget.transport||''}" onchange="updateStop(${s.id},'budget.transport',this.value)">
-</div>
-<div class="bi-item"><label>Shopping</label>
-<input class="mini-input" type="number" placeholder="10" value="${s.budget.shopping||''}" onchange="updateStop(${s.id},'budget.shopping',this.value)">
-</div>
-</div>
-</div>
-
-<!-- CHECKLIST -->
-<div class="stop-section">
-<div class="ss-label">À faire / voir</div>
-<div class="checklist" id="cl-${s.id}">
-${checks.map((c,ci) => `
-<div class="check-item ${c.done?'done':''}">
-<div class="check-box ${c.done?'checked':''}" onclick="toggleCheck(${s.id},${ci})">${c.done?'✓':''}</div>
-<div class="check-label" onclick="toggleCheck(${s.id},${ci})">${c.text}</div>
-<button class="btn btn-xs btn-danger" onclick="removeCheck(${s.id},${ci})">×</button>
-</div>`).join('')}
-</div>
-<div class="add-check-row">
-<input class="add-check-input" type="text" id="ci-${s.id}" placeholder="Ajouter une activité..." onkeydown="if(event.key==='Enter')addCheck(${s.id})">
-<button class="btn btn-sm btn-navy" onclick="addCheck(${s.id})">+</button>
-</div>
-</div>
-
-<!-- NOTES -->
-<div class="stop-section">
-<div class="ss-label">Notes</div>
-<textarea class="stop-notes-input" placeholder="Contacts, liens, infos pratiques..."
-onchange="updateStop(${s.id},'notes',this.value)">${s.notes||''}</textarea>
-</div>
-
-</div>
-</div>`;
-}).join('');
+function saveDep(){
+  const p1=parseFloat(document.getElementById('d-1p').value)||0;
+  const p2=parseFloat(document.getElementById('d-2p').value)||0;
+  if(!p1&&!p2)return;
+  deps.push({
+    id:Date.now(),
+    who:document.getElementById('d-who').value,
+    cat:document.getElementById('d-cat').value,
+    date:document.getElementById('d-date').value||new Date().toISOString().slice(0,10),
+    desc:document.getElementById('d-desc').value||'—',
+    city:document.getElementById('d-city').value,
+    p1p:p1||Math.round(p2/2*100)/100,
+    p2p:p2||Math.round(p1*2*100)/100,
+  });
+  save();updateUI();renderDeps();closeModal('modal-dep');
+  ['d-desc','d-city','d-1p','d-2p'].forEach(id=>document.getElementById(id).value='');
 }
 
-function toggleStop(id) {
-const card = document.getElementById('sc-' + id);
-if (card) card.classList.toggle('expanded');
+function removeDep(id){deps=deps.filter(d=>d.id!==id);save();updateUI();renderDeps();}
+
+function fmtD(d){if(!d)return '—';const[y,m,day]=d.split('-');const M=['jan','fév','mars','avr','mai','juin','juil','août','sep','oct','nov','déc'];return`${parseInt(day)} ${M[parseInt(m)-1]}`;}
+
+function renderDeps(){
+  const tb=document.getElementById('exp-tbody');if(!tb)return;
+  let list=depFilter==='all'?deps:depFilter==='Les deux'?deps.filter(d=>d.who==='Les deux'):deps.filter(d=>d.who===depFilter||d.who==='Les deux');
+  list=[...list].sort((a,b)=>a.date.localeCompare(b.date));
+  if(!list.length){tb.innerHTML=`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px;font-style:italic">Aucune dépense</td></tr>`;return;}
+  tb.innerHTML=list.map(d=>`
+    <tr>
+      <td style="font-size:11px;color:var(--muted);white-space:nowrap">${fmtD(d.date)}</td>
+      <td style="font-weight:500;font-size:12px">${d.desc}</td>
+      <td><span class="badge" style="background:${CAT_C[d.cat]||'#888'}18;color:${CAT_C[d.cat]||'#888'};border:1px solid ${CAT_C[d.cat]||'#888'}30">${d.cat}</span></td>
+      <td>${d.who==='Momo'?'<span class="badge b-momo">Momo</span>':d.who==='Mimi'?'<span class="badge b-mimi">Mimi</span>':'<span class="badge" style="background:#F0F0F0;color:#666;border:1px solid #DDD">Les deux</span>'}</td>
+      <td style="font-family:'Syne',sans-serif;font-size:12px;color:var(--muted)">${fmt(d.p1p)}</td>
+      <td style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--gold)">${fmt(d.p2p)}</td>
+      <td><button class="btn btn-xs btn-danger" onclick="removeDep(${d.id})">×</button></td>
+    </tr>`).join('');
 }
 
-function rerenderStop(id) {
-const s = stops.find(x => x.id === id);
-if (!s) return;
-const n = nights(s);
-const nb = document.getElementById('nb-' + id);
-if (nb) nb.textContent = n > 0 ? n + ' nuit' + (n > 1 ? 's' : '') : '— nuits';
-const meta = document.querySelector(`#sc-${id} .stop-meta`);
-if (meta) meta.textContent = s.country + (s.dateIn ? ' · ' + fmtDate(s.dateIn) + ' → ' + fmtDate(s.dateOut) : '');
-const sn = document.querySelector(`#sc-${id} .stop-nights`);
-if (sn && n > 0) sn.textContent = n + 'n';
-updateHeroStats();
+// ═══════ TRANSPORTS ═══════
+const ICONS={Vol:'✈',Ferry:'⛵',Bus:'🚌',Train:'🚆','Bus+Ferry':'🚌','Ferry+Bus':'⛵','Bateau':'⛵','Taxi / Grab':'🚕',Scooter:'🛵'};
+
+function saveTransport(){
+  transports.push({
+    id:Date.now(),
+    type:document.getElementById('t-type').value,
+    from:document.getElementById('t-from').value,
+    to:document.getElementById('t-to').value,
+    date:document.getElementById('t-date').value,
+    co:document.getElementById('t-co').value,
+    ref:document.getElementById('t-ref').value||'—',
+    price1p:parseFloat(document.getElementById('t-1p').value)||0,
+    price2p:parseFloat(document.getElementById('t-2p').value)||0,
+    status:document.getElementById('t-status').value,
+  });
+  save();renderLog();closeModal('modal-transport');
+  ['t-from','t-to','t-date','t-co','t-ref','t-1p','t-2p'].forEach(id=>document.getElementById(id).value='');
 }
 
-// ─ Checks
-function addCheck(stopId) {
-const inp = document.getElementById('ci-' + stopId);
-if (!inp || !inp.value.trim()) return;
-const s = stops.find(x => x.id === stopId);
-if (!s) return;
-if (!s.checks) s.checks = [];
-s.checks.push({ text: inp.value.trim(), done: false });
-inp.value = '';
-save();
-renderStops();
-// Re-expand
-const card = document.getElementById('sc-' + stopId);
-if (card) card.classList.add('expanded');
+function removeTrans(id){transports=transports.filter(t=>t.id!==id);save();renderLog();}
+
+function renderLog(){
+  const el=document.getElementById('log-list');if(!el)return;
+  const sorted=[...transports].sort((a,b)=>a.date.localeCompare(b.date));
+  if(!sorted.length){el.innerHTML=`<div style="text-align:center;color:var(--muted);padding:28px;font-style:italic">Aucun transport</div>`;return;}
+  el.innerHTML=sorted.map(t=>`
+    <div class="log-item">
+      <div class="log-ico">${ICONS[t.type]||'✈'}</div>
+      <div class="log-body">
+        <div class="log-title">${t.from||'—'} → ${t.to||'—'}</div>
+        <div class="log-meta">${t.co||''}${t.ref&&t.ref!=='—'?' · Réf: '+t.ref:''}</div>
+        <div style="font-size:10px;color:var(--muted2);font-style:italic;margin-top:2px">${fmtD(t.date)}</div>
+      </div>
+      <div class="log-r">
+        <div class="log-1p">/ pers. ${fmt(t.price1p)}</div>
+        <div class="log-2p">2 pers. ${fmt(t.price2p)}</div>
+        <span class="badge ${t.status==='done'?'b-done':'b-todo'}" style="margin-top:5px">${t.status==='done'?'Confirmé':'À réserver'}</span>
+        <div><button class="btn btn-xs btn-danger" style="margin-top:5px" onclick="removeTrans(${t.id})">×</button></div>
+      </div>
+    </div>`).join('');
 }
 
-function toggleCheck(stopId, ci) {
-const s = stops.find(x => x.id === stopId);
-if (s && s.checks[ci]) { s.checks[ci].done = !s.checks[ci].done; save(); }
-const item = document.querySelectorAll(`#cl-${stopId} .check-item`)[ci];
-if (!item) return;
-const done = s.checks[ci].done;
-item.classList.toggle('done', done);
-const box = item.querySelector('.check-box');
-box.classList.toggle('checked', done);
-box.textContent = done ? '✓' : '';
+// ═══════ NOTES ═══════
+function initNotes(){
+  const ta=document.getElementById('notes-ta');if(!ta)return;
+  ta.value=localStorage.getItem('mm2_notes')||'';
+  ta.addEventListener('input',()=>{
+    localStorage.setItem('mm2_notes',ta.value);
+    const s=document.getElementById('notes-saved');
+    if(s){s.textContent='Sauvegardé';setTimeout(()=>s.textContent='',2000);}
+  });
 }
 
-function removeCheck(stopId, ci) {
-const s = stops.find(x => x.id === stopId);
-if (!s) return;
-s.checks.splice(ci, 1);
-save();
-const cl = document.getElementById('cl-' + stopId);
-if (cl) { const items = cl.querySelectorAll('.check-item'); if (items[ci]) items[ci].remove(); }
-// re-index by full rerender
-renderStops();
-document.getElementById('sc-' + stopId)?.classList.add('expanded');
-}
-
-// ─ Drag & Drop
-let dragId = null;
-function dragStart(e, id) { dragId = id; setTimeout(() => document.getElementById('sc-'+id)?.classList.add('dragging'), 0); }
-function dragOver(e, id) { e.preventDefault(); if (id !== dragId) document.getElementById('sc-'+id)?.classList.add('drag-over'); }
-function dragLeave(id) { document.getElementById('sc-'+id)?.classList.remove('drag-over'); }
-function dragDrop(e, targetId) {
-e.preventDefault();
-document.querySelectorAll('.stop-card').forEach(c => c.classList.remove('drag-over','dragging'));
-if (dragId === targetId) return;
-const fromIdx = stops.findIndex(s => s.id === dragId);
-const toIdx = stops.findIndex(s => s.id === targetId);
-if (fromIdx < 0 || toIdx < 0) return;
-const [moved] = stops.splice(fromIdx, 1);
-stops.splice(toIdx, 0, moved);
-save(); renderStops(); updateHeroStats();
-}
-
-// ─ Hero stats
-function updateHeroStats() {
-const totalNights = stops.reduce((s,x) => s+nights(x), 0);
-const countries = [...new Set(stops.map(s => s.country))].length;
-const spent = expenses.reduce((s,e)=>s+(parseFloat(e.amount)||0),0);
-const remaining = BUDGET - spent;
-document.getElementById('h-stops').textContent = stops.length;
-document.getElementById('h-nights').textContent = totalNights;
-document.getElementById('h-countries').textContent = countries;
-document.getElementById('h-budget').textContent = fmtEur(remaining);
-}
-
-// ═══════════════════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════════════════
-const TITLES = {itineraire:'Itinéraire',logistique:'Logistique',depenses:'Dépenses',hebergements:'Hébergements',restaurants:'Restaurants',activites:'Activités',notes:'Notes'};
-
-function go(id, el) {
-document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-document.querySelectorAll('.sb-item').forEach(n => n.classList.remove('active'));
-document.getElementById('page-'+id)?.classList.add('active');
-if (el) el.classList.add('active');
-document.getElementById('topbar-title').textContent = TITLES[id] || id;
-if (id === 'logistique') renderLogistique();
-if (id === 'depenses') renderExpenses();
-if (id === 'hebergements') renderHotels();
-if (id === 'restaurants') renderRestaurants();
-if (id === 'activites') renderActivities();
-document.getElementById('sidebar')?.classList.remove('open');
-}
-
-// ═══════════════════════════════════════════════════
-// MODALS
-// ═══════════════════════════════════════════════════
-function openModal(id) { document.getElementById(id)?.classList.add('open'); }
-function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
-document.querySelectorAll('.modal-bg').forEach(m => m.addEventListener('click', e => { if (e.target===m) m.classList.remove('open'); }));
-
-// ═══════════════════════════════════════════════════
-// BUDGET ENGINE
-// ═══════════════════════════════════════════════════
-function totalSpent() { return expenses.reduce((s,e) => s+(parseFloat(e.amount)||0), 0); }
-function fmtEur(n) { return Math.round(n).toLocaleString('fr-FR') + ' €'; }
-
-function updateBudgetUI() {
-const spent = totalSpent();
-const remaining = BUDGET - spent;
-const pct = Math.min(spent/BUDGET*100, 100);
-const f = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = v; };
-const w = (id, p) => { const el = document.getElementById(id); if(el) el.style.width = p+'%'; };
-f('sb-remaining', fmtEur(remaining)); w('sb-fill', pct);
-f('sb-spent-txt', fmtEur(spent) + ' dépensé'); f('sb-pct', pct.toFixed(0)+'%');
-f('dep-remaining', fmtEur(remaining)); w('dep-bar', pct);
-f('dep-spent', fmtEur(spent)); f('dep-count', expenses.length);
-f('dep-avg', expenses.length ? fmtEur(spent/46) : '—');
-updateHeroStats();
-}
-
-// ═══════════════════════════════════════════════════
-// COUNTDOWN
-// ═══════════════════════════════════════════════════
-function countdown() {
-const diff = Math.ceil((new Date('2025-07-01') - new Date()) / 86400000);
-const el = document.getElementById('cd-val');
-if (el) el.textContent = diff > 0 ? diff + ' jours' : diff === 0 ? "Aujourd'hui !" : 'En route !';
-}
-
-// ═══════════════════════════════════════════════════
-// EXPENSES
-// ═══════════════════════════════════════════════════
-const CAT_COLORS = {Vol:'#0B1220',Hébergement:'#B8913A',Restaurant:'#1E7A45',Activité:'#1A4A90',Transport:'#6A2090',Shopping:'#C05010',Divers:'#707070'};
-
-function addExpense() {
-const amt = parseFloat(document.getElementById('eamt').value);
-if (!amt) return;
-expenses.push({ id:Date.now(), cat:document.getElementById('ec').value, date:document.getElementById('ed').value||new Date().toISOString().slice(0,10), desc:document.getElementById('edesc').value||'—', city:document.getElementById('ecity').value, amount:amt });
-save(); updateBudgetUI(); renderExpenses();
-closeModal('modal-expense');
-['edesc','eamt','ecity'].forEach(id => document.getElementById(id).value='');
-}
-
-function removeExpense(id) { expenses=expenses.filter(e=>e.id!==id); save(); updateBudgetUI(); renderExpenses(); }
-
-function renderExpenses() {
-const tb = document.getElementById('exp-tbody'); if (!tb) return;
-if (!expenses.length) { tb.innerHTML=`<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:28px;font-style:italic">Aucune dépense</td></tr>`; }
-else tb.innerHTML = [...expenses].sort((a,b)=>a.date.localeCompare(b.date)).map(e=>`
-<tr><td style="font-size:11px;color:var(--muted)">${fmtDate(e.date)}</td>
-<td style="font-weight:500">${e.desc}</td>
-<td><span class="badge" style="background:${CAT_COLORS[e.cat]||'#888'}18;color:${CAT_COLORS[e.cat]||'#888'};border:1px solid ${CAT_COLORS[e.cat]||'#888'}30">${e.cat}</span></td>
-<td style="font-size:12px;color:var(--muted)">${e.city||'—'}</td>
-<td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--gold)">${parseFloat(e.amount).toLocaleString('fr-FR')} €</td>
-<td><button class="btn btn-xs btn-danger" onclick="removeExpense(${e.id})">×</button></td></tr>`).join('');
-// Category breakdown
-const cats={}; expenses.forEach(e=>{cats[e.cat]=(cats[e.cat]||0)+parseFloat(e.amount)});
-const tot=totalSpent()||1;
-const cg=document.getElementById('cat-grid'); if (!cg) return;
-cg.innerHTML=Object.keys(CAT_COLORS).map(cat=>{const v=cats[cat]||0;return `
-<div class="cat-card"><div class="cat-label">${cat}</div>
-<div class="cat-val">${Math.round(v).toLocaleString('fr-FR')} €</div>
-<div class="cat-bar"><div class="cat-fill" style="width:${v/tot*100}%;background:${CAT_COLORS[cat]}"></div></div>
-</div>`}).join('');
-}
-
-
-// ═══════════════════════════════════════════════════
-// TRANSPORTS
-// ═══════════════════════════════════════════════════
-function addTransport() {
-transports.push({ id:Date.now(), type:document.getElementById('tt').value, date:document.getElementById('td').value, from:document.getElementById('tf').value, to:document.getElementById('tto').value, co:document.getElementById('tco').value, price:parseFloat(document.getElementById('tprice').value)||0, ref:document.getElementById('tref').value||'—', status:document.getElementById('tstatus').value });
-save(); renderLogistique(); closeModal('modal-transport');
-['tf','tto','tco','tprice','tref','td'].forEach(id=>document.getElementById(id).value='');
-}
-function removeTransport(id) { transports=transports.filter(t=>t.id!==id); save(); renderLogistique(); }
-function renderLogistique() {
-const el=document.getElementById('log-list'); if (!el) return;
-if (!transports.length) { el.innerHTML=`<div style="text-align:center;color:var(--muted);padding:30px;font-style:italic">Aucun transport enregistré</div>`; return; }
-const icons={Vol:'✈',Ferry:'⛵',Bus:'🚌',Train:'🚆','Bus+Ferry':'🚌','Taxi / Grab':'🚕',Scooter:'🛵'};
-el.innerHTML=[...transports].sort((a,b)=>a.date.localeCompare(b.date)).map(t=>`
-<div class="log-item">
-<div class="log-ico">${icons[t.type]||'✈'}</div>
-<div class="log-body">
-<div class="log-title">${t.from||'—'} → ${t.to||'—'}</div>
-<div class="log-meta">${t.co||''}${t.ref&&t.ref!=='—'?' · Réf: '+t.ref:''}</div>
-<div style="font-size:10px;color:var(--muted2);font-style:italic;margin-top:2px">${t.date}</div>
-</div>
-<div class="log-right">
-<div class="log-price">${t.price?t.price.toLocaleString('fr-FR')+' €':'—'}</div>
-<span class="badge ${t.status==='done'?'b-done':'b-todo'}" style="margin-top:5px">${t.status==='done'?'Confirmé':'À réserver'}</span>
-<div><button class="btn btn-xs btn-danger" style="margin-top:5px" onclick="removeTransport(${t.id})">×</button></div>
-</div>
-</div>`).join('');
-}
-
-// ═══════════════════════════════════════════════════
-// HOTELS
-// ═══════════════════════════════════════════════════
-function addHotel() {
-hotels.push({ id:Date.now(), name:document.getElementById('hn').value||'Hébergement', city:document.getElementById('hcity').value||'—', area:document.getElementById('harea').value, checkin:document.getElementById('hci').value, checkout:document.getElementById('hco').value, pricePerNight:parseFloat(document.getElementById('hprice').value)||0, status:document.getElementById('hstatus').value });
-save(); renderHotels(); closeModal('modal-hotel');
-['hn','hcity','harea','hci','hco','hprice'].forEach(id=>document.getElementById(id).value='');
-}
-function removeHotel(id) { hotels=hotels.filter(h=>h.id!==id); save(); renderHotels(); }
-function renderHotels() {
-const grid=document.getElementById('heb-grid'); if (!grid) return;
-const empty=document.getElementById('heb-empty');
-if (!hotels.length) { grid.innerHTML=''; if(empty) empty.style.display='block'; return; }
-if (empty) empty.style.display='none';
-grid.innerHTML=hotels.map(h=>{
-const n=h.checkin&&h.checkout?Math.max(0,Math.round((new Date(h.checkout)-new Date(h.checkin))/86400000)):0;
-return `<div class="heb-card">
-<div class="heb-top">
-<div class="heb-top-letter">${(h.city||'H')[0].toUpperCase()}</div>
-<div class="heb-status"><span class="badge ${h.status==='done'?'b-done':'b-todo'}">${h.status==='done'?'Confirmé':'À réserver'}</span></div>
-</div>
-<div class="heb-body">
-<div class="heb-name">${h.name}</div>
-<div class="heb-city">${h.city}${h.area?' · '+h.area:''}</div>
-<div class="heb-row">
-<div><div class="heb-price">${h.pricePerNight} €<span style="font-size:9px;color:var(--muted);font-weight:400">/nuit</span></div>
-<div style="font-size:9px;color:var(--muted2);margin-top:2px">Total: ${n*h.pricePerNight} €</div></div>
-<div class="heb-nights">${n} nuit${n>1?'s':''}</div>
-</div>
-<button class="btn btn-xs btn-danger" style="margin-top:10px;width:100%;justify-content:center" onclick="removeHotel(${h.id})">Supprimer</button>
-</div>
-</div>`;
-}).join('');
-}
-
-// ═══════════════════════════════════════════════════
-// RESTAURANTS
-// ═══════════════════════════════════════════════════
-function addRestaurant() {
-restaurants.push({ id:Date.now(), name:document.getElementById('rn').value||'Restaurant', city:document.getElementById('rcity').value||'—', spec:document.getElementById('rspec').value||'—', price:parseFloat(document.getElementById('rprice').value)||0 });
-save(); renderRestaurants(); closeModal('modal-restaurant');
-['rn','rcity','rspec','rprice'].forEach(id=>document.getElementById(id).value='');
-}
-function removeRestaurant(id) { restaurants=restaurants.filter(r=>r.id!==id); save(); renderRestaurants(); }
-function renderRestaurants() {
-const el=document.getElementById('rst-list'); if (!el) return;
-if (!restaurants.length) { el.innerHTML=`<div style="color:var(--muted);font-style:italic;padding:20px">Aucun restaurant enregistré</div>`; return; }
-el.innerHTML=restaurants.map(r=>`
-<div class="rst-item">
-<div class="rst-ico">R</div>
-<div class="rst-info"><div class="rst-name">${r.name}</div><div class="rst-spec">${r.spec}</div></div>
-<div class="rst-right">
-<div class="rst-price">~${r.price} € / pers.</div>
-<div class="rst-city">${r.city}</div>
-<button class="btn btn-xs btn-danger" style="margin-top:4px" onclick="removeRestaurant(${r.id})">×</button>
-</div>
-</div>`).join('');
-}
-
-// ═══════════════════════════════════════════════════
-// ACTIVITIES
-// ═══════════════════════════════════════════════════
-function addActivity() {
-activities.push({ id:Date.now(), name:document.getElementById('an').value||'Activité', city:document.getElementById('acity').value||'—', desc:document.getElementById('adesc').value||'', price:parseFloat(document.getElementById('aprice').value)||0, done:false });
-save(); renderActivities(); closeModal('modal-activity');
-['an','acity','adesc','aprice'].forEach(id=>document.getElementById(id).value='');
-}
-function toggleActivity(id) { const a=activities.find(x=>x.id===id); if(a){a.done=!a.done;save();renderActivities();} }
-function removeActivity(id) { activities=activities.filter(a=>a.id!==id); save(); renderActivities(); }
-function renderActivities() {
-const el=document.getElementById('act-list'); if (!el) return;
-const done=activities.filter(a=>a.done).length, tot=activities.length;
-const sub=document.getElementById('act-hero-sub'); if(sub) sub.textContent=done+' / '+tot+' complétées';
-if (!tot) { el.innerHTML=`<div style="color:var(--muted);font-style:italic;padding:20px">Aucune activité — ajoute-en une</div>`; return; }
-el.innerHTML=activities.map(a=>`
-<div class="act-item ${a.done?'done':''}">
-<div class="act-cb ${a.done?'checked':''}" onclick="toggleActivity(${a.id})">${a.done?'✓':''}</div>
-<div style="flex:1">
-<div class="act-name">${a.name}</div>
-<div class="act-city">${a.city}${a.desc?' · '+a.desc:''}</div>
-</div>
-<div class="act-price">${a.price>0?'~'+a.price+' €':'Gratuit'}</div>
-<button class="act-del" onclick="removeActivity(${a.id})">×</button>
-</div>`).join('');
-}
-
-// ═══════════════════════════════════════════════════
-// NOTES
-// ═══════════════════════════════════════════════════
-function initNotes() {
-const ta=document.getElementById('notes-ta'); if (!ta) return;
-ta.value=localStorage.getItem('mm_notes')||'';
-ta.addEventListener('input',()=>{
-localStorage.setItem('mm_notes',ta.value);
-const s=document.getElementById('notes-saved'); if(s){s.textContent='Sauvegardé';setTimeout(()=>s.textContent='',2000);}
-});
-}
-
-// ═══════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════
-countdown(); setInterval(countdown, 60000);
-updateBudgetUI();
-renderStops();
-initPresets();
+// ═══════ INIT ═══════
+countdown();setInterval(countdown,60000);
+updateUI();
 initNotes();
-document.getElementById('ed').value = new Date().toISOString().slice(0,10);
+document.getElementById('d-date').value=new Date().toISOString().slice(0,10);
 </script>
 </body>
 </html>
