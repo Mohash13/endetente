@@ -1,1376 +1,1995 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MO&MI in ASIA — Luxury Travel Command Center</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        /* --- DESIGN SYSTEM & CSS VARIABLES --- */
-        :root {
-            --bg-cream: #FDFCFB;
-            --dark-pure: #111111;
-            --navy-premium: #0A1128;
-            --navy-secondary: #1C2541;
-            --gray-light: #EAEAEA;
-            --gray-muted: #8E8E93;
-            --gold-premium: #C5A059;
-            --white: #FFFFFF;
-            
-            --ff-title: 'Syne', sans-serif;
-            --ff-serif: 'Playfair Display', serif;
-            --ff-body: 'Inter', sans-serif;
-            
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            --sidebar-width: 280px;
-        }
-
-        /* --- RESET & BASE STYLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background-color: var(--bg-cream);
-            color: var(--dark-pure);
-            font-family: var(--ff-body);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* --- LAYOUT STRUCTURE --- */
-        .app-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* --- FIXED SIDEBAR --- */
-        aside.sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--navy-premium);
-            color: var(--white);
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            padding: 2.5rem 1.75rem;
-            z-index: 100;
-            border-right: 1px solid rgba(255,255,255,0.05);
-            transition: var(--transition-smooth);
-        }
-
-        .brand-zone {
-            margin-bottom: 2.5rem;
-        }
-
-        .brand-logo {
-            font-family: var(--ff-title);
-            font-size: 1.35rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--white);
-            text-transform: uppercase;
-        }
-
-        .brand-subtitle {
-            font-family: var(--ff-serif);
-            font-style: italic;
-            font-size: 0.8rem;
-            color: var(--gold-premium);
-            margin-top: 0.25rem;
-        }
-
-        /* Sidebar Live KPIs */
-        .sidebar-widgets {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 2px solid var(--gold-premium);
-            padding: 1rem;
-            margin-bottom: 2rem;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .widget-item {
-            margin-bottom: 0.75rem;
-        }
-        .widget-item:last-child { margin-bottom: 0; }
-
-        .widget-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gray-muted);
-        }
-
-        .widget-value {
-            font-family: var(--ff-title);
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--bg-cream);
-        }
-
-        /* Navigation Menu */
-        nav.sidebar-nav {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            color: var(--gray-light);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 400;
-            border-radius: 4px;
-            transition: var(--transition-smooth);
-            letter-spacing: 0.5px;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.07);
-            color: var(--white);
-            padding-left: 1.25rem;
-        }
-        
-        .nav-link.active {
-            border-right: 3px solid var(--gold-premium);
-        }
-
-        .mobile-toggle {
-            display: none;
-        }
-
-        /* --- MAIN CONTENT AREA --- */
-        main.main-content {
-            margin-left: var(--sidebar-width);
-            flex-grow: 1;
-            padding: 3rem 4rem;
-            transition: var(--transition-smooth);
-        }
-
-        /* --- HEADER COMPONENT --- */
-        header.main-header {
-            border-bottom: 1px solid var(--gray-light);
-            padding-bottom: 2rem;
-            margin-bottom: 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .header-titles h1 {
-            font-family: var(--ff-title);
-            font-size: 2.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            line-height: 1.1;
-            letter-spacing: -1px;
-        }
-
-        .header-titles p {
-            font-family: var(--ff-serif);
-            font-style: italic;
-            font-size: 1.2rem;
-            color: var(--gold-premium);
-            margin-top: 0.5rem;
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 3rem;
-        }
-
-        .header-stat-block .stat-val {
-            font-family: var(--ff-title);
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .header-stat-block .stat-lbl {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: var(--gray-muted);
-            letter-spacing: 1px;
-        }
-
-        /* --- VIEW MANAGEMENT --- */
-        .app-view {
-            display: none;
-            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .app-view.active-view {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- PREMIUM CARDS & COMPONENTS --- */
-        .luxury-card {
-            background: var(--white);
-            border: 1px solid var(--gray-light);
-            padding: 2.5rem;
-            border-radius: 0px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.01);
-            position: relative;
-        }
-
-        .card-title-editorial {
-            font-family: var(--ff-title);
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--dark-pure);
-            padding-bottom: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Hero Layout Grid */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-
-        /* KPIs Ribbon Grid */
-        .kpi-ribbon {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .kpi-box {
-            background: var(--white);
-            border: 1px solid var(--gray-light);
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .kpi-box .num {
-            font-family: var(--ff-title);
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--navy-premium);
-        }
-
-        .kpi-box .lbl {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: var(--gray-muted);
-            letter-spacing: 1px;
-            margin-top: 0.25rem;
-        }
-
-        /* ROUTE MAP WORKAROUND (Minimalist Vector Art Aesthetic) */
-        .map-container {
-            height: 320px;
-            background: #0f1626;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--dark-pure);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .map-svg-layer {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* TIMELINE LUXE */
-        .timeline-vertical {
-            position: relative;
-            padding-left: 2rem;
-            border-left: 1px solid var(--gold-premium);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2.5rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: calc(-2rem - 5px);
-            top: 6px;
-            width: 9px;
-            height: 9px;
-            background: var(--dark-pure);
-            border: 2px solid var(--gold-premium);
-            border-radius: 50%;
-        }
-
-        .timeline-meta {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gold-premium);
-            font-weight: 600;
-        }
-
-        .timeline-title {
-            font-family: var(--ff-title);
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            margin: 0.25rem 0;
-        }
-
-        .timeline-desc {
-            font-size: 0.9rem;
-            color: var(--navy-secondary);
-        }
-
-        /* --- DESTINATIONS GRID & CARDS --- */
-        .destinations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .destination-card {
-            background: var(--dark-pure);
-            color: var(--white);
-            height: 400px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 2rem;
-            cursor: pointer;
-            overflow: hidden;
-            border: 1px solid transparent;
-            transition: var(--transition-smooth);
-        }
-
-        .destination-card:hover {
-            border-color: var(--gold-premium);
-            transform: translateY(-4px);
-        }
-
-        .dest-bg {
-            position: absolute;
-            top:0; left:0; width:100%; height:100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.4;
-            mix-blend-mode: luminosity;
-            transition: var(--transition-smooth);
-        }
-
-        .destination-card:hover .dest-bg {
-            opacity: 0.6;
-            scale: 1.05;
-        }
-
-        .dest-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .dest-content h3 {
-            font-family: var(--ff-title);
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
-
-        .dest-content p {
-            font-family: var(--ff-serif);
-            font-style: italic;
-            color: var(--gold-premium);
-            font-size: 1rem;
-        }
-
-        /* --- BUDGET SYSTEM ELEMENTS --- */
-        .budget-dashboard-layout {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2.5rem;
-        }
-
-        .progress-bar-container {
-            background: var(--gray-light);
-            height: 6px;
-            width: 100%;
-            margin-top: 0.5rem;
-            position: relative;
-        }
-
-        .progress-bar-fill {
-            background: var(--navy-premium);
-            height: 100%;
-            width: 0%;
-            transition: width 0.8s ease;
-        }
-        
-        .progress-bar-fill.gold {
-            background: var(--gold-premium);
-        }
-
-        .premium-table-wrapper {
-            overflow-x: auto;
-        }
-
-        table.premium-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            margin-top: 1rem;
-        }
-
-        table.premium-table th {
-            padding: 1rem;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 2px solid var(--dark-pure);
-            color: var(--gray-muted);
-        }
-
-        table.premium-table td {
-            padding: 1.25rem 1rem;
-            border-bottom: 1px solid var(--gray-light);
-            font-size: 0.9rem;
-        }
-
-        /* Buttons & CTA */
-        .btn-premium {
-            background: var(--dark-pure);
-            color: var(--white);
-            border: 1px solid var(--dark-pure);
-            padding: 0.75rem 1.5rem;
-            font-family: var(--ff-title);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .btn-premium:hover {
-            background: transparent;
-            color: var(--dark-pure);
-            border-color: var(--dark-pure);
-        }
-
-        /* --- NOTION STYLE TEXTAREA --- */
-        .notion-textarea {
-            width: 100%;
-            min-height: 400px;
-            background: transparent;
-            border: none;
-            outline: none;
-            font-family: var(--ff-body);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--dark-pure);
-            resize: vertical;
-        }
-
-        /* --- PREMIUM FULLSCREEN MODAL / EDITOR --- */
-        .fullscreen-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: var(--bg-cream);
-            z-index: 500;
-            display: none;
-            overflow-y: auto;
-            padding: 4rem;
-            animation: modalFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(1.02); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .modal-close-trigger {
-            position: absolute;
-            top: 3rem; right: 4rem;
-            font-family: var(--ff-title);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            border-bottom: 1px solid var(--dark-pure);
-        }
-
-        /* Form Controls */
-        .form-group-premium {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group-premium label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .form-group-premium input, .form-group-premium select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--gray-light);
-            background: var(--white);
-            font-family: var(--ff-body);
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-
-        .form-group-premium input:focus {
-            border-color: var(--dark-pure);
-        }
-
-        /* Grid Framework for Modal Editors */
-        .editor-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-
-        /* Checklist Component */
-        .luxury-checklist-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .luxury-checklist-item input[type="checkbox"] {
-            accent-color: var(--gold-premium);
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        /* Generic Overlay Modal (For Quick expense add) */
-        .overlay-modal {
-            position: fixed;
-            top:0; left:0; width:100vw; height:100vh;
-            background: rgba(11, 17, 40, 0.6);
-            backdrop-filter: blur(8px);
-            z-index: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0; pointer-events: none;
-            transition: var(--transition-smooth);
-        }
-
-        .overlay-modal.active {
-            opacity: 1; pointer-events: auto;
-        }
-
-        .overlay-card {
-            background: var(--bg-cream);
-            width: 100%;
-            max-width: 550px;
-            padding: 3rem;
-            position: relative;
-        }
-
-        /* --- RESPONSIVE RESPONSES --- */
-        @media(max-width: 1024px) {
-            aside.sidebar {
-                transform: translateX(-100%);
-            }
-            aside.sidebar.mobile-open {
-                transform: translateX(0);
-            }
-            main.main-content {
-                margin-left: 0;
-                padding: 2rem;
-            }
-            .mobile-toggle {
-                display: block;
-                position: fixed;
-                bottom: 2rem; right: 2rem;
-                background: var(--navy-premium);
-                color: var(--white);
-                padding: 1rem;
-                border-radius: 50%;
-                z-index: 1000;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                cursor: pointer;
-                font-family: var(--ff-title);
-                font-size: 0.8rem;
-            }
-            .dashboard-grid, .budget-dashboard-layout, .editor-grid {
-                grid-template-columns: 1fr;
-            }
-            header.main-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1.5rem;
-            }
-            .fullscreen-modal {
-                padding: 2rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MO&MI in ASIA — Luxury Travel Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+RESET & VARIABLES
+═══════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--cream:#FDFCFB;
+--black:#111111;
+--navy:#0A1128;
+--navy2:#1C2541;
+--gray:#EAEAEA;
+--gray2:#F5F4F2;
+--gray3:#C8C8C8;
+--gold:#C5A059;
+--gold2:#D4B06A;
+--text:#111111;
+--muted:#888888;
+--muted2:#AAAAAA;
+--border:#E8E6E2;
+--border2:#D8D5CF;
+--surface:#FFFFFF;
+--surface2:#F8F7F5;
+--red:#C0392B;
+--green:#27AE60;
+--sidebar-w:260px;
+--header-h:0px;
+--transition:.2s cubic-bezier(.4,0,.2,1);
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);font-size:13px;line-height:1.5}
+button{cursor:pointer;font-family:'Inter',sans-serif}
+input,textarea,select{font-family:'Inter',sans-serif}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--gray3);border-radius:3px}
+
+/* ═══════════════════════════════════════════════════════
+LAYOUT
+═══════════════════════════════════════════════════════ */
+.app{display:flex;height:100vh;overflow:hidden}
+
+/* ═══════════════════════════════════════════════════════
+SIDEBAR
+═══════════════════════════════════════════════════════ */
+.sidebar{
+width:var(--sidebar-w);
+flex-shrink:0;
+background:var(--navy);
+display:flex;
+flex-direction:column;
+height:100vh;
+overflow:hidden;
+z-index:200;
+transition:transform var(--transition);
+}
+.sidebar-brand{
+padding:28px 24px 20px;
+border-bottom:1px solid rgba(255,255,255,.07);
+}
+.brand-name{
+font-family:'Syne',sans-serif;
+font-size:16px;
+font-weight:800;
+color:#fff;
+letter-spacing:.5px;
+line-height:1.2;
+}
+.brand-sub{
+font-size:9px;
+color:var(--gold);
+letter-spacing:2px;
+text-transform:uppercase;
+margin-top:4px;
+font-weight:500;
+}
+.sidebar-countdown{
+padding:14px 24px;
+border-bottom:1px solid rgba(255,255,255,.07);
+background:rgba(197,160,89,.06);
+}
+.cd-label{font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.cd-value{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#fff}
+.cd-sub{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px}
+.sidebar-budget{
+padding:14px 24px;
+border-bottom:1px solid rgba(255,255,255,.07);
+}
+.sb-label{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.sb-amount{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--gold)}
+.sb-bar{height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:8px;overflow:hidden}
+.sb-bar-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .5s}
+.sb-detail{display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.35);margin-top:5px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 0}
+.sidebar-nav::-webkit-scrollbar{width:0}
+.nav-section-label{
+font-size:8.5px;
+color:rgba(255,255,255,.25);
+text-transform:uppercase;
+letter-spacing:2px;
+padding:10px 24px 4px;
+font-weight:600;
+}
+.nav-item{
+display:flex;
+align-items:center;
+gap:10px;
+padding:9px 24px;
+color:rgba(255,255,255,.5);
+font-size:12.5px;
+font-weight:400;
+cursor:pointer;
+transition:all var(--transition);
+border-left:2px solid transparent;
+letter-spacing:.2px;
+}
+.nav-item:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.04)}
+.nav-item.active{color:#fff;background:rgba(197,160,89,.12);border-left-color:var(--gold);font-weight:500}
+.nav-item svg{width:14px;height:14px;opacity:.6;flex-shrink:0}
+.nav-item.active svg{opacity:1}
+.sidebar-footer{
+padding:16px 24px;
+border-top:1px solid rgba(255,255,255,.07);
+}
+.sf-dates{font-size:10px;color:rgba(255,255,255,.3);font-family:'Playfair Display',serif;font-style:italic}
+
+/* ═══════════════════════════════════════════════════════
+MAIN
+═══════════════════════════════════════════════════════ */
+.main{
+flex:1;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+background:var(--cream);
+}
+.main-header{
+height:56px;
+background:var(--surface);
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:center;
+padding:0 32px;
+gap:16px;
+flex-shrink:0;
+}
+.mh-title{
+font-family:'Syne',sans-serif;
+font-size:14px;
+font-weight:700;
+flex:1;
+color:var(--navy);
+letter-spacing:.3px;
+}
+.mh-actions{display:flex;gap:8px;align-items:center}
+.btn{
+display:inline-flex;
+align-items:center;
+gap:6px;
+padding:7px 16px;
+border-radius:6px;
+font-size:12px;
+font-weight:500;
+border:1px solid var(--border);
+background:var(--surface);
+color:var(--text);
+transition:all var(--transition);
+white-space:nowrap;
+letter-spacing:.2px;
+}
+.btn:hover{background:var(--gray2);border-color:var(--border2)}
+.btn-primary{
+background:var(--navy);
+color:#fff;
+border-color:var(--navy);
+}
+.btn-primary:hover{background:var(--navy2);border-color:var(--navy2)}
+.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
+.btn-sm{padding:5px 12px;font-size:11px}
+.btn-danger{color:var(--red);border-color:#F5C6C2}
+.btn-danger:hover{background:#FDF0EE;border-color:var(--red)}
+.btn-ghost{border-color:transparent;background:transparent}
+.btn-ghost:hover{background:var(--gray2);border-color:var(--border)}
+
+.main-content{
+flex:1;
+overflow-y:auto;
+padding:0;
+}
+
+/* ═══════════════════════════════════════════════════════
+PAGES
+═══════════════════════════════════════════════════════ */
+.page{display:none;animation:fadeIn .2s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* PAGE INNER */
+.page-inner{padding:32px 36px}
+.page-hero{
+background:var(--navy);
+padding:40px 40px 36px;
+position:relative;
+overflow:hidden;
+}
+.page-hero::before{
+content:'';position:absolute;inset:0;
+background:radial-gradient(ellipse at 70% 50%, rgba(197,160,89,.15) 0%, transparent 60%);
+}
+.ph-eyebrow{font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:10px;font-weight:600}
+.ph-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.5px}
+.ph-sub{font-family:'Playfair Display',serif;font-size:14px;color:rgba(255,255,255,.5);font-style:italic;margin-top:8px}
+.ph-stats{display:flex;gap:40px;margin-top:28px;flex-wrap:wrap}
+.ph-stat{border-left:1px solid rgba(255,255,255,.1);padding-left:18px}
+.ph-stat-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#fff}
+.ph-stat-label{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* ═══════════════════════════════════════════════════════
+CARDS & GRID
+═══════════════════════════════════════════════════════ */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px}
+.card{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:10px;
+padding:20px;
+position:relative;
+overflow:hidden;
+transition:box-shadow var(--transition);
+}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.card-top-accent{position:absolute;top:0;left:0;right:0;height:2px}
+.card-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;font-weight:500}
+.card-value{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;color:var(--navy);line-height:1}
+.card-sub{font-size:11px;color:var(--muted2);margin-top:5px}
+.card-progress{height:3px;background:var(--gray);border-radius:2px;margin-top:12px;overflow:hidden}
+.card-progress-fill{height:100%;border-radius:2px;transition:width .5s}
+
+/* ═══════════════════════════════════════════════════════
+SECTION HEADERS
+═══════════════════════════════════════════════════════ */
+.section-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:16px;
+}
+.section-title{
+font-family:'Syne',sans-serif;
+font-size:14px;
+font-weight:700;
+color:var(--navy);
+letter-spacing:-.2px;
+}
+.section-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.divider{height:1px;background:var(--border);margin:28px 0}
+
+/* ═══════════════════════════════════════════════════════
+TABLE STYLE
+═══════════════════════════════════════════════════════ */
+.table-wrap{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:10px;
+overflow:hidden;
+margin-bottom:24px;
+}
+.table-wrap-header{
+padding:14px 20px;
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:var(--surface2);
+}
+.twh-title{font-size:12px;font-weight:600;color:var(--navy);letter-spacing:.2px}
+table{width:100%;border-collapse:collapse}
+th{
+text-align:left;
+padding:10px 16px;
+font-size:9.5px;
+text-transform:uppercase;
+letter-spacing:1.2px;
+color:var(--muted);
+font-weight:600;
+border-bottom:1px solid var(--border);
+background:var(--surface2);
+}
+td{
+padding:12px 16px;
+border-bottom:1px solid var(--border);
+font-size:12.5px;
+color:var(--text);
+vertical-align:middle;
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--gray2)}
+
+/* ═══════════════════════════════════════════════════════
+BADGE
+═══════════════════════════════════════════════════════ */
+.badge{
+display:inline-flex;
+align-items:center;
+padding:2px 9px;
+border-radius:20px;
+font-size:10px;
+font-weight:500;
+letter-spacing:.2px;
+}
+.badge-todo{background:#FFF8EC;color:#A07020;border:1px solid #F0DEB0}
+.badge-done{background:#EDFAF3;color:#1A7A3A;border:1px solid #B5E8CB}
+.badge-pending{background:#EEF0FF;color:#3040A0;border:1px solid #C0C8F0}
+.badge-gold{background:rgba(197,160,89,.12);color:var(--gold);border:1px solid rgba(197,160,89,.3)}
+.badge-navy{background:var(--navy);color:#fff}
+
+/* ═══════════════════════════════════════════════════════
+TIMELINE
+═══════════════════════════════════════════════════════ */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{
+content:'';
+position:absolute;
+left:10px;top:0;bottom:0;
+width:1px;
+background:var(--border);
+}
+.tl-item{
+position:relative;
+margin-bottom:0;
+}
+.tl-dot{
+position:absolute;
+left:-26px;
+top:20px;
+width:10px;
+height:10px;
+border-radius:50%;
+background:var(--surface);
+border:2px solid var(--gold);
+z-index:1;
+}
+.tl-card{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:10px;
+padding:18px 20px;
+margin-bottom:12px;
+transition:box-shadow var(--transition);
+cursor:pointer;
+}
+.tl-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.tl-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
+.tl-country{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--navy)}
+.tl-city{font-size:11px;color:var(--muted);margin-top:1px}
+.tl-dates{font-size:10px;color:var(--muted2);font-family:'Playfair Display',serif;font-style:italic;text-align:right;flex-shrink:0}
+.tl-nights{font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);font-style:normal;display:block;margin-top:2px}
+.tl-details{display:flex;gap:16px;flex-wrap:wrap}
+.tl-detail{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.tl-detail strong{color:var(--text);font-weight:500}
+.tl-budget{
+display:inline-flex;
+align-items:center;
+font-size:10px;
+color:var(--gold);
+background:rgba(197,160,89,.08);
+border:1px solid rgba(197,160,89,.2);
+border-radius:4px;
+padding:2px 8px;
+margin-top:8px;
+}
+
+/* ═══════════════════════════════════════════════════════
+MAP SVG
+═══════════════════════════════════════════════════════ */
+.map-container{
+background:var(--navy);
+border-radius:10px;
+overflow:hidden;
+position:relative;
+margin-bottom:28px;
+}
+.map-overlay-text{
+position:absolute;
+top:16px;left:20px;
+font-size:9px;
+color:rgba(255,255,255,.3);
+text-transform:uppercase;
+letter-spacing:2px;
+font-weight:600;
+}
+
+/* ═══════════════════════════════════════════════════════
+DESTINATION CARDS
+═══════════════════════════════════════════════════════ */
+.dest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:28px}
+.dest-card{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:10px;
+overflow:hidden;
+cursor:pointer;
+transition:all var(--transition);
+}
+.dest-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.1);transform:translateY(-2px)}
+.dest-card-img{
+height:130px;
+background:var(--navy2);
+position:relative;
+overflow:hidden;
+display:flex;
+align-items:flex-end;
+}
+.dest-card-img-bg{
+position:absolute;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:64px;
+opacity:.15;
+}
+.dest-card-gradient{
+position:absolute;
+inset:0;
+background:linear-gradient(to top, rgba(10,17,40,.9) 0%, transparent 60%);
+}
+.dest-card-name{
+position:relative;
+font-family:'Syne',sans-serif;
+font-size:15px;
+font-weight:700;
+color:#fff;
+padding:12px 16px 4px;
+z-index:1;
+}
+.dest-card-dates{
+position:relative;
+font-size:10px;
+color:rgba(255,255,255,.5);
+padding:0 16px 12px;
+z-index:1;
+font-family:'Playfair Display',serif;
+font-style:italic;
+}
+.dest-card-body{padding:14px 16px}
+.dest-card-stats{display:flex;gap:16px;margin-bottom:10px}
+.dcs{font-size:11px;color:var(--muted)}
+.dcs strong{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:1px}
+.dest-card-budget{
+font-size:11px;
+color:var(--gold);
+font-weight:500;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+/* ═══════════════════════════════════════════════════════
+ACTIVITY LIST
+═══════════════════════════════════════════════════════ */
+.activity-list{display:flex;flex-direction:column;gap:8px}
+.activity-item{
+display:flex;
+align-items:center;
+gap:12px;
+padding:13px 16px;
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:8px;
+transition:all var(--transition);
+}
+.activity-item:hover{border-color:var(--border2);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.activity-item.done{opacity:.55}
+.activity-check{
+width:18px;
+height:18px;
+border:1.5px solid var(--border2);
+border-radius:4px;
+cursor:pointer;
+flex-shrink:0;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:10px;
+color:transparent;
+transition:all var(--transition);
+}
+.activity-check.checked{
+background:var(--navy);
+border-color:var(--navy);
+color:#fff;
+}
+.activity-text{flex:1}
+.activity-name{font-size:13px;font-weight:500;color:var(--navy)}
+.activity-meta{font-size:11px;color:var(--muted);margin-top:1px}
+.activity-city{font-size:10px;color:var(--muted2)}
+.activity-price{font-size:12px;font-weight:500;color:var(--gold);font-family:'Playfair Display',serif;flex-shrink:0}
+.activity-del{
+background:none;
+border:none;
+color:var(--muted2);
+padding:4px;
+font-size:16px;
+line-height:1;
+opacity:0;
+transition:opacity var(--transition);
+}
+.activity-item:hover .activity-del{opacity:1}
+.activity-del:hover{color:var(--red)}
+
+/* ═══════════════════════════════════════════════════════
+BUDGET
+═══════════════════════════════════════════════════════ */
+.budget-hero{
+background:var(--navy);
+border-radius:10px;
+padding:24px 28px;
+margin-bottom:24px;
+position:relative;
+overflow:hidden;
+}
+.budget-hero::after{
+content:'';
+position:absolute;
+right:-40px;top:-40px;
+width:200px;height:200px;
+border-radius:50%;
+background:rgba(197,160,89,.06);
+}
+.bh-title{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.bh-amount{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:#fff}
+.bh-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px}
+.bh-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:16px;overflow:hidden}
+.bh-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width .5s}
+.bh-stats{display:flex;gap:32px;margin-top:16px;flex-wrap:wrap}
+.bh-stat{border-left:1px solid rgba(255,255,255,.1);padding-left:16px}
+.bh-stat-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff}
+.bh-stat-label{font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+.expense-category-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+gap:12px;
+margin-bottom:24px;
+}
+.exp-cat-card{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:8px;
+padding:14px;
+transition:box-shadow var(--transition);
+}
+.exp-cat-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.exp-cat-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.exp-cat-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--navy)}
+.exp-cat-bar{height:2px;background:var(--gray);border-radius:1px;margin-top:8px;overflow:hidden}
+.exp-cat-bar-fill{height:100%;border-radius:1px;transition:width .5s}
+
+/* ═══════════════════════════════════════════════════════
+HEBERGEMENTS
+═══════════════════════════════════════════════════════ */
+.hotel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.hotel-card{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:10px;
+overflow:hidden;
+transition:all var(--transition);
+}
+.hotel-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.08);transform:translateY(-2px)}
+.hotel-card-img{
+height:120px;
+background:linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+}
+.hotel-card-img-icon{font-size:40px;opacity:.2}
+.hotel-card-status{position:absolute;top:10px;right:10px}
+.hotel-card-body{padding:16px}
+.hotel-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:2px}
+.hotel-city{font-size:11px;color:var(--muted);margin-bottom:10px}
+.hotel-details{display:flex;justify-content:space-between;align-items:flex-end}
+.hotel-price{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)}
+.hotel-price-sub{font-size:9px;color:var(--muted2);margin-top:1px}
+.hotel-nights{font-size:11px;color:var(--muted);text-align:right}
+
+/* ═══════════════════════════════════════════════════════
+RESTAURANTS
+═══════════════════════════════════════════════════════ */
+.resto-list{display:flex;flex-direction:column;gap:8px}
+.resto-item{
+display:flex;
+align-items:center;
+gap:14px;
+padding:14px 18px;
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:9px;
+transition:all var(--transition);
+}
+.resto-item:hover{box-shadow:0 2px 12px rgba(0,0,0,.05);border-color:var(--border2)}
+.resto-icon{width:36px;height:36px;background:var(--gray2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.resto-info{flex:1}
+.resto-name{font-size:13px;font-weight:500;color:var(--navy)}
+.resto-spec{font-size:11px;color:var(--muted);margin-top:1px}
+.resto-right{text-align:right;flex-shrink:0}
+.resto-price{font-size:12px;font-weight:500;color:var(--gold)}
+.resto-city{font-size:10px;color:var(--muted2);margin-top:2px}
+
+/* ═══════════════════════════════════════════════════════
+NOTES
+═══════════════════════════════════════════════════════ */
+.notes-editor{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:10px;
+overflow:hidden;
+}
+.notes-editor-header{
+padding:12px 18px;
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:var(--surface2);
+}
+.notes-textarea{
+width:100%;
+border:none;
+background:transparent;
+padding:20px;
+font-size:13px;
+color:var(--text);
+line-height:1.8;
+min-height:300px;
+resize:vertical;
+outline:none;
+}
+.notes-saved{font-size:10px;color:var(--muted2)}
+
+/* ═══════════════════════════════════════════════════════
+MODALS
+═══════════════════════════════════════════════════════ */
+.modal-backdrop{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.4);
+z-index:1000;
+align-items:center;
+justify-content:center;
+padding:20px;
+backdrop-filter:blur(8px);
+animation:fadeIn .15s ease;
+}
+.modal-backdrop.open{display:flex}
+.modal{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:14px;
+padding:0;
+width:500px;
+max-width:100%;
+max-height:90vh;
+overflow-y:auto;
+box-shadow:0 24px 80px rgba(0,0,0,.2);
+animation:slideUp .2s cubic-bezier(.4,0,.2,1);
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal-lg{width:680px}
+.modal-header{
+padding:22px 24px 18px;
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:flex-start;
+justify-content:space-between;
+gap:12px;
+}
+.modal-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--navy)}
+.modal-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.modal-close{
+background:none;
+border:none;
+color:var(--muted2);
+font-size:20px;
+line-height:1;
+padding:2px;
+flex-shrink:0;
+}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:22px 24px}
+.modal-footer{
+padding:14px 24px 20px;
+border-top:1px solid var(--border);
+display:flex;
+gap:8px;
+justify-content:flex-end;
+}
+
+/* FORM */
+.form-row{margin-bottom:16px}
+.form-label{display:block;font-size:10.5px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.form-input{
+width:100%;
+background:var(--cream);
+border:1px solid var(--border);
+color:var(--text);
+padding:9px 12px;
+border-radius:7px;
+font-size:13px;
+outline:none;
+transition:border-color var(--transition);
+font-family:'Inter',sans-serif;
+}
+.form-input:focus{border-color:var(--navy)}
+select.form-input option{background:var(--surface)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+/* ═══════════════════════════════════════════════════════
+LOGISTIQUE
+═══════════════════════════════════════════════════════ */
+.logistique-item{
+display:flex;
+gap:16px;
+align-items:flex-start;
+padding:14px 16px;
+border-bottom:1px solid var(--border);
+transition:background var(--transition);
+}
+.logistique-item:last-child{border-bottom:none}
+.logistique-item:hover{background:var(--gray2)}
+.lg-icon{
+width:36px;height:36px;
+border-radius:8px;
+background:var(--navy);
+color:#fff;
+display:flex;align-items:center;justify-content:center;
+font-size:16px;
+flex-shrink:0;
+}
+.lg-body{flex:1}
+.lg-title{font-size:13px;font-weight:500;color:var(--navy)}
+.lg-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.lg-date{font-size:10px;color:var(--muted2);font-family:'Playfair Display',serif;font-style:italic}
+.lg-right{text-align:right;flex-shrink:0}
+.lg-price{font-size:13px;font-weight:600;color:var(--gold);font-family:'Syne',sans-serif}
+
+/* ═══════════════════════════════════════════════════════
+MAP SVG INLINE
+═══════════════════════════════════════════════════════ */
+.route-map{width:100%;height:320px;background:var(--navy)}
+
+/* ═══════════════════════════════════════════════════════
+MOBILE BURGER
+═══════════════════════════════════════════════════════ */
+.burger{
+display:none;
+background:none;
+border:none;
+color:var(--text);
+font-size:20px;
+padding:4px;
+margin-right:8px;
+}
+@media(max-width:900px){
+.sidebar{position:fixed;left:0;top:0;height:100vh;transform:translateX(-100%);z-index:500}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0}
+.burger{display:flex}
+.page-inner{padding:20px 18px}
+.form-grid,.form-grid-3{grid-template-columns:1fr}
+.ph-stats{gap:20px}
+.ph-title{font-size:22px}
+.cards-grid{grid-template-columns:1fr 1fr}
+.dest-grid{grid-template-columns:1fr}
+.hotel-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
-    <!-- Mobile Navigation Trigger Toggle -->
-    <div class="mobile-toggle" onclick="toggleMobileSidebar()">MENU</div>
-
-    <div class="app-container">
-        
-        <!-- SIDEBAR COMPONENT -->
-        <aside class="sidebar" id="sidebar">
-            <div class="brand-zone">
-                <div class="brand-logo">MO&MI in ASIA</div>
-                <div class="brand-subtitle">Luxury Command Center</div>
-            </div>
-
-            <!-- Dynamic Live Widgets -->
-            <div class="sidebar-widgets">
-                <div class="widget-item">
-                    <div class="widget-label">Compte à Rebours</div>
-                    <div class="widget-value" id="sidebar-countdown">00d 00h 00m</div>
-                </div>
-                <div class="widget-item" style="margin-top: 1rem;">
-                    <div class="widget-label">Solde Restant</div>
-                    <div class="widget-value" id="sidebar-balance" style="color: var(--gold-premium);">10 000,00 €</div>
-                </div>
-            </div>
-
-            <!-- Global Internal Router Architecture Links -->
-            <nav class="sidebar-nav">
-                <a href="#dashboard" class="nav-link active" onclick="switchView('dashboard')">Dashboard</a>
-                <a href="#destinations" class="nav-link" onclick="switchView('destinations')">Destinations</a>
-                <a href="#logistique" class="nav-link" onclick="switchView('logistique')">Logistique</a>
-                <a href="#depenses" class="nav-link" onclick="switchView('depenses')">Dépenses & Budget</a>
-                <a href="#hebergements" class="nav-link" onclick="switchView('hebergements')">Hébergements</a>
-                <a href="#restaurants" class="nav-link" onclick="switchView('restaurants')">Restaurants</a>
-                <a href="#activites" class="nav-link" onclick="switchView('activites')">Activités</a>
-                <a href="#notes" class="nav-link" onclick="switchView('notes')">Notes Éditoriales</a>
-            </nav>
-        </aside>
-
-        <!-- MAIN CONTAINER -->
-        <main class="main-content">
-            
-            <!-- VIEW DECORATOR HEADER -->
-            <header class="main-header">
-                <div class="header-titles">
-                    <h1 id="header-main-title">Grand Horizon</h1>
-                    <p id="header-sub-title">L'Asie du Sud-Est en immersion exclusive</p>
-                </div>
-                <div class="header-stats">
-                    <div class="header-stat-block">
-                        <div class="stat-val" id="stat-progress-pct">0%</div>
-                        <div class="stat-lbl">Progression</div>
-                    </div>
-                    <div class="header-stat-block">
-                        <div class="stat-val" id="stat-cities-count">11</div>
-                        <div class="stat-lbl">Villes Cibles</div>
-                    </div>
-                </div>
-            </header>
-
-            <!-- ================= VIEW: DASHBOARD ================= -->
-            <section id="view-dashboard" class="app-view active-view">
-                <div class="kpi-ribbon">
-                    <div class="kpi-box"><div class="num" id="kpi-budget-initial">10 000 €</div><div class="lbl">Allocation</div></div>
-                    <div class="kpi-box"><div class="num" id="kpi-budget-remaining">10 000 €</div><div class="lbl">Restant</div></div>
-                    <div class="kpi-box"><div class="num" id="kpi-expenses">0 €</div><div class="lbl">Dépenses</div></div>
-                    <div class="kpi-box"><div class="num">5</div><div class="lbl">Pays Visités</div></div>
-                    <div class="kpi-box"><div class="num" id="kpi-nights">32</div><div class="lbl">Nuits Total</div></div>
-                </div>
-
-                <div class="dashboard-grid">
-                    <!-- Column Left: Map & Route Narrative -->
-                    <div class="left-col">
-                        <div class="luxury-card">
-                            <h2 class="card-title-editorial">Cartographie de l'Itinéraire Premium</h2>
-                            <div class="map-container">
-                                <!-- Clean UI Minimalist Route Graphic (SVG Canvas Map Interface Concept) -->
-                                <svg class="map-svg-layer" viewBox="0 0 800 400">
-                                    <path d="M 50,300 Q 150,220 220,200 T 380,260 T 500,280 T 680,180 T 750,150" fill="none" stroke="#C5A059" stroke-width="2" stroke-dasharray="6,4"/>
-                                    <!-- City Anchor Nodes -->
-                                    <circle cx="50" cy="300" r="5" fill="#111" stroke="#C5A059" stroke-width="2"/>
-                                    <circle cx="220" cy="200" r="4" fill="#FFF" stroke="#111" stroke-width="2"/>
-                                    <circle cx="380" cy="260" r="4" fill="#FFF" stroke="#111" stroke-width="2"/>
-                                    <circle cx="500" cy="280" r="4" fill="#FFF" stroke="#111" stroke-width="2"/>
-                                    <circle cx="680" cy="180" r="4" fill="#FFF" stroke="#111" stroke-width="2"/>
-                                    <circle cx="750" cy="150" r="5" fill="#C5A059"/>
-                                    <text x="55" y="305" fill="#fff" font-size="10" font-family="Syne">MRS</text>
-                                    <text x="225" y="195" fill="#fff" font-size="10" font-family="Syne">KUL</text>
-                                    <text x="385" y="255" fill="#fff" font-size="10" font-family="Syne">SIN</text>
-                                    <text x="505" y="295" fill="#fff" font-size="10" font-family="Syne">DPS</text>
-                                    <text x="685" y="175" fill="#fff" font-size="10" font-family="Syne">SGN</text>
-                                    <text x="710" y="140" fill="#fff" font-size="10" font-family="Syne">BKK</text>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Column Right: Timeline Luxe -->
-                    <div class="right-col">
-                        <div class="luxury-card">
-                            <h2 class="card-title-editorial">Chronologie de Vol</h2>
-                            <div class="timeline-vertical" id="dashboard-timeline">
-                                <!-- Injected dynamically via JS rendering engine -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= VIEW: DESTINATIONS ================= -->
-            <section id="view-destinations" class="app-view">
-                <div class="destinations-grid" id="destinations-wrapper">
-                    <!-- Standard Injection Template Elements loaded automatically -->
-                </div>
-            </section>
-
-            <!-- ================= VIEW: LOGISTIQUE ================= -->
-            <section id="view-logistique" class="app-view">
-                <div class="luxury-card">
-                    <h2 class="card-title-editorial">Manifeste de Transit Logistique</h2>
-                    <div class="premium-table-wrapper">
-                        <table class="premium-table">
-                            <thead>
-                                <tr>
-                                    <th>Étape / Ville</th>
-                                    <th>Type</th>
-                                    <th>Opérateur / Compagnie</th>
-                                    <th>Horaires</th>
-                                    <th>Tarification</th>
-                                    <th>Statut</th>
-                                </tr>
-                            </thead>
-                            <tbody id="logistique-table-body">
-                                <!-- Populated automatically by system processing engine -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= VIEW: DÉPENSES & BUDGET ================= -->
-            <section id="view-depenses" class="app-view">
-                <div class="budget-dashboard-layout">
-                    <div>
-                        <div class="luxury-card">
-                            <h2 class="card-title-editorial">Contrôle de Caisse</h2>
-                            <button class="btn-premium" style="width: 100%; margin-bottom: 2rem;" onclick="openAddExpenseModal()">Déclarer une Dépense</button>
-                            
-                            <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-muted);">Allocation Exploitation</p>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar-fill" id="budget-fill-bar"></div>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-top:0.25rem;">
-                                <span id="budget-spent-lbl">0 €</span>
-                                <span id="budget-total-lbl">10 000 €</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="luxury-card">
-                            <h2 class="card-title-editorial">Grand Livre des Flux Comptables</h2>
-                            <div class="premium-table-wrapper">
-                                <table class="premium-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Périmètre</th>
-                                            <th>Catégorie</th>
-                                            <th>Description</th>
-                                            <th>Montant</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="budget-table-body">
-                                        <!-- Dynamically generated lines go here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= VIEW: HÉBERGEMENTS ================= -->
-            <section id="view-hebergements" class="app-view">
-                <div class="destinations-grid" id="hebergements-wrapper">
-                    <!-- Auto generated premium asset cards -->
-                </div>
-            </section>
-
-            <!-- ================= VIEW: RESTAURANTS ================= -->
-            <section id="view-restaurants" class="app-view">
-                <div class="destinations-grid" id="restaurants-wrapper">
-                    <!-- Auto generated premium gastro elements -->
-                </div>
-            </section>
-
-            <!-- ================= VIEW: ACTIVITÉS ================= -->
-            <section id="view-activites" class="app-view">
-                <div class="luxury-card">
-                    <h2 class="card-title-editorial">Registre Opérationnel des Expériences</h2>
-                    <div id="activities-checklist-container">
-                        <!-- Loaded automatically -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= VIEW: NOTES ================= -->
-            <section id="view-notes" class="app-view">
-                <div class="luxury-card">
-                    <h2 class="card-title-editorial">Bloc Notes Libre Éditorial & Carnet de Voyage</h2>
-                    <textarea class="notion-textarea" id="notion-editorial-textarea" placeholder="Commencez à rédiger vos inspirations, formalités de visa ou comptes rendus ici (Sauvegarde automatique active)..."></textarea>
-                </div>
-            </section>
-
-        </main>
-    </div>
-
-    <!-- ================= FULLSCREEN INTERACTIVE CITY EDITOR MODAL ================= -->
-    <div class="fullscreen-modal" id="city-editor-modal">
-        <div class="modal-close-trigger" onclick="closeCityEditorModal()">Fermer la console ×</div>
-        <h2 id="modal-city-title" style="font-family: var(--ff-title); font-size: 3.5rem; text-transform: uppercase;">Kuala Lumpur</h2>
-        <p id="modal-city-country" style="font-family: var(--ff-serif); font-style: italic; color: var(--gold-premium); font-size: 1.5rem; margin-bottom: 2rem;">Malaisie</p>
-        
-        <div class="editor-grid">
-            <!-- Transport Architecture Configuration Box -->
-            <div class="luxury-card">
-                <h3 class="card-title-editorial">Logistique de Transit Connecté</h3>
-                <div class="form-group-premium">
-                    <label>Vecteur de Transport</label>
-                    <select id="input-trans-type"><option>Vol</option><option>Ferry</option><option>Bus</option><option>Train</option><option>Scooter</option></select>
-                </div>
-                <div class="form-group-premium">
-                    <label>Opérateur Compagnie</label>
-                    <input type="text" id="input-trans-company">
-                </div>
-                <div class="form-group-premium">
-                    <label>Horaires & Date</label>
-                    <input type="text" id="input-trans-hours" placeholder="Ex: 14 Mai, 10:15 - 13:45">
-                </div>
-                <div class="form-group-premium">
-                    <label>Coût d'acquisition (€)</label>
-                    <input type="number" id="input-trans-price">
-                </div>
-                <button class="btn-premium" onclick="saveCityModalData()">Enregistrer Transit</button>
-            </div>
-
-            <!-- Accommodation Architecture Box -->
-            <div class="luxury-card">
-                <h3 class="card-title-editorial">Hébergement & Suite Résidentielle</h3>
-                <div class="form-group-premium">
-                    <label>Nom de l'Établissement</label>
-                    <input type="text" id="input-hotel-name">
-                </div>
-                <div class="form-group-premium">
-                    <label>Quartier / District</label>
-                    <input type="text" id="input-hotel-zone">
-                </div>
-                <div class="form-group-premium">
-                    <label>Prix par Nuit (€)</label>
-                    <input type="number" id="input-hotel-price">
-                </div>
-                <div class="form-group-premium">
-                    <label>Nombre de Nuits</label>
-                    <input type="number" id="input-hotel-nights">
-                </div>
-                <button class="btn-premium" onclick="saveCityModalData()">Enregistrer Logement</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= ADD EXPENSE OVERLAY MODAL ================= -->
-    <div class="overlay-modal" id="add-expense-modal">
-        <div class="overlay-card">
-            <h3 class="card-title-editorial">Déclarer un Flux Sortant</h3>
-            
-            <div class="form-group-premium">
-                <label>Destination Target</label>
-                <select id="exp-input-destination">
-                    <option value="Malaisie">Malaisie</option>
-                    <option value="Singapour">Singapour</option>
-                    <option value="Indonésie">Indonésie</option>
-                    <option value="Vietnam">Vietnam</option>
-                    <option value="Thaïlande">Thaïlande</option>
-                </select>
-            </div>
-            <div class="form-group-premium">
-                <label>Catégorie Comptable</label>
-                <select id="exp-input-category">
-                    <option>Vol</option><option>Hôtel</option><option>Restaurant</option><option>Activité</option><option>Transport</option><option>Shopping</option><option>Divers</option>
-                </select>
-            </div>
-            <div class="form-group-premium">
-                <label>Montant Évalué (€)</label>
-                <input type="number" id="exp-input-amount" required>
-            </div>
-            <div class="form-group-premium">
-                <label>Description Mandat</label>
-                <input type="text" id="exp-input-desc" placeholder="Ex: Dîner gastronomique signature">
-            </div>
-
-            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                <button class="btn-premium" onclick="submitExpenseForm()">Valider la transaction</button>
-                <button class="btn-premium" style="background:transparent; color:var(--dark-pure);" onclick="closeAddExpenseModal()">Annuler</button>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ================= JAVASCRIPT CORE ENGINE SYSTEM ================= -->
-    <script>
-        /* --- GLOBAL DATA ARCHITECTURE STATE --- */
-        const INITIAL_BUDGET = 10000;
-        
-        // Comprehensive baseline setup structured for robust operation
-        const defaultDestinations = [
-            { id: "dest-1", name: "Malaisie", cities: ["Kuala Lumpur", "Penang"], nights: 7, budget: 1500, cover: "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80" },
-            { id: "dest-2", name: "Singapour", cities: ["Singapour"], nights: 4, budget: 2500, cover: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80" },
-            { id: "dest-3", name: "Indonésie", cities: ["Canggu", "Ubud", "Lombok", "Gili Air"], nights: 12, budget: 3000, cover: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80" },
-            { id: "dest-4", name: "Vietnam", cities: ["Ho Chi Minh"], nights: 4, budget: 1200, cover: "https://images.unsplash.com/photo-1509060464153-44667396260f?auto=format&fit=crop&w=800&q=80" },
-            { id: "dest-5", name: "Thaïlande", cities: ["Bangkok", "Koh Tao", "Krabi"], nights: 9, budget: 1800, cover: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=800&q=80" }
-        ];
-
-        const defaultCitiesData = {
-            "Kuala Lumpur": { transportType: "Vol", transportCompany: "Malaysia Airlines", transportPrice: 450, transportHours: "15 Mai, 09:00 - 16:30", hotelName: "The Ritz-Carlton", hotelZone: "KLCC", hotelPrice: 180, hotelNights: 4 },
-            "Penang": { transportType: "Train", transportCompany: "KTM ETS", transportPrice: 25, transportHours: "19 Mai, 10:00", hotelName: "Eastern & Oriental Hotel", hotelZone: "George Town", hotelPrice: 150, hotelNights: 3 },
-            "Singapour": { transportType: "Vol", transportCompany: "Singapore Airlines", transportPrice: 120, transportHours: "22 Mai, 11:30", hotelName: "Marina Bay Sands", hotelZone: "Marina Bay", hotelPrice: 550, hotelNights: 4 },
-            "Canggu": { transportType: "Vol", transportCompany: "AirAsia", transportPrice: 90, transportHours: "26 Mai, 14:20", hotelName: "Como Uma Canggu", hotelZone: "Echo Beach", hotelPrice: 280, hotelNights: 3 },
-            "Ubud": { transportType: "Scooter", transportCompany: "Local Private Driver", transportPrice: 30, transportHours: "29 Mai, 09:00", hotelName: "Mandapa, a Ritz-Carlton Reserve", hotelZone: "Sayan", hotelPrice: 600, hotelNights: 3 },
-            "Lombok": { transportType: "Ferry", transportCompany: "BlueWater Express", transportPrice: 45, transportHours: "01 Juin, 08:30", hotelName: "The Oberoi Beach Resort", hotelZone: "Medana Bay", hotelPrice: 350, hotelNights: 3 },
-            "Gili Air": { transportType: "Ferry", transportCompany: "Local Speedboat", transportPrice: 15, transportHours: "04 Juin, 11:00", hotelName: "Slow Villas & Spa", hotelZone: "Gili Air", hotelPrice: 210, hotelNights: 3 },
-            "Ho Chi Minh": { transportType: "Vol", transportCompany: "VietJet Air", transportPrice: 110, transportHours: "07 Juin, 13:10", hotelName: "The Reverie Saigon", hotelZone: "District 1", hotelPrice: 290, hotelNights: 4 },
-            "Bangkok": { transportType: "Vol", transportCompany: "Thai Airways", transportPrice: 130, transportHours: "11 Juin, 16:00", hotelName: "The Siam Hotel", hotelZone: "Dusit", hotelPrice: 450, hotelNights: 3 },
-            "Koh Tao": { transportType: "Ferry", transportCompany: "Lomprayah", transportPrice: 35, transportHours: "14 Juin, 07:00", hotelName: "Jamahkiri Resort & Spa", hotelZone: "Shark Bay", hotelPrice: 190, hotelNights: 3 },
-            "Krabi": { transportType: "Ferry", transportCompany: "Seatran Discovery", transportPrice: 25, transportHours: "17 Juin, 12:30", hotelName: "Rayavadee Resort", hotelZone: "Phranang Peninsula", hotelPrice: 500, hotelNights: 3 }
-        };
-
-        const defaultActivities = [
-            { id: "act-1", name: "Surf de l'Aube Exclusive", location: "Bali", checked: true },
-            { id: "act-2", name: "Certification Privée PADI Wave", location: "Koh Tao", checked: false },
-            { id: "act-3", name: "Trek Guidé Sommet Rinjani", location: "Lombok", checked: false },
-            { id: "act-4", name: "Snorkeling Safari Tortues", location: "Gili", checked: true },
-            { id: "act-5", name: "Exploration Secrète Batu Caves", location: "Kuala Lumpur", checked: true },
-            { id: "act-6", name: "Accès VIP Rooftop SkyPark", location: "Marina Bay", checked: true },
-            { id: "act-7", name: "Midnight Street Food Tour Étoilé", location: "Bangkok", checked: false },
-            { id: "act-8", name: "Sunset Cocktail & Privatisation Temple", location: "Uluwatu", checked: false }
-        ];
-
-        const defaultExpenses = [
-            { id: "exp-1", date: "2026-05-14", country: "Malaisie", category: "Vol", desc: "Vol Marseille - Kuala Lumpur Business Class", amount: 2450 },
-            { id: "exp-2", date: "2026-05-16", country: "Malaisie", category: "Hôtel", desc: "Acompte Suite The Ritz-Carlton", amount: 720 },
-            { id: "exp-3", date: "2026-05-23", country: "Singapour", category: "Restaurant", desc: "Dîner gastronomique d'inauguration", amount: 480 }
-        ];
-
-        // Core App Memory references
-        let destinations = JSON.parse(localStorage.getItem("mo_mi_destinations")) || defaultDestinations;
-        let citiesData = JSON.parse(localStorage.getItem("mo_mi_cities")) || defaultCitiesData;
-        let activities = JSON.parse(localStorage.getItem("mo_mi_activities")) || defaultActivities;
-        let expenses = JSON.parse(localStorage.getItem("mo_mi_expenses")) || defaultExpenses;
-        let editorialNotes = localStorage.getItem("mo_mi_notes") || "";
-
-        let currentActiveCityEditor = null;
-
-        /* --- INITIALIZATION ORCHESTRATOR --- */
-        window.addEventListener("DOMContentLoaded", () => {
-            initializeCountdown();
-            computeFinancials();
-            renderDashboardTimeline();
-            renderDestinationsView();
-            renderLogistiqueManifest();
-            renderAccommodationsGallery();
-            renderRestaurantsView();
-            renderActivitiesChecklist();
-            
-            // Set up notes
-            const notesArea = document.getElementById("notion-editorial-textarea");
-            notesArea.value = editorialNotes;
-            notesArea.addEventListener("input", (e) => {
-                localStorage.setItem("mo_mi_notes", e.target.value);
-            });
-        });
-
-        /* --- APP LIVE TIMER METRICS (COUNTDOWN TO MAY 2026) --- */
-        function initializeCountdown() {
-            const targetDate = new Date("May 24, 2026 09:00:00").getTime();
-            
-            function updateTimer() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                if (distance < 0) {
-                    document.getElementById("sidebar-countdown").innerText = "Opérationnel";
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-                document.getElementById("sidebar-countdown").innerText = `${days}j ${hours}h ${minutes}m`;
-            }
-            updateTimer();
-            setInterval(updateTimer, 60000);
-        }
-
-        /* --- ROUTER EMULATOR ENGINE --- */
-        function switchView(viewId) {
-            document.querySelectorAll('.app-view').forEach(view => view.classList.remove('active-view'));
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            
-            document.getElementById(`view-${viewId}`).classList.add('active-view');
-            event.currentTarget.classList.add('active');
-
-            // Header Dynamic Title Mapping Context
-            const titlesMap = {
-                dashboard: ["Grand Horizon", "L'Asie du Sud-Est en immersion exclusive"],
-                destinations: ["Destinations Étoiles", "Sélection rigoureuse des hubs d'exception"],
-                logistique: ["Feuille de Route", "Manifeste opérationnel des flux et transits"],
-                depenses: ["Ingénierie Budgétaire", "Suivi en temps réel des allocations financières de luxe"],
-                hebergements: ["Villas & Palaces", "Résidences de prestige sélectionnées"],
-                restaurants: ["Espaces Gastronomiqes", "Expériences culinaires haut de gamme"],
-                activites: ["Activités VIP", "Carnet de route opérationnel des excursions"],
-                notes: ["Workspace Notion", "Journalisation d'idées et notes libres de parcours"]
-            };
-
-            if (titlesMap[viewId]) {
-                document.getElementById("header-main-title").innerText = titlesMap[viewId][0];
-                document.getElementById("header-sub-title").innerText = titlesMap[viewId][1];
-            }
-
-            // Close Mobile Nav sidebar if visible
-            document.getElementById("sidebar").classList.remove("mobile-open");
-        }
-
-        function toggleMobileSidebar() {
-            document.getElementById("sidebar").classList.toggle("mobile-open");
-        }
-
-        /* --- FINANCIAL COMPUTATION CORE --- */
-        function computeFinancials() {
-            // Aggregate static items with customizable user metrics
-            let totalSpent = expenses.reduce((sum, exp) => sum + Number(exp.amount), 0);
-            
-            // Loop dynamic city system additions too
-            Object.values(citiesData).forEach(city => {
-                if(city.transportPrice) totalSpent += Number(city.transportPrice);
-                if(city.hotelPrice && city.hotelNights) totalSpent += (Number(city.hotelPrice) * Number(city.hotelNights));
-            });
-
-            const currentBalance = INITIAL_BUDGET - totalSpent;
-            const progressPercentage = Math.min(100, Math.round((totalSpent / INITIAL_BUDGET) * 100));
-
-            // Inject to interface panels
-            document.getElementById("sidebar-balance").innerText = currentBalance.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
-            document.getElementById("kpi-budget-remaining").innerText = currentBalance.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + " €";
-            document.getElementById("kpi-expenses").innerText = totalSpent.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + " €";
-            document.getElementById("stat-progress-pct").innerText = `${progressPercentage}%`;
-
-            // Progress Bar elements
-            const fillBar = document.getElementById("budget-fill-bar");
-            if (fillBar) fillBar.style.width = `${progressPercentage}%`;
-            
-            const spentLbl = document.getElementById("budget-spent-lbl");
-            if (spentLbl) spentLbl.innerText = totalSpent.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + " €";
-
-            renderBudgetTables();
-            saveStateToLocalStorage();
-        }
-
-        /* --- RENDER LOGIC: TIMELINE --- */
-        function renderDashboardTimeline() {
-            const el = document.getElementById("dashboard-timeline");
-            el.innerHTML = "";
-            
-            // Render beautiful chronological high-level snapshot from state entries
-            const stops = [
-                { city: "Kuala Lumpur", date: "15 Mai", desc: "Lancement de l'expédition au Ritz-Carlton" },
-                { city: "Singapour", date: "22 Mai", desc: "Immersion technologique et architecture d'élite" },
-                { city: "Ubud (Bali)", date: "29 Mai", desc: "Retraite sérénité et rizières sacrées" },
-                { city: "Ho Chi Minh", date: "07 Juin", desc: "Énergie éditoriale et culture indochinoise" },
-                { city: "Bangkok", date: "11 Juin", desc: "Clôture royale et splendeurs des Temples" }
-            ];
-
-            stops.forEach(s => {
-                el.innerHTML += `
-                    <div class="timeline-item">
-                        <div class="timeline-meta">${s.date}</div>
-                        <div class="timeline-title">${s.city}</div>
-                        <div class="timeline-desc">${s.desc}</div>
-                    </div>
-                `;
-            });
-        }
-
-        /* --- RENDER LOGIC: DESTINATIONS & CITIES --- */
-        function renderDestinationsView() {
-            const wrapper = document.getElementById("destinations-wrapper");
-            wrapper.innerHTML = "";
-
-            destinations.forEach(dest => {
-                let listCitiesHtml = dest.cities.map(c => `<span style="text-decoration: underline; cursor:pointer; margin-right:8px;" onclick="openCityEditor('${c}')">${c}</span>`).join(" · ");
-                
-                wrapper.innerHTML += `
-                    <div class="destination-card">
-                        <div class="dest-bg" style="background-image: url('${dest.cover}')"></div>
-                        <div class="dest-content">
-                            <p>${dest.nights} Nuits réservées</p>
-                            <h3>${dest.name}</h3>
-                            <div style="font-size: 0.85rem; color: var(--gray-light); margin-top: 0.5rem;">
-                                Villes étapes (Éditeur accessible) : <br><strong>${listCitiesHtml}</strong>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        /* --- FULLSCREEN DETAILED CITY INTERACTIVE EDITOR --- */
-        function openCityEditor(cityName) {
-            currentActiveCityEditor = cityName;
-            const data = citiesData[cityName] || { transportType: "Vol", transportCompany: "", transportPrice: 0, transportHours: "", hotelName: "", hotelZone: "", hotelPrice: 0, hotelNights: 1 };
-
-            document.getElementById("modal-city-title").innerText = cityName;
-            
-            // Sync values to current entry states
-            document.getElementById("input-trans-type").value = data.transportType || "Vol";
-            document.getElementById("input-trans-company").value = data.transportCompany || "";
-            document.getElementById("input-trans-hours").value = data.transportHours || "";
-            document.getElementById("input-trans-price").value = data.transportPrice || 0;
-            
-            document.getElementById("input-hotel-name").value = data.hotelName || "";
-            document.getElementById("input-hotel-zone").value = data.hotelZone || "";
-            document.getElementById("input-hotel-price").value = data.hotelPrice || 0;
-            document.getElementById("input-hotel-nights").value = data.hotelNights || 0;
-
-            document.getElementById("city-editor-modal").style.display = "block";
-        }
-
-        function closeCityEditorModal() {
-            document.getElementById("city-editor-modal").style.display = "none";
-        }
-
-        function saveCityModalData() {
-            if(!currentActiveCityEditor) return;
-
-            citiesData[currentActiveCityEditor] = {
-                transportType: document.getElementById("input-trans-type").value,
-                transportCompany: document.getElementById("input-trans-company").value,
-                transportHours: document.getElementById("input-trans-hours").value,
-                transportPrice: Number(document.getElementById("input-trans-price").value),
-                hotelName: document.getElementById("input-hotel-name").value,
-                hotelZone: document.getElementById("input-hotel-zone").value,
-                hotelPrice: Number(document.getElementById("input-hotel-price").value),
-                hotelNights: Number(document.getElementById("input-hotel-nights").value)
-            };
-
-            computeFinancials();
-            renderLogistiqueManifest();
-            renderAccommodationsGallery();
-            renderRestaurantsView();
-            closeCityEditorModal();
-        }
-
-        /* --- RENDER LOGIC: MANIFEST LOGISTIQUE --- */
-        function renderLogistiqueManifest() {
-            const tbody = document.getElementById("logistique-table-body");
-            tbody.innerHTML = "";
-
-            Object.keys(citiesData).forEach(cityName => {
-                const target = citiesData[cityName];
-                if(target.transportCompany) {
-                    tbody.innerHTML += `
-                        <tr>
-                            <td><strong>${cityName}</strong></td>
-                            <td><span style="font-size:0.8rem; background: var(--gray-light); padding:2px 6px;">${target.transportType}</span></td>
-                            <td>${target.transportCompany}</td>
-                            <td>${target.transportHours || 'Non spécifié'}</td>
-                            <td>${Number(target.transportPrice).toLocaleString('fr-FR')} €</td>
-                            <td style="color:var(--gold-premium); font-weight:600;">Confirmé</td>
-                        </tr>
-                    `;
-                }
-            });
-        }
-
-        /* --- RENDER LOGIC: PREMIUM HOTELS HOTSPOTS --- */
-        function renderAccommodationsGallery() {
-            const wrapper = document.getElementById("hebergements-wrapper");
-            wrapper.innerHTML = "";
-
-            Object.keys(citiesData).forEach(cityName => {
-                const target = citiesData[cityName];
-                if(target.hotelName) {
-                    wrapper.innerHTML += `
-                        <div class="luxury-card" style="margin-bottom:0;">
-                            <span style="font-size:0.7rem; text-transform:uppercase; color:var(--gold-premium); font-weight:600;">${cityName}</span>
-                            <h3 style="font-family:var(--ff-title); text-transform:uppercase; margin: 0.25rem 0 1rem 0;">${target.hotelName}</h3>
-                            <p style="font-size:0.9rem; color:var(--navy-secondary)">District: <strong>${target.hotelZone}</strong></p>
-                            <p style="font-size:0.9rem; color:var(--navy-secondary)">Tarification : ${target.hotelPrice}€ / nuit (${target.hotelNights} nuits)</p>
-                            <div style="margin-top:1rem; font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Statut : Élite Réservé</div>
-                        </div>
-                    `;
-                }
-            });
-        }
-
-        /* --- RENDER LOGIC: RESTAURANTS --- */
-        function renderRestaurantsView() {
-            const wrapper = document.getElementById("restaurants-wrapper");
-            wrapper.innerHTML = "";
-
-            // Custom curated automated database additions
-            const fineDiningSelelction = [
-                { name: "Dewakan", city: "Kuala Lumpur", type: "Modern Malaysian Haute Cuisine", price: "180 €" },
-                { name: "Odette", city: "Singapour", type: "Modern French Multi-Starred", price: "350 €" },
-                { name: "Locavore NXT", city: "Ubud", type: "Hyper-Local Avant-Garde", price: "140 €" },
-                { name: "Anan International", city: "Ho Chi Minh", type: "Premium Street Food Molecular", price: "90 €" },
-                { name: "Sorn", city: "Bangkok", type: "Southern Thai High Editorial", price: "220 €" }
-            ];
-
-            fineDiningSelelction.forEach(rest => {
-                wrapper.innerHTML += `
-                    <div class="luxury-card" style="margin-bottom:0; border-left: 3px solid var(--gold-premium);">
-                        <span style="font-size:0.7rem; text-transform:uppercase; color:var(--gray-muted);">${rest.city}</span>
-                        <h3 style="font-family:var(--ff-title); text-transform:uppercase; margin-top:0.25rem;">${rest.name}</h3>
-                        <p style="font-family:var(--ff-serif); font-style:italic; font-size:0.95rem; color:var(--gold-premium);">${rest.type}</p>
-                        <hr style="margin:1rem 0; border:0; border-top:1px solid var(--gray-light);">
-                        <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
-                            <span>Estimation : <strong>${rest.price}</strong></span>
-                            <span style="letter-spacing:1px; font-weight:600; text-transform:uppercase;">Priorité Table Privée</span>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        /* --- RENDER LOGIC: REGISTRE DES ACTIVITÉS --- */
-        function renderActivitiesChecklist() {
-            const container = document.getElementById("activities-checklist-container");
-            container.innerHTML = "";
-
-            activities.forEach((act, index) => {
-                container.innerHTML += `
-                    <div class="luxury-checklist-item">
-                        <input type="checkbox" id="act-check-${index}" ${act.checked ? 'checked' : ''} onchange="toggleActivityState(${index})">
-                        <label for="act-check-${index}" style="font-size:1rem; ${act.checked ? 'text-decoration:line-through; color:var(--gray-muted);' : ''}">
-                            <strong>${act.name}</strong> <span style="font-family:var(--ff-serif); font-style:italic; color:var(--gold-premium); margin-left:10px;">(${act.location})</span>
-                        </label>
-                    </div>
-                `;
-            });
-        }
-
-        function toggleActivityState(index) {
-            activities[index].checked = !activities[index].checked;
-            renderActivitiesChecklist();
-            saveStateToLocalStorage();
-        }
-
-        /* --- GENERAL LEDGER EXPENSES RENDERING LOGIC --- */
-        function renderBudgetTables() {
-            const tbody = document.getElementById("budget-table-body");
-            if (!tbody) return;
-            tbody.innerHTML = "";
-
-            expenses.forEach((exp, index) => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${exp.date}</td>
-                        <td><strong>${exp.country}</strong></td>
-                        <td><span style="font-size:0.75rem; background-color:var(--gray-light); padding:2px 6px;">${exp.category}</span></td>
-                        <td>${exp.desc}</td>
-                        <td style="font-family:var(--ff-title); font-weight:600;">${Number(exp.amount).toLocaleString('fr-FR')} €</td>
-                        <td><span style="color:red; cursor:pointer; font-size:0.8rem; text-transform:uppercase;" onclick="deleteExpenseItem(${index})">Supprimer</span></td>
-                    </tr>
-                `;
-            });
-        }
-
-        /* --- ACTION TRIGGERS: EXPENSES HANDLING --- */
-        function openAddExpenseModal() {
-            document.getElementById("add-expense-modal").classList.add("active");
-        }
-
-        document.getElementById("add-expense-modal").addEventListener("click", function(e) {
-            if(e.target === this) closeAddExpenseModal();
-        });
-
-        function closeAddExpenseModal() {
-            document.getElementById("add-expense-modal").classList.remove("active");
-        }
-
-        function submitExpenseForm() {
-            const country = document.getElementById("exp-input-destination").value;
-            const category = document.getElementById("exp-input-category").value;
-            const amount = document.getElementById("exp-input-amount").value;
-            const desc = document.getElementById("exp-input-desc").value || "Prestation de service";
-
-            if(!amount || amount <= 0) {
-                alert("Veuillez spécifier un montant valide.");
-                return;
-            }
-
-            const newExpense = {
-                id: "exp-" + Date.now(),
-                date: new Date().toISOString().split('T')[0],
-                country: country,
-                category: category,
-                desc: desc,
-                amount: Number(amount)
-            };
-
-            expenses.push(newExpense);
-            computeFinancials();
-            closeAddExpenseModal();
-            
-            // Clear fields safely
-            document.getElementById("exp-input-amount").value = "";
-            document.getElementById("exp-input-desc").value = "";
-        }
-
-        function deleteExpenseItem(index) {
-            expenses.splice(index, 1);
-            computeFinancials();
-        }
-
-        /* --- STATE BACKUP PERSISTENCE SYSTEM --- */
-        function saveStateToLocalStorage() {
-            localStorage.setItem("mo_mi_destinations", JSON.stringify(destinations));
-            localStorage.setItem("mo_mi_cities", JSON.stringify(citiesData));
-            localStorage.setItem("mo_mi_activities", JSON.stringify(activities));
-            localStorage.setItem("mo_mi_expenses", JSON.stringify(expenses));
-        }
-    </script>
+<div class="app">
+
+<!-- ═══ SIDEBAR ═══ -->
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-brand">
+<div class="brand-name">MO&amp;MI<br>in ASIA</div>
+<div class="brand-sub">Travel Command Center</div>
+</div>
+
+<div class="sidebar-countdown">
+<div class="cd-label">Départ dans</div>
+<div class="cd-value" id="cd-days">—</div>
+<div class="cd-sub" id="cd-sub">1 juillet 2025</div>
+</div>
+
+<div class="sidebar-budget">
+<div class="sb-label">Budget restant</div>
+<div class="sb-amount" id="sb-remaining">10 000 €</div>
+<div class="sb-bar"><div class="sb-bar-fill" id="sb-bar" style="width:0%"></div></div>
+<div class="sb-detail">
+<span id="sb-spent-label">0 € dépensé</span>
+<span id="sb-pct-label">0%</span>
+</div>
+</div>
+
+<div class="sidebar-nav">
+<div class="nav-section-label">Principal</div>
+<div class="nav-item active" onclick="navigate('dashboard',this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+Dashboard
+</div>
+<div class="nav-item" onclick="navigate('destinations',this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+Destinations
+</div>
+<div class="nav-item" onclick="navigate('itineraire',this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+Itinéraire
+</div>
+<div class="nav-item" onclick="navigate('logistique',this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+Logistique
+</div>
+
+<div class="nav-section-label" style="margin-top:6px">Finances</div>
+<div class="nav-item" onclick="navigate('depenses',this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg>
+Dépenses
+</div>
+
+<div class="nav-section-label" style="margin-top:6px">Voyage</div>
+<div class="nav-item" onclick="navigate('hebergements',this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+Hébergements
+</div>
+<div class="nav-item" onclick="navigate('restaurants',this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+Restaurants
+</div>
+<div class="nav-item" onclick="navigate('activites',this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+Activités
+</div>
+<div class="nav-item" onclick="navigate('notes',this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+Notes
+</div>
+</div>
+
+<div class="sidebar-footer">
+<div class="sf-dates">1 juillet — 15 août 2025</div>
+<div style="font-size:9px;color:rgba(255,255,255,.2);margin-top:3px;letter-spacing:1px">MO &amp; MI · 2 voyageurs</div>
+</div>
+</nav>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+<div class="main-header">
+<button class="burger" onclick="toggleSidebar()">☰</button>
+<div class="mh-title" id="mh-title">Dashboard</div>
+<div class="mh-actions">
+<button class="btn btn-primary" onclick="openModal('modal-expense')">+ Dépense</button>
+</div>
+</div>
+
+<div class="main-content">
+
+<!-- ═══ PAGE: DASHBOARD ═══ -->
+<div id="page-dashboard" class="page active">
+<div class="page-hero">
+<div class="ph-eyebrow">Voyage · Asie du Sud-Est · 2025</div>
+<div class="ph-title">MO &amp; MI<br>in Asia</div>
+<div class="ph-sub">46 jours d'aventure — Marseille à travers l'Asie du Sud-Est</div>
+<div class="ph-stats">
+<div class="ph-stat"><div class="ph-stat-val">46</div><div class="ph-stat-label">Jours</div></div>
+<div class="ph-stat"><div class="ph-stat-val">6</div><div class="ph-stat-label">Pays</div></div>
+<div class="ph-stat"><div class="ph-stat-val">11</div><div class="ph-stat-label">Villes</div></div>
+<div class="ph-stat"><div class="ph-stat-val">10 000 €</div><div class="ph-stat-label">Budget total</div></div>
+<div class="ph-stat"><div class="ph-stat-val" id="dash-countdown">—</div><div class="ph-stat-label">Jours avant départ</div></div>
+</div>
+</div>
+
+<div class="page-inner">
+<!-- KPIs -->
+<div class="cards-grid">
+<div class="card">
+<div class="card-top-accent" style="background:var(--navy)"></div>
+<div class="card-label">Budget total</div>
+<div class="card-value" style="color:var(--navy)">10 000 €</div>
+<div class="card-sub">Pour 2 personnes · tout compris</div>
+</div>
+<div class="card">
+<div class="card-top-accent" style="background:var(--gold)"></div>
+<div class="card-label">Dépensé</div>
+<div class="card-value" style="color:var(--gold)" id="kpi-spent">0 €</div>
+<div class="card-sub" id="kpi-spent-pct">0% du budget</div>
+<div class="card-progress"><div class="card-progress-fill" id="kpi-prog" style="width:0%;background:var(--gold)"></div></div>
+</div>
+<div class="card">
+<div class="card-top-accent" style="background:#27AE60"></div>
+<div class="card-label">Budget restant</div>
+<div class="card-value" style="color:#27AE60" id="kpi-remaining">10 000 €</div>
+<div class="card-sub">Disponible</div>
+</div>
+<div class="card">
+<div class="card-top-accent" style="background:var(--navy2)"></div>
+<div class="card-label">Par personne</div>
+<div class="card-value" style="color:var(--navy2)">5 000 €</div>
+<div class="card-sub">Budget individuel</div>
+</div>
+</div>
+
+<!-- Carte SVG -->
+<div class="section-header">
+<div>
+<div class="section-title">Carte du voyage</div>
+<div class="section-sub">Marseille → Asie du Sud-Est</div>
+</div>
+</div>
+<div class="map-container" style="margin-bottom:28px">
+<div class="map-overlay-text">Route · 11 étapes</div>
+<svg class="route-map" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+<!-- Ocean bg -->
+<rect width="800" height="320" fill="#0A1128"/>
+<!-- Subtle grid -->
+<g stroke="rgba(255,255,255,.03)" stroke-width="1">
+<line x1="0" y1="80" x2="800" y2="80"/><line x1="0" y1="160" x2="800" y2="160"/>
+<line x1="0" y1="240" x2="800" y2="240"/>
+<line x1="160" y1="0" x2="160" y2="320"/><line x1="320" y1="0" x2="320" y2="320"/>
+<line x1="480" y1="0" x2="480" y2="320"/><line x1="640" y1="0" x2="640" y2="320"/>
+</g>
+<!-- Land masses suggestion -->
+<!-- Europe -->
+<ellipse cx="90" cy="70" rx="55" ry="35" fill="rgba(28,37,65,.8)"/>
+<!-- Middle East -->
+<ellipse cx="260" cy="100" rx="40" ry="25" fill="rgba(28,37,65,.7)"/>
+<!-- India -->
+<ellipse cx="380" cy="140" rx="35" ry="45" fill="rgba(28,37,65,.7)"/>
+<!-- SE Asia mainland -->
+<ellipse cx="530" cy="130" rx="50" ry="40" fill="rgba(28,37,65,.7)"/>
+<!-- Malay Peninsula -->
+<rect x="520" y="165" width="20" height="60" rx="4" fill="rgba(28,37,65,.6)"/>
+<!-- Indonesia islands -->
+<ellipse cx="570" cy="240" rx="30" ry="14" fill="rgba(28,37,65,.6)"/>
+<ellipse cx="620" cy="255" rx="22" ry="12" fill="rgba(28,37,65,.6)"/>
+<ellipse cx="650" cy="245" rx="18" ry="10" fill="rgba(28,37,65,.5)"/>
+<!-- Vietnam coast -->
+<ellipse cx="570" cy="170" rx="15" ry="30" fill="rgba(28,37,65,.5)"/>
+
+<!-- Route path -->
+<polyline
+points="80,72 260,100 380,165 530,170 530,235 600,200 570,175 530,168 570,245"
+fill="none" stroke="rgba(197,160,89,.4)" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+<!-- Stop points -->
+<!-- Marseille -->
+<circle cx="80" cy="72" r="5" fill="var(--gold)" opacity=".9"/>
+<text x="80" y="63" fill="rgba(255,255,255,.7)" font-size="9" text-anchor="middle" font-family="Inter">MRS</text>
+
+<!-- KL -->
+<circle cx="530" cy="170" r="4" fill="var(--gold)" opacity=".85"/>
+<text x="530" y="161" fill="rgba(255,255,255,.7)" font-size="8" text-anchor="middle" font-family="Inter">KUL</text>
+
+<!-- Penang -->
+<circle cx="512" cy="155" r="3.5" fill="rgba(197,160,89,.8)"/>
+<text x="496" y="152" fill="rgba(255,255,255,.55)" font-size="7.5" text-anchor="middle" font-family="Inter">PEN</text>
+
+<!-- Singapore -->
+<circle cx="535" cy="185" r="4" fill="var(--gold)" opacity=".85"/>
+<text x="553" y="188" fill="rgba(255,255,255,.7)" font-size="8" text-anchor="start" font-family="Inter">SIN</text>
+
+<!-- Bali -->
+<circle cx="575" cy="242" r="4" fill="var(--gold)" opacity=".85"/>
+<text x="575" y="255" fill="rgba(255,255,255,.7)" font-size="8" text-anchor="middle" font-family="Inter">BALI</text>
+
+<!-- Lombok -->
+<circle cx="596" cy="246" r="3.5" fill="rgba(197,160,89,.8)"/>
+<text x="596" y="259" fill="rgba(255,255,255,.55)" font-size="7" text-anchor="middle" font-family="Inter">LMB</text>
+
+<!-- Gili -->
+<circle cx="608" cy="243" r="3" fill="rgba(197,160,89,.7)"/>
+
+<!-- Ho Chi Minh -->
+<circle cx="560" cy="178" r="4" fill="var(--gold)" opacity=".85"/>
+<text x="578" y="176" fill="rgba(255,255,255,.7)" font-size="8" text-anchor="start" font-family="Inter">SGN</text>
+
+<!-- Bangkok -->
+<circle cx="527" cy="152" r="4" fill="var(--gold)" opacity=".85"/>
+<text x="514" y="147" fill="rgba(255,255,255,.7)" font-size="8" text-anchor="end" font-family="Inter">BKK</text>
+
+<!-- Koh Tao -->
+<circle cx="534" cy="172" r="3.5" fill="rgba(197,160,89,.8)"/>
+
+<!-- Krabi -->
+<circle cx="522" cy="180" r="4" fill="var(--gold)" opacity=".85"/>
+<text x="505" y="178" fill="rgba(255,255,255,.7)" font-size="8" text-anchor="end" font-family="Inter">KBV</text>
+
+<!-- Legend -->
+<circle cx="640" cy="295" r="4" fill="var(--gold)"/>
+<text x="650" y="299" fill="rgba(255,255,255,.4)" font-size="8" font-family="Inter">Étape principale</text>
+<circle cx="640" cy="311" r="3" fill="rgba(197,160,89,.7)"/>
+<text x="650" y="315" fill="rgba(255,255,255,.4)" font-size="8" font-family="Inter">Escale</text>
+
+<!-- Title -->
+<text x="24" y="295" fill="rgba(255,255,255,.15)" font-size="10" font-family="Syne" font-weight="700" letter-spacing="3">ROUTE 2025</text>
+</svg>
+</div>
+
+<!-- Timeline rapide -->
+<div class="section-header">
+<div>
+<div class="section-title">Timeline du voyage</div>
+<div class="section-sub">Chronologie complète</div>
+</div>
+<button class="btn btn-sm" onclick="navigate('itineraire',null)">Voir tout</button>
+</div>
+<div class="timeline" id="dash-timeline"></div>
+</div>
+</div>
+
+<!-- ═══ PAGE: DESTINATIONS ═══ -->
+<div id="page-destinations" class="page">
+<div class="page-hero">
+<div class="ph-eyebrow">Destinations</div>
+<div class="ph-title">6 pays,<br>11 villes</div>
+<div class="ph-sub">Malaisie · Singapour · Indonésie · Vietnam · Thaïlande</div>
+</div>
+<div class="page-inner">
+<div class="dest-grid" id="dest-grid"></div>
+</div>
+</div>
+
+<!-- ═══ PAGE: ITINÉRAIRE ═══ -->
+<div id="page-itineraire" class="page">
+<div class="page-hero">
+<div class="ph-eyebrow">Itinéraire complet</div>
+<div class="ph-title">46 jours</div>
+<div class="ph-sub">1 juillet — 15 août 2025</div>
+</div>
+<div class="page-inner">
+<div class="timeline" id="full-timeline"></div>
+</div>
+</div>
+
+<!-- ═══ PAGE: LOGISTIQUE ═══ -->
+<div id="page-logistique" class="page">
+<div class="page-hero">
+<div class="ph-eyebrow">Logistique</div>
+<div class="ph-title">Tous les<br>transports</div>
+<div class="ph-sub">Vols · ferries · bus · transfers — triés par date</div>
+</div>
+<div class="page-inner">
+<div class="table-wrap">
+<div class="table-wrap-header">
+<div class="twh-title">Transports chronologiques</div>
+<button class="btn btn-sm btn-primary" onclick="openModal('modal-transport')">+ Transport</button>
+</div>
+<div id="logistique-list"></div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PAGE: DÉPENSES ═══ -->
+<div id="page-depenses" class="page">
+<div class="budget-hero">
+<div class="bh-title">Budget total</div>
+<div class="bh-amount" id="dep-remaining">10 000 €</div>
+<div class="bh-sub">Restant disponible · pour 2 personnes</div>
+<div class="bh-bar"><div class="bh-bar-fill" id="dep-bar" style="width:0%"></div></div>
+<div class="bh-stats">
+<div class="bh-stat"><div class="bh-stat-val" id="dep-spent">0 €</div><div class="bh-stat-label">Dépensé</div></div>
+<div class="bh-stat"><div class="bh-stat-val" id="dep-count">0</div><div class="bh-stat-label">Transactions</div></div>
+<div class="bh-stat"><div class="bh-stat-val" id="dep-avg">—</div><div class="bh-stat-label">Moyenne / j</div></div>
+</div>
+</div>
+<div class="page-inner" style="padding-top:0">
+<div class="expense-category-grid" id="cat-breakdown"></div>
+<div class="table-wrap">
+<div class="table-wrap-header">
+<div class="twh-title">Toutes les dépenses</div>
+<button class="btn btn-sm btn-primary" onclick="openModal('modal-expense')">+ Ajouter</button>
+</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Description</th><th>Catégorie</th>
+<th>Pays</th><th>Ville</th><th>Montant</th><th></th>
+</tr>
+</thead>
+<tbody id="expense-table"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- ═══ PAGE: HEBERGEMENTS ═══ -->
+<div id="page-hebergements" class="page">
+<div class="page-hero">
+<div class="ph-eyebrow">Hébergements</div>
+<div class="ph-title">46 nuits</div>
+<div class="ph-sub">Hostels · Airbnb · Bungalows · Guest houses</div>
+</div>
+<div class="page-inner">
+<div class="section-header">
+<div class="section-title">Tous les logements</div>
+<button class="btn btn-sm btn-primary" onclick="openModal('modal-hotel')">+ Hébergement</button>
+</div>
+<div class="hotel-grid" id="hotel-grid"></div>
+</div>
+</div>
+
+<!-- ═══ PAGE: RESTAURANTS ═══ -->
+<div id="page-restaurants" class="page">
+<div class="page-hero">
+<div class="ph-eyebrow">Gastronomie</div>
+<div class="ph-title">À ne pas<br>manquer</div>
+<div class="ph-sub">Restaurants · street food · hawker centers</div>
+</div>
+<div class="page-inner">
+<div class="section-header">
+<div class="section-title">Sélection gastronomique</div>
+<button class="btn btn-sm btn-primary" onclick="openModal('modal-restaurant')">+ Restaurant</button>
+</div>
+<div class="resto-list" id="resto-list"></div>
+</div>
+</div>
+
+<!-- ═══ PAGE: ACTIVITÉS ═══ -->
+<div id="page-activites" class="page">
+<div class="page-hero">
+<div class="ph-eyebrow">Activités</div>
+<div class="ph-title">Expériences</div>
+<div class="ph-sub">Plongée · surf · trek · culture · gastronomie</div>
+</div>
+<div class="page-inner">
+<div class="section-header">
+<div>
+<div class="section-title">Bucket list</div>
+<div class="section-sub" id="act-progress-label">0 / 0 complétées</div>
+</div>
+<button class="btn btn-sm btn-primary" onclick="openModal('modal-activity')">+ Activité</button>
+</div>
+<div class="card-progress" style="margin-bottom:24px;height:4px">
+<div class="card-progress-fill" id="act-progress-bar" style="width:0%;background:var(--gold)"></div>
+</div>
+<div class="activity-list" id="activity-list"></div>
+</div>
+</div>
+
+<!-- ═══ PAGE: NOTES ═══ -->
+<div id="page-notes" class="page">
+<div class="page-hero">
+<div class="ph-eyebrow">Journal de voyage</div>
+<div class="ph-title">Notes</div>
+<div class="ph-sub">Contacts · numéros · informations importantes</div>
+</div>
+<div class="page-inner">
+<div class="notes-editor">
+<div class="notes-editor-header">
+<span style="font-size:12px;font-weight:500;color:var(--navy)">Notes libres</span>
+<span class="notes-saved" id="notes-saved"></span>
+</div>
+<textarea class="notes-textarea" id="notes-content" placeholder="Contacts guides, numéros de réservation, infos visa, conseils...&#10;&#10;Ex:&#10;Guide Rinjani : +62 812 xxxxxx&#10;Code résa vol aller : ABCDEF&#10;Assurance : Chapka / numéro contrat XXXXXX&#10;Urgence ambassade France : +66 2 657 5100"></textarea>
+</div>
+</div>
+</div>
+
+</div><!-- /main-content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ═══ MODAL: DÉPENSE ═══ -->
+<div class="modal-backdrop" id="modal-expense">
+<div class="modal">
+<div class="modal-header">
+<div>
+<div class="modal-title">Ajouter une dépense</div>
+<div class="modal-sub">Mise à jour instantanée du budget</div>
+</div>
+<button class="modal-close" onclick="closeModal('modal-expense')">×</button>
+</div>
+<div class="modal-body">
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">Catégorie</label>
+<select class="form-input" id="exp-cat">
+<option value="Vol">Vol</option>
+<option value="Hotel">Hébergement</option>
+<option value="Restaurant">Restaurant</option>
+<option value="Activite">Activité</option>
+<option value="Transport">Transport</option>
+<option value="Shopping">Shopping</option>
+<option value="Divers">Divers</option>
+</select>
+</div>
+<div class="form-row">
+<label class="form-label">Date</label>
+<input type="date" class="form-input" id="exp-date">
+</div>
+</div>
+<div class="form-row">
+<label class="form-label">Description</label>
+<input type="text" class="form-input" id="exp-desc" placeholder="Ex: Vol MRS → KUL — Turkish Airlines">
+</div>
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">Pays</label>
+<select class="form-input" id="exp-country">
+<option value="France">France</option>
+<option value="Malaisie">Malaisie</option>
+<option value="Singapour">Singapour</option>
+<option value="Indonésie">Indonésie</option>
+<option value="Vietnam">Vietnam</option>
+<option value="Thaïlande">Thaïlande</option>
+</select>
+</div>
+<div class="form-row">
+<label class="form-label">Ville</label>
+<input type="text" class="form-input" id="exp-city" placeholder="Kuala Lumpur...">
+</div>
+</div>
+<div class="form-row">
+<label class="form-label">Montant total (€)</label>
+<input type="number" class="form-input" id="exp-amount" placeholder="0.00" step="0.01">
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn" onclick="closeModal('modal-expense')">Annuler</button>
+<button class="btn btn-primary" onclick="addExpense()">Enregistrer</button>
+</div>
+</div>
+</div>
+
+<!-- ═══ MODAL: TRANSPORT ═══ -->
+<div class="modal-backdrop" id="modal-transport">
+<div class="modal">
+<div class="modal-header">
+<div>
+<div class="modal-title">Ajouter un transport</div>
+<div class="modal-sub">Vol · ferry · bus · taxi</div>
+</div>
+<button class="modal-close" onclick="closeModal('modal-transport')">×</button>
+</div>
+<div class="modal-body">
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">Type</label>
+<select class="form-input" id="tr-type">
+<option>Vol</option><option>Ferry</option><option>Bus</option>
+<option>Train</option><option>Taxi / Grab</option><option>Scooter</option>
+</select>
+</div>
+<div class="form-row">
+<label class="form-label">Date</label>
+<input type="date" class="form-input" id="tr-date">
+</div>
+</div>
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">De</label>
+<input type="text" class="form-input" id="tr-from" placeholder="Marseille / MRS">
+</div>
+<div class="form-row">
+<label class="form-label">Vers</label>
+<input type="text" class="form-input" id="tr-to" placeholder="Kuala Lumpur / KUL">
+</div>
+</div>
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">Compagnie</label>
+<input type="text" class="form-input" id="tr-co" placeholder="Turkish Airlines">
+</div>
+<div class="form-row">
+<label class="form-label">Prix total (€)</label>
+<input type="number" class="form-input" id="tr-price" placeholder="0">
+</div>
+</div>
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">N° de réservation</label>
+<input type="text" class="form-input" id="tr-ref" placeholder="ABCDEF">
+</div>
+<div class="form-row">
+<label class="form-label">Statut</label>
+<select class="form-input" id="tr-status">
+<option value="todo">À réserver</option>
+<option value="done">Confirmé</option>
+</select>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn" onclick="closeModal('modal-transport')">Annuler</button>
+<button class="btn btn-primary" onclick="addTransport()">Enregistrer</button>
+</div>
+</div>
+</div>
+
+<!-- ═══ MODAL: HOTEL ═══ -->
+<div class="modal-backdrop" id="modal-hotel">
+<div class="modal">
+<div class="modal-header">
+<div><div class="modal-title">Ajouter un hébergement</div></div>
+<button class="modal-close" onclick="closeModal('modal-hotel')">×</button>
+</div>
+<div class="modal-body">
+<div class="form-row">
+<label class="form-label">Nom de l'établissement</label>
+<input type="text" class="form-input" id="ht-name" placeholder="The Loft Hostel">
+</div>
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">Ville</label>
+<input type="text" class="form-input" id="ht-city" placeholder="Canggu">
+</div>
+<div class="form-row">
+<label class="form-label">Quartier</label>
+<input type="text" class="form-input" id="ht-area" placeholder="Batu Bolong">
+</div>
+</div>
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">Check-in</label>
+<input type="date" class="form-input" id="ht-in">
+</div>
+<div class="form-row">
+<label class="form-label">Check-out</label>
+<input type="date" class="form-input" id="ht-out">
+</div>
+</div>
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">Prix / nuit (€)</label>
+<input type="number" class="form-input" id="ht-price" placeholder="20">
+</div>
+<div class="form-row">
+<label class="form-label">Statut</label>
+<select class="form-input" id="ht-status">
+<option value="todo">À réserver</option>
+<option value="done">Confirmé</option>
+</select>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn" onclick="closeModal('modal-hotel')">Annuler</button>
+<button class="btn btn-primary" onclick="addHotel()">Enregistrer</button>
+</div>
+</div>
+</div>
+
+<!-- ═══ MODAL: RESTAURANT ═══ -->
+<div class="modal-backdrop" id="modal-restaurant">
+<div class="modal">
+<div class="modal-header">
+<div><div class="modal-title">Ajouter un restaurant</div></div>
+<button class="modal-close" onclick="closeModal('modal-restaurant')">×</button>
+</div>
+<div class="modal-body">
+<div class="form-row">
+<label class="form-label">Nom</label>
+<input type="text" class="form-input" id="rs-name" placeholder="Lau Pa Sat">
+</div>
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">Ville</label>
+<input type="text" class="form-input" id="rs-city" placeholder="Singapour">
+</div>
+<div class="form-row">
+<label class="form-label">Spécialité</label>
+<input type="text" class="form-input" id="rs-spec" placeholder="Satay · hawker center">
+</div>
+</div>
+<div class="form-row">
+<label class="form-label">Prix moyen / pers. (€)</label>
+<input type="number" class="form-input" id="rs-price" placeholder="10">
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn" onclick="closeModal('modal-restaurant')">Annuler</button>
+<button class="btn btn-primary" onclick="addRestaurant()">Enregistrer</button>
+</div>
+</div>
+</div>
+
+<!-- ═══ MODAL: ACTIVITÉ ═══ -->
+<div class="modal-backdrop" id="modal-activity">
+<div class="modal">
+<div class="modal-header">
+<div><div class="modal-title">Ajouter une activité</div></div>
+<button class="modal-close" onclick="closeModal('modal-activity')">×</button>
+</div>
+<div class="modal-body">
+<div class="form-row">
+<label class="form-label">Nom de l'activité</label>
+<input type="text" class="form-input" id="ac-name" placeholder="Certification PADI Open Water">
+</div>
+<div class="form-grid">
+<div class="form-row">
+<label class="form-label">Ville / lieu</label>
+<input type="text" class="form-input" id="ac-city" placeholder="Koh Tao">
+</div>
+<div class="form-row">
+<label class="form-label">Prix / pers. (€)</label>
+<input type="number" class="form-input" id="ac-price" placeholder="0">
+</div>
+</div>
+<div class="form-row">
+<label class="form-label">Description</label>
+<input type="text" class="form-input" id="ac-desc" placeholder="Durée, notes importantes...">
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn" onclick="closeModal('modal-activity')">Annuler</button>
+<button class="btn btn-primary" onclick="addActivity()">Ajouter</button>
+</div>
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════
+const BUDGET = 10000;
+const DEPART = new Date('2025-07-01');
+
+const STOPS = [
+{ id:'my', pays:'Malaisie', villes:'Kuala Lumpur · Penang', dates:'1–5 juil', start:'2025-07-01', end:'2025-07-05', nuits:4, budget:'~350 €', hotel:'Hostel George Town', act:'Batu Caves · Jalan Alor · Asam laksa', color:'#1C6E5E', emoji:'MYS' },
+{ id:'sg', pays:'Singapour', villes:'Singapour', dates:'5–7 juil', start:'2025-07-05', end:'2025-07-07', nuits:2, budget:'~320 €', hotel:'Hostel Little India', act:'Marina Bay · Gardens by the Bay · Hawkers', color:'#1A3A6E', emoji:'SGP' },
+{ id:'id1', pays:'Indonésie', villes:'Bali', dates:'7–14 juil',start:'2025-07-07', end:'2025-07-14', nuits:7, budget:'~420 €', hotel:'Canggu · Ubud · Uluwatu', act:'Surf · Uluwatu sunset · Rizières', color:'#7A3010', emoji:'BAL' },
+{ id:'id2', pays:'Indonésie', villes:'Lombok · Gili Air', dates:'14–21 juil',start:'2025-07-14',end:'2025-07-21', nuits:7, budget:'~380 €', hotel:'Bungalow Gili Air', act:'Snorkeling tortues · Trek Rinjani', color:'#5A2080', emoji:'LMB' },
+{ id:'vn', pays:'Vietnam', villes:'Ho Chi Minh-Ville', dates:'21–23 juil',start:'2025-07-21',end:'2025-07-23', nuits:2, budget:'~160 €', hotel:'Hostel District 1', act:'Tunnels Cu Chi · Street food Bui Vien', color:'#8A1020', emoji:'SGN' },
+{ id:'th1', pays:'Thaïlande', villes:'Bangkok', dates:'23–25 juil',start:'2025-07-23',end:'2025-07-25', nuits:2, budget:'~200 €', hotel:'Hostel Khao San Road', act:'Wat Pho · Pad thaï · Chatuchak', color:'#1A5A20', emoji:'BKK' },
+{ id:'th2', pays:'Thaïlande', villes:'Koh Tao', dates:'25 juil–1 août',start:'2025-07-25',end:'2025-08-01',nuits:7,budget:'~600 €', hotel:'Bungalow Sairee Beach', act:'PADI Open Water · Plongée · Viewpoint', color:'#0A3A6A', emoji:'KOT' },
+{ id:'th3', pays:'Thaïlande', villes:'Krabi', dates:'1–15 août', start:'2025-08-01', end:'2025-08-12', nuits:11, budget:'~800 €', hotel:'Hostel Ao Nang', act:'Railay Beach · 4 Islands · Escalade', color:'#2A5A10', emoji:'KBV' },
+];
+
+const DEFAULT_TRANSPORTS = [
+{ id:1, type:'Vol', from:'Marseille', to:'Kuala Lumpur', date:'2025-07-01', co:'Turkish / Qatar / CEA', price:1560, ref:'—', status:'todo', note:'Vol intercontinental AR — réserver maintenant' },
+{ id:2, type:'Bus', from:'Kuala Lumpur', to:'Penang', date:'2025-07-03', co:'Transnasional', price:10, ref:'—', status:'todo', note:'4h30 · gare TBS' },
+{ id:3, type:'Vol', from:'Penang', to:'Singapour', date:'2025-07-05', co:'AirAsia / Firefly', price:80, ref:'—', status:'todo', note:'1h20' },
+{ id:4, type:'Vol', from:'Singapour', to:'Bali (DPS)', date:'2025-07-07', co:'AirAsia / Scoot', price:140, ref:'—', status:'todo', note:'2h20 · avec bagage' },
+{ id:5, type:'Ferry', from:'Bali', to:'Gili Air', date:'2025-07-14', co:'Gili Getaway', price:60, ref:'—', status:'todo', note:'Depuis Padang Bai · 2h' },
+{ id:6, type:'Vol', from:'Lombok', to:'Ho Chi Minh', date:'2025-07-21', co:'AirAsia / Vietjet', price:150, ref:'—', status:'todo', note:'~4h' },
+{ id:7, type:'Vol', from:'Ho Chi Minh', to:'Bangkok', date:'2025-07-23', co:'Vietjet / Thai AirAsia', price:80, ref:'—', status:'todo', note:'1h40' },
+{ id:8, type:'Bus+Ferry', from:'Bangkok', to:'Koh Tao', date:'2025-07-25', co:'Lompraya combo', price:44, ref:'—', status:'todo', note:'12h · bus de nuit + ferry' },
+{ id:9, type:'Ferry', from:'Koh Tao', to:'Krabi', date:'2025-08-01', co:'Songserm / Lompraya', price:60, ref:'—', status:'todo', note:'Via Koh Phangan + Surat Thani' },
+{ id:10, type:'Vol', from:'Krabi / Bangkok', to:'Marseille', date:'2025-08-12', co:'Turkish / Qatar / Cathay', price:0, ref:'—', status:'todo', note:'Inclus dans billet AR' },
+];
+
+const DEFAULT_HOTELS = [
+{ id:1, name:'Hostel KL – Bukit Bintang', city:'Kuala Lumpur', area:'Bukit Bintang', checkin:'2025-07-01', checkout:'2025-07-03', pricePerNight:15, status:'todo' },
+{ id:2, name:'Hostel Penang – George Town', city:'Penang', area:'George Town', checkin:'2025-07-03', checkout:'2025-07-05', pricePerNight:15, status:'todo' },
+{ id:3, name:'Hostel Little India', city:'Singapour', area:'Little India', checkin:'2025-07-05', checkout:'2025-07-07', pricePerNight:40, status:'todo' },
+{ id:4, name:'Hostel Canggu – Batu Bolong', city:'Canggu', area:'Batu Bolong', checkin:'2025-07-07', checkout:'2025-07-10', pricePerNight:18, status:'todo' },
+{ id:5, name:'Guesthouse Ubud', city:'Ubud', area:'Centre', checkin:'2025-07-10', checkout:'2025-07-12', pricePerNight:22, status:'todo' },
+{ id:6, name:'Hostel Uluwatu', city:'Uluwatu', area:'Falaises', checkin:'2025-07-12', checkout:'2025-07-14', pricePerNight:20, status:'todo' },
+{ id:7, name:'Bungalow Gili Air', city:'Gili Air', area:'Plage Nord', checkin:'2025-07-14', checkout:'2025-07-18', pricePerNight:20, status:'todo' },
+{ id:8, name:'Guesthouse Kuta Lombok', city:'Kuta (Lombok)', area:'Plage', checkin:'2025-07-18', checkout:'2025-07-21', pricePerNight:15, status:'todo' },
+{ id:9, name:'Hostel Bui Vien', city:'Ho Chi Minh', area:'District 1', checkin:'2025-07-21', checkout:'2025-07-23', pricePerNight:12, status:'todo' },
+{ id:10, name:'Hostel Khao San Road', city:'Bangkok', area:'Khao San', checkin:'2025-07-23', checkout:'2025-07-25', pricePerNight:15, status:'todo' },
+{ id:11, name:'Bungalow Sairee Beach', city:'Koh Tao', area:'Sairee Beach', checkin:'2025-07-25', checkout:'2025-08-01', pricePerNight:20, status:'todo' },
+{ id:12, name:'Hostel Ao Nang', city:'Krabi', area:'Ao Nang', checkin:'2025-08-01', checkout:'2025-08-12', pricePerNight:20, status:'todo' },
+];
+
+const DEFAULT_RESTAURANTS = [
+{ id:1, name:'Jalan Alor Night Market', city:'Kuala Lumpur', spec:'Char kway teow · satay · street food', price:8 },
+{ id:2, name:'Nasi Kandar Line Clear', city:'Penang', spec:'Asam laksa · nasi lemak', price:5 },
+{ id:3, name:'Lau Pa Sat Festival Market', city:'Singapour', spec:'Hawker center · satay le soir', price:10 },
+{ id:4, name:'Warung Babi Guling Ibu Oka', city:'Ubud', spec:'Porc rôti balinais', price:7 },
+{ id:5, name:'Warung de plage Jimbaran', city:'Bali', spec:'Poisson grillé · pieds dans le sable', price:12 },
+{ id:6, name:'Bui Vien Street Food', city:'Ho Chi Minh', spec:'Pho bo · bière 50 cts · ambiance', price:4 },
+{ id:7, name:'Food cart Chatuchak', city:'Bangkok', spec:'Pad thaï · mango sticky rice', price:3 },
+];
+
+const DEFAULT_ACTIVITIES = [
+{ id:1, name:'Batu Caves – lever du soleil', city:'Kuala Lumpur', desc:'272 marches · avant 8h', price:0, done:false },
+{ id:2, name:'Marina Bay de nuit', city:'Singapour', desc:'Gardens by the Bay · gratuit', price:0, done:false },
+{ id:3, name:'Cours de surf', city:'Canggu – Bali', desc:'~25 €/cours · débutants bienvenus', price:25, done:false },
+{ id:4, name:'Temple Uluwatu – coucher de soleil', city:'Uluwatu – Bali', desc:'Kecak dance show · 8 € entrée', price:8, done:false },
+{ id:5, name:'Rizières de Tegalalang', city:'Ubud – Bali', desc:'Matin tôt · scooter indispensable', price:3, done:false },
+{ id:6, name:'Snorkeling avec les tortues', city:'Gili Air', desc:'Côté nord de l\'île · le matin', price:10, done:false },
+{ id:7, name:'Trek Rinjani – 2 jours', city:'Lombok', desc:'Volcan 3726m · guide obligatoire', price:65, done:false },
+{ id:8, name:'Tunnels de Cu Chi', city:'Ho Chi Minh', desc:'Tour guidé · demi-journée', price:15, done:false },
+{ id:9, name:'Wat Pho – Bouddha couché', city:'Bangkok', desc:'Matin tôt · 3 € entrée', price:3, done:false },
+{ id:10, name:'Certification PADI Open Water', city:'Koh Tao', desc:'Moins cher au monde · ~130 €', price:130, done:false },
+{ id:11, name:'Lever de soleil – John-Suwan', city:'Koh Tao', desc:'Viewpoint · 45 min de marche', price:0, done:false },
+{ id:12, name:'Railay Beach en longue tail', city:'Krabi', desc:'Inaccessible en voiture · 3 € bateau', price:3, done:false },
+{ id:13, name:'4 Islands Tour en bateau', city:'Krabi', desc:'Journée · snorkeling · 15 €', price:15, done:false },
+{ id:14, name:'Escalade sur les falaises', city:'Krabi', desc:'Demi-journée avec guide', price:35, done:false },
+{ id:15, name:'Massage thaï 1h', city:'Thaïlande', desc:'~7 € l\'heure · à répéter souvent', price:7, done:false },
+];
+
+// ═══════════════════════════════════════════════════════
+// STATE (avec localStorage)
+// ═══════════════════════════════════════════════════════
+function load(key, def) {
+try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch(e){ return def; }
+}
+function save(key, val) {
+try { localStorage.setItem(key, JSON.stringify(val)); } catch(e){}
+}
+
+let expenses = load('moami_expenses', []);
+let transports = load('moami_transports', DEFAULT_TRANSPORTS);
+let hotels = load('moami_hotels', DEFAULT_HOTELS);
+let restaurants= load('moami_restaurants', DEFAULT_RESTAURANTS);
+let activities = load('moami_activities', DEFAULT_ACTIVITIES);
+
+function saveAll() {
+save('moami_expenses', expenses);
+save('moami_transports', transports);
+save('moami_hotels', hotels);
+save('moami_restaurants', restaurants);
+save('moami_activities', activities);
+}
+
+// ═══════════════════════════════════════════════════════
+// BUDGET ENGINE
+// ═══════════════════════════════════════════════════════
+function totalSpent() { return expenses.reduce((s,e) => s + (parseFloat(e.amount)||0), 0); }
+
+function updateBudgetUI() {
+const spent = totalSpent();
+const remaining = BUDGET - spent;
+const pct = Math.min((spent / BUDGET) * 100, 100);
+
+const fmt = n => n.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0}) + ' €';
+
+// Sidebar
+document.getElementById('sb-remaining').textContent = fmt(remaining);
+document.getElementById('sb-bar').style.width = pct + '%';
+document.getElementById('sb-spent-label').textContent = fmt(spent) + ' dépensé';
+document.getElementById('sb-pct-label').textContent = pct.toFixed(0) + '%';
+
+// Dashboard KPIs
+document.getElementById('kpi-spent').textContent = fmt(spent);
+document.getElementById('kpi-spent-pct').textContent = pct.toFixed(1) + '% du budget';
+document.getElementById('kpi-remaining').textContent = fmt(remaining);
+document.getElementById('kpi-prog').style.width = pct + '%';
+
+// Dépenses page
+document.getElementById('dep-remaining').textContent = fmt(remaining);
+document.getElementById('dep-bar').style.width = pct + '%';
+document.getElementById('dep-spent').textContent = fmt(spent);
+document.getElementById('dep-count').textContent = expenses.length;
+const days = Math.ceil((new Date('2025-08-15') - new Date('2025-07-01')) / 86400000);
+document.getElementById('dep-avg').textContent = expenses.length ? fmt(spent/days) : '—';
+}
+
+// ═══════════════════════════════════════════════════════
+// COUNTDOWN
+// ═══════════════════════════════════════════════════════
+function updateCountdown() {
+const now = new Date();
+const diff = Math.ceil((DEPART - now) / 86400000);
+const txt = diff > 0 ? diff + ' jours' : diff === 0 ? "C'est aujourd'hui !" : 'En voyage !';
+document.getElementById('cd-days').textContent = txt;
+document.getElementById('dash-countdown').textContent = diff > 0 ? diff : '—';
+}
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+const PAGE_TITLES = {
+dashboard:'Dashboard',
+destinations:'Destinations',
+itineraire:'Itinéraire',
+logistique:'Logistique',
+depenses:'Dépenses',
+hebergements:'Hébergements',
+restaurants:'Restaurants',
+activites:'Activités',
+notes:'Notes',
+};
+
+function navigate(id, el) {
+document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+const page = document.getElementById('page-' + id);
+if (page) page.classList.add('active');
+if (el) el.classList.add('active');
+document.getElementById('mh-title').textContent = PAGE_TITLES[id] || id;
+// render dynamic
+if (id === 'logistique') renderLogistique();
+if (id === 'depenses') renderExpenses();
+if (id === 'hebergements') renderHotels();
+if (id === 'restaurants') renderRestaurants();
+if (id === 'activites') renderActivities();
+if (id === 'destinations') renderDestinations();
+if (id === 'itineraire') renderFullTimeline();
+// close mobile sidebar
+document.getElementById('sidebar').classList.remove('open');
+}
+
+function toggleSidebar() {
+document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════════════
+// MODALS
+// ═══════════════════════════════════════════════════════
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-backdrop').forEach(m => {
+m.addEventListener('click', e => { if(e.target===m) m.classList.remove('open'); });
+});
+
+// ═══════════════════════════════════════════════════════
+// EXPENSES
+// ═══════════════════════════════════════════════════════
+function addExpense() {
+const amount = parseFloat(document.getElementById('exp-amount').value);
+if (!amount) return;
+expenses.push({
+id: Date.now(),
+cat: document.getElementById('exp-cat').value,
+date: document.getElementById('exp-date').value || new Date().toISOString().slice(0,10),
+desc: document.getElementById('exp-desc').value || '—',
+country: document.getElementById('exp-country').value,
+city: document.getElementById('exp-city').value,
+amount,
+});
+saveAll();
+updateBudgetUI();
+renderExpenses();
+closeModal('modal-expense');
+['exp-desc','exp-amount','exp-city'].forEach(id => document.getElementById(id).value='');
+}
+
+function removeExpense(id) {
+expenses = expenses.filter(e => e.id !== id);
+saveAll(); updateBudgetUI(); renderExpenses();
+}
+
+const CAT_COLORS = {
+Vol:'#0A1128', Hotel:'#C5A059', Restaurant:'#27AE60',
+Activite:'#2980B9', Transport:'#8E44AD', Shopping:'#E67E22', Divers:'#95A5A6'
+};
+
+function renderExpenses() {
+const tbody = document.getElementById('expense-table');
+if (!tbody) return;
+if (expenses.length === 0) {
+tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:30px;font-style:italic">Aucune dépense enregistrée</td></tr>`;
+} else {
+tbody.innerHTML = [...expenses].sort((a,b) => a.date.localeCompare(b.date)).map(e => `
+<tr>
+<td style="font-size:11px;color:var(--muted)">${formatDate(e.date)}</td>
+<td style="font-weight:500">${e.desc}</td>
+<td><span class="badge" style="background:${CAT_COLORS[e.cat]||'#888'}22;color:${CAT_COLORS[e.cat]||'#888'};border:1px solid ${CAT_COLORS[e.cat]||'#888'}44">${e.cat}</span></td>
+<td style="font-size:12px">${e.country||'—'}</td>
+<td style="font-size:12px;color:var(--muted)">${e.city||'—'}</td>
+<td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--gold)">${e.amount.toLocaleString('fr-FR')} €</td>
+<td><button class="btn btn-sm btn-ghost btn-danger" onclick="removeExpense(${e.id})">×</button></td>
+</tr>`).join('');
+}
+
+// Category breakdown
+const cats = {};
+expenses.forEach(e => { cats[e.cat] = (cats[e.cat]||0) + e.amount; });
+const total = totalSpent() || 1;
+const grid = document.getElementById('cat-breakdown');
+if (grid) {
+grid.innerHTML = Object.keys(CAT_COLORS).map(cat => {
+const val = cats[cat] || 0;
+const pct = (val/total*100).toFixed(0);
+return `<div class="exp-cat-card">
+<div class="exp-cat-label">${cat}</div>
+<div class="exp-cat-val">${val.toLocaleString('fr-FR')} €</div>
+<div class="exp-cat-bar"><div class="exp-cat-bar-fill" style="width:${pct}%;background:${CAT_COLORS[cat]}"></div></div>
+</div>`;
+}).join('');
+}
+}
+
+// ═══════════════════════════════════════════════════════
+// TRANSPORTS
+// ═══════════════════════════════════════════════════════
+function addTransport() {
+transports.push({
+id: Date.now(),
+type: document.getElementById('tr-type').value,
+from: document.getElementById('tr-from').value,
+to: document.getElementById('tr-to').value,
+date: document.getElementById('tr-date').value,
+co: document.getElementById('tr-co').value,
+price: parseFloat(document.getElementById('tr-price').value)||0,
+ref: document.getElementById('tr-ref').value||'—',
+status: document.getElementById('tr-status').value,
+note:'',
+});
+saveAll(); renderLogistique();
+closeModal('modal-transport');
+['tr-from','tr-to','tr-date','tr-co','tr-price','tr-ref'].forEach(id=>document.getElementById(id).value='');
+}
+
+const TYPE_ICONS = { Vol:'✈', Ferry:'⛵', Bus:'🚌', Train:'🚆', 'Bus+Ferry':'🚌', 'Taxi / Grab':'🚕', Scooter:'🛵' };
+
+function renderLogistique() {
+const el = document.getElementById('logistique-list');
+if (!el) return;
+const sorted = [...transports].sort((a,b) => a.date.localeCompare(b.date));
+el.innerHTML = sorted.map(t => `
+<div class="logistique-item">
+<div class="lg-icon">${TYPE_ICONS[t.type]||'🚀'}</div>
+<div class="lg-body">
+<div class="lg-title">${t.from} → ${t.to}</div>
+<div class="lg-meta">${t.co} ${t.ref && t.ref!=='—' ? '· Réf: '+t.ref : ''} ${t.note?'· '+t.note:''}</div>
+<div class="lg-date">${formatDate(t.date)}</div>
+</div>
+<div class="lg-right">
+<div class="lg-price">${t.price?t.price.toLocaleString('fr-FR')+' €':'—'}</div>
+<div style="margin-top:4px">
+<span class="badge ${t.status==='done'?'badge-done':'badge-todo'}">${t.status==='done'?'Confirmé':'À réserver'}</span>
+</div>
+<button class="btn btn-sm btn-ghost btn-danger" style="margin-top:6px" onclick="removeTransport(${t.id})">×</button>
+</div>
+</div>`).join('');
+}
+
+function removeTransport(id) {
+transports = transports.filter(t => t.id !== id);
+saveAll(); renderLogistique();
+}
+
+// ═══════════════════════════════════════════════════════
+// HOTELS
+// ═══════════════════════════════════════════════════════
+function addHotel() {
+const checkin = document.getElementById('ht-in').value;
+const checkout = document.getElementById('ht-out').value;
+hotels.push({
+id: Date.now(),
+name: document.getElementById('ht-name').value||'Hébergement',
+city: document.getElementById('ht-city').value||'—',
+area: document.getElementById('ht-area').value||'—',
+checkin, checkout,
+pricePerNight: parseFloat(document.getElementById('ht-price').value)||0,
+status: document.getElementById('ht-status').value,
+});
+saveAll(); renderHotels();
+closeModal('modal-hotel');
+['ht-name','ht-city','ht-area','ht-in','ht-out','ht-price'].forEach(id=>document.getElementById(id).value='');
+}
+
+function removeHotel(id) { hotels=hotels.filter(h=>h.id!==id); saveAll(); renderHotels(); }
+
+function renderHotels() {
+const grid = document.getElementById('hotel-grid');
+if (!grid) return;
+grid.innerHTML = hotels.map(h => {
+const nights = h.checkin && h.checkout
+? Math.max(0, Math.round((new Date(h.checkout)-new Date(h.checkin))/86400000))
+: 0;
+const total = nights * h.pricePerNight;
+return `<div class="hotel-card">
+<div class="hotel-card-img">
+<div class="hotel-card-img-icon">H</div>
+<div class="hotel-card-status"><span class="badge ${h.status==='done'?'badge-done':'badge-todo'}">${h.status==='done'?'Confirmé':'À réserver'}</span></div>
+</div>
+<div class="hotel-card-body">
+<div class="hotel-name">${h.name}</div>
+<div class="hotel-city">${h.city}${h.area&&h.area!=='—'?' · '+h.area:''}</div>
+<div class="hotel-details">
+<div>
+<div class="hotel-price">${h.pricePerNight} €<span style="font-size:10px;font-weight:400;color:var(--muted)">/nuit</span></div>
+<div class="hotel-price-sub">Total: ${total} €</div>
+</div>
+<div class="hotel-nights">${nights} nuit${nights>1?'s':''}<br>
+<span style="font-size:9px;color:var(--muted2)">${formatDate(h.checkin)} → ${formatDate(h.checkout)}</span>
+</div>
+</div>
+<button class="btn btn-sm btn-ghost btn-danger" style="margin-top:10px;width:100%" onclick="removeHotel(${h.id})">Supprimer</button>
+</div>
+</div>`;
+}).join('') || `<div style="color:var(--muted);padding:30px;font-style:italic">Aucun hébergement enregistré</div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// RESTAURANTS
+// ═══════════════════════════════════════════════════════
+function addRestaurant() {
+restaurants.push({
+id: Date.now(),
+name: document.getElementById('rs-name').value||'Restaurant',
+city: document.getElementById('rs-city').value||'—',
+spec: document.getElementById('rs-spec').value||'—',
+price: parseFloat(document.getElementById('rs-price').value)||0,
+});
+saveAll(); renderRestaurants();
+closeModal('modal-restaurant');
+['rs-name','rs-city','rs-spec','rs-price'].forEach(id=>document.getElementById(id).value='');
+}
+
+function removeRestaurant(id) { restaurants=restaurants.filter(r=>r.id!==id); saveAll(); renderRestaurants(); }
+
+function renderRestaurants() {
+const el = document.getElementById('resto-list');
+if (!el) return;
+el.innerHTML = restaurants.map(r => `
+<div class="resto-item">
+<div class="resto-icon" style="font-size:22px;color:var(--muted)">R</div>
+<div class="resto-info">
+<div class="resto-name">${r.name}</div>
+<div class="resto-spec">${r.spec}</div>
+</div>
+<div class="resto-right">
+<div class="resto-price">~${r.price} € / pers.</div>
+<div class="resto-city">${r.city}</div>
+<button class="btn btn-sm btn-ghost btn-danger" style="margin-top:4px" onclick="removeRestaurant(${r.id})">×</button>
+</div>
+</div>`).join('') || `<div style="color:var(--muted);padding:30px;font-style:italic">Aucun restaurant enregistré</div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// ACTIVITIES
+// ═══════════════════════════════════════════════════════
+function addActivity() {
+activities.push({
+id: Date.now(),
+name: document.getElementById('ac-name').value||'Activité',
+city: document.getElementById('ac-city').value||'—',
+desc: document.getElementById('ac-desc').value||'',
+price: parseFloat(document.getElementById('ac-price').value)||0,
+done: false,
+});
+saveAll(); renderActivities();
+closeModal('modal-activity');
+['ac-name','ac-city','ac-desc','ac-price'].forEach(id=>document.getElementById(id).value='');
+}
+
+function toggleActivity(id) {
+const a = activities.find(x=>x.id===id);
+if (a) a.done = !a.done;
+saveAll(); renderActivities();
+}
+
+function removeActivity(id) { activities=activities.filter(a=>a.id!==id); saveAll(); renderActivities(); }
+
+function renderActivities() {
+const el = document.getElementById('activity-list');
+if (!el) return;
+const done = activities.filter(a=>a.done).length;
+const total = activities.length;
+const pct = total ? (done/total*100) : 0;
+const lbl = document.getElementById('act-progress-label');
+const bar = document.getElementById('act-progress-bar');
+if (lbl) lbl.textContent = `${done} / ${total} complétées`;
+if (bar) bar.style.width = pct + '%';
+
+el.innerHTML = activities.map(a => `
+<div class="activity-item ${a.done?'done':''}">
+<div class="activity-check ${a.done?'checked':''}" onclick="toggleActivity(${a.id})">${a.done?'✓':''}</div>
+<div class="activity-text">
+<div class="activity-name">${a.name}</div>
+<div class="activity-meta">${a.desc}</div>
+<div class="activity-city">${a.city}</div>
+</div>
+<div class="activity-price">${a.price>0?'~'+a.price+' €':'Gratuit'}</div>
+<button class="activity-del" onclick="removeActivity(${a.id})">×</button>
+</div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// TIMELINE
+// ═══════════════════════════════════════════════════════
+function renderTimeline(containerId, limit) {
+const el = document.getElementById(containerId);
+if (!el) return;
+const stops = limit ? STOPS.slice(0, limit) : STOPS;
+el.innerHTML = stops.map(s => `
+<div class="tl-item">
+<div class="tl-dot"></div>
+<div class="tl-card" onclick="navigate('destinations',null)">
+<div class="tl-card-header">
+<div>
+<div class="tl-country">${s.pays} · ${s.villes}</div>
+<div class="tl-city">${s.hotel}</div>
+</div>
+<div class="tl-dates">
+${s.dates}
+<span class="tl-nights">${s.nuits} nuit${s.nuits>1?'s':''}</span>
+</div>
+</div>
+<div class="tl-details">
+<div class="tl-detail">${s.act}</div>
+</div>
+<div class="tl-budget">${s.budget} / pers.</div>
+</div>
+</div>`).join('');
+}
+
+function renderFullTimeline() { renderTimeline('full-timeline'); }
+
+// ═══════════════════════════════════════════════════════
+// DESTINATIONS
+// ═══════════════════════════════════════════════════════
+function renderDestinations() {
+const grid = document.getElementById('dest-grid');
+if (!grid) return;
+const countries = {};
+STOPS.forEach(s => {
+if (!countries[s.pays]) countries[s.pays] = { pays:s.pays, stops:[], totalNuits:0, color:s.color };
+countries[s.pays].stops.push(s);
+countries[s.pays].totalNuits += s.nuits;
+});
+grid.innerHTML = Object.values(countries).map(c => {
+const villes = c.stops.map(s=>s.villes).join(' · ');
+const budgetTotal = c.stops.reduce((sum,s) => {
+const b = parseInt(s.budget.replace(/[^0-9]/g,''));
+return sum + (isNaN(b)?0:b);
+},0);
+return `<div class="dest-card">
+<div class="dest-card-img" style="background:linear-gradient(135deg,${c.color} 0%,${c.color}88 100%)">
+<div class="dest-card-img-bg" style="color:#fff;opacity:.1">${c.pays.toUpperCase()}</div>
+<div class="dest-card-gradient"></div>
+<div style="position:relative;z-index:1;padding:12px 16px 4px">
+<div class="dest-card-name">${c.pays}</div>
+<div class="dest-card-dates">${c.stops.map(s=>s.dates).join(' · ')}</div>
+</div>
+</div>
+<div class="dest-card-body">
+<div class="dest-card-stats">
+<div class="dcs"><strong>${c.totalNuits}</strong>nuits</div>
+<div class="dcs"><strong>${c.stops.length}</strong>étape${c.stops.length>1?'s':''}</div>
+</div>
+<div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.4">${villes}</div>
+<div class="dest-card-budget">
+<span>~${budgetTotal}+ € / pers.</span>
+<span class="badge badge-gold">En cours</span>
+</div>
+</div>
+</div>`;
+}).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// NOTES
+// ═══════════════════════════════════════════════════════
+function initNotes() {
+const ta = document.getElementById('notes-content');
+if (!ta) return;
+ta.value = localStorage.getItem('moami_notes') || '';
+ta.addEventListener('input', () => {
+localStorage.setItem('moami_notes', ta.value);
+const lbl = document.getElementById('notes-saved');
+if (lbl) { lbl.textContent = 'Sauvegardé'; setTimeout(()=>lbl.textContent='',2000); }
+});
+}
+
+// ═══════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════
+function formatDate(d) {
+if (!d) return '—';
+const [y,m,day] = d.split('-');
+const months = ['jan','fév','mars','avr','mai','juin','juil','août','sep','oct','nov','déc'];
+return `${parseInt(day)} ${months[parseInt(m)-1]} ${y}`;
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+function init() {
+updateCountdown();
+setInterval(updateCountdown, 60000);
+updateBudgetUI();
+renderTimeline('dash-timeline', 5);
+renderExpenses();
+initNotes();
+
+// Set today in expense date
+const expDate = document.getElementById('exp-date');
+if (expDate) expDate.value = new Date().toISOString().slice(0,10);
+}
+
+init();
+</script>
 </body>
 </html>
